@@ -1,169 +1,122 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3c.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core">
- 	<h:head>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>BiblioEci</title>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/eci.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="css/util.css"/>
+	<link rel="stylesheet" type="text/css" href="css/main.css"/>
+
+</h:head>
+
+<h:body>
 	
- 	</h:head>
- 	<style type="text/css">
-        body {
-           background-image: url("https://www.barraques.cat/pngfile/big/0-8717_1920x1080px-50-amazing-background-wallpaper-wallpapers.jpg");
-           background-position: center;
-           background-repeat: repeat;
-           width: 90vw;
-           height: 90vh;
-        }
-        form {
-           margin: 0 auto;
-           width:1000px;
-           top:100px;
-        }
-        th {
-            
-            width:40%;
-            
-        }
-   
-        .ui-panelgrid td {
-           background-color: transparent !important;
-        }
-   
-        form {
-           background-color: transparent;
-        }
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+				<h:form class="login100-form validate-form" id="login_form">
+					<span class="login100-form-title p-b-55">
+						BiblioEci 
+					</span>
 
-        
-        .ui-datatable-footer{
-            background-color: #19ee60a4;
-        }
-   
-   
-        .myPanel.ui-panel {
-           background-color: yellow;
-           border: black solid 1px !important;
-        }
-   
-        .headline_class {
-         font-weight: bold;
-         font-size: 25px;
-         }
-   
-         .register {
-             margin: auto;
-             width: 50%;
-             border: 3px solid green;
-             padding: 10px;
-           
-        }
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
+						<p:inputText class="input100" type="String" name="usuario" placeholder="usuario" />
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-envelope"></span>
+						</span>
+					</div>
 
-        
-        .ui-datatable-tablewrapper  table thead th{
-            border: 1px #ebebeb solid;
-            background: #55acc7;
-            height: 35px;
-            text-shadow: black;
-            color:white;
-            
-        }
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+						<p:password class="input100" id="contraseña" placeholder="contraseña"/>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-lock"></span>
+						</span>
+					</div>
 
-        .ui-datatable .ui-widget{
-            border: 1px #ebebeb solid;
-            background: #d6d6d6;
-            height: 35px;
-            text-shadow: black;
-            color: rgb(248, 7, 7)
-        }
-        
-        .ui-paginator{
-            border: 1px #5ee90e solid;
-            background: #adadadb4;
-            height: 35px;
-            text-shadow: black;
-            color: white
-        }
-        .ui-datatable-tablewrapper{
-            background: #0ee97162;
-        }
-        .ui-paginator-first{
-            background:#c5c5c5 ;
-            background-color: rgba(243, 0, 0, 0);
-        }
+					<div >
+						<p:selectBooleanCheckbox  id="ckb1" />
+						<p:outputLabel class="label-check" value="Recuérdame" for="ckb1" />
+							
+						
+					</div>
+					
+					<div class="container-login100-form-btn p-t-25">
+						<p:commandButton class="login100-form-btn" value="Ingresar" />
+					</div>
 
-        .ui-paginator-prev{
-            background:#c5c5c5 ;
-            text-shadow: 2px 2px rrgba(0, 183, 255, 0.37);
-            
-            background-color: rgba(211, 211, 211, 0);
-        }
+					
 
-        .ui-paginator-next{
-            background:#0f0202b9 ;
-            text-shadow: 2px 2px rgba(0, 183, 255, 0.37);
-            background-color: rgba(97, 11, 11, 0);
-        }
+					
 
-        .ui-paginator-last{
-            background:#0f0202b9 ;
-            text-shadow: 2px 2px rgba(0, 183, 255, 0.37);
-            
-            background-color: rgba(211, 211, 211, 0);
+					
+				</h:form>
+				
+			
+				
+			</div>
+			
+			<footer class="info">
+					<span class="spaninfo">
+							Escuela Colombiana de Ingeniería Julio Garavito<br/>
+							
+							Servicio de biblioteca
+					</span>
+					
+					<span class="spandir">
+							AK.45 No.205-59 (Autopista Norte)<br/>
+							
+							Contact Center: +57(1) 668 3600 ext 151<br/>
+							
+							Call Center: +57(1) 668 3600<br/>
+							
+							línea Nacional Gratuita: 018000112668<br/>
+							
+							ww.escuelaing.edu.co<br/>
+							
+							bibliote@escuelaing.edu.co.<br/>
+							
+							Bogotá, D.C. - Colombia<br/>
+					</span>
+				
+				</footer>
+			
+			
+		</div>
+	</div>
+	
+	
 
-        }
-        .ui-paginator-current{
-            background:#c5c5c5 ;
-            width: 100px;
-            height: 10px;
-            text-shadow: 2px 2px rgba(0, 183, 255, 0.37);
-            
-            font-size:15px;
-        }
+	
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
 
-        .ui-paginator {
-
-            text-align: center;
-        }
-        .ui-datatable-footer input {
-            width: 100px;
-            height: 100px;
-            background-color: rgba(221, 21, 98, 0.842);
-            margin: auto;   
-            width: 60%;
-            border: 3px solid rgba(31, 63, 204, 0.582);
-            padding: 10px;
-        }
-        .ui-datatable-footer input:hover{
-            background: #c5c5c5;
-        }
-
-        .ui-datatable-header {
-            padding: 10px;
-            height: 35px;
-            margin: auto;
-            width: 60%;
-            text-align: center;
-            /*font-size: 45px;*/
-            text-shadow: rgb(50, 48, 179);
-            background:  rgb(50, 48, 179);
-            color:white;
-        }
-
-        .ui-datatable-footer{
-            margin: auto;   
-            text-align: center;
-        }
-
-        .ui-state-default {
-            column-span: 2;
-        }
-
-        .divider{
-            width:5px;
-            height:auto;
-            display:inline-block;
-}
-        </style>
-	 <h:body>
-		<h1>Hola Mundo</h1>
-	</h:body>
+</h:body>
 </html>

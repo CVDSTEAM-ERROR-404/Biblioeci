@@ -3,10 +3,11 @@ package edu.eci.cvds.beans;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 @ManagedBean(name="LoginBean")
 public class LoginBean {
@@ -40,25 +41,31 @@ public class LoginBean {
     }
 
     public void login(){
+        try{
         Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(correo, password,rememberMe);
-        try {
-            currentUser.login( token );
+        UsernamePasswordToken token = new UsernamePasswordToken(correo, new Sha256Hash(password).toHex(),rememberMe);
+        currentUser.getSession().setAttribute("Correo",correo);
+        currentUser.login( token );
+        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login1.xhtml");
+
 
         } catch ( UnknownAccountException uae ) {
-            setErrorMessage(uae);
+            setErrorMessage("Usuario no registrado");
 
         } catch ( IncorrectCredentialsException ice ) {
-            setErrorMessage(ice);
+            setErrorMessage("Contraseña incorrecta");
         }
-    catch ( AuthenticationException ae ) {
-        setErrorMessage(ae);
+        catch (IOException e) {
+            setErrorMessage("Error interno");
+        }
     }
-    }
-    private void setErrorMessage(Exception e){
-        String message = e.getMessage();
+    private void setErrorMessage(String message){
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+
+    public boolean isLogged(){
+        return SecurityUtils.getSubject().isAuthenticated();
     }
 
 }

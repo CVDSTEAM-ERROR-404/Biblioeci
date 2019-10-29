@@ -44,14 +44,21 @@ public class LoginBean {
         UsernamePasswordToken token = new UsernamePasswordToken(correo, password,rememberMe);
         try {
             currentUser.login( token );
+
         } catch ( UnknownAccountException uae ) {
-            FacesContext.getCurrentInstance().addMessage("shiro", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario no registrado", "Este usuario no se encuentra en nuestra base de datos"));
+            setErrorMessage(uae);
+
         } catch ( IncorrectCredentialsException ice ) {
-            FacesContext.getCurrentInstance().addMessage("shiro", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña incorrecta", "esta contraseña no corresponde a este usuario, intente de nuevo"));        } catch ( LockedAccountException lae ) {
+            setErrorMessage(ice);
         }
     catch ( AuthenticationException ae ) {
-        //unexpected condition - error?
+        setErrorMessage(ae);
     }
+    }
+    private void setErrorMessage(Exception e){
+        String message = e.getMessage();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
 
 }

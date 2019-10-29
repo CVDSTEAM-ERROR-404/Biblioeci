@@ -39,7 +39,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
-						<p:inputText class="input100" type="String" name="usuario" placeholder="usuario" />
+						<p:inputText class="input100" type="String" required="true" value="#{LoginBean.correo}" placeholder="usuario" />
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-envelope"></span>
@@ -47,7 +47,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<p:password class="input100" id="contraseña" placeholder="contraseña"/>
+						<p:password class="input100" id="contraseña" required="true" value="#{LoginBean.password}" placeholder="contraseña"/>
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-lock"></span>
@@ -55,14 +55,14 @@
 					</div>
 
 					<div >
-						<p:selectBooleanCheckbox  id="ckb1" />
+						<p:selectBooleanCheckbox  id="ckb1" value="#{LoginBean.rememberMe}" />
 						<p:outputLabel class="label-check" value="Recuérdame" for="ckb1" />
 							
 						
 					</div>
 					
 					<div class="container-login100-form-btn p-t-25">
-						<p:commandButton class="login100-form-btn" value="Ingresar" />
+						<p:commandButton class="login100-form-btn" value="Ingresar" action="#{LoginBean.login}" update="login_form"/>
 					</div>
 
 					

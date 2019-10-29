@@ -1,0 +1,15 @@
+?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.UsuarioMapper">
+	<resultMap type='Usuario' id='UsuarioResult'>
+		<id property='correo' column='correo'/>
+		<result property='contrasena' column='contraseña'/>
+		<result property='tipo' column='tipo_de_usuario'/>  
+		<result property='area' column='u_area'/>
+		<result property='nombre' column='nombre'/>       
+		<collection property='reservas' ofType='Reserva'  resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper.ReservaResult' columnPrefix='reserva_'></collection>
+	</resultMap>
+</mapper>

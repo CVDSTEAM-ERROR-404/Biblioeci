@@ -96,6 +96,11 @@
             <version>1.7.21</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 
     <build>

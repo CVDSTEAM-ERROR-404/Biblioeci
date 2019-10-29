@@ -1,14 +1,13 @@
 package edu.eci.cvds.samples.entities;
 
-
 import java.io.Serializable;
+import java.util.Date;
 
-public class Recurso implements Serializable{
+public class Reserva implements Serializable{
 	
 	private int id;
-	private String nombre;
-	private String ubicacion;
 	private String tipo;
-	private int capacidad;
+	private Date fechaFin;
+	private String periodicidad;
 	private String estado;
 }

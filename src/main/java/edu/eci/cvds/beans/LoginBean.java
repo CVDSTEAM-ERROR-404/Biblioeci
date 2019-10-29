@@ -1,9 +1,9 @@
 package edu.eci.cvds.beans;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.crypto.hash.Sha256Hash;
+import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
+import edu.eci.cvds.security.SesionLogger;
+import edu.eci.cvds.security.ShiroLogger;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -14,6 +14,8 @@ public class LoginBean {
     private String correo;
     private String password;
     private boolean rememberMe;
+
+    private SesionLogger logger= new ShiroLogger();
 
 
     public boolean isRememberMe() {
@@ -41,23 +43,16 @@ public class LoginBean {
     }
 
     public void login(){
-        try{
-        Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(correo, new Sha256Hash(password).toHex(),rememberMe);
-        currentUser.getSession().setAttribute("Correo",correo);
-        currentUser.login( token );
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login1.xhtml");
-
-
-        } catch ( UnknownAccountException uae ) {
-            setErrorMessage("Usuario no registrado");
-
-        } catch ( IncorrectCredentialsException ice ) {
-            setErrorMessage("Contraseña incorrecta");
+        try {
+            logger.login(correo,password,rememberMe);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/login1.xhtml");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }catch (IOException e) {
+            setErrorMessage("Error en el servidor");
         }
-        catch (IOException e) {
-            setErrorMessage("Error interno");
-        }
+
+
     }
     private void setErrorMessage(String message){
         FacesContext.getCurrentInstance().addMessage(null,
@@ -65,7 +60,7 @@ public class LoginBean {
     }
 
     public boolean isLogged(){
-        return SecurityUtils.getSubject().isAuthenticated();
+        return logger.isLogged();
     }
 
 }

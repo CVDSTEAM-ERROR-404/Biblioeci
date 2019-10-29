@@ -1,10 +1,11 @@
 package edu.eci.cvds.samples.services;
 
 import com.google.inject.Injector;
+import edu.eci.cvds.security.SesionLogger;
+import edu.eci.cvds.security.ShiroLogger;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
-import java.util.Optional;
 import static com.google.inject.Guice.createInjector;
 
 public class ServiciosBiblioEciFactory {
@@ -24,7 +25,8 @@ public class ServiciosBiblioEciFactory {
             protected void initialize() {
                 install(JdbcHelper.PostgreSQL);
                 setClassPathResource("mybatis-config.xml");
-            //bind(
+                //bind(SesionLogger.class).to(ShiroLogger.class);
+
             }
         }
         );
@@ -34,20 +36,21 @@ public class ServiciosBiblioEciFactory {
             protected void initialize() {
                 install(JdbcHelper.PostgreSQL);
                 setClassPathResource("mybatis-config-h2.xml");
-                //bind(
+                //bind(SesionLogger.class).to(ShiroLogger.class);
+
             }
         }
         );
     }
-    /**
-    public X getServiciosBiblioEci(){
-        return injector.getInstance(X.class);
+
+    public ServiciosBiblioEci getServiciosBiblioEci(){
+        return injector.getInstance(ServiciosBiblioEci.class);
     }
 
-    public X getServiciosBiblioEciTesting(){
-        return testingInjector.getInstance(X.class);
+    public ServiciosBiblioEci getServiciosBiblioEciTesting(){
+        return testingInjector.getInstance(ServiciosBiblioEci.class);
     }
-    **/
+
 
     public static ServiciosBiblioEciFactory getInstance(){
         return instance;

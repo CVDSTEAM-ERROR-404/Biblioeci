@@ -15,6 +15,8 @@ import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISTipoItemDAO;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerImpl;
 */
+import edu.eci.cvds.security.SesionLogger;
+import edu.eci.cvds.security.ShiroLogger;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 import com.google.inject.Guice;
@@ -36,6 +38,7 @@ public class GuiceContextListener implements ServletContextListener {
                 setClassPathResource("mybatis-config.xml");
 
                 // TODO Add service class associated to Stub implementation
+                //bind(SesionLogger.class).to(ShiroLogger.class);
                 //bind(ServiciosAlquiler.class).to(ServiciosAlquilerImpl.class);
                 //bind(ItemDAO.class).to(MyBATISItemDAO.class);
                 //bind(ItemRentadoDAO.class).to(MyBATISItemRentadoDAO.class);

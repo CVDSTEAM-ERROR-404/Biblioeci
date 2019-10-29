@@ -1,5 +1,6 @@
 package edu.eci.cvds.beans;
 
+import com.google.inject.Inject;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.security.SesionLogger;
 import edu.eci.cvds.security.ShiroLogger;
@@ -10,12 +11,12 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 @ManagedBean(name="LoginBean")
-public class LoginBean {
+public class LoginBean extends BasePageBean{
     private String correo;
     private String password;
     private boolean rememberMe;
-
-    private SesionLogger logger= new ShiroLogger();
+    @Inject
+    private SesionLogger logger;
 
 
     public boolean isRememberMe() {

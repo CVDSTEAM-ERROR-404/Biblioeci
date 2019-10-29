@@ -25,7 +25,7 @@ public class ServiciosBiblioEciFactory {
             protected void initialize() {
                 install(JdbcHelper.PostgreSQL);
                 setClassPathResource("mybatis-config.xml");
-                //bind(SesionLogger.class).to(ShiroLogger.class);
+                bind(SesionLogger.class).to(ShiroLogger.class);
 
             }
         }
@@ -36,7 +36,7 @@ public class ServiciosBiblioEciFactory {
             protected void initialize() {
                 install(JdbcHelper.PostgreSQL);
                 setClassPathResource("mybatis-config-h2.xml");
-                //bind(SesionLogger.class).to(ShiroLogger.class);
+                bind(SesionLogger.class).to(ShiroLogger.class);
 
             }
         }

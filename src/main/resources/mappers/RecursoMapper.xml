@@ -13,4 +13,25 @@
 		<result property='estado' column='estado'/>       
 		<collection property='reservas' ofType='Reserva'  resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper.ReservaResult' columnPrefix='reserva_'></collection>
 	</resultMap>
+  
+  
+  <select parameterType='map' id='consultarRecurso' resultMap='RecursoResult'>
+    SELECT 
+      id, 
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      estado
+      
+     FROM
+      reserva
+     WHERE
+      id=#{id};
+  </select>
+
+  <insert parameterType="map" id="agregarRecurso">
+    INSERT INTO recurso values (#{rec.id}, #{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});
+  </insert>
+  
 </mapper>

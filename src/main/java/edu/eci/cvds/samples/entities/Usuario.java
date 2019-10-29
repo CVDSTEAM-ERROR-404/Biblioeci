@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Usuario implements Serializable{
 	
-	private String tipo;
 	private String area;
 	private String nombre;
+	private String correo;
 	private ArrayList<Reserva> reservas;
 }

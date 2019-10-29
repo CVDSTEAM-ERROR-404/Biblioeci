@@ -12,4 +12,9 @@
 		<result property='estado' column='estado'/>        
 		<collection property='eventos' ofType='EventoProgramado' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoProgramadoMapper.EventoProgramadoResult' columnPrefix='evento_'></collection>
 	</resultMap>
+
+
+
+
+	
 </mapper>

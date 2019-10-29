@@ -2,6 +2,7 @@ package edu.eci.cvds.samples.entities;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Recurso implements Serializable{
 	
@@ -11,4 +12,5 @@ public class Recurso implements Serializable{
 	private String tipo;
 	private int capacidad;
 	private String estado;
+	private ArrayList<Reserva> reservas;
 }

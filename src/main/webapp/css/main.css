@@ -343,12 +343,11 @@ iframe {
   box-sizing: border-box;
   overflow: hidden;
   line-height: 131%;
-  
   color: #FFF;
   font-size: 13px;
   margin-left:-360px;
     left:50%;
-	bottom:5%;
+	bottom:0%;
 	
   
 }

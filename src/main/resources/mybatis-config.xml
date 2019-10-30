@@ -10,10 +10,11 @@
     <properties resource="config.properties">
     </properties>
     <!--typeAliases>
-        <typeAlias type="edu.eci.cvds.samples.entities.Cliente" alias="Cliente"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.Item" alias="Item"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.ItemRentado" alias="ItemRentado"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.TipoItem" alias="TipoItem"/>
+        <typeAlias type="edu.eci.cvds.samples.entities.EventoProgramado" alias="EventoProgramado"/>
+        <typeAlias type="edu.eci.cvds.samples.entities.Recurso" alias="Recurso"/>
+        <typeAlias type="edu.eci.cvds.samples.entities.Rol" alias="Rol"/>
+        <typeAlias type="edu.eci.cvds.samples.entities.Usuario" alias="Usuario"/>
+		<typeAlias type="edu.eci.cvds.samples.entities.Reserva" alias="Reserva"/>
     </typeAliases!-->	
 
     <environments default="development">
@@ -29,10 +30,11 @@
     </environments>
         
     <!--mappers> 
-        <mapper resource="mappers/ClienteMapper.xml"></mapper>
-        <mapper resource="mappers/ItemMapper.xml"></mapper>
-        <mapper resource="mappers/TipoItemMapper.xml"></mapper>
-        <mapper resource="mappers/ItemRentadoMapper.xml"></mapper>
+        <mapper resource="mappers/EventoProgramadoMapper.xml"></mapper>
+        <mapper resource="mappers/RecursoMapper.xml"></mapper>
+        <mapper resource="mappers/RolMapper.xml"></mapper>
+        <mapper resource="mappers/UsuarioMapper.xml"></mapper>
+		<mapper resource="mappers/ReservaMapper.xml"></mapper>
     </mappers!--> 
         
         

@@ -4,16 +4,21 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 
+import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import com.google.inject.Inject;
+
 @ManagedBean(name="LoginBean")
-public class LoginBean {
+public class LoginBean{
     private String correo;
     private String password;
     private boolean rememberMe;
 
+   
 
     public boolean isRememberMe() {
         return rememberMe;
@@ -53,5 +58,8 @@ public class LoginBean {
         //unexpected condition - error?
     }
     }
+
+
+    
 
 }

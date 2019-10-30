@@ -2,6 +2,7 @@ package edu.eci.cvds.samples.entities;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Recurso implements Serializable{
 	
@@ -11,6 +12,7 @@ public class Recurso implements Serializable{
 	private String tipo;
 	private int capacidad;
     private String estado;
+	private ArrayList<Reserva> reservas;
     
     public Recurso(String Nombre, String ubicación, String tipo, int capacidad, int id){
         this.nombre=Nombre;
@@ -82,5 +84,6 @@ public class Recurso implements Serializable{
         this.estado=estado;
     }
     
+
 
 }

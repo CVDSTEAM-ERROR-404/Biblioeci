@@ -1,0 +1,23 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\edu",
+    "\\src\\main\\java\\edu\\eci",
+    "\\src\\main\\java\\edu\\eci\\cvds",
+    "\\src\\main\\java\\edu\\eci\\cvds\\guice",
+    "\\src\\main\\java\\edu\\eci\\cvds\\sampleprj",
+    "\\src\\main\\java\\edu\\eci\\cvds\\sampleprj\\dao",
+    "\\src\\main\\java\\edu\\eci\\cvds\\sampleprj\\dao\\mybatis",
+    "\\src\\main\\java\\edu\\eci\\cvds\\sampleprj\\dao\\mybatis\\mappers",
+    "\\src\\main\\java\\edu\\eci\\cvds\\samples",
+    "\\src\\main\\java\\edu\\eci\\cvds\\samples\\entities",
+    "\\src\\main\\java\\edu\\eci\\cvds\\samples\\services",
+    "\\src\\main\\resources",
+    "\\src\\main\\resources\\mappers"
+  ],
+  "SelectedNode": "\\src\\main\\java\\edu\\eci\\cvds\\samples\\entities\\Recurso.java",
+  "PreviewInSolutionExplorer": false
+}

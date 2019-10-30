@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import edu.eci.cvds.sampleprj.dao.EventoProgramadoDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.ReservaDAO;
-import edu.eci.cvds.sampleprj.dao.RolDAO;
+
 import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
 import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.samples.entities.Recurso;
@@ -19,8 +19,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     private EventoProgramadoDAO eventoProgramadoDAO;
     @Inject
     private ReservaDAO ReservaDAO;
-    @Inject
-    private RolDAO rolDAO;
+    
     @Inject
     private UsuarioDAO UsuarioDAO;
 

@@ -337,18 +337,21 @@ iframe {
 }
 
 .info{
+	position:absolute;
   width: 720px;
   background: #900;
   box-sizing: border-box;
   overflow: hidden;
   line-height: 131%;
-  position: absolute;
-  left: 400px;
-  top: 570px;
   color: #FFF;
   font-size: 13px;
-  padding: 0 0 0 50px;
+  margin-left:-360px;
+    left:50%;
+	bottom:0%;
+	
+  
 }
+
 
 .spaninfo{
 	
@@ -371,28 +374,24 @@ iframe {
 [ Restyle Checkbox ]*/
 
 .input-checkbox100 {
-  display: block;
+  display: inline;
 }
 
+.label-check{
+	padding-left: 26px;
+	
+}
 .label-checkbox100 {
   font-family: Raleway-Regular;
   font-size: 16px;
   color: #999999;
   line-height: 1.2;
-  display: block;
-  
-  top: 70px;
+
+  display: inline;
+  position: relative;
   padding-left: 26px;
   cursor: pointer;
-  
 }
-
-.label-check{
-	
-	padding-left: 26px;
-	
-}
-
 
 .label-checkbox100::before {
   content: "\f00c";
@@ -408,20 +407,39 @@ iframe {
   justify-content: center;
   align-items: center;
   position: absolute;
-  
   width: 18px;
   height: 18px;
   border-radius: 3px;
-  background: #fff;
-  border: 2px solid #cc0000;
-  left: 0;
-  
+  background: transparent;
+  border: 2px solid #d33f8d;
+  left: -15px;
+  top: 48%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+
+
+.ui-growl {
+	margin-bottom:-35px;
+  width: 250px;
+  height: 70px;
+  left:50%;
+  top:50%;
+  margin-left:-125px;
+  
+}
+
+.ui-growl-message{
+	color:red;
+	
+	
+}
+
+
 
 .input-checkbox100:checked + .label-checkbox100::before {
   color: #d33f8d;

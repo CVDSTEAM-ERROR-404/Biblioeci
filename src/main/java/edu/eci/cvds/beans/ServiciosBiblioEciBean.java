@@ -1,5 +1,7 @@
 package edu.eci.cvds.beans;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 
 import edu.eci.cvds.samples.entities.Recurso;
@@ -21,5 +23,21 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 
     }
 
+    public void registrarRecurso(Recurso r){
+        try {
+            serviciosBiblioEci.registrarRecurso(r);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            e.printStackTrace();
+        }
+    }
 
+    public List<Recurso> consultarRecursos(){
+        List<Recurso> ans=null;
+        try {
+            ans = serviciosBiblioEci.consultarRecurso();
+        } catch (ExcepcionServiciosBiblioEci e) {
+            e.printStackTrace();
+        }
+        return ans;
+    }
 }

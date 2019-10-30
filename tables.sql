@@ -21,4 +21,18 @@ CREATE TABLE IF NOT EXISTS Recurso (
   capacidad int not null,
   estado varchar(45) not null,
   PRIMARY KEY (id));
+
+
+
+CREATE TABLE IF NOT EXISTS Reserva (
+  id SERIAL,
+  tipo varchar(45) not null,
+  fecha_fin DATE,
+  periodicidad varchar(45),
+  estado varchar(45) not null,
+  usuario varchar(45) NOT NULL REFERENCES Usuario(correo),
+  recurso INTEGER NOT NULL REFERENCES Recurso(id),
+  PRIMARY KEY (id));
+
+ 
  

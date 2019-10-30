@@ -1,5 +1,7 @@
 package edu.eci.cvds.samples.services.impl;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 
 import edu.eci.cvds.sampleprj.dao.EventoProgramadoDAO;
@@ -19,7 +21,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     private EventoProgramadoDAO eventoProgramadoDAO;
     @Inject
     private ReservaDAO ReservaDAO;
-    
+
     @Inject
     private UsuarioDAO UsuarioDAO;
 
@@ -28,19 +30,29 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         try {
             recursoDAO.save(cli);
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci("Error al guardar el recurso "+cli.toString(), e);
+            throw new ExcepcionServiciosBiblioEci("Error al guardar el recurso " + cli.toString(), e);
         }
 
     }
 
-
     @Override
-    public Recurso consultarRecusro(long id) throws ExcepcionServiciosBiblioEci {
-        Recurso ans=null;
+    public Recurso consultarRecurso(long id) throws ExcepcionServiciosBiblioEci {
+        Recurso ans = null;
         try {
             ans = recursoDAO.load(id);
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci("Error al consultar el recurso "+id, e);
+            throw new ExcepcionServiciosBiblioEci("Error al consultar el recurso " + id, e);
+        }
+        return ans;
+    }
+
+    @Override
+    public List<Recurso> consultarRecurso() throws ExcepcionServiciosBiblioEci {
+        List<Recurso> ans= null;
+        try {
+            ans = recursoDAO.consultarRecursos();
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos", e);
         }
         return ans;
     }

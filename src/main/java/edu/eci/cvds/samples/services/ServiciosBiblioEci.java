@@ -10,7 +10,12 @@ public interface ServiciosBiblioEci {
     public abstract void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci;
 
 
-    public abstract Recurso consultarRecusro(long id) throws ExcepcionServiciosBiblioEci;
+    public abstract Recurso consultarRecurso(long id) throws ExcepcionServiciosBiblioEci;
 
+    public abstract List<Recurso> consultarRecurso() throws ExcepcionServiciosBiblioEci;
+
+    
+
+    
 
 }

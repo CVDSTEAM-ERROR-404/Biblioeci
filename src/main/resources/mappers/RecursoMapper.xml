@@ -25,9 +25,21 @@
       estado
       
      FROM
-      reserva
+      recurso
      WHERE
       id=#{id};
+  </select>
+
+  <select parameterType='map' id='consultarRecursos' resultMap='RecursoResult'>
+    SELECT 
+      id, 
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      recurso
+    FROM
+      reserva 
   </select>
 
   <insert parameterType="map" id="agregarRecurso">

@@ -9,13 +9,12 @@
     
     <properties resource="config.properties">
     </properties>
-    <!--typeAliases>
+    <typeAliases>
         <typeAlias type="edu.eci.cvds.samples.entities.EventoProgramado" alias="EventoProgramado"/>
         <typeAlias type="edu.eci.cvds.samples.entities.Recurso" alias="Recurso"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.Rol" alias="Rol"/>
         <typeAlias type="edu.eci.cvds.samples.entities.Usuario" alias="Usuario"/>
 		<typeAlias type="edu.eci.cvds.samples.entities.Reserva" alias="Reserva"/>
-    </typeAliases!-->	
+    </typeAliases>	
 
     <environments default="development">
         <environment id="development">
@@ -29,13 +28,12 @@
         </environment>
     </environments>
         
-    <!--mappers> 
+    <mappers> 
         <mapper resource="mappers/EventoProgramadoMapper.xml"></mapper>
         <mapper resource="mappers/RecursoMapper.xml"></mapper>
-        <mapper resource="mappers/RolMapper.xml"></mapper>
         <mapper resource="mappers/UsuarioMapper.xml"></mapper>
 		<mapper resource="mappers/ReservaMapper.xml"></mapper>
-    </mappers!--> 
+    </mappers> 
         
         
 </configuration>

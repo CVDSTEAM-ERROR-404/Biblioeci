@@ -14,7 +14,6 @@ public interface ServiciosBiblioEci {
 
     public abstract List<Recurso> consultarRecurso() throws ExcepcionServiciosBiblioEci;
 
-    
 
     
 

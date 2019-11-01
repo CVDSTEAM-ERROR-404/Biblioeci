@@ -1,17 +1,14 @@
   
 
+
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  
-	  <SCRIPT type="text/javascript">
-	window.history.forward();
-	function noBack() { window.history.forward(); }
-</SCRIPT>
 
  	<h:head>
-	<meta charset="UTF-8"/>
+		<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/eci.ico"/>
@@ -30,28 +27,45 @@
 
 	<link rel="stylesheet" type="text/css" href="css/util.css"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
-	
  	</h:head>
 
 
-	 <h:body nload="noBack();" 
-	onpageshow="if (event.persisted) noBack();" onunload="">
-	<h:form id="index_form">
-
+	 <h:body>
+		<h:form id="recurso_form">
+		<div align= "center" >
+			<h:panelGrid class="panelCenter1" id="grid" cellpadding="6" columns="2" >
+			
+			<p:outputLabel class="labelcenter" value="Registrar item" />
+			<p:outputLabel />
+			
+			 <p:outputLabel class="intlabel" for="ID" value="ID: " />
+             <p:inputText class="inttext" id="ID" type="String"  />
+			
+			 <p:outputLabel class="intlabel" for="Nombre" value="Nombre: " />
+             <p:inputText class="inttext" id="Nombre" type="String"  />
+			 
+			 <p:outputLabel class="intlabel" for="tipo" value="tipo: " />
+             <p:inputText class="inttext" id="tipo" type="String"  />
+			 
+			 <p:outputLabel class="intlabel" for="ubicación" value="ubicación: " />
+             <p:inputText class="inttext" id="ubicación" type="String"  />
+			 
+			 
+			 
+			 <p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
+             <p:inputText class="inttext" id="capacidad" type="String"  />
+			 
+			 
+			 
+			    
+			 
+			 <h:commandButton class="button1" value="Registrar"  />
 		
-		 <a href="/logout" class="topright">
-			 logout
-		 </a>
-		 <br/>
-		 <h:panelGrid class="panelCenter" id="grid" cellpadding="5" columns="1">
+			<h:commandButton class="button2" value="Volver" action="login1?faces-redirect = true" />
+		
 		 
-			
-			
-			
-			 <h:commandButton class="button" value="Registrar recurso" action="registrorecurso?faces-redirect = true" />
-				
-			
-		 </h:panelGrid>
-	</h:form>	 
+			</h:panelGrid>
+		</div>
+		</h:form>	 
 	</h:body>
 </html>

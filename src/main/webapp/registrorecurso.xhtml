@@ -32,12 +32,12 @@
 
 	 <h:body>
 		<h:form id="recurso_form">
-		<div align= "center" >
-			<h:panelGrid class="panelCenter1" id="grid" cellpadding="6" columns="2" >
+		
+		 <p:panel class="panelCenter" id="panelrecurso" header="Registrar recurso"  style="width: 400px;">
 			
-			<p:outputLabel class="labelcenter" value="Registrar item" />
-			<p:outputLabel />
+			<p:panelGrid  class="grid" id="grid" cellpadding="5" columns="2"  >
 			
+			 
 			 <p:outputLabel class="intlabel" for="ID" value="ID: " />
              <p:inputText class="inttext" id="ID" type="String"  />
 			
@@ -55,17 +55,18 @@
 			 <p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
              <p:inputText class="inttext" id="capacidad" type="String"  />
 			 
-			 
-			 
-			    
-			 
-			 <h:commandButton class="button1" value="Registrar"  />
+			</p:panelGrid>
+			
+			<f:facet name="footer">
+				
+					
+					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;"  />
+					<h:commandButton class="button2"  value="Volver" style="font-size:12px;" action="login1?faces-redirect = true" />
+				
+				
+			 </f:facet>
+		</p:panel>
 		
-			<h:commandButton class="button2" value="Volver" action="login1?faces-redirect = true" />
-		
-		 
-			</h:panelGrid>
-		</div>
 		</h:form>	 
 	</h:body>
 </html>

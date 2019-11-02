@@ -14,22 +14,15 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
 
-    public void registrarRecurso(String Nombre, String ubicación, String tipo, int capacidad, int id) {
+    public void registrarRecurso(String Nombre, String ubicación, String tipo, int capacidad) {
         try {
-            serviciosBiblioEci.registrarRecurso(new Recurso(Nombre, ubicación, tipo, capacidad, id));
+            serviciosBiblioEci.registrarRecurso(new Recurso(Nombre, ubicación, tipo, capacidad, "OK"));
         } catch (ExcepcionServiciosBiblioEci e) {
             e.printStackTrace();
         }
 
     }
-
-    public void registrarRecurso(Recurso r){
-        try {
-            serviciosBiblioEci.registrarRecurso(r);
-        } catch (ExcepcionServiciosBiblioEci e) {
-            e.printStackTrace();
-        }
-    }
+    
 
     public List<Recurso> consultarRecursos(){
         List<Recurso> ans=null;

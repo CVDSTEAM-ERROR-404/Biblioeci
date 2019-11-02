@@ -39,9 +39,8 @@ CREATE TABLE IF NOT EXISTS Reserva (
  hora_inicial varchar(5) not null
  );
 
- create table if not exists Evento(
+ create table if not exists Horario_asignado(
  id_reserva int not null references reserva(id),
  id_horario int not null references horario(id),
  primary key (id_reserva,id_horario)
  );
- 

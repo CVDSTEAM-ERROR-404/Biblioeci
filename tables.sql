@@ -27,12 +27,21 @@ CREATE TABLE IF NOT EXISTS Recurso (
 CREATE TABLE IF NOT EXISTS Reserva (
   id SERIAL,
   tipo varchar(45) not null,
-  fecha_fin DATE,
   periodicidad varchar(45),
   estado varchar(45) not null,
   usuario varchar(45) NOT NULL REFERENCES Usuario(correo),
   recurso INTEGER NOT NULL REFERENCES Recurso(id),
   PRIMARY KEY (id));
 
- 
+ create table if not exists Horario(
+ id SERIAL primary key,
+ fecha date not null,
+ hora_inicial varchar(5) not null
+ );
+
+ create table if not exists Evento(
+ id_reserva int not null references reserva(id),
+ id_horario int not null references horario(id),
+ primary key (id_reserva,id_horario)
+ );
  

@@ -56,7 +56,10 @@
 				
 					
 					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{ServiciosBean.registrarRecurso(nom.value,ub.value,tip.value,cap.value)}" />
-					<h:commandButton class="button2"  value="Volver" style="font-size:12px;" action="login1?faces-redirect = true" />
+					<h:outputLink value="login1.xhtml"
+						styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+					</h:outputLink>
 				
 				
 				</f:facet>

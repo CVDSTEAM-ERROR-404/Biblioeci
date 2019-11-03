@@ -10,8 +10,7 @@
 		<result property='ubicacion' column='ubicacion'/>  
 		<result property='tipo' column='tipo'/>
 		<result property='capacidad' column='capacidad'/>  
-		<result property='estado' column='estado'/>       
-		<collection property='reservas' ofType='Reserva'  resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper.ReservaResult' columnPrefix='reserva_'></collection>
+		<result property='estado' column='estado'/>
 	</resultMap>
   
   

@@ -8,20 +8,13 @@ import java.util.Date;
 import com.google.inject.Inject;
 import java.sql.Statement;
 import java.sql.SQLException;
-/*
-import edu.eci.cvds.samples.entities.Cliente;
-import edu.eci.cvds.samples.entities.Item;
-import edu.eci.cvds.samples.entities.TipoItem;
-import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
-*/
+import java.util.List;
+import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
-
 import org.apache.ibatis.session.SqlSession;
-
-
 import org.junit.Test;
-
 import org.mybatis.guice.transactional.Transactional;
 import org.junit.After;
 
@@ -39,13 +32,47 @@ public class ServiciosBiblioEciTest {
     }
 
 
+    @Test
+    public void shouldRegisterAResource() throws ExcepcionServiciosBiblioEci {
+        //System.out.println(serviciosBiblioEci.consultarRecurso());
+		serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", "Sala de estudio", 5,1));
+        //System.out.println(serviciosBiblioEci.consultarRecurso());
+		Recurso recurso = serviciosBiblioEci.consultarRecurso(1);
+        //System.out.println(recurso1);
+		assertTrue(recurso!=null);
+    }
 
     @Test
-    public void test(){
-		
-		//Statement stmt = sqlSession.getConnection().createStatement();
-		//stmt.execute("insert into usuario values('prueba@gmail.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',1,'Economia','Pepito Perez')");
-		//sqlSession.commit();
+    public void shouldNotRegisterAResourceWithANullName() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso(null, "lugarprueba", "Sala de estudio", 5,2));
+            assertTrue(false);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithNullUbication() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso("prueba", null, "Sala de estudio", 5,2));
+            assertTrue(false);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithNullType() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", null, 5,2));
+            assertTrue(false);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            assertTrue(true);
+        }
     }
 
 

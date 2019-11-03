@@ -7,15 +7,11 @@ public class Horario implements Serializable {
     private int id;
     private Date fecha ;
 
-
-    private String hora_inicial;
-
-    public Horario(Date fecha,String hora_inicial) {
+    public Horario(Date fecha) {
         this.fecha=fecha;
-        this.hora_inicial=hora_inicial;
     }
-    public Horario(int id, Date fecha,String hora_inicial) {
-        this(fecha,hora_inicial);
+    public Horario(int id, Date fecha) {
+        this(fecha);
         this.id = id;
     }
     public Horario(){
@@ -35,13 +31,5 @@ public class Horario implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public String getHora_inicial() {
-        return hora_inicial;
-    }
-
-    public void setHora_inicial(String hora_inicial) {
-        this.hora_inicial = hora_inicial;
-    }
-
 
 }

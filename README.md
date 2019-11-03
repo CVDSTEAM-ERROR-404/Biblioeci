@@ -2,7 +2,7 @@
 
 Aplicación web para la gestión y reserva de recursos de la biblioteca de la Escuela Colombiana de Ingeniería Julio Garavito.
 
-**Curso:** Ciclos de Vida del Desarrollo de Software \
+**Curso:** Ciclos de Vida del Desarrollo de Software
 
 ## Integrantes y Roles
 
@@ -31,13 +31,21 @@ Biblioeci es una herramienta donde el personal de la biblioteca pertenecientes a
 ## Arquitectura y Diseño
 
 #### Modelo E-R
-
+![](resources/modelos/er.png)
 #### Diagrama de Clases
-
+![](resources/modelos/class.png)
 
 #### Stack de Tecnología Utilizado
 
+   * [PrimeFaces (Framework)](https://www.primefaces.org/)
+   * [JUnit (Property Based Testing)](https://junit.org/junit5/)
+   * [Guice (Inyección de Dependencias)](https://github.com/google/guice)
+   * [PostgreSQL (DataBase Management)](https://www.postgresql.org)
+
 #### Enlaces
+
++ [Despliegue en Heroku](https://biblioeci-cvds2019.herokuapp.com/)
++ [Integración Continua (CircleCI)](https://circleci.com/gh/CVDSTEAM-ERROR-404)
 
 ## Descripción del Proceso
 #### Integrantes
@@ -55,3 +63,5 @@ Se utilizó la metodoloía Scrum en la cual el equipo se reune y planea lo que s
  Al finalizar cada Sprint, el equipo se reune para planear el siguiente y se comentan lo que sucedió con el anterior.
  
  #### Taiga
+ 
+ [Taiga backlog](https://tree.taiga.io/project/jcro15-gestion-de-recursos-biblioteca/backlog)

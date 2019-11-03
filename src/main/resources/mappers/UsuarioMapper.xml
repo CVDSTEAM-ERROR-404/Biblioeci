@@ -12,7 +12,7 @@
 	</resultMap>
 
 
-	<select parameterType='map' id='consultarUsuario' resultMap='RecursoResult'>
+	<select parameterType='map' id='consultarUsuario' resultMap='UsuarioResult'>
     SELECT
 			correo,
       u_area AS area, 

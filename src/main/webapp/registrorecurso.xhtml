@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  
 
- 	<h:head>
+	<h:head>
 		<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <!--===============================================================================================-->	
@@ -30,42 +30,40 @@
  	</h:head>
 
 
-	 <h:body>
+	<h:body>
 		<h:form id="recurso_form">
 		
-		 <p:panel class="panelCenter" id="panelrecurso" header="Registrar recurso"  style="width: 400px;">
+			<p:panel class="panelCenter" id="panelrecurso" header="Registrar recurso"  style="width: 400px;">
 			
-			<p:panelGrid  class="grid" id="grid" cellpadding="5" columns="2"  >
+				<p:panelGrid  class="grid" id="grid" cellpadding="5" columns="2"  >
 			
 			 
-			 <p:outputLabel class="intlabel" for="ID" value="ID: " />
-             <p:inputText class="inttext" id="ID" type="String"  />
+					<p:outputLabel class="intlabel" for="ID" value="ID: " />
+					<p:inputText class="inttext" id="ID" type="String" />
+						
+					<p:outputLabel class="intlabel" for="Nombre" value="Nombre: " />
+					<p:inputText class="inttext" id="Nombre" type="String"  binding="#{nom}" />
+						 
+					<p:outputLabel class="intlabel" for="tipo" value="tipo: " />
+					<p:inputText class="inttext" id="tipo" type="String"  binding="#{tip}" />
+						 
+					<p:outputLabel class="intlabel" for="ubicación" value="ubicación: " />
+					<p:inputText class="inttext" id="ubicación" type="String"  binding="#{ub}" />
 			
-			 <p:outputLabel class="intlabel" for="Nombre" value="Nombre: " />
-             <p:inputText class="inttext" id="Nombre" type="String"  />
+					<p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
+					<p:inputText class="inttext" id="capacidad" type="int" binding="#{cap}" />
 			 
-			 <p:outputLabel class="intlabel" for="tipo" value="tipo: " />
-             <p:inputText class="inttext" id="tipo" type="String"  />
-			 
-			 <p:outputLabel class="intlabel" for="ubicación" value="ubicación: " />
-             <p:inputText class="inttext" id="ubicación" type="String"  />
-			 
-			 
-			 
-			 <p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
-             <p:inputText class="inttext" id="capacidad" type="String"  />
-			 
-			</p:panelGrid>
+				</p:panelGrid>
 			
-			<f:facet name="footer">
+				<f:facet name="footer">
 				
 					
-					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;"  />
+					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{ServiciosBean.registrarRecurso(nom.value,ub.value,tip.value,cap.value)}" />
 					<h:commandButton class="button2"  value="Volver" style="font-size:12px;" action="login1?faces-redirect = true" />
 				
 				
-			 </f:facet>
-		</p:panel>
+				</f:facet>
+			</p:panel>
 		
 		</h:form>	 
 	</h:body>

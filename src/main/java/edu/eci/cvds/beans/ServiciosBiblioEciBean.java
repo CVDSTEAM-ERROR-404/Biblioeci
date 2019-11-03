@@ -11,7 +11,7 @@ import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-@ManagedBean(name="SeriviosBean")
+@ManagedBean(name="ServiciosBean")
 public class ServiciosBiblioEciBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;

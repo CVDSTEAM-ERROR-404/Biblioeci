@@ -27,12 +27,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci {
-        if(cli.getCapacidad()<=0){
-            throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una capacidad invalida");
-        }
-        if(cli.getID()<=0){
-            throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una id invalida");
-        }
+        if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una capacidad invalida");}
         try {
             recursoDAO.save(cli);
         } catch (PersistenceException e) {

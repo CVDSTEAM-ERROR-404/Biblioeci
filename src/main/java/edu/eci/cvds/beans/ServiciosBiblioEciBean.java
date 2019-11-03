@@ -9,15 +9,16 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 
-
+@ManagedBean(name="SeriviosBean")
 public class ServiciosBiblioEciBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
 
+<<<<<<< HEAD
 
     public void registrarRecurso(String nombre, String ubicacion, String tipo, int capacidad) {
-        try {
             serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipo, capacidad, "OK"));
+
         } catch (ExcepcionServiciosBiblioEci e) {
             e.printStackTrace();
         }

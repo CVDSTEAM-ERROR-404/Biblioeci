@@ -13,4 +13,5 @@ public class Reserva implements Serializable{
 	private String estado;
 	private ArrayList<Horario> horariosAsignados;
 	private Recurso recurso;
+
 }

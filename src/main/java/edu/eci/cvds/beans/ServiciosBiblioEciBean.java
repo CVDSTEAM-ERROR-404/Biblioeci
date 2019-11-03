@@ -8,16 +8,19 @@ import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name="SeriviosBean")
 public class ServiciosBiblioEciBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
 
-<<<<<<< HEAD
+
 
     public void registrarRecurso(String nombre, String ubicacion, String tipo, int capacidad) {
-            serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipo, capacidad, "OK"));
+        try{
+			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipo, capacidad, "OK"));
 
         } catch (ExcepcionServiciosBiblioEci e) {
             e.printStackTrace();

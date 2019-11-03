@@ -2,6 +2,8 @@ package edu.eci.cvds.test;
 
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,13 +35,10 @@ public class ServiciosBiblioEciTest {
 
 
     @Test
-    public void shouldRegisterAResource() throws ExcepcionServiciosBiblioEci {
-        //System.out.println(serviciosBiblioEci.consultarRecurso());
+    public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
 		serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", "Sala de estudio", 5,1));
-        //System.out.println(serviciosBiblioEci.consultarRecurso());
 		Recurso recurso = serviciosBiblioEci.consultarRecurso(1);
-        //System.out.println(recurso1);
-		assertTrue(recurso!=null);
+		assertTrue(recurso!=null && recurso.getID()==1);
     }
 
     @Test
@@ -47,10 +46,8 @@ public class ServiciosBiblioEciTest {
         Recurso recurso2 = null;
         try {
             serviciosBiblioEci.registrarRecurso(new Recurso(null, "lugarprueba", "Sala de estudio", 5,2));
-            assertTrue(false);
-        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            assertTrue(true);
-        }
+            fail("Se esperaba la excepcion por nombre nulo");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
     }
 
     @Test
@@ -58,10 +55,8 @@ public class ServiciosBiblioEciTest {
         Recurso recurso2 = null;
         try {
             serviciosBiblioEci.registrarRecurso(new Recurso("prueba", null, "Sala de estudio", 5,2));
-            assertTrue(false);
-        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            assertTrue(true);
-        }
+            fail("Se esperaba la excepcion por ubicacion nula");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
     }
 
     @Test
@@ -69,13 +64,45 @@ public class ServiciosBiblioEciTest {
         Recurso recurso2 = null;
         try {
             serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", null, 5,2));
-            assertTrue(false);
-        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            assertTrue(true);
-        }
+            fail("Se esperaba la excepcion por tipo nulo");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
     }
 
+	@Test
+    public void shouldNotRegisterAResourceWithNegativeCapacity() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", "Sala de estudio", -8,2));
+            fail("Se esperaba la excepcion por capacidad negativa");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
+    }
+	
+	@Test
+    public void shouldNotRegisterAResourceWithNegativeId() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", "Sala de estudio", 5,-2));
+            fail("Se esperaba la excepcion por id negativa");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
+    }
 
+    @Test
+    public void shouldNotRegisterAResourceWithNoCapacity() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", "Sala de estudio", 0,2));
+            fail("Se esperaba la excepcion por capacidad negativa");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithIdZero() {
+        Recurso recurso2 = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", "Sala de estudio", 5,0));
+            fail("Se esperaba la excepcion por id negativa");
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {}
+    }
     @After
     public void cerrar(){
         //sqlSession.commit();

@@ -56,7 +56,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return ans;
     }
-
+	
+	@Override
+	public void cambiarEstadoRecurso(int id, String estado) throws ExcepcionServiciosBiblioEci{
+		
+	}
     
 
 }

@@ -15,6 +15,6 @@ public interface ServiciosBiblioEci {
     public abstract List<Recurso> consultarRecurso() throws ExcepcionServiciosBiblioEci;
 
 
-    
+    public abstract void cambiarEstadoRecurso(int id, String estado) throws ExcepcionServiciosBiblioEci;
 
 }

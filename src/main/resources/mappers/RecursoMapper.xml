@@ -23,7 +23,6 @@
       tipo,
       capacidad,
       estado
-      
      FROM
       recurso
      WHERE
@@ -37,13 +36,18 @@
       ubicacion,
       tipo,
       capacidad,
-      recurso
+      estado
     FROM
-      reserva 
+      recurso;
   </select>
-
+	
+  <update id="cambiarEstado" parameterType="map">
+    UPDATE recurso SET estado = #{estado}
+    WHERE id = #{id};
+   </update>
+   
   <insert parameterType="map" id="agregarRecurso">
-    INSERT INTO recurso values (#{rec.id}, #{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});
+    INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});
   </insert>
   
 </mapper>

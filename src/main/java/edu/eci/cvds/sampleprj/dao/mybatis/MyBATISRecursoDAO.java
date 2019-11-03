@@ -49,4 +49,8 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 		return ans;
 	}
 	
+	@Override
+	public void cambiarEstadoRecurso(int id, String estado) throws PersistenceException{
+		
+	}
 }

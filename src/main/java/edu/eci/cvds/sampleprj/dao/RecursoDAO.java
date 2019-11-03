@@ -11,4 +11,6 @@ public interface RecursoDAO{
     public void save(Recurso rec) throws PersistenceException;
 
     public List<Recurso> consultarRecursos() throws PersistenceException;
+	
+	public void cambiarEstadoRecurso(int id, String estado) throws PersistenceException;
 }

@@ -12,4 +12,6 @@ public interface RecursoMapper {
     public void agregarRecurso(@Param("rec") Recurso rec);
 
     public List<Recurso> consultarRecursos();
+	
+	public void cambiarEstado(@Param("id") long id, @Param("estado") String estado);
 }

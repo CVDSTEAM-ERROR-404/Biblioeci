@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.inject.Inject;
 
 import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 
@@ -17,12 +18,26 @@ import java.io.IOException;
 public class ServiciosBiblioEciBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
+    private TipoRecurso tipoRecurso;
+
+    public TipoRecurso[] getTipos(){
+        return TipoRecurso.values();
+    }
+
+    public void setTipoRecurso(TipoRecurso tipoRecurso){
+        this.tipoRecurso = tipoRecurso;
+    }
+
+    public TipoRecurso getTipoRecurso(){
+        return tipoRecurso;
+    }
 
 
 
-    public void registrarRecurso(String nombre, String ubicacion, String tipo, int capacidad) {
+    public void registrarRecurso(String nombre, String ubicacion,  int capacidad) {
         try{
-			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipo, capacidad, "OK"));
+			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipoRecurso, capacidad));
+			tipoRecurso=null;
 			setMessage("Registro exitoso");
             FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
 

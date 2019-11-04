@@ -2,23 +2,22 @@ package edu.eci.cvds.samples.entities;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Recurso implements Serializable{
 	
 	private int id;
 	private String nombre;
 	private String ubicacion;
-	private String tipo;
+	private TipoRecurso tipo;
 	private int capacidad;
     private String estado;
 	
-	public Recurso(String Nombre, String ubicación, String tipo, int capacidad, int id,String estado){
+	public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad, int id, String estado){
         this(Nombre,ubicación,tipo,capacidad,estado);
         this.id=id;
     }
 
-    public Recurso(String Nombre, String ubicación, String tipo, int capacidad, String estado){
+    public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad, String estado){
         this.nombre=Nombre;
         this.ubicacion=ubicación;
         this.tipo=tipo;
@@ -26,8 +25,8 @@ public class Recurso implements Serializable{
         this.estado=estado;
     }
 
-    public Recurso(String Nombre, String ubicación, String tipo, int capacidad, int id){
-        this(Nombre,ubicación,tipo,capacidad,id,"Disponible");
+    public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad){
+        this(Nombre,ubicación,tipo,capacidad,"Disponible");
     }
 
 
@@ -64,12 +63,12 @@ public class Recurso implements Serializable{
     }
     
     
-    public String getTipo(){
+    public TipoRecurso getTipo(){
         return tipo;
     }
 
 
-    public void setTipo(String tipo){
+    public void setTipo(TipoRecurso tipo){
         this.tipo=tipo;
     }
     

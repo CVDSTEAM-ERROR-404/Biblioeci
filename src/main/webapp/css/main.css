@@ -568,6 +568,13 @@ iframe {
   background: #333333;
 }
 
+.ui-selectonemenu-trigger{
+	
+	background: #cc0000 !important;
+}
+.ui-icon{
+	background-image:url(https://download.jqueryui.com/themeroller/images/ui-icons_fff_256x240.png) !important;
+}
 /*------------------------------------------------------------------
 [ Button sign in with ]*/
 .btn-face,

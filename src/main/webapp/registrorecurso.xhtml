@@ -53,8 +53,8 @@
 					<p:inputText class="inttext" id="Nombre" type="String"  binding="#{nom}" />
 
 					<p:outputLabel class="intlabel"  value="Tipo: " />
-					<p:selectOneMenu value="#{ServiciosBean.tipoRecurso}" style="width:216px">
-						<f:selectItems value="#{ServiciosBean.getTipos()}"/>
+					<p:selectOneMenu value="#{ServiciosBean.tipoRecurso}" style="width:216px; background:#cc0000;">
+						<f:selectItems value="#{ServiciosBean.getTipos()}"  />
 					</p:selectOneMenu>
 
 					<p:outputLabel class="intlabel" for="ubicación" value="ubicación: " />

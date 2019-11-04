@@ -11,6 +11,7 @@ import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 @ManagedBean(name="ServiciosBean")
 public class ServiciosBiblioEciBean extends BasePageBean {
@@ -56,9 +57,14 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 	 
 	
 	protected static void setMessage(String message){
-		
+		try {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+		facesContext.getExternalContext().redirect("login1.xhtml");
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+		
+		
+		}
+		catch (IOException e){}
 		
     }
 }

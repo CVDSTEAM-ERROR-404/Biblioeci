@@ -10,8 +10,6 @@ import java.io.IOException;
 
 @ManagedBean(name="LoginBean")
 
-
-
 public class LoginBean extends BasePageBean{
 
     private String correo;

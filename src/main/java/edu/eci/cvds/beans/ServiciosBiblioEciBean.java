@@ -24,11 +24,13 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         try{
 			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipo, capacidad, "OK"));
 			setMessage("Registro exitoso");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
+
         } catch (ExcepcionServiciosBiblioEci e) {
            setErrorMessage(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-		
-
     }
     
 
@@ -50,6 +52,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
             e.printStackTrace();
         }
 	}
+
     protected static void setErrorMessage(String message){
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
@@ -57,14 +60,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 	 
 	
 	protected static void setMessage(String message){
-		try {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		facesContext.getExternalContext().redirect("login1.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
-		
-		
-		}
-		catch (IOException e){}
-		
     }
 }

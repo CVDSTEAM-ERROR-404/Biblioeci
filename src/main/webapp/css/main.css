@@ -429,19 +429,10 @@ iframe {
   transform: translateY(-50%);
 }
 
-
-
-.ui-growl {
-	margin-bottom:-35px;
-  width: 250px;
-  height: 70px;
-  left:50%;
-  top:50%;
-  margin-left:-125px;
-  
+.ui-growl-info{
+	
+	background-color:rgb(0, 204, 102, 0.3);
 }
-
-
 
 .input-checkbox100:checked + .label-checkbox100::before {
   color: #d33f8d;

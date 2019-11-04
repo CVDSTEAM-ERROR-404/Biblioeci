@@ -31,12 +31,18 @@
 
 
 	<h:body>
-	
+		<style>
+			div[id="recurso_form:growl-error_container"] > div {
+				background-color:rgb(255, 0, 0, 0.3);
+			}
+			
+		</style>
 	
 	
 		<h:form id="recurso_form">
+			<p:growl id="growl-error" showDetail="false" sticky="true" rendered="#{facesContext.maximumSeverity.ordinal eq 2}"/> 
 			
-			<p:growl id="growl" showDetail="false" sticky="true" />  
+			
 			
 			<p:panel class="panelCenter" id="panelrecurso" header="Registrar recurso"  style="width: 400px;">
 			

@@ -7,7 +7,8 @@ import com.google.inject.Inject;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
@@ -23,7 +24,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipo, capacidad, "OK"));
 
         } catch (ExcepcionServiciosBiblioEci e) {
-            e.printStackTrace();
+           setErrorMessage(e.getMessage());
         }
 
     }
@@ -47,4 +48,8 @@ public class ServiciosBiblioEciBean extends BasePageBean {
             e.printStackTrace();
         }
 	}
+    protected static void setErrorMessage(String message){
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
 }

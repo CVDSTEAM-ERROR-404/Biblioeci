@@ -3,16 +3,10 @@ package edu.eci.cvds.beans;
 import com.google.inject.Inject;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.security.SesionLogger;
-import edu.eci.cvds.security.ShiroLogger;
-
-import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-import com.google.inject.Inject;
 
 @ManagedBean(name="LoginBean")
 
@@ -57,17 +51,14 @@ public class LoginBean extends BasePageBean{
             logger.login(correo,password,rememberMe);
             FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+            ServiciosBiblioEciBean.setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }catch (IOException e) {
-            setErrorMessage("Error en el servidor");
+            ServiciosBiblioEciBean.setErrorMessage("Error en el servidor");
         }
 
 
     }
-    private void setErrorMessage(String message){
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
-    }
+
 
     public boolean isLogged(){
         return logger.isLogged();

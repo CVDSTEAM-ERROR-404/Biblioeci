@@ -14,6 +14,24 @@ public class MyBATISReservaDAO implements ReservaDAO{
 	
 	@Override
 	public List<Reserva> consultarReservasPendientes(long id) throws PersistenceException{
-		return null;
+		List<Reserva> reservas=null;
+		try{
+			reservas=reservaMapper.consultarReservasPendientes(id);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al cosultar las reservas futuras ",e);
+		}
+		return reservas;
 	}
+
+	@Override
+	public void cancelarReservasPendientes(long id) throws PersistenceException {
+		try{
+			reservaMapper.cancelarReservasPendientes(id);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al cancelar las reservas futuras ",e);
+		}
+	}
+
 }

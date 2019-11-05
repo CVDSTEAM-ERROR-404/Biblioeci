@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
@@ -88,6 +89,22 @@ public class ServiciosBiblioEciBean extends BasePageBean {
             setEstadoRecurso(null);
         }
 	}
+	public List<Reserva> consultarReservasPendientes(int id){
+        List<Reserva> reservas=null;
+        try {
+            reservas=serviciosBiblioEci.consultarReservasPendientes(id);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            excepcionServiciosBiblioEci.printStackTrace();
+        }
+        return reservas;
+    }
+    public void cancelarReservasPendientes(int id){
+        try {
+            serviciosBiblioEci.cancelarReservasPendientes(id);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            excepcionServiciosBiblioEci.printStackTrace();
+        }
+    }
 
     protected static void setErrorMessage(String message){
         FacesContext.getCurrentInstance().addMessage(null,

@@ -12,6 +12,7 @@ import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
 import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 
@@ -21,7 +22,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private HorarioDAO horarioDAO;
     @Inject
-    private ReservaDAO ReservaDAO;
+    private ReservaDAO reservaDAO;
 
     @Inject
     private UsuarioDAO UsuarioDAO;
@@ -67,6 +68,26 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             throw new ExcepcionServiciosBiblioEci(e.getMessage(), e);
         }
 	}
-    
+
+    @Override
+    public void cancelarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
+        try {
+            reservaDAO.cancelarReservasPendientes(id);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al cancelar las reservas futuras");
+        }
+    }
+
+    @Override
+    public List<Reserva> consultarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
+        List <Reserva> reservas=null;
+        try{
+            reservas=reservaDAO.consultarReservasPendientes(id);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar las reservas futuras");
+        }
+        return reservas;
+    }
+
 
 }

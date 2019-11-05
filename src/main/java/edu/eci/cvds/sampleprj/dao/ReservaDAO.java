@@ -5,6 +5,6 @@ import java.util.List;
 import edu.eci.cvds.samples.entities.Reserva;
 
 public interface ReservaDAO{
-
 	public List<Reserva> consultarReservasPendientes(long id) throws PersistenceException;
+	public void cancelarReservasPendientes(long id)throws PersistenceException;
 }

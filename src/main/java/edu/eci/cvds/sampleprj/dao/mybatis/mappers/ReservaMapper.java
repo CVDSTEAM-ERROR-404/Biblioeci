@@ -7,4 +7,5 @@ import edu.eci.cvds.samples.entities.Reserva;
 public interface ReservaMapper {
    
 	public List<Reserva> consultarReservasPendientes(@Param("id") long id);
+	public void cancelarReservasPendientes(@Param("id")long id);
 }

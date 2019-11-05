@@ -37,7 +37,19 @@
 	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND 
 	  now() &lt;= ho.fecha_hora;
   </select>
-  
+
+  <update parameterType="map" id="cancelarReservasPendientes">
+	  update reserva as res
+	  set estado='Cancelada'
+	  FROM
+	  recurso as recu,
+	  horario_asignado as ha,
+	  horario as ho
+	  WHERE
+	  res.recurso=#{id} AND res.recurso=recu.id AND
+	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND
+	  now() &lt; ho.fecha_hora;
+  </update>
   
 
 	

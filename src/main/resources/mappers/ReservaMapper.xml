@@ -6,15 +6,39 @@
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper">
 	<resultMap type='Reserva' id='ReservaResult'>
 		<id property='id' column='id'/>
-		<result property='tipo' column='nombre'/>
-		<result property='fechaFin' column='fecha_fin'/>  
-		<result property='periodicidad' column='periodicidad'/>
-		<result property='estado' column='estado'/>        
-		<collection property='eventos' ofType='EventoProgramado' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoProgramadoMapper.EventoProgramadoResult' columnPrefix='evento_'></collection>
+		<result property='tipo' column='tipo'/>
+		<result property='periodicidad' column='periodicidad'/>  
+		<result property='estado' column='estado'/>
+		<association property="recurso" javaType="Recurso"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.RecursoResult" columnPrefix='recurso_'></association>      
+		<collection property='horariosAsignados' ofType='Horario' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioMapper.HorarioResult' columnPrefix='horario_'></collection>
 	</resultMap>
-
-
-
+	
+	
+	<select parameterType='map' id='consultarReservasPendientes' resultMap='ReservaResult'>
+    SELECT 
+      res.id as id, 
+      res.tipo as tipo,
+      res.periodicidad as periodicidad,
+      res.estado as estado,
+      recu.id as recurso_id, 
+	  recu.nombre as recurso_nombre, 
+	  recu.tipo as recurso_tipo, 
+	  recu.capacidad as recurso_capacidad, 
+	  recu.estado as recurso_estado, 
+	  ho.id as horario_id, 
+	  ho.fecha_hora as horario_fecha
+     FROM
+      reserva as res,
+	  recurso as recu, 
+	  horario_asignado as ha,
+	  horario as ho
+     WHERE
+      res.recurso=#{id} AND res.recurso=recu.id AND
+	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND 
+	  now() &lt;= ho.fecha_hora;
+  </select>
+  
+  
 
 	
 </mapper>

@@ -32,7 +32,7 @@ public class ServiciosBiblioEciFactory {
 				bind(RecursoDAO.class).to(MyBATISRecursoDAO.class);
 				bind(ReservaDAO.class).to(MyBATISReservaDAO.class);
 				bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class);
-				bind(EventoProgramadoDAO.class).to(MyBATISEventoProgramadoDAO.class);
+				bind(HorarioDAO.class).to(MyBATISHorarioDAO.class);
 
             }
         }
@@ -48,7 +48,7 @@ public class ServiciosBiblioEciFactory {
 				bind(RecursoDAO.class).to(MyBATISRecursoDAO.class);
 				bind(ReservaDAO.class).to(MyBATISReservaDAO.class);
 				bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class);
-				bind(EventoProgramadoDAO.class).to(MyBATISEventoProgramadoDAO.class);
+				bind(HorarioDAO.class).to(MyBATISHorarioDAO.class);
             }
         }
         );

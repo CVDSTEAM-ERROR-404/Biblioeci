@@ -10,12 +10,12 @@ import edu.eci.cvds.security.ShiroLogger;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
-import edu.eci.cvds.sampleprj.dao.EventoProgramadoDAO;
+import edu.eci.cvds.sampleprj.dao.HorarioDAO;
 import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 
 import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
-import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISEventoProgramadoDAO;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISHorarioDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISRecursoDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISReservaDAO;
 
@@ -43,7 +43,7 @@ public class GuiceContextListener implements ServletContextListener {
 
                 bind(ServiciosBiblioEci.class).to(ServiciosBiblioEciImpl.class);
                 bind(RecursoDAO.class).to(MyBATISRecursoDAO.class);
-                bind(EventoProgramadoDAO.class).to(MyBATISEventoProgramadoDAO.class);
+                bind(HorarioDAO.class).to(MyBATISHorarioDAO.class);
 				bind(ReservaDAO.class).to(MyBATISReservaDAO.class);
                 bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class); 
                 bind(SesionLogger.class).to(ShiroLogger.class);

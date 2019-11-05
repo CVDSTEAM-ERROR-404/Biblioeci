@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.inject.Inject;
 
-import edu.eci.cvds.sampleprj.dao.EventoProgramadoDAO;
+import edu.eci.cvds.sampleprj.dao.HorarioDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 
@@ -19,7 +19,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private RecursoDAO recursoDAO;
     @Inject
-    private EventoProgramadoDAO eventoProgramadoDAO;
+    private HorarioDAO horarioDAO;
     @Inject
     private ReservaDAO ReservaDAO;
 

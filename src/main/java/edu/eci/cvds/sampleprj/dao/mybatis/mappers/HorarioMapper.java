@@ -1,5 +1,5 @@
 package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 
-public interface EventoProgramadoMapper {
+public interface HorarioMapper {
     
 }

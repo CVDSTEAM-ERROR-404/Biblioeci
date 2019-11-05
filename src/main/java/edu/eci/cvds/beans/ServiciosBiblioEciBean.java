@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.inject.Inject;
 
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
@@ -19,6 +20,20 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
     private TipoRecurso tipoRecurso;
+    private EstadoRecurso estadoRecurso;
+
+
+    public EstadoRecurso getEstadoRecurso() {
+        return estadoRecurso;
+    }
+
+    public void setEstadoRecurso(EstadoRecurso estadoRecurso) {
+        this.estadoRecurso = estadoRecurso;
+    }
+
+    public EstadoRecurso[] getEstados(){
+        return EstadoRecurso.values();
+    }
 
     public TipoRecurso[] getTipos(){
         return TipoRecurso.values();
@@ -34,10 +49,11 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 
 
 
+
     public void registrarRecurso(String nombre, String ubicacion,  int capacidad) {
         try{
 			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipoRecurso, capacidad));
-			tipoRecurso=null;
+			setTipoRecurso(null);
 			setMessage("Registro exitoso");
             FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
 
@@ -60,9 +76,10 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     }
 	
 	
-	public void cambiarEstadoRecurso(int id, String estado){
+	public void cambiarEstadoRecurso(int id){
 		try {
-            serviciosBiblioEci.cambiarEstadoRecurso(id , estado);
+            serviciosBiblioEci.cambiarEstadoRecurso(id , estadoRecurso);
+            setEstadoRecurso(null);
         } catch (ExcepcionServiciosBiblioEci e) {
             e.printStackTrace();
         }

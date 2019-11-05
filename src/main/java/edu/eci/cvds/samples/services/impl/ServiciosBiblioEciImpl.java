@@ -10,6 +10,7 @@ import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 
 import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
 import edu.eci.cvds.sampleprj.dao.RecursoDAO;
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
@@ -59,8 +60,12 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     }
 	
 	@Override
-	public void cambiarEstadoRecurso(int id, String estado) throws ExcepcionServiciosBiblioEci{
-		
+	public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws ExcepcionServiciosBiblioEci{
+		try{
+		    recursoDAO.cambiarEstadoRecurso(id,estado);
+        }catch(PersistenceException e){
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos", e);
+        }
 	}
     
 

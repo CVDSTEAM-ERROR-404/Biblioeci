@@ -3,6 +3,7 @@ package edu.eci.cvds.samples.services;
 import java.sql.Date;
 import java.util.List;
 
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 
 public interface ServiciosBiblioEci {
@@ -15,6 +16,6 @@ public interface ServiciosBiblioEci {
     public abstract List<Recurso> consultarRecurso() throws ExcepcionServiciosBiblioEci;
 
 
-    public abstract void cambiarEstadoRecurso(int id, String estado) throws ExcepcionServiciosBiblioEci;
+    public abstract void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws ExcepcionServiciosBiblioEci;
 
 }

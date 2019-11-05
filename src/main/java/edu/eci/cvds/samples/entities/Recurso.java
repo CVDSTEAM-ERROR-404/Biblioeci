@@ -10,14 +10,14 @@ public class Recurso implements Serializable{
 	private String ubicacion;
 	private TipoRecurso tipo;
 	private int capacidad;
-    private String estado;
+    private EstadoRecurso estado;
 	
-	public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad, int id, String estado){
+	public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad, int id, EstadoRecurso estado){
         this(Nombre,ubicación,tipo,capacidad,estado);
         this.id=id;
     }
 
-    public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad, String estado){
+    public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad, EstadoRecurso estado){
         this.nombre=Nombre;
         this.ubicacion=ubicación;
         this.tipo=tipo;
@@ -26,7 +26,7 @@ public class Recurso implements Serializable{
     }
 
     public Recurso(String Nombre, String ubicación, TipoRecurso tipo, int capacidad){
-        this(Nombre,ubicación,tipo,capacidad,"Disponible");
+        this(Nombre,ubicación,tipo,capacidad, EstadoRecurso.Disponible);
     }
 
 
@@ -82,11 +82,11 @@ public class Recurso implements Serializable{
     }
     
     
-    public String getEstado(){
+    public EstadoRecurso getEstado(){
         return estado;
     }
 
-    public void setEstado(String estado){
+    public void setEstado(EstadoRecurso estado){
         this.estado=estado;
     }
     

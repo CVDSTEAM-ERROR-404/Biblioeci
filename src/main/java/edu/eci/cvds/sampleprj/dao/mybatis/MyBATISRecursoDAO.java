@@ -2,6 +2,7 @@ package edu.eci.cvds.sampleprj.dao.mybatis;
 
 import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper;
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 
@@ -50,7 +51,12 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	}
 	
 	@Override
-	public void cambiarEstadoRecurso(int id, String estado) throws PersistenceException{
-		
+	public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws PersistenceException{
+		try{
+			recursoMapper.cambiarEstado(id,estado);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar los recursos", e);
+		}
 	}
 }

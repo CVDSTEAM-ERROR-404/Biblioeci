@@ -53,7 +53,10 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	@Override
 	public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws PersistenceException{
 		try{
-			recursoMapper.cambiarEstado(id,estado);
+			int rows = recursoMapper.cambiarEstado(id,estado);
+			if (rows==0){
+				throw new PersistenceException("El recurso ingresado no está registrado");
+			}
 		}
 		catch (org.apache.ibatis.exceptions.PersistenceException e) {
 			throw new PersistenceException("Error al consultar los recursos", e);

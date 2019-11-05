@@ -5,10 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  
-	  <SCRIPT type="text/javascript">
-	window.history.forward();
-	function noBack() { window.history.forward(); }
-</SCRIPT>
+
 
  	<h:head>
 	<meta charset="UTF-8"/>
@@ -34,9 +31,8 @@
  	</h:head>
 
 
-	 <h:body nload="noBack();" 
-	onpageshow="if (event.persisted) noBack();" onunload="">
-	
+	 <h:body>
+
 	
 	<h:form id="index_form">
 		<p:growl id="growlmsg2" showDetail="false" sticky="true" />

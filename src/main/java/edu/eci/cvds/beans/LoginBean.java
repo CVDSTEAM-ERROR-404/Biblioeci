@@ -58,11 +58,13 @@ public class LoginBean extends BasePageBean{
     }
 
 
-    public boolean isLogged(){
-        return logger.isLogged();
+    public void isLogged(){
+        if( logger.isLogged()){
+            try{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-
-    
-
 }

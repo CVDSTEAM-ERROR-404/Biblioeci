@@ -434,6 +434,11 @@ iframe {
 	background-color:rgb(0, 204, 102, 0.3);
 }
 
+.ui-growl-error{
+	
+	background-color:rgb(255, 0, 0, 0.3);
+}
+
 .input-checkbox100:checked + .label-checkbox100::before {
   color: #d33f8d;
 }

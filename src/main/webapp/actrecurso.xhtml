@@ -1,17 +1,11 @@
-  
-
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  
-	  <SCRIPT type="text/javascript">
-	window.history.forward();
-	function noBack() { window.history.forward(); }
-</SCRIPT>
 
- 	<h:head>
-	<meta charset="UTF-8"/>
+	<h:head>
+		<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/eci.ico"/>
@@ -30,38 +24,35 @@
 
 	<link rel="stylesheet" type="text/css" href="css/util.css"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
-	
  	</h:head>
-
-
-	 <h:body nload="noBack();" 
-	onpageshow="if (event.persisted) noBack();" onunload="">
 	
-	
-	<h:form id="index_form">
-		<p:growl id="growlmsg2" showDetail="false" sticky="true" />
+	<h:body>
+		<h:form id="actrecurso_form">
+			
+			<p:panel class="panelCenter" id="actpanelrecurso" header="Actualizar recurso"  style="width: 400px;">
+			
+				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
+					<p:outputLabel class="intlabel" for="ID" value="ID: " />
+					<p:inputText class="inttext" id="ID" type="int"  binding="#{idrec}" />
+
+					<p:outputLabel class="intlabel"  value="Estado: " />
+					<p:selectOneMenu value="#{ServiciosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
+						<f:selectItems value="#{ServiciosBean.getEstados()}"  />
+					</p:selectOneMenu>
+					
+				</p:panelGrid>
+			
+				<f:facet name="footer">
+					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{ServiciosBean.cambiarEstadoRecurso(idrec.value)}" update="actrecurso_form"/>
+						 
+					
+					<h:outputLink value="login1.xhtml"
+						styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+					</h:outputLink>
+				</f:facet>
+			</p:panel>
 		
-		 <a href="/logout" class="topright">
-			 logout
-		 </a>
-		 <br/>
-		 <p:panel class="panelCenter1" id="panelindex"   style="width: 350px;">
-			<p:panel class="red" />
-			<img src="logo.png" alt="logo"  />
-				<h:outputLink value="registrorecurso.xhtml"
-					styleClass="ui-button  ui-button-text-only button3" style="font-size:12px; color:FFF;">
-					<span class="ui-button-text" style="padding: 15px 25px">Registrar recurso</span>
-				</h:outputLink>
-				<br/>
-				<h:outputLink value="actrecurso.xhtml"
-					styleClass="ui-button  ui-button-text-only button3" style="font-size:12px; color:FFF;">
-					<span class="ui-button-text" style="padding: 15px 25px">Actualizar recurso</span>
-				</h:outputLink>
-
-			
-				
-			
-		 </p:panel>
-	</h:form>	 
+		</h:form>	 
 	</h:body>
 </html>

@@ -64,7 +64,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 		try{
 		    recursoDAO.cambiarEstadoRecurso(id,estado);
         }catch(PersistenceException e){
-            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos", e);
+            throw new ExcepcionServiciosBiblioEci(e.getMessage(), e);
         }
 	}
     

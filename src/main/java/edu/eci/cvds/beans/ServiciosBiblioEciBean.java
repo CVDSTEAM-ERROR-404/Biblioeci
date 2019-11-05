@@ -53,7 +53,6 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     public void registrarRecurso(String nombre, String ubicacion,  int capacidad) {
         try{
 			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipoRecurso, capacidad));
-			setTipoRecurso(null);
 			setMessage("Registro exitoso");
             FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
 
@@ -61,6 +60,9 @@ public class ServiciosBiblioEciBean extends BasePageBean {
            setErrorMessage(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        finally {
+            setTipoRecurso(null);
         }
     }
     
@@ -79,9 +81,11 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 	public void cambiarEstadoRecurso(int id){
 		try {
             serviciosBiblioEci.cambiarEstadoRecurso(id , estadoRecurso);
-            setEstadoRecurso(null);
         } catch (ExcepcionServiciosBiblioEci e) {
-            e.printStackTrace();
+            setErrorMessage(e.getMessage());
+        }
+		finally {
+            setEstadoRecurso(null);
         }
 	}
 

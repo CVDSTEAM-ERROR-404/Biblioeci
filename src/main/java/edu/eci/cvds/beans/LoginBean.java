@@ -67,4 +67,12 @@ public class LoginBean extends BasePageBean{
             }
         }
     }
+    public void logout(){
+        logger.logout();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

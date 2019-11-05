@@ -27,4 +27,10 @@ public class ShiroLogger implements SesionLogger {
     public boolean isLogged() {
         return SecurityUtils.getSubject().isAuthenticated();
     }
+
+    @Override
+    public void logout() {
+        SecurityUtils.getSubject().logout();
+    }
+
 }

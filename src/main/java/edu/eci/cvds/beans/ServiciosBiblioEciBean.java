@@ -54,7 +54,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         try{
 			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipoRecurso, capacidad));
 			setMessage("Registro exitoso");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
 
         } catch (ExcepcionServiciosBiblioEci e) {
            setErrorMessage(e.getMessage());

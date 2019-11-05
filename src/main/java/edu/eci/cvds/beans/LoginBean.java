@@ -47,7 +47,7 @@ public class LoginBean extends BasePageBean{
     public void login(){
         try {
             logger.login(correo,password,rememberMe);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             ServiciosBiblioEciBean.setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }catch (IOException e) {
@@ -61,7 +61,7 @@ public class LoginBean extends BasePageBean{
     public void isLogged(){
         if( logger.isLogged()){
             try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("login1.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }

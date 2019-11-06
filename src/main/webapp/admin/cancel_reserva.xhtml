@@ -57,7 +57,7 @@
 				
 				
 				<f:facet name="footer">
-					<h:commandButton class="button1" id="cancel"  value="Cancelar" style="font-size:12px;" actionListener="#{ServiciosBean.cancelarReservasPendientes(ServiciosBean.idRecurso)}"/>
+					<h:commandButton class="button1" id="cancel"  value="Cancelar" style="font-size:12px;" actionListener="#{ServiciosBean.cancelarReservasPendientes()}"/>
 					
 					<h:commandButton class="button2" value="No cancelar" rendered="#{ServiciosBean.showButton}" action="login1?faces-redirect = true" />
 					

@@ -33,7 +33,7 @@
 			
 				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
 					<p:outputLabel class="intlabel" for="ID" value="ID: " />
-					<p:inputText class="inttext" id="ID" type="int"  value="#{ServiciosBean.idRecurso}"/>
+					<p:inputText class="inttext" id="ID" type="int"  binding="#{id}"/>
 
 					<p:outputLabel class="intlabel"  value="Estado: " />
 					<p:selectOneMenu value="#{ServiciosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
@@ -43,7 +43,7 @@
 				</p:panelGrid>
 			
 				<f:facet name="footer">
-					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{ServiciosBean.cambiarEstadoRecurso()}" update="actrecurso_form"/>
+					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{ServiciosBean.cambiarEstadoRecurso(id.value)}" update="actrecurso_form"/>
 						 
 					
 					<h:outputLink value="login1.xhtml"

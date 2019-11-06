@@ -98,41 +98,37 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     }
 	
 	
-	public void cambiarEstadoRecurso(){
+	public void cambiarEstadoRecurso(int id){
 		try {
+		    idRecurso=id;
             serviciosBiblioEci.cambiarEstadoRecurso(idRecurso , estadoRecurso);
             showButton=estadoRecurso.equals(EstadoRecurso.Daño_Reparable);
             reservasFuturas=serviciosBiblioEci.consultarReservasPendientes(idRecurso);
-            
-			if (reservasFuturas!=null && !(estadoRecurso.equals(EstadoRecurso.Disponible))){
-                try{
-					FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/cancel_reserva.xhtml");
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+            if (reservasFuturas.size()!=0 && !(estadoRecurso.equals(EstadoRecurso.Disponible))) {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/cancel_reserva.xhtml");
+                }
+            else {
+                setMessage("Actualización exitosa");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+            }
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
-        }
-		finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             setEstadoRecurso(null);
         }
 	}
-	public List<Reserva> consultarReservasPendientes(int id){
-        List<Reserva> reservas=null;
+
+    public void cancelarReservasPendientes(){
         try {
-            reservas=serviciosBiblioEci.consultarReservasPendientes(id);
+            serviciosBiblioEci.cancelarReservasPendientes(idRecurso);
+            setMessage("Actualización exitosa");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             excepcionServiciosBiblioEci.printStackTrace();
-        }
-        return reservas;
-    }
-    public void cancelarReservasPendientes(int id){
-        try {
-            serviciosBiblioEci.cancelarReservasPendientes(id);
-        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            excepcionServiciosBiblioEci.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

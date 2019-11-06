@@ -35,7 +35,7 @@
      WHERE
       res.recurso=#{id} AND res.recurso=recu.id AND
 	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND 
-	  now() &lt;= ho.fecha_hora;
+	  now() &lt;= ho.fecha_hora AND res.estado='Activa';
   </select>
 
   <update parameterType="map" id="cancelarReservasPendientes">
@@ -48,7 +48,7 @@
 	  WHERE
 	  res.recurso=#{id} AND res.recurso=recu.id AND
 	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND
-	  now() &lt; ho.fecha_hora;
+	  now() &lt; ho.fecha_hora AND res.estado='Activa';
   </update>
   
 

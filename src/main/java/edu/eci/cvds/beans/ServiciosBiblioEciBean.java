@@ -28,8 +28,13 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     private EstadoRecurso estadoRecurso;
     private boolean showButton;
     private int idRecurso;
-	
     private List<Reserva> reservasFuturas;
+
+    public String getSuccessUpdate() {
+        return successUpdate;
+    }
+
+    private String successUpdate = "Actualización exitosa";
 
 
     public EstadoRecurso getEstadoRecurso() {
@@ -73,15 +78,11 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     public void registrarRecurso(String nombre, String ubicacion,  int capacidad) {
         try{
 			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipoRecurso, capacidad));
-			setMessage("Registro exitoso");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+			successOperation("Registro exitoso");
 
         } catch (ExcepcionServiciosBiblioEci e) {
            setErrorMessage(e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
+        } finally {
             setTipoRecurso(null);
         }
     }
@@ -108,8 +109,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/cancel_reserva.xhtml");
                 }
             else {
-                setMessage("Actualización exitosa");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+                successOperation("Actualización exitosa");
             }
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
@@ -119,16 +119,21 @@ public class ServiciosBiblioEciBean extends BasePageBean {
             setEstadoRecurso(null);
         }
 	}
+	public void successOperation(String message){
+        setMessage(message);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void cancelarReservasPendientes(){
         try {
             serviciosBiblioEci.cancelarReservasPendientes(idRecurso);
-            setMessage("Actualización exitosa");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+            successOperation("Actualización exitosa");
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             excepcionServiciosBiblioEci.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

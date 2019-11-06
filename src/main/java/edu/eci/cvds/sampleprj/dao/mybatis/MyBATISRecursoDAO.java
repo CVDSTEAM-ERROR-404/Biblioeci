@@ -86,6 +86,7 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 			}
 		}
 		catch (org.apache.ibatis.exceptions.PersistenceException e) {
+
 			throw new PersistenceException("Error al cambiar el estado del recurso", e);
 		}
 	}

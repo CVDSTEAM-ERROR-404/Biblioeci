@@ -32,6 +32,7 @@ public class MyBATISReservaDAO implements ReservaDAO{
 			reservas=reservaMapper.consultarReservasPendientes(id);
 		}
 		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			
 			throw new PersistenceException("Error al cosultar las reservas futuras ",e);
 		}
 		return reservas;

@@ -37,9 +37,7 @@
 	<h:form id="index_form">
 		<p:growl id="growlmsg2" showDetail="false" sticky="true" />
 		
-		 <a href="/logout" class="topright">
-			 logout
-		 </a>
+		 
 		 <br/>
 		 <p:panel class="panelCenter1" id="panelindex"   style="width: 350px;">
 			<p:panel class="red" />
@@ -49,18 +47,21 @@
 					<span class="ui-button-text" style="padding: 15px 25px">Registrar recurso</span>
 				</h:outputLink>
 				<br/>
+				
 				<h:outputLink value="actrecurso.xhtml"
 					styleClass="ui-button  ui-button-text-only button3" style="font-size:12px; color:FFF;">
 					<span class="ui-button-text" style="padding: 15px 25px">Actualizar estado</span>
 				</h:outputLink>
-
-			 <h:commandButton class="button1"   value="Logout" style="font-size:12px;" actionListener="#{LoginBean.logout()}" />
+				<br/>
+			 
 
 
 			
 				
 			
 		 </p:panel>
+		 <h:commandButton class="button4" value="Logout" style="font-size:12px;" actionListener="#{LoginBean.logout()}" />
+		 
 	</h:form>	 
 	</h:body>
 </html>

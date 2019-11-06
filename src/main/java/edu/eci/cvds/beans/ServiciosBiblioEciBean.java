@@ -29,12 +29,13 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     private boolean showButton;
     private int idRecurso;
     private List<Reserva> reservasFuturas;
+    private String successUpdate = "Actualización exitosa";
 
     public String getSuccessUpdate() {
         return successUpdate;
     }
 
-    private String successUpdate = "Actualización exitosa";
+
 
 
     public EstadoRecurso getEstadoRecurso() {

@@ -25,34 +25,47 @@
 	<link rel="stylesheet" type="text/css" href="/css/util.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/main.css"/>
  	</h:head>
-	
-	<h:body>
-		<h:form id="actrecurso_form">
-			<p:growl id="growl" showDetail="false" sticky="true" />
-			<p:panel class="panelCenter" id="actpanelrecurso" header="Actualizar recurso"  style="width: 400px;">
-			
-				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
-					<p:outputLabel class="intlabel" for="ID" value="ID: " />
-					<p:inputText class="inttext" id="ID" type="int"  value="#{ServiciosBean.idRecurso}"/>
 
-					<p:outputLabel class="intlabel"  value="Estado: " />
-					<p:selectOneMenu value="#{ServiciosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
-						<f:selectItems value="#{ServiciosBean.getEstados()}"  />
-					</p:selectOneMenu>
-					
-				</p:panelGrid>
-			
-				<f:facet name="footer">
-					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{ServiciosBean.cambiarEstadoRecurso()}" update="actrecurso_form"/>
-						 
-					
-					<h:outputLink value="login1.xhtml"
-						styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
-					</h:outputLink>
+
+	<h:body>
+		<h:form id="cancel_reserva_form">
+			<p:dataTable var="res" value="#{ServiciosBean.getReservasFuturas()}"
+                     paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rows="10" >
+				<f:facet name="header" style="background:white;">
+					Reservas pendientes
 				</f:facet>
-			</p:panel>
-		
+				<p:column headerText="ID">
+					<h:outputText value="#{res.getID()}" />
+				</p:column>
+				
+				<p:column headerText="Recurso">
+					<h:outputText value="#{res.recurso.getID()}" />
+				</p:column>
+				
+				<p:column headerText="Fecha inicio">
+					<h:outputText value="#{res.getHoraInicio()}" />
+				</p:column>
+				
+				<p:column headerText="Duración">
+					<h:outputText value="#{res.horariosAsignados.size()}" />
+				</p:column>
+				
+				
+				
+				
+				
+				
+				<f:facet name="footer">
+					<h:commandButton class="button1" id="cancel"  value="Cancelar" style="font-size:12px;" actionListener="#{ServiciosBean.cancelarReservasPendientes(ServiciosBean.idRecurso)}"/>
+					
+					<h:commandButton class="button2" value="No cancelar" rendered="#{ServiciosBean.showButton}" action="login1?faces-redirect = true" />
+					
+					
+					
+				</f:facet>
+				
+			</p:dataTable>
 		</h:form>	 
 	</h:body>
 </html>

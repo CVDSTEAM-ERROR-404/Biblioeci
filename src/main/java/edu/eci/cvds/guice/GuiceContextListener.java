@@ -26,13 +26,27 @@ import edu.eci.cvds.samples.services.impl.ServiciosBiblioEciImpl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+/**
+ * Esta clase conecta la pagina web con el contexto de la aplicacion de la biblioteca
+ * @author: CVDSTEAM-ERROR-404
+ * @version: 5/11/2019
+ */
+
 public class GuiceContextListener implements ServletContextListener {
 
+    /**
+     * Elimina el contexto del servicio de la biblioteca
+     * @param servletContextEvent El evento que elimina el contexto del servicio de la biblioteca
+     */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
         servletContext.removeAttribute(Injector.class.getName());
     }
 
+    /**
+     * Genera el contexto del servicio de la biblioteca
+     * @param servletContextEvent El evento que genera el contexto del servicio de la biblioteca
+     */
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Injector injector = Guice.createInjector(new XMLMyBatisModule() {
             @Override

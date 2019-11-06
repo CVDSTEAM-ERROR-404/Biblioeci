@@ -16,6 +16,12 @@ import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 
+/**
+ * Esta clase implementa los servicios utilizados dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
+ * @author: CVDSTEAM-ERROR-404
+ * @version: 5/11/2019
+ */
+
 public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private RecursoDAO recursoDAO;
@@ -27,6 +33,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private UsuarioDAO UsuarioDAO;
 
+    /**
+     * Registra un recurso en la base de datos de la biblioteca
+     * @param cli El recurso que se va a registrar
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar el recurso o cuando el recurso no posee capacidad valida
+     */
     @Override
     public void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci {
         if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una capacidad invalida");}
@@ -38,6 +49,12 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     }
 
+    /**
+     * Consulta un recurso en la base de datos de la biblioteca, si no existe retorna null
+     * @param id El identificador del recurso
+     * @return El recurso de la base de datos
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar el recurso
+     */
     @Override
     public Recurso consultarRecurso(long id) throws ExcepcionServiciosBiblioEci {
         Recurso ans = null;
@@ -49,6 +66,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return ans;
     }
 
+    /**
+     * Consulta todos los recursos en la base de datos de la biblioteca
+     * @return Una lista con todos los recursos en la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar todos los recursos
+     */
     @Override
     public List<Recurso> consultarRecurso() throws ExcepcionServiciosBiblioEci {
         List<Recurso> ans= null;
@@ -59,7 +81,13 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return ans;
     }
-	
+
+    /**
+     * Cambia el estado de un recurso en la base de datos
+     * @param id El identificador del recurso
+     * @param estado El nuevo estado del recurso
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cambiar el estado de un recurso
+     */
 	@Override
 	public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws ExcepcionServiciosBiblioEci{
 		try{
@@ -69,6 +97,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
 	}
 
+    /**
+     * Cancela las reservas pendientes de un recurso
+     * @param id El identificador del recurso
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar las reservas pendientes del recurso
+     */
     @Override
     public void cancelarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
         try {
@@ -78,6 +111,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
     }
 
+    /**
+     * Consulta las reservas pendientes de un recurso en la base de datos de la biblioteca
+     * @return Una lista con todas las reservas pendientes de un recurso en la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas pendientes de un recurso
+     */
     @Override
     public List<Reserva> consultarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
         List <Reserva> reservas=null;

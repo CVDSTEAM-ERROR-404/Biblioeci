@@ -22,6 +22,12 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     private ServiciosBiblioEci serviciosBiblioEci;
     private TipoRecurso tipoRecurso;
     private EstadoRecurso estadoRecurso;
+    private boolean showButton;
+    int idRecurso;
+
+
+
+    private List<Reserva> reservasFuturas;
 
 
     public EstadoRecurso getEstadoRecurso() {
@@ -48,6 +54,17 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         return tipoRecurso;
     }
 
+    public int getIdRecurso() { return idRecurso; }
+
+    public void setIdRecurso(int idRecurso) { this.idRecurso = idRecurso; }
+
+    public List<Reserva> getReservasFuturas() { return reservasFuturas; }
+
+    public void setReservasFuturas(List<Reserva> reservasFuturas) { this.reservasFuturas = reservasFuturas; }
+
+    public boolean isShowButton() { return showButton; }
+
+    public void setShowButton(boolean showButton) { this.showButton = showButton; }
 
 
 
@@ -79,9 +96,14 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     }
 	
 	
-	public void cambiarEstadoRecurso(int id){
+	public void cambiarEstadoRecurso(){
 		try {
-            serviciosBiblioEci.cambiarEstadoRecurso(id , estadoRecurso);
+            serviciosBiblioEci.cambiarEstadoRecurso(idRecurso , estadoRecurso);
+            showButton=estadoRecurso.equals(EstadoRecurso.Daño_Reparable)||estadoRecurso.equals(EstadoRecurso.Daño_Total);
+            reservasFuturas=serviciosBiblioEci.consultarReservasPendientes(idRecurso);
+            if (reservasFuturas!=null){
+                //FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+            }
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
         }

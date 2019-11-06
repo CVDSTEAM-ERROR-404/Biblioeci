@@ -36,10 +36,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     /**
      * Registra un recurso en la base de datos de la biblioteca
      * @param cli El recurso que se va a registrar
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar el recurso o cuando el recurso no posee capacidad valida
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar el recurso, el recurso no posee capacidad valida o el recurso esta vacío
      */
     @Override
     public void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci {
+        if(cli==null){throw new ExcepcionServiciosBiblioEci("El recurso a registrar no puede ser nulo");}
         if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una capacidad invalida");}
         try {
             recursoDAO.save(cli);

@@ -2,6 +2,8 @@ package edu.eci.cvds.test;
 
 
 import java.text.SimpleDateFormat;
+
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
@@ -15,20 +17,20 @@ import static org.junit.Assert.*;
 
 
 @Transactional
-public class ServiciosBiblioEciTest {
+public class RegistroRecursoTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;
 
-    public ServiciosBiblioEciTest() {
+    public RegistroRecursoTest() {
         serviciosBiblioEci = ServiciosBiblioEciFactory.getInstance().getServiciosBiblioEciTesting();
     }
 
-
     @Test
     public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
-		serviciosBiblioEci.registrarRecurso(new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5));
-		Recurso recurso = serviciosBiblioEci.consultarRecurso(1);
-		assertTrue(recurso!=null && recurso.getID()==1);
+        Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+		serviciosBiblioEci.registrarRecurso(recurso);
+		Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
+		assertTrue(recurso!=null && recurso.equals(resultado));
     }
 
     @Test
@@ -92,5 +94,14 @@ public class ServiciosBiblioEciTest {
         }
     }
 
-
+    @Test
+    public void shouldNotRegisterANullResource(){
+        Recurso recurso = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por recurso nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"El recurso a registrar no puede ser nulo");
+        }
+    }
 }

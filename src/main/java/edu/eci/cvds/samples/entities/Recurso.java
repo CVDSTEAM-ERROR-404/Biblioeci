@@ -175,7 +175,7 @@ public class Recurso implements Serializable{
      */
     public boolean equals(Recurso recurso){
         boolean equal = false;
-        if(nombre.equals(recurso.getNombre()) && ubicacion.equals(recurso.getUbicacion()) && capacidad==recurso.getCapacidad() && tipo.equals(recurso.getTipo()) && estado.equals(recurso.getEstado())){
+        if(nombre.equals(recurso.getNombre()) && ubicacion.equals(recurso.getUbicacion()) && capacidad==recurso.getCapacidad() && tipo.equals(recurso.getTipo())){
             equal = true;
         }
         return equal;

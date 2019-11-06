@@ -27,7 +27,7 @@ Al escoger esta opción el usuario irá a una página en la cual se muestra el s
 
 ![](/resources/md/act.png)
 
-El usuario rellena los campos y si se actualiza el estado del recurso a Daño reparable o Daño total se le muestra al usuario el formulario correspondiente con la opcion de cancelar las reservas futuras asociadas:
+El usuario rellena los campos y si se actualiza el estado del recurso a Daño reparable o Daño total se muestra el formulario correspondiente con la opcion de cancelar las reservas futuras asociadas:
 
 Formulario en el caso de daño reparable:
 

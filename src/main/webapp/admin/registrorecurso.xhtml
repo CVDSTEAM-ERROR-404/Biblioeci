@@ -45,7 +45,7 @@
 			
 			 	
 					<p:outputLabel class="intlabel" for="Nombre" value="Nombre: " />
-					<p:inputText class="inttext" id="Nombre" type="String"  binding="#{nom}" />
+					<p:inputText class="inttext" id="Nombre" type="String" required="true" binding="#{nom}" />
 
 					<p:outputLabel class="intlabel"  value="Tipo: " />
 					<p:selectOneMenu value="#{ServiciosBean.tipoRecurso}" style="width:216px; background:#cc0000;">
@@ -53,10 +53,10 @@
 					</p:selectOneMenu>
 
 					<p:outputLabel class="intlabel" for="ubicación" value="ubicación: " />
-					<p:inputText class="inttext" id="ubicación" type="String"  binding="#{ub}" />
+					<p:inputText class="inttext" id="ubicación" type="String" required="true" binding="#{ub}" />
 			
 					<p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
-					<p:inputText class="inttext" id="capacidad" type="int" binding="#{cap}" />
+					<p:inputText class="inttext" id="capacidad" type="int" required="true" binding="#{cap}" />
 			 
 				</p:panelGrid>
 			

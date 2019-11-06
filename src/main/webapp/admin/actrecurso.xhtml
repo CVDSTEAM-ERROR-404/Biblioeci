@@ -33,7 +33,7 @@
 			
 				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
 					<p:outputLabel class="intlabel" for="ID" value="ID: " />
-					<p:inputText class="inttext" id="ID" type="int"  binding="#{id}"/>
+					<p:inputText class="inttext" id="ID" type="int" required="true" binding="#{id}"/>
 
 					<p:outputLabel class="intlabel"  value="Estado: " />
 					<p:selectOneMenu value="#{ServiciosBean.estadoRecurso}" style="width:216px; background:#cc0000;">

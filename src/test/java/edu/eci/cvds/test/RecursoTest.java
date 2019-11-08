@@ -17,11 +17,11 @@ import static org.junit.Assert.*;
 
 
 @Transactional
-public class RegistroRecursoTest {
+public class RecursoTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;
 
-    public RegistroRecursoTest() {
+    public RecursoTest() {
         serviciosBiblioEci = ServiciosBiblioEciFactory.getInstance().getServiciosBiblioEciTesting();
     }
 
@@ -29,7 +29,8 @@ public class RegistroRecursoTest {
     public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
 		serviciosBiblioEci.registrarRecurso(recurso);
-		Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
+		int id = serviciosBiblioEci.consultarRecurso().size();
+		Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
 		assertTrue(recurso!=null && recurso.equals(resultado));
     }
 
@@ -103,5 +104,18 @@ public class RegistroRecursoTest {
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals(e.getMessage(),"El recurso a registrar no puede ser nulo");
         }
+    }
+	
+	@Test
+    public void shouldReturnNullWhenIdIsGreaterThanAmountOfResources() throws ExcepcionServiciosBiblioEci{
+		int id = serviciosBiblioEci.consultarRecurso().size();
+        Recurso recurso = serviciosBiblioEci.consultarRecurso(id+1);
+		assertEquals(recurso,null);
+    }
+	
+	@Test
+    public void shouldNotConsultAResourceWithNullId() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = serviciosBiblioEci.consultarRecurso(0);
+		assertEquals(recurso,null);
     }
 }

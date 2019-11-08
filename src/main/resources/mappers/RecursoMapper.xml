@@ -39,11 +39,66 @@
     FROM
       recurso;
   </select>
-	
+
+
+  <select parameterType='map' id='consultarRecursosDisponibles' resultMap='RecursoResult'>
+    SELECT 
+      id, 
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      estado
+    FROM
+      recurso
+    WHERE 
+      estado='Disponible';
+  </select>
+
+  <select parameterType='map' id='consultarRecursosTipo' resultMap='RecursoResult'>
+    SELECT 
+      id, 
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      estado
+    FROM
+      recurso
+    WHERE tipo=#{tipo} AND estado='Disponible';
+  </select>
+
+  <select parameterType='map' id='consultarRecursosCapacidad' resultMap='RecursoResult'>
+    SELECT 
+      id, 
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      estado
+    FROM
+      recurso
+    WHERE capacidad=#{capacidad} AND estado='Disponible';
+  </select>
+
+  <select parameterType='map' id='consultarRecursosUbicacion' resultMap='RecursoResult'>
+    SELECT 
+      id, 
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      estado
+    FROM
+      recurso
+    WHERE ubicacion=#{ubicacion} AND estado='Disponible';
+  </select>
+
+
   <update id="cambiarEstado" parameterType="map">
     UPDATE recurso SET estado = #{estado}
     WHERE id = #{id};
-   </update>
+  </update>
    
   <insert parameterType="map" id="agregarRecurso">
     INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});

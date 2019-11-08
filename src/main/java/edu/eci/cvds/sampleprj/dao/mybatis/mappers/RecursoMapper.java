@@ -34,8 +34,39 @@ public interface RecursoMapper {
      */
     public List<Recurso> consultarRecursos();
 
+
     /**
-     * Cambia el estado de un recurso dentro de la base de datos
+     * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     */
+    public List<Recurso> consultarRecursosDisponibles();
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por tipo y disponiles
+     * @param tipo Tipo para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     */
+    public List<Recurso> consultarRecursosTipo(@Param("tipo") String tipo);
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por capacidad y disponibles
+     * @param capacidad Capacidad de los recursos para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     */
+    public List<Recurso> consultarRecursosCapacidad(@Param("capacidad") long capacidad);
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por ubicacion y disponibles
+     * @param ubicacion Ubicacion para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     */
+    public List<Recurso> consultarRecursosUbicacion(@Param("ubicacion") String ubicacion);
+
+
+    
+
+    /**
+     * Cambia el estado de un recurso denro de la base de datos y disponibles
      * @param id El identificador del recurso cuyo estado va a ser cambiado
      * @param estado El nuevo estado del recurso
      * @return La cantidad de recursos actualizados

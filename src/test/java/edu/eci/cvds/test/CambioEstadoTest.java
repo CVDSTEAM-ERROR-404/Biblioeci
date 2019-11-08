@@ -29,8 +29,9 @@ public class CambioEstadoTest {
     public void shouldChangeStateOfAvailableToReparableDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Reparable);
-        Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
+        int id = serviciosBiblioEci.consultarRecurso().size();
+        serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
+        Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
     }
 
@@ -38,8 +39,9 @@ public class CambioEstadoTest {
     public void shouldChangeStateOfAvailableToTotalDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Total);
-        Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
+        int id = serviciosBiblioEci.consultarRecurso().size();
+        serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
+        Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
     }
 
@@ -47,11 +49,12 @@ public class CambioEstadoTest {
     public void shouldChangeStateOfReparableDamageToAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Reparable);
-        Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
+        int id = serviciosBiblioEci.consultarRecurso().size();
+        serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
+        Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
-        serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Disponible);
-        resultado = serviciosBiblioEci.consultarRecurso(1);
+        serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Disponible);
+        resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Disponible);
     }
 
@@ -59,11 +62,12 @@ public class CambioEstadoTest {
     public void shouldChangeStateOfReparableDamageToTotalDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Reparable);
-        Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
+        int id = serviciosBiblioEci.consultarRecurso().size();
+        serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
+        Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
-        serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Total);
-        resultado = serviciosBiblioEci.consultarRecurso(1);
+        serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
+        resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
     }
 
@@ -73,10 +77,11 @@ public class CambioEstadoTest {
         try {
             recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.cambiarEstadoRecurso(1, null);
+            int id = serviciosBiblioEci.consultarRecurso().size();
+            serviciosBiblioEci.cambiarEstadoRecurso(id, null);
             fail("Se esperaba la excepcion por estado nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"Error al cambiar el estado del recurso");
+            assertEquals(e.getMessage(),"No se puede cambiar a un estado nulo");
         }
 
     }
@@ -87,8 +92,70 @@ public class CambioEstadoTest {
         assertEquals(recurso.getEstado(), EstadoRecurso.Disponible);
     }
 
-    //falta de dañototal a disponible
-    //falta de dañototal a reparable
+	@Test
+    public void shouldNotChangeStateOfTotalDamageToAvailable(){
+		try{
+			Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+			serviciosBiblioEci.registrarRecurso(recurso);
+            int id = serviciosBiblioEci.consultarRecurso().size();
+			serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
+			Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
+			assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
+			serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Disponible);
+			resultado = serviciosBiblioEci.consultarRecurso(id);
+			assertEquals(resultado.getEstado(), EstadoRecurso.Disponible);
+			fail("Se esperaba fallo porque no se puede cambiar de estado un recurso completamente dañado");
+		} catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"Un recurso irreparable no puede cambiar su estado");
+        }
 
+    }
+
+	@Test
+    public void shouldNotChangeStateOfTotalDamageToReparableDamage(){
+        try{
+            Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+            serviciosBiblioEci.registrarRecurso(recurso);
+            int id = serviciosBiblioEci.consultarRecurso().size();
+            serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
+            Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
+            assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
+            serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
+            resultado = serviciosBiblioEci.consultarRecurso(id);
+            assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
+            fail("Se esperaba fallo porque no se puede cambiar de estado un recurso completamente dañado");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"Un recurso irreparable no puede cambiar su estado");
+        }
+
+    }
+
+    @Test
+    public void shouldNotChangeStateOfANullResource(){
+        try{
+            serviciosBiblioEci.cambiarEstadoRecurso(10, EstadoRecurso.Daño_Reparable);
+            fail("Se esperaba fallo porque no se puede cambiar de estado un recurso inexistente");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"No se puede cambiar el estado de un recuso nulo");
+        }
+
+    }
+
+    @Test
+    public void shouldNotChangeStateOfAResourceWithThatState(){
+        try{
+            Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+            serviciosBiblioEci.registrarRecurso(recurso);
+            int id = serviciosBiblioEci.consultarRecurso().size();
+            serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
+            Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
+            assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
+            serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
+            fail("Se esperaba fallo porque no se puede cambiar el estado de un recuso al que tenia anteriormente");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"No se puede cambiar el estado de un recuso al que tenia anteriormente");
+        }
+
+    }
 
 }

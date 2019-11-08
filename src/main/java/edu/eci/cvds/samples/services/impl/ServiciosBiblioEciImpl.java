@@ -92,6 +92,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 	@Override
 	public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws ExcepcionServiciosBiblioEci{
 		try{
+		    Recurso recurso = recursoDAO.load(id);
+		    if(estado==null){throw new ExcepcionServiciosBiblioEci("No se puede cambiar a un estado nulo");}
+            if(recurso==null){throw new ExcepcionServiciosBiblioEci("No se puede cambiar el estado de un recuso nulo");}
+            if(recurso.getEstado().equals(estado)){throw new ExcepcionServiciosBiblioEci("No se puede cambiar el estado de un recuso al que tenia anteriormente");}
+		    if(recurso.getEstado().equals(EstadoRecurso.Daño_Total)){throw new ExcepcionServiciosBiblioEci("Un recurso irreparable no puede cambiar su estado");}
 		    recursoDAO.cambiarEstadoRecurso(id,estado);
         }catch(PersistenceException e){
             throw new ExcepcionServiciosBiblioEci(e.getMessage(), e);

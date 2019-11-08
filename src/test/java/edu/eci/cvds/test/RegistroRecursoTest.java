@@ -104,43 +104,4 @@ public class RegistroRecursoTest {
             assertEquals(e.getMessage(),"El recurso a registrar no puede ser nulo");
         }
     }
-	
-	/*
-	@Test
-    public void shouldNotChangeStateOfTotalDamageToAvailable(){
-		try{
-			Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
-			serviciosBiblioEci.registrarRecurso(recurso);
-			serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Total);
-			Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
-			assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
-			serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Disponible);
-			resultado = serviciosBiblioEci.consultarRecurso(1);
-			assertEquals(resultado.getEstado(), EstadoRecurso.Disponible);
-			fail("Se esperaba fallo porque no se puede cambiar de estado un recurso completamente dañado");
-		} catch (ExcepcionServiciosBiblioEci e) {
-			e.printStackTrace();
-            //assertEquals(e.getMessage(),"Error al cambiar el estado del recurso");
-        }
-        
-    }
-	@Test
-    public void shouldNotChangeStateOfTotalDamageToReparableDamage(){
-		try{
-			Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
-			serviciosBiblioEci.registrarRecurso(recurso);
-			serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Total);
-			Recurso resultado = serviciosBiblioEci.consultarRecurso(1);
-			assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
-			serviciosBiblioEci.cambiarEstadoRecurso(1, EstadoRecurso.Daño_Reparable);
-			resultado = serviciosBiblioEci.consultarRecurso(1);
-			assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
-			fail("Se esperaba fallo porque no se puede cambiar de estado un recurso completamente dañado");
-		} catch (ExcepcionServiciosBiblioEci e) {
-			e.printStackTrace();
-            //assertEquals(e.getMessage(),"Error al cambiar el estado del recurso");
-        }
-        
-    }
-	*/
 }

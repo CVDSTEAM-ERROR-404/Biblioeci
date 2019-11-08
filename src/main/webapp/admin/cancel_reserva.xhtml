@@ -30,13 +30,20 @@
 	<h:body>
 		<h:form id="cancel_reserva_form">
 			
-			<p:dataTable class="panelCenter" var="res" value="#{ServiciosBean.getReservasFuturas()}"
-                     paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                     paginatorPosition="bottom" rows="10" style="width:800px;" >
+			<p:panel class="panelCenter2" id="panelCancel"   style="width: 850px;">
+			<p:dataTable class="tableCenter" var="res" value="#{ServiciosBean.getReservasFuturas()}"
+                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15"
+					 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+					 paginatorPosition="bottom" rows="10" style="width:800px;" >
+				
 				<f:facet name="header" style="color:black;">
 					Reservas pendientes
 				</f:facet>
-				<p:column headerText="ID">
+				
+				<p:column headerText="ID" sortBy="#{row.ID}" 
+					filterBy="#{res.getID()}" filterStyle="width:50px;"
+					filterMatchMode="contains">
 					<h:outputText value="#{res.getID()}" />
 				</p:column>
 				
@@ -67,6 +74,9 @@
 				</f:facet>
 				
 			</p:dataTable>
+			
+		</p:panel>
+		
 		
 		</h:form>	 
 	</h:body>

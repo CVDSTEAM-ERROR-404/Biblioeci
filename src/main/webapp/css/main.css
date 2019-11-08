@@ -403,6 +403,11 @@ iframe {
     background-color: rgb(102, 0, 0) !important;
 }
 
+.ui-paginator-page{
+	background:rgb(102, 0, 0) !important;
+    color:white !important;
+}
+
 .ui-paginator-current{
 	color:black !important;
 }
@@ -466,14 +471,16 @@ iframe {
 }
 
 .ui-growl-info{
-	
 	background-color:rgb(0, 204, 102, 0.3);
 }
 
 .ui-growl-error{
-	
 	background-color:rgb(255, 0, 0, 0.3);
 }
+
+.ui-growl {
+  top:10%;
+} 
 
 .input-checkbox100:checked + .label-checkbox100::before {
   color: #d33f8d;
@@ -784,7 +791,7 @@ iframe {
 	top: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	background-color: white;
+	background: #f2f2f2;
 	border-radius: 3px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
 }
@@ -799,9 +806,35 @@ iframe {
 	position: absolute;	
 }
 
+.panelCenter2{
+	margin: 0 auto;
+	height:300px !important;
+	padding: 10px 10px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+}
+
 .ui-panel {
     overflow: hidden;
 	text-align:center;
+}
+
+.tableCenter{
+	margin: 0 auto;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
 }
 
 
@@ -839,4 +872,13 @@ iframe {
 }
 .red{
 	background-color:#cc0000;
+}
+
+.ui-fieldset-legend{
+	font-size:17px !important;
+	background:#cc0000 !important;
+	color:white !important;
+}
+	
+	
 }

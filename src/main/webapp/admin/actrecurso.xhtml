@@ -29,8 +29,8 @@
 	<h:body>
 		<h:form id="actrecurso_form">
 			<p:growl id="growl" showDetail="false" sticky="true" />
-			<p:panel class="panelCenter" id="actpanelrecurso" header="Actualizar recurso"  style="width: 400px;">
-			
+			<p:panel class="panelCenter" id="actpanelrecurso"   style="width: 400px;">
+			<p:fieldset legend="Actualizar recurso" >
 				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
 					<p:outputLabel class="intlabel" for="ID" value="ID: " />
 					<p:inputText class="inttext" id="ID" type="int" required="true" binding="#{id}"/>
@@ -42,6 +42,8 @@
 					
 				</p:panelGrid>
 			
+				
+				</p:fieldset>
 				<f:facet name="footer">
 					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{ServiciosBean.cambiarEstadoRecurso(id.value)}" update="actrecurso_form"/>
 						 

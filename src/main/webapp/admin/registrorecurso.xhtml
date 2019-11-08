@@ -39,8 +39,8 @@
 			
 			
 			
-			<p:panel class="panelCenter" id="panelrecurso" header="Registrar recurso"  style="width: 450px;">
-			
+			<p:panel class="panelCenter" id="panelrecurso"   style="width: 450px;">
+				 <p:fieldset legend="Registrar recurso" >
 				<p:panelGrid  class="grid" id="grid" cellpadding="4" columns="2"  >
 			
 			 	
@@ -60,7 +60,9 @@
 			 
 				</p:panelGrid>
 			
-				<f:facet name="footer">
+				
+			</p:fieldset>
+			<f:facet name="footer">
 				
 					
 					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{ServiciosBean.registrarRecurso(nom.value,ub.value,cap.value)}" update="recurso_form"/>

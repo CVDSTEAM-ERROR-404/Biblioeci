@@ -44,7 +44,7 @@ public class CambioEstadoTest {
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
     }
-	/*
+	
     @Test
     public void shouldChangeStateOfReparableDamageToAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
@@ -57,7 +57,7 @@ public class CambioEstadoTest {
         resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Disponible);
     }
-	*/
+	
     @Test
     public void shouldChangeStateOfReparableDamageToTotalDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
@@ -91,7 +91,7 @@ public class CambioEstadoTest {
         Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
         assertEquals(recurso.getEstado(), EstadoRecurso.Disponible);
     }
-	/*
+	
 	@Test
     public void shouldNotChangeStateOfTotalDamageToAvailable(){
 		try{
@@ -110,7 +110,7 @@ public class CambioEstadoTest {
         }
 
     }
-	*/
+	
 	@Test
     public void shouldNotChangeStateOfTotalDamageToReparableDamage(){
         try{
@@ -129,7 +129,7 @@ public class CambioEstadoTest {
         }
 
     }
-	/*
+	
     @Test
     public void shouldNotChangeStateOfANullResource(){
         try{
@@ -140,7 +140,7 @@ public class CambioEstadoTest {
         }
 
     }
-	*/
+	
     @Test
     public void shouldNotChangeStateOfAResourceWithThatState(){
         try{

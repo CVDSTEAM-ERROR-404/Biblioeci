@@ -55,7 +55,7 @@
 	<if test="tipo != null">
 		AND tipo = #{tipo}
 	</if>
-	<if test="capacidad != null">
+	<if test="capacidad > 0">
 		AND capacidad=#{capacidad}
 	</if>
 	<if test="ubicacion != null">

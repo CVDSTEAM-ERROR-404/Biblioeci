@@ -12,7 +12,7 @@ public class Recurso implements Serializable{
 	
 	private int id;
 	private String nombre;
-	private String ubicacion;
+	private UbicacionRecurso ubicacion;
 	private TipoRecurso tipo;
 	private int capacidad;
     private EstadoRecurso estado;
@@ -26,7 +26,7 @@ public class Recurso implements Serializable{
      * @param id El identificador del recurso
      * @param estado El estado del recurso
      */
-	public Recurso(String nombre, String ubicacion, TipoRecurso tipo, int capacidad, int id, EstadoRecurso estado){
+	public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad, int id, EstadoRecurso estado){
         this(nombre,ubicacion,tipo,capacidad,estado);
         this.id=id;
     }
@@ -39,7 +39,7 @@ public class Recurso implements Serializable{
      * @param capacidad La capacidad del recurso
      * @param estado El estado del recurso
      */
-    public Recurso(String nombre, String ubicacion, TipoRecurso tipo, int capacidad, EstadoRecurso estado){
+    public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad, EstadoRecurso estado){
         this.nombre=nombre;
         this.ubicacion=ubicacion;
         this.tipo=tipo;
@@ -54,7 +54,7 @@ public class Recurso implements Serializable{
      * @param tipo El tipo del recurso
      * @param capacidad La capacidad del recurso
      */
-    public Recurso(String nombre, String ubicacion, TipoRecurso tipo, int capacidad){
+    public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad){
         this(nombre,ubicacion,tipo,capacidad, EstadoRecurso.Disponible);
     }
 
@@ -100,7 +100,7 @@ public class Recurso implements Serializable{
      * Muestra la ubicacion del recurso
      * @return La ubicacion del recurso
      */
-    public String getUbicacion(){
+    public UbicacionRecurso getUbicacion(){
         return ubicacion;
     }
 
@@ -108,7 +108,7 @@ public class Recurso implements Serializable{
      * Cambia la ubicacion del recurso
      * @param ubicacion La ubicacion del recurso
      */
-    public void setUbicacion(String ubicacion){
+    public void setUbicacion(UbicacionRecurso ubicacion){
         this.ubicacion=ubicacion;
     }
 

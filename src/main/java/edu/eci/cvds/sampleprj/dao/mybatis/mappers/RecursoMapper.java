@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import org.apache.ibatis.annotations.Param;
 
 import edu.eci.cvds.samples.entities.Recurso;
@@ -40,31 +41,9 @@ public interface RecursoMapper {
      * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
      */
-    public List<Recurso> consultarRecursosDisponibles();
-
-    /**
-     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por tipo y disponiles
-     * @param tipo Tipo para la filtrar los recursos
-     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
-     */
-    public List<Recurso> consultarRecursosDisponibles(@Param("tipo") TipoRecurso tipo);
-
-    /**
-     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por capacidad y disponibles
-     * @param capacidad Capacidad de los recursos para la filtrar los recursos
-     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
-     */
-    public List<Recurso> consultarRecursosDisponibles(@Param("capacidad") long capacidad);
-
-    /**
-     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por ubicacion y disponibles
-     * @param ubicacion Ubicacion para la filtrar los recursos
-     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
-     */
-    public List<Recurso> consultarRecursosDisponibles(@Param("ubicacion") String ubicacion);
+    public List<Recurso> consultarRecursosDisponibles(@Param("capacidad") long capacidad,@Param("tipo") TipoRecurso tipo,@Param("ubicacion") UbicacionRecurso ubicacion);
 
 
-    
 
     /**
      * Cambia el estado de un recurso denro de la base de datos y disponibles

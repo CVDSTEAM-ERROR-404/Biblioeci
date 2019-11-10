@@ -6,10 +6,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.google.inject.Inject;
 
-import edu.eci.cvds.samples.entities.EstadoRecurso;
-import edu.eci.cvds.samples.entities.Recurso;
-import edu.eci.cvds.samples.entities.Reserva;
-import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 
@@ -30,13 +27,16 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     private int idRecurso;
     private List<Reserva> reservasFuturas;
     private String successUpdate = "Actualización exitosa";
+    private UbicacionRecurso ubicacionRecurso;
+
+
+    public UbicacionRecurso getUbicacionRecurso() { return ubicacionRecurso; }
+
+    public void setUbicacionRecurso(UbicacionRecurso ubicacionRecurso) { this.ubicacionRecurso = ubicacionRecurso; }
 
     public String getSuccessUpdate() {
         return successUpdate;
     }
-
-
-
 
     public EstadoRecurso getEstadoRecurso() {
         return estadoRecurso;
@@ -53,6 +53,8 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     public TipoRecurso[] getTipos(){
         return TipoRecurso.values();
     }
+
+    public UbicacionRecurso[] getUbicaciones(){return UbicacionRecurso.values();}
 
     public void setTipoRecurso(TipoRecurso tipoRecurso){
         this.tipoRecurso = tipoRecurso;
@@ -76,15 +78,16 @@ public class ServiciosBiblioEciBean extends BasePageBean {
 
 
 
-    public void registrarRecurso(String nombre, String ubicacion,  int capacidad) {
+    public void registrarRecurso(String nombre, int capacidad) {
         try{
-			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacion, tipoRecurso, capacidad));
+			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacionRecurso, tipoRecurso, capacidad));
 			successOperation("Registro exitoso");
 
         } catch (ExcepcionServiciosBiblioEci e) {
            setErrorMessage(e.getMessage());
         } finally {
             setTipoRecurso(null);
+            setUbicacionRecurso(null);
         }
     }
     
@@ -98,42 +101,16 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         }
         return ans;
     }
-    public List<Recurso> consultarRecursosDisponibles(){
+    public List<Recurso> consultarRecursosDisponibles(int capacidad){
         List<Recurso> ans=null;
         try {
-            ans = serviciosBiblioEci.consultarRecursosDisponibles();
+            ans = serviciosBiblioEci.consultarRecursosDisponibles(capacidad, ubicacionRecurso, tipoRecurso);
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
         }
         return ans;
     }
-    public List<Recurso> consultarRecursosTipo(TipoRecurso tipoRecurso){
-        List<Recurso> ans=null;
-        try {
-            ans = serviciosBiblioEci.consultarRecursosTipo(tipoRecurso);
-        } catch (ExcepcionServiciosBiblioEci e) {
-            setErrorMessage(e.getMessage());
-        }
-        return ans;
-    }
-    public List<Recurso> consultarRecursosUbicacion(String ubicacion){
-        List<Recurso> ans=null;
-        try {
-            ans = serviciosBiblioEci.consultarRecursosUbicacion(ubicacion);
-        } catch (ExcepcionServiciosBiblioEci e) {
-            setErrorMessage(e.getMessage());
-        }
-        return ans;
-    }
-    public List<Recurso> consultarRecursosCapacidad(int capacidad){
-        List<Recurso> ans=null;
-        try {
-            ans = serviciosBiblioEci.consultarRecursosCapacidad(capacidad);
-        } catch (ExcepcionServiciosBiblioEci e) {
-            setErrorMessage(e.getMessage());
-        }
-        return ans;
-    }
+
 	
 	
 	public void cambiarEstadoRecurso(int id){
@@ -154,6 +131,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
             e.printStackTrace();
         } finally {
             setEstadoRecurso(null);
+            setUbicacionRecurso(null);
         }
 	}
 	public void successOperation(String message){

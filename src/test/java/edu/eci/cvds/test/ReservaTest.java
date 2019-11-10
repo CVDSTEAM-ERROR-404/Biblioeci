@@ -2,6 +2,7 @@ package edu.eci.cvds.test;
 
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
@@ -18,7 +19,7 @@ public class ReservaTest {
 
     @Test
     public void shouldNotConsultRervationsOfAnResourceWithoutReservarions(){
-        Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             int id = serviciosBiblioEci.consultarRecurso().size();

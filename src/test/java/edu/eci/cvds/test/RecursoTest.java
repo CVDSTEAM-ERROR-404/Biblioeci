@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
@@ -27,7 +28,7 @@ public class RecursoTest {
 
     @Test
     public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
 		serviciosBiblioEci.registrarRecurso(recurso);
 		int id = serviciosBiblioEci.consultarRecurso().size();
 		Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
@@ -38,7 +39,7 @@ public class RecursoTest {
     public void shouldNotRegisterAResourceWithANullName() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso(null, "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, 5);
+            recurso = new Recurso(null, UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por nombre nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -62,7 +63,7 @@ public class RecursoTest {
     public void shouldNotRegisterAResourceWithNullType() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", "lugarprueba", null, 5);
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, null, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por tipo nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -74,7 +75,7 @@ public class RecursoTest {
     public void shouldNotRegisterAResourceWithNegativeCapacity() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", "lugarprueba", TipoRecurso.SALA_DE_ESTUDIO, -1);
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, -1);
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad negativa");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -87,7 +88,7 @@ public class RecursoTest {
     public void shouldNotRegisterAResourceWithNoCapacity() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", "lugarprueba",TipoRecurso.SALA_DE_ESTUDIO, 0);
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO, 0);
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad cero");
         } catch (ExcepcionServiciosBiblioEci e) {

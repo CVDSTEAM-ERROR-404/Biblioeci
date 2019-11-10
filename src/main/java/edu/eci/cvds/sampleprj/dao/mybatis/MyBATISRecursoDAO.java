@@ -9,6 +9,7 @@ import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import java.util.List;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.samples.entities.TipoRecurso;
 import org.mybatis.guice.transactional.Transactional;
 
 /**
@@ -89,5 +90,80 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 
 			throw new PersistenceException("Error al cambiar el estado del recurso", e);
 		}
+	}
+
+	/**
+	 * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
+	 *
+	 * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+	 * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
+	 */
+	@Override
+	public List<Recurso> consultarRecursosDisponibles() throws PersistenceException {
+		List<Recurso> recursos=null;
+		try{
+			recursos=recursoMapper.consultarRecursosDisponibles();
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar los recursos disponibles", e);
+		}
+		return recursos;
+	}
+
+	/**
+	 * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por tipo y disponiles
+	 *
+	 * @param tipo Tipo para la filtrar los recursos
+	 * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+	 * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
+	 */
+	@Override
+	public List<Recurso> consultarRecursosDisponibles(TipoRecurso tipo) throws PersistenceException {
+		List<Recurso> recursos=null;
+		try{
+			recursos=recursoMapper.consultarRecursosDisponibles(tipo);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar los recursos disponibles filtrados por tipo", e);
+		}
+		return recursos;
+	}
+
+	/**
+	 * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por capacidad y disponibles
+	 *
+	 * @param capacidad Capacidad de los recursos para la filtrar los recursos
+	 * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+	 * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
+	 */
+	@Override
+	public List<Recurso> consultarRecursosDisponibles(long capacidad) throws PersistenceException {
+		List<Recurso> recursos=null;
+		try{
+			recursos=recursoMapper.consultarRecursosDisponibles(capacidad);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar los recursos disponibles filtrados por capacidad", e);
+		}
+		return recursos;
+	}
+
+	/**
+	 * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por ubicacion y disponibles
+	 *
+	 * @param ubicacion Ubicacion para la filtrar los recursos
+	 * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+	 * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
+	 */
+	@Override
+	public List<Recurso> consultarRecursosDisponibles(String ubicacion) throws PersistenceException {
+		List<Recurso> recursos=null;
+		try{
+			recursos=recursoMapper.consultarRecursosDisponibles(ubicacion);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar los recursos disponibles filtrador por ubicacion", e);
+		}
+		return recursos;
 	}
 }

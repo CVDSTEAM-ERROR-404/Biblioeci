@@ -3,6 +3,7 @@ package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 import java.util.List;
 
 import edu.eci.cvds.samples.entities.EstadoRecurso;
+import edu.eci.cvds.samples.entities.TipoRecurso;
 import org.apache.ibatis.annotations.Param;
 
 import edu.eci.cvds.samples.entities.Recurso;
@@ -46,21 +47,21 @@ public interface RecursoMapper {
      * @param tipo Tipo para la filtrar los recursos
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
      */
-    public List<Recurso> consultarRecursosTipo(@Param("tipo") String tipo);
+    public List<Recurso> consultarRecursosDisponibles(@Param("tipo") TipoRecurso tipo);
 
     /**
      * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por capacidad y disponibles
      * @param capacidad Capacidad de los recursos para la filtrar los recursos
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
      */
-    public List<Recurso> consultarRecursosCapacidad(@Param("capacidad") long capacidad);
+    public List<Recurso> consultarRecursosDisponibles(@Param("capacidad") long capacidad);
 
     /**
      * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por ubicacion y disponibles
      * @param ubicacion Ubicacion para la filtrar los recursos
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
      */
-    public List<Recurso> consultarRecursosUbicacion(@Param("ubicacion") String ubicacion);
+    public List<Recurso> consultarRecursosDisponibles(@Param("ubicacion") String ubicacion);
 
 
     

@@ -98,6 +98,42 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         }
         return ans;
     }
+    public List<Recurso> consultarRecursosDisponibles(){
+        List<Recurso> ans=null;
+        try {
+            ans = serviciosBiblioEci.consultarRecursosDisponibles();
+        } catch (ExcepcionServiciosBiblioEci e) {
+            setErrorMessage(e.getMessage());
+        }
+        return ans;
+    }
+    public List<Recurso> consultarRecursosTipo(TipoRecurso tipoRecurso){
+        List<Recurso> ans=null;
+        try {
+            ans = serviciosBiblioEci.consultarRecursosTipo(tipoRecurso);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            setErrorMessage(e.getMessage());
+        }
+        return ans;
+    }
+    public List<Recurso> consultarRecursosUbicacion(String ubicacion){
+        List<Recurso> ans=null;
+        try {
+            ans = serviciosBiblioEci.consultarRecursosUbicacion(ubicacion);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            setErrorMessage(e.getMessage());
+        }
+        return ans;
+    }
+    public List<Recurso> consultarRecursosCapacidad(int capacidad){
+        List<Recurso> ans=null;
+        try {
+            ans = serviciosBiblioEci.consultarRecursosCapacidad(capacidad);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            setErrorMessage(e.getMessage());
+        }
+        return ans;
+    }
 	
 	
 	public void cambiarEstadoRecurso(int id){

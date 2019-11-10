@@ -4,6 +4,7 @@ import java.util.List;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoRecurso;
 
 /**
  * Esta interfaz describe los servicios utilizados dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
@@ -56,5 +57,41 @@ public interface ServiciosBiblioEci {
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar las reservas pendientes del recurso
      */
     public abstract void cancelarReservasPendientes(int id)throws  ExcepcionServiciosBiblioEci;
+
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    public abstract List<Recurso> consultarRecursosDisponibles()throws  ExcepcionServiciosBiblioEci;
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por ubicacion y disponiles
+     *
+     * @param ubicacion Ubicacion para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    public abstract List<Recurso> consultarRecursosUbicacion(String ubicacion)throws  ExcepcionServiciosBiblioEci;
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por tipo y disponiles
+     *
+     * @param tipoRecurso Tipo para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    public abstract List<Recurso> consultarRecursosTipo(TipoRecurso tipoRecurso)throws  ExcepcionServiciosBiblioEci;
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por capacidad y disponiles
+     *
+     * @param capacidad capacidad para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    public abstract List<Recurso> consultarRecursosCapacidad(int capacidad)throws  ExcepcionServiciosBiblioEci;
+
 
 }

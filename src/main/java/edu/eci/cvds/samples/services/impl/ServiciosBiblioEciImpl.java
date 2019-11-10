@@ -13,6 +13,7 @@ import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 
@@ -115,6 +116,78 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al cancelar las reservas futuras");
         }
+    }
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
+     *
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    @Override
+    public List<Recurso> consultarRecursosDisponibles() throws ExcepcionServiciosBiblioEci {
+        List<Recurso> recursos = null;
+        try{
+            recursos=recursoDAO.consultarRecursosDisponibles();
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos disponibles");
+        }
+        return  recursos;
+    }
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por ubicacion y disponiles
+     *
+     * @param ubicacion Ubicacion para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    @Override
+    public List<Recurso> consultarRecursosUbicacion(String ubicacion) throws ExcepcionServiciosBiblioEci {
+        List<Recurso> recursos = null;
+        try{
+            recursos=recursoDAO.consultarRecursosDisponibles(ubicacion);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos disponibles filtrados por ubicacion");
+        }
+        return  recursos;
+    }
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por tipo y disponiles
+     *
+     * @param tipoRecurso Tipo para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    @Override
+    public List<Recurso> consultarRecursosTipo(TipoRecurso tipoRecurso) throws ExcepcionServiciosBiblioEci {
+        List<Recurso> recursos = null;
+        try{
+            recursos=recursoDAO.consultarRecursosDisponibles(tipoRecurso);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos disponibles filtrados por tipo");
+        }
+        return  recursos;
+    }
+
+    /**
+     * Consulta los recursos dentro de la base de datos de la biblioteca, filtrados por capacidad y disponiles
+     *
+     * @param capacidad capacidad para la filtrar los recursos
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
+     */
+    @Override
+    public List<Recurso> consultarRecursosCapacidad(int capacidad) throws ExcepcionServiciosBiblioEci {
+        List<Recurso> recursos = null;
+        try{
+            if(capacidad<=0){throw new ExcepcionServiciosBiblioEci("La capacidad debe ser mayor a 0");}
+            recursos=recursoDAO.consultarRecursosDisponibles(capacidad);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos disponibles filtrados por capacidad");
+        }
+        return  recursos;
     }
 
     /**

@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 
 @Transactional
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CambioEstadoTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;

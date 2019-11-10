@@ -101,6 +101,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         }
         return ans;
     }
+	
     public List<Recurso> consultarRecursosDisponibles(int capacidad){
         List<Recurso> ans=null;
         try {
@@ -108,7 +109,13 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
         }
-        return ans;
+		System.out.println(ans);
+		System.out.println(ubicacionRecurso);
+		System.out.println(tipoRecurso);
+		System.out.println(capacidad);
+		return ans;
+		
+        
     }
 
 	

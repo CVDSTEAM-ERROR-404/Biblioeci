@@ -52,8 +52,10 @@
 						<f:selectItems value="#{ServiciosBean.getTipos()}"  />
 					</p:selectOneMenu>
 
-					<p:outputLabel class="intlabel" for="ubicación" value="ubicación: " />
-					<p:inputText class="inttext" id="ubicación" type="String" required="true" binding="#{ub}" />
+					<p:outputLabel class="intlabel"  value="ubicación: " />
+					<p:selectOneMenu value="#{ServiciosBean.ubicacionRecurso}" style="width:216px; background:#cc0000;">
+							<f:selectItems value="#{ServiciosBean.getUbicaciones()}"  />
+					</p:selectOneMenu>
 			
 					<p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
 					<p:inputText class="inttext" id="capacidad" type="int" required="true" binding="#{cap}" />
@@ -65,7 +67,7 @@
 			<f:facet name="footer">
 				
 					
-					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{ServiciosBean.registrarRecurso(nom.value,ub.value,cap.value)}" update="recurso_form"/>
+					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{ServiciosBean.registrarRecurso(nom.value,cap.value)}" update="recurso_form"/>
 						 
 					
 					<h:outputLink value="login1.xhtml"

@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	  
+
+	<h:head>
+		<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/images/icons/eci.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css" />
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/css/util.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+ 	</h:head>
+
+	<h:body>
+		
+		<h:form id="con_recurso_form">
+			<p:panel class="panelCenter" id="panelrecurso"   style="width: 725px;">
+				<p:fieldset legend="Filtrar recurso" >
+				<center>
+					<p:panelGrid  class="grid" id="grid" cellpadding="3" columns="2"  >
+					
+						<p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
+						<p:selectOneMenu value="#{ServiciosBean.tipoRecurso}" style="width:216px; background:#cc0000;">
+							<f:selectItem itemLabel="----" itemValue="" />
+							<f:selectItems value="#{ServiciosBean.getTipos()}"  />
+						</p:selectOneMenu>
+						
+						<p:outputLabel class="intlabel"  value="Filtrar por ubicacion:" />
+						<p:selectOneMenu value="#{ServiciosBean.ubicacionRecurso}" style="width:216px; background:#cc0000;">
+							<f:selectItem itemLabel="----" itemValue="" />
+							<f:selectItems value="#{ServiciosBean.getUbicaciones()}"  />
+						</p:selectOneMenu>
+						
+						<p:outputLabel class="intlabel" for="Capacidad" value="Filtrar por capacidad:" />
+						<p:inputText class="inttext" id="Capacidad" type="int" binding="#{cap}" >
+							<f:validateLongRange  minimum="1" maximum="100" />
+						</p:inputText>
+						
+						<f:facet name="footer">
+				
+							<h:commandButton update="con_recurso_form" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ServiciosBean.consultarRecursosDisponibles(cap.value)}" />
+							
+							<h:outputLink value="login1.xhtml"
+								styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+								<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+							</h:outputLink>
+						 
+						</f:facet>
+						
+					</p:panelGrid>
+					</center>
+				</p:fieldset>
+				<br/>
+				<p:fieldset legend="Recursos" >
+					<center>
+					<p:dataTable  var="rec" value="#{ServiciosBean.consultarRecursosDisponibles(cap.value)}"
+						 paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						 rowsPerPageTemplate="5,10,15"
+						 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+						 paginatorPosition="bottom" rows="10" style="width:650px;" >
+					
+						<f:facet name="header" style="color:black;">
+							Recursos disponibles
+						</f:facet>
+						
+						<p:column headerText="ID" >
+							<h:outputText value="#{rec.getID()}" />
+						</p:column>
+				
+						<p:column headerText="Nombre">
+							<h:outputText value="#{rec.getNombre()}" />
+						</p:column>
+						
+					</p:dataTable>
+					</center>
+				</p:fieldset>
+			</p:panel>
+		
+		</h:form>	 
+	</h:body>
+</html>

@@ -32,6 +32,7 @@ public class CambioEstadoTest {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = serviciosBiblioEci.consultarRecurso().size();
+        System.out.println(serviciosBiblioEci.consultarRecurso());
         serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);

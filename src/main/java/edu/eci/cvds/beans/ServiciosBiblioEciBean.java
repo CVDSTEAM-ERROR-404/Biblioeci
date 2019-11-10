@@ -108,7 +108,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     }
 	
     public void consultarRecursosDisponibles(int capacidad){
-        
+        recursosDisponibles = null;
         try {
             recursosDisponibles = serviciosBiblioEci.consultarRecursosDisponibles(capacidad, ubicacionRecurso, tipoRecurso);
         } catch (ExcepcionServiciosBiblioEci e) {

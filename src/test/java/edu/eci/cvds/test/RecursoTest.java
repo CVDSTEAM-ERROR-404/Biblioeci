@@ -1,6 +1,7 @@
 package edu.eci.cvds.test;
 
 
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
@@ -34,13 +35,175 @@ public class RecursoTest {
     }
 
     @Test
+    public void shouldConsultOnlyAvailableResources() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        serviciosBiblioEci.cambiarEstadoRecurso(obtenerID(),EstadoRecurso.Daño_Reparable);
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,null,null);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertEquals(rec.getEstado(), EstadoRecurso.Disponible);
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()==id+1){fail("No debio encontrar el recurso con daño reparable");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainCapacity() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 3);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(3,null,null);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getCapacidad()==3);
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()==id+1){fail("No debio encontrar el recurso con otra capacidad");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainType() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 3);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.EQUIPO_DE_COMPUTO, 5));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,null,TipoRecurso.SALA_DE_ESTUDIO);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO));
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()==id+1){fail("No debio encontrar el recurso con otro tipo");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainTypeAndCapacity() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 6);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 6));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(6,null,TipoRecurso.SALA_DE_ESTUDIO);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO) && rec.getCapacidad()==6);
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()>id){fail("No debio encontrar el recurso con otro tipo u otra ubicacion");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainUbication() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,UbicacionRecurso.BloqueB,null);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB));
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()==id+1){fail("No debio encontrar el recurso con otra ubicacion");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainUbicationAndType() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 5));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB));
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()>id){fail("No debio encontrar el recurso con otro tipo u otra ubicacion");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainUbicationAndCapacity() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 4);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 4));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(4,UbicacionRecurso.BloqueB,null);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB) && rec.getCapacidad()==4);
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()>id){fail("No debio encontrar el recurso con otra capacidad u otra ubicacion");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldConsultAvailableResourcesWithCertainConditions() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 2);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = obtenerID();
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.EQUIPO_DE_COMPUTO, 2));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 5));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 2));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 2));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5));
+        List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(2,UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO);
+        boolean found = false;
+        for(Recurso rec: disponibles){
+            assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB) && rec.getCapacidad()==2 && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO));
+            if(rec.getID()==id){found = true;}
+            if(rec.getID()>id){fail("No debio encontrar el recurso con otra capacidad u otra ubicacion");}
+        }
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldNotConsultAvailableResourcesWithNegativeCapacity(){
+        try {
+            serviciosBiblioEci.consultarRecursosDisponibles(-5,null,null);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La capacidad no puede ser negativa",e.getMessage());
+        }
+        try {
+            serviciosBiblioEci.consultarRecursosDisponibles(-5,UbicacionRecurso.BloqueB,null);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La capacidad no puede ser negativa",e.getMessage());
+        }
+        try {
+            serviciosBiblioEci.consultarRecursosDisponibles(-5,null,TipoRecurso.SALA_DE_ESTUDIO);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La capacidad no puede ser negativa",e.getMessage());
+        }
+        try {
+            serviciosBiblioEci.consultarRecursosDisponibles(-5,UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La capacidad no puede ser negativa",e.getMessage());
+        }
+    }
+
+
+    @Test
     public void shouldNotRegisterANullResource(){
         Recurso recurso = null;
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por recurso nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"El recurso a registrar no puede ser nulo");
+            assertEquals("El recurso a registrar no puede ser nulo",e.getMessage());
         }
     }
 
@@ -52,8 +215,8 @@ public class RecursoTest {
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por nombre nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
-			assertEquals(e.getMessage(),"Error al guardar el recurso "+recurso);
-		}
+            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
+        }
     }
 
     @Test
@@ -64,7 +227,7 @@ public class RecursoTest {
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad negativa");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"El recurso "+recurso+"tiene una capacidad invalida");
+            assertEquals("El recurso "+recurso+"tiene una capacidad invalida",e.getMessage());
         }
     }
 
@@ -76,7 +239,7 @@ public class RecursoTest {
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad cero");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"El recurso "+recurso+"tiene una capacidad invalida");
+            assertEquals("El recurso "+recurso+"tiene una capacidad invalida",e.getMessage());
         }
     }
 
@@ -88,7 +251,7 @@ public class RecursoTest {
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por tipo nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"Error al guardar el recurso "+recurso);
+            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
         }
     }
 
@@ -100,7 +263,7 @@ public class RecursoTest {
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por ubicacion nula");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"Error al guardar el recurso "+recurso);
+            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
         }
     }
 
@@ -119,7 +282,7 @@ public class RecursoTest {
         Recurso recurso = serviciosBiblioEci.consultarRecurso(id+1);
         assertEquals(recurso,null);
     }
-
+    
     private int obtenerID() throws ExcepcionServiciosBiblioEci {
         List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
         return recursos.get(recursos.size()-1).getID();

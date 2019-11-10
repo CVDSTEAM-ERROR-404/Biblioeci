@@ -11,10 +11,12 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 @Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ReservaTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;
@@ -28,7 +30,7 @@ public class ReservaTest {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
-            int id = serviciosBiblioEci.consultarRecurso().size();
+            int id = obtenerID();
             serviciosBiblioEci.consultarReservasPendientes(id);
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Error al consultar las reservas futuras",e.getMessage());
@@ -62,4 +64,9 @@ public class ReservaTest {
         }
     }
     //para las demas pruebas es necesario el metodo para hacer reservas
+
+    private int obtenerID() throws ExcepcionServiciosBiblioEci {
+        List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
+        return recursos.get(recursos.size()-1).getID();
+    }
 }

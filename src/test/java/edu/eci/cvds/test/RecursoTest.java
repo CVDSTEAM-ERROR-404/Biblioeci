@@ -12,11 +12,13 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
 @Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RecursoTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;
@@ -106,17 +108,21 @@ public class RecursoTest {
     public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        int id = serviciosBiblioEci.consultarRecurso().size();
-        //el 3 es porque cuando se va insertar un recurso con algun atributo nulo, el id aumenta pese a que realiza rollback
-        Recurso resultado = serviciosBiblioEci.consultarRecurso(id+3);
+        int id = obtenerID();
+        Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertTrue(recurso!=null && recurso.equals(resultado));
     }
 
     @Test
     public void shouldReturnNullWhenIdIsGreaterThanAmountOfResources() throws ExcepcionServiciosBiblioEci{
-        int id = serviciosBiblioEci.consultarRecurso().size();
+        int id = obtenerID();
         Recurso recurso = serviciosBiblioEci.consultarRecurso(id+1);
         assertEquals(recurso,null);
+    }
+
+    private int obtenerID() throws ExcepcionServiciosBiblioEci {
+        List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
+        return recursos.get(recursos.size()-1).getID();
     }
 
 }

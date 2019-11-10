@@ -6,9 +6,15 @@ import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.mybatis.guice.transactional.Transactional;
+
 import static org.junit.Assert.assertEquals;
 
+@Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ReservaTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;
@@ -18,7 +24,7 @@ public class ReservaTest {
     }
 
     @Test
-    public void shouldNotConsultRervationsOfAnResourceWithoutReservarions(){
+    public void shouldNotConsultRervationsOfAnResourceWithoutReservations(){
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
@@ -30,17 +36,16 @@ public class ReservaTest {
     }
 
     @Test
-    public void shouldNotConsultRervationsOfAUnexistentResource(){
+    public void shouldNotConsultReservationsOfAResourceWIthIdZero(){
         try {
-            int id = serviciosBiblioEci.consultarRecurso().size();
-            serviciosBiblioEci.consultarReservasPendientes(id+1);
+            serviciosBiblioEci.consultarReservasPendientes(0);
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Error al consultar las reservas futuras",e.getMessage());
         }
     }
 
     @Test
-    public void shouldNotConsultRervationsOfAResourceWIthNegativeId(){
+    public void shouldNotConsultReservationsOfAResourceWIthNegativeId(){
         try {
             serviciosBiblioEci.consultarReservasPendientes(-1);
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -49,13 +54,12 @@ public class ReservaTest {
     }
 
     @Test
-    public void shouldNotConsultRervationsOfAResourceWIthIdZero(){
+    public void shouldNotConsultReservationsOfAUnexistentResource(){
         try {
-            serviciosBiblioEci.consultarReservasPendientes(0);
+            serviciosBiblioEci.consultarReservasPendientes(100);
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Error al consultar las reservas futuras",e.getMessage());
         }
     }
-
     //para las demas pruebas es necesario el metodo para hacer reservas
 }

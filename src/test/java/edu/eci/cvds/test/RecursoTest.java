@@ -1,23 +1,22 @@
 package edu.eci.cvds.test;
 
 
-import java.text.SimpleDateFormat;
-
-import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
-import org.junit.After;
 
 import static org.junit.Assert.*;
 
 
 @Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RecursoTest {
 
     private ServiciosBiblioEci serviciosBiblioEci;
@@ -27,16 +26,24 @@ public class RecursoTest {
     }
 
     @Test
-    public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-		serviciosBiblioEci.registrarRecurso(recurso);
-		int id = serviciosBiblioEci.consultarRecurso().size();
-		Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
-		assertTrue(recurso!=null && recurso.equals(resultado));
+    public void shouldNotConsultAResourceWithNullId() throws ExcepcionServiciosBiblioEci{
+        Recurso recurso = serviciosBiblioEci.consultarRecurso(0);
+        assertEquals(recurso,null);
     }
 
     @Test
-    public void shouldNotRegisterAResourceWithANullName() {
+    public void shouldNotRegisterANullResource(){
+        Recurso recurso = null;
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por recurso nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"El recurso a registrar no puede ser nulo");
+        }
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithANullName(){
         Recurso recurso = null;
         try {
             recurso = new Recurso(null, UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
@@ -48,14 +55,26 @@ public class RecursoTest {
     }
 
     @Test
-    public void shouldNotRegisterAResourceWithNullUbication() {
+    public void shouldNotRegisterAResourceWithNegativeCapacity(){
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", null, TipoRecurso.SALA_DE_ESTUDIO, 5);
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, -1);
             serviciosBiblioEci.registrarRecurso(recurso);
-            fail("Se esperaba la excepcion por ubicacion nula");
+            fail("Se esperaba la excepcion por capacidad negativa");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"Error al guardar el recurso "+recurso);
+            assertEquals(e.getMessage(),"El recurso "+recurso+"tiene una capacidad invalida");
+        }
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithNoCapacity() {
+        Recurso recurso = null;
+        try {
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO, 0);
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por capacidad cero");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals(e.getMessage(),"El recurso "+recurso+"tiene una capacidad invalida");
         }
     }
 
@@ -71,52 +90,33 @@ public class RecursoTest {
         }
     }
 
-	@Test
-    public void shouldNotRegisterAResourceWithNegativeCapacity() {
-        Recurso recurso = null;
-        try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, -1);
-            serviciosBiblioEci.registrarRecurso(recurso);
-            fail("Se esperaba la excepcion por capacidad negativa");
-        } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"El recurso "+recurso+"tiene una capacidad invalida");
-        }
-    }
-	
-
     @Test
-    public void shouldNotRegisterAResourceWithNoCapacity() {
+    public void shouldNotRegisterAResourceWithNullUbication() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO, 0);
+            recurso = new Recurso("prueba", null, TipoRecurso.SALA_DE_ESTUDIO, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
-            fail("Se esperaba la excepcion por capacidad cero");
+            fail("Se esperaba la excepcion por ubicacion nula");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"El recurso "+recurso+"tiene una capacidad invalida");
+            assertEquals(e.getMessage(),"Error al guardar el recurso "+recurso);
         }
     }
 
     @Test
-    public void shouldNotRegisterANullResource(){
-        Recurso recurso = null;
-        try {
-            serviciosBiblioEci.registrarRecurso(recurso);
-            fail("Se esperaba la excepcion por recurso nulo");
-        } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals(e.getMessage(),"El recurso a registrar no puede ser nulo");
-        }
+    public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        int id = serviciosBiblioEci.consultarRecurso().size();
+        //el 3 es porque cuando se va insertar un recurso con algun atributo nulo, el id aumenta pese a que realiza rollback
+        Recurso resultado = serviciosBiblioEci.consultarRecurso(id+3);
+        assertTrue(recurso!=null && recurso.equals(resultado));
     }
-	
-	@Test
+
+    @Test
     public void shouldReturnNullWhenIdIsGreaterThanAmountOfResources() throws ExcepcionServiciosBiblioEci{
-		int id = serviciosBiblioEci.consultarRecurso().size();
+        int id = serviciosBiblioEci.consultarRecurso().size();
         Recurso recurso = serviciosBiblioEci.consultarRecurso(id+1);
-		assertEquals(recurso,null);
+        assertEquals(recurso,null);
     }
-	
-	@Test
-    public void shouldNotConsultAResourceWithNullId() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = serviciosBiblioEci.consultarRecurso(0);
-		assertEquals(recurso,null);
-    }
+
 }

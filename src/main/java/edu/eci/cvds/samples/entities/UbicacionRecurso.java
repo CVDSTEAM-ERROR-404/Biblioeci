@@ -1,5 +1,5 @@
 package edu.eci.cvds.samples.entities;
 
 public enum UbicacionRecurso {
-    BloqueB,BloqueG
+    BloqueA,BloqueB,BloqueC,BloqueD,BloqueF,BloqueG,BloqueH,BloqueI,BloqueL
 }

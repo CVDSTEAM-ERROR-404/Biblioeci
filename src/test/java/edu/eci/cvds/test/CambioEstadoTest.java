@@ -34,7 +34,6 @@ public class CambioEstadoTest {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = obtenerID();
-        System.out.println(serviciosBiblioEci.consultarRecurso());
         serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
@@ -99,7 +98,6 @@ public class CambioEstadoTest {
             serviciosBiblioEci.registrarRecurso(recurso);
             int id = obtenerID();
             serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Disponible);
-            Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
             fail("Se esperaba fallo porque no se puede cambiar el estado de un recuso al que tenia anteriormente");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals(e.getMessage(),"No se puede cambiar el estado de un recuso al que tenia anteriormente");

@@ -51,49 +51,17 @@
       estado
     FROM
       recurso
-    WHERE 
-      estado='Disponible';
+	WHERE estado='Disponible' 
+	<if test="tipo != null">
+		AND tipo = #{tipo}
+	</if>
+	<if test="capacidad != null">
+		AND capacidad=#{capacidad}
+	</if>
+	<if test="ubicacion != null">
+		AND ubicacion=#{ubicacion}
+	</if>	
   </select>
-
-  <select parameterType='map' id='consultarRecursosTipo' resultMap='RecursoResult'>
-    SELECT 
-      id, 
-      nombre,
-      ubicacion,
-      tipo,
-      capacidad,
-      estado
-    FROM
-      recurso
-    WHERE tipo=#{tipo} AND estado='Disponible';
-  </select>
-
-  <select parameterType='map' id='consultarRecursosCapacidad' resultMap='RecursoResult'>
-    SELECT 
-      id, 
-      nombre,
-      ubicacion,
-      tipo,
-      capacidad,
-      estado
-    FROM
-      recurso
-    WHERE capacidad=#{capacidad} AND estado='Disponible';
-  </select>
-
-  <select parameterType='map' id='consultarRecursosUbicacion' resultMap='RecursoResult'>
-    SELECT 
-      id, 
-      nombre,
-      ubicacion,
-      tipo,
-      capacidad,
-      estado
-    FROM
-      recurso
-    WHERE ubicacion=#{ubicacion} AND estado='Disponible';
-  </select>
-
 
   <update id="cambiarEstado" parameterType="map">
     UPDATE recurso SET estado = #{estado}

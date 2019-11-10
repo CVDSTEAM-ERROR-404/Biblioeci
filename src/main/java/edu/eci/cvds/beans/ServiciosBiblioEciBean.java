@@ -26,6 +26,7 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     private boolean showButton;
     private int idRecurso;
     private List<Reserva> reservasFuturas;
+	private List<Recurso> recursosDisponibles;
     private String successUpdate = "Actualización exitosa";
     private UbicacionRecurso ubicacionRecurso;
 
@@ -71,6 +72,10 @@ public class ServiciosBiblioEciBean extends BasePageBean {
     public List<Reserva> getReservasFuturas() { return reservasFuturas; }
 
     public void setReservasFuturas(List<Reserva> reservasFuturas) { this.reservasFuturas = reservasFuturas; }
+	
+	public List<Recurso> getRecursosDisponibles() { return recursosDisponibles; }
+
+    public void setRecursosDisponibles(List<Recurso> recursosDisponibles) { this.recursosDisponibles = recursosDisponibles; }
 
     public boolean isShowButton() { return showButton; }
 
@@ -102,19 +107,14 @@ public class ServiciosBiblioEciBean extends BasePageBean {
         return ans;
     }
 	
-    public List<Recurso> consultarRecursosDisponibles(int capacidad){
-        List<Recurso> ans=null;
+    public void consultarRecursosDisponibles(int capacidad){
+        
         try {
-            ans = serviciosBiblioEci.consultarRecursosDisponibles(capacidad, ubicacionRecurso, tipoRecurso);
+            recursosDisponibles = serviciosBiblioEci.consultarRecursosDisponibles(capacidad, ubicacionRecurso, tipoRecurso);
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
         }
-		System.out.println(ans);
-		System.out.println(ubicacionRecurso);
-		System.out.println(tipoRecurso);
-		System.out.println(capacidad);
-		return ans;
-		
+
         
     }
 

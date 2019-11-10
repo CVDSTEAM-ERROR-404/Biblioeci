@@ -68,7 +68,7 @@
 				<br/>
 				<p:fieldset legend="Recursos" >
 					<center>
-					<p:dataTable  var="rec" value="#{ServiciosBean.consultarRecursosDisponibles(cap.value)}"
+					<p:dataTable  var="rec" value="#{ServiciosBean.getRecursosDisponibles()}"
 						 paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 						 rowsPerPageTemplate="5,10,15"
 						 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"

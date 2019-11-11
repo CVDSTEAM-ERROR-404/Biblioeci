@@ -29,6 +29,7 @@
 	<h:body>
 		
 		<h:form id="con_recurso_form">
+			<p:growl id="growl" showDetail="false" sticky="true" />
 			<p:panel class="panelCenter" id="panelrecurso"   style="width: 725px;">
 				<p:fieldset legend="Filtrar recurso" >
 				<center>
@@ -78,12 +79,24 @@
 							Recursos disponibles
 						</f:facet>
 						
-						<p:column headerText="ID" >
+						<p:column headerText="ID" width="50" >
 							<h:outputText value="#{rec.getID()}" />
 						</p:column>
 				
-						<p:column headerText="Nombre">
+						<p:column headerText="Nombre" width="120">
 							<h:outputText value="#{rec.getNombre()}" />
+						</p:column>
+						
+						<p:column headerText="Ubicacion" width="120">
+							<h:outputText value="#{rec.getUbicacion()}" />
+						</p:column>
+						
+						<p:column headerText="Tipo">
+							<h:outputText value="#{rec.getTipo()}" />
+						</p:column>
+						
+						<p:column headerText="Capacidad" width="120">
+							<h:outputText value="#{rec.getCapacidad()}" />
 						</p:column>
 						
 					</p:dataTable>

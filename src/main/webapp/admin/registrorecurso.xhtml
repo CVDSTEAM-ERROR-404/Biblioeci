@@ -58,7 +58,9 @@
 					</p:selectOneMenu>
 			
 					<p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
-					<p:inputText class="inttext" id="capacidad" type="int" required="true" binding="#{cap}" />
+					<p:inputText class="inttext" id="capacidad" type="int" required="true" binding="#{cap}">
+						<f:validateLongRange  minimum="1" maximum="100" />
+					</p:inputText>
 			 
 				</p:panelGrid>
 			

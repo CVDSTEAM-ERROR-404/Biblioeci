@@ -6,27 +6,21 @@ import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
 
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EstadoTest {
-
-    private ServiciosBiblioEci serviciosBiblioEci;
+public class EstadoTest extends ServicioBiblioEciTest{
 
     public EstadoTest() {
-        serviciosBiblioEci = ServiciosBiblioEciFactory.getInstance().getServiciosBiblioEciTesting();
+        super();
     }
 	
     @Test
@@ -84,7 +78,7 @@ public class EstadoTest {
     @Test
     public void shouldNotChangeStateOfANullResource(){
         try{
-            serviciosBiblioEci.cambiarEstadoRecurso(10, EstadoRecurso.Daño_Reparable);
+            serviciosBiblioEci.cambiarEstadoRecurso(1000, EstadoRecurso.Daño_Reparable);
             fail("Se esperaba fallo porque no se puede cambiar de estado un recurso inexistente");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals(e.getMessage(),"No se puede cambiar el estado de un recuso nulo");
@@ -153,11 +147,6 @@ public class EstadoTest {
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals(e.getMessage(),"No se puede cambiar a un estado nulo");
         }
-    }
-
-    private int obtenerID() throws ExcepcionServiciosBiblioEci {
-        List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
-        return recursos.get(recursos.size()-1).getID();
     }
 
 }

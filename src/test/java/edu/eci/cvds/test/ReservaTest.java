@@ -4,25 +4,20 @@ import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
 
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ReservaTest {
-
-    private ServiciosBiblioEci serviciosBiblioEci;
+public class ReservaTest extends ServicioBiblioEciTest{
 
     public ReservaTest() {
-        serviciosBiblioEci = ServiciosBiblioEciFactory.getInstance().getServiciosBiblioEciTesting();
+        super();
     }
 
     @Test
@@ -65,8 +60,4 @@ public class ReservaTest {
     }
     //para las demas pruebas es necesario el metodo para hacer reservas
 
-    private int obtenerID() throws ExcepcionServiciosBiblioEci {
-        List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
-        return recursos.get(recursos.size()-1).getID();
-    }
 }

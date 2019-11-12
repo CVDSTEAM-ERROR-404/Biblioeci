@@ -6,8 +6,6 @@ import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEci;
-import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -20,12 +18,9 @@ import static org.junit.Assert.*;
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RecursoTest {
+public class RecursoTest extends ServicioBiblioEciTest{
 
-    private ServiciosBiblioEci serviciosBiblioEci;
-
-    public RecursoTest() {
-        serviciosBiblioEci = ServiciosBiblioEciFactory.getInstance().getServiciosBiblioEciTesting();
+    public RecursoTest(){super();
     }
 
     @Test
@@ -273,7 +268,7 @@ public class RecursoTest {
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = obtenerID();
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
-        assertTrue(recurso!=null && recurso.equals(resultado));
+        assertTrue(resultado!=null && recurso.equals(resultado));
     }
 
     @Test
@@ -281,11 +276,6 @@ public class RecursoTest {
         int id = obtenerID();
         Recurso recurso = serviciosBiblioEci.consultarRecurso(id+1);
         assertEquals(recurso,null);
-    }
-    
-    private int obtenerID() throws ExcepcionServiciosBiblioEci {
-        List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
-        return recursos.get(recursos.size()-1).getID();
     }
 
 }

@@ -57,10 +57,9 @@
 				
 							<h:commandButton update="con_recurso_form" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{RecursosBean.consultarRecursosDisponibles(cap.value)}" />
 							
-							<h:outputLink value="login1.xhtml"
-								styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-								<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
-							</h:outputLink>
+							<h:commandButton update="con_recurso_form" class="button2"   value="Volver" style="font-size:12px;" actionListener="#{LoginBean.goHome()}" />
+							
+							
 							
 						 
 						</f:facet>
@@ -105,10 +104,7 @@
 					</center>
 				</p:fieldset>
 			</p:panel>
-			<h:outputLink value="home.xhtml"
-				styleClass="ui-button  ui-button-text-only topright" style="font-size:12px; color:FFF;  border-radius: 3px;">
-				<span class="ui-button-text" style="padding: 15px 25px;" >Go home</span>
-			</h:outputLink>
+			
 		
 		</h:form>	 
 	</h:body>

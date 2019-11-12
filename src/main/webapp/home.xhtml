@@ -40,18 +40,20 @@
 					BiblioEci 
 				</span>
 				<p:panel >
-					<h:outputLink value="consultarRecurso.xhtml"
+					<h:outputLink value="common/consultarRecurso.xhtml"
 						styleClass="ui-button  ui-button-text-only button3" style="font-size:12px; color:FFF;">
 						<span class="ui-button-text" style="padding: 15px 25px">Consultar recurso</span>
 					</h:outputLink>
-					<br/>
-					<h:outputLink class="link1" value="login.xhtml">
-						<span > Iniciar sesión </span>
-					</h:outputLink>
-					
 					
 				</p:panel>
 			</p:panel>
+			<h:commandButton class="button4" value="Logout" style="font-size:12px;" rendered="#{LoginBean.isLogged()}" actionListener="#{LoginBean.logout()}" />
+			
+			<h:outputLink value="login.xhtml" rendered="#{!(LoginBean.isLogged())}"
+					styleClass="ui-button  ui-button-text-only button4" style="font-size:12px; color:FFF;">
+					<span class="ui-button-text" style="padding: 15px 25px">Iniciar sesión</span>
+			</h:outputLink>
+			
 		</h:form>	 
 	</h:body>
 </html>

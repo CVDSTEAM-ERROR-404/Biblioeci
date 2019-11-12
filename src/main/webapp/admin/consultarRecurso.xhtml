@@ -36,15 +36,15 @@
 					<p:panelGrid  class="grid" id="grid" cellpadding="3" columns="2"  >
 					
 						<p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
-						<p:selectOneMenu value="#{ServiciosBean.tipoRecurso}" style="width:216px; background:#cc0000;">
+						<p:selectOneMenu value="#{RecursosBean.tipoRecurso}" style="width:216px; background:#cc0000;">
 							<f:selectItem itemLabel="----" itemValue="" />
-							<f:selectItems value="#{ServiciosBean.getTipos()}"  />
+							<f:selectItems value="#{RecursosBean.getTipos()}"  />
 						</p:selectOneMenu>
 						
 						<p:outputLabel class="intlabel"  value="Filtrar por ubicacion:" />
-						<p:selectOneMenu value="#{ServiciosBean.ubicacionRecurso}" style="width:216px; background:#cc0000;">
+						<p:selectOneMenu value="#{RecursosBean.ubicacionRecurso}" style="width:216px; background:#cc0000;">
 							<f:selectItem itemLabel="----" itemValue="" />
-							<f:selectItems value="#{ServiciosBean.getUbicaciones()}"  />
+							<f:selectItems value="#{RecursosBean.getUbicaciones()}"  />
 						</p:selectOneMenu>
 						
 						<p:outputLabel class="intlabel" for="Capacidad" value="Filtrar por capacidad:" />
@@ -54,7 +54,7 @@
 						
 						<f:facet name="footer">
 				
-							<h:commandButton update="con_recurso_form" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ServiciosBean.consultarRecursosDisponibles(cap.value)}" />
+							<h:commandButton update="con_recurso_form" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{RecursosBean.consultarRecursosDisponibles(cap.value)}" />
 							
 							<h:outputLink value="login1.xhtml"
 								styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
@@ -69,7 +69,7 @@
 				<br/>
 				<p:fieldset legend="Recursos" >
 					<center>
-					<p:dataTable  var="rec" value="#{ServiciosBean.getRecursosDisponibles()}"
+					<p:dataTable  var="rec" value="#{RecursosBean.getRecursosDisponibles()}"
 						 paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 						 rowsPerPageTemplate="5,10,15"
 						 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"

@@ -2,7 +2,6 @@ package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Reserva realizada dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
@@ -13,10 +12,9 @@ import java.util.Date;
 public class Reserva implements Serializable{
 	
 	private int id;
-	private String tipo;
-	private String periodicidad;
+	private TipoReserva tipo;
 	private String estado;
-	private ArrayList<Horario> horariosAsignados;
+	private ArrayList<Evento> eventosAsignados;
 	private Recurso recurso;
 
 	/**
@@ -45,7 +43,7 @@ public class Reserva implements Serializable{
 	 * Muestra el tipo de la reserva
 	 * @return El tipo de la reserva
 	 */
-	public String getTipo(){
+	public TipoReserva getTipo(){
 		return tipo;
 	}
 
@@ -53,24 +51,8 @@ public class Reserva implements Serializable{
 	 * Cambia el tipo de la reserva
 	 * @param tipo El tipo de la reserva
 	 */
-	public void setTipo(String tipo){
+	public void setTipo(TipoReserva tipo){
 		this.tipo=tipo;
-	}
-
-	/**
-	 * Muestra la periodicidad de la reserva
-	 * @return La periodicidad de la reserva
-	 */
-	public String getPeriodicidad(){
-		return periodicidad;
-	}
-
-	/**
-	 * Cambia la periodicidad de la reserva
-	 * @param periodicidad La periodicidad de la reserva
-	 */
-	public void setPeriodicidad(String periodicidad){
-		this.periodicidad=periodicidad;
 	}
 
 	/**
@@ -90,19 +72,19 @@ public class Reserva implements Serializable{
 	}
 
 	/**
-	 * Muestra los horarios de la reserva
-	 * @return Una lista de los horarios de la reserva
+	 * Muestra los eventos de la reserva
+	 * @return Una lista de los eventos de la reserva
 	 */
-	public ArrayList<Horario> getHorariosAsignados(){
-		return horariosAsignados;
+	public ArrayList<Evento> getEventosAsignados(){
+		return eventosAsignados;
 	}
 
 	/**
 	 * Cambia los horarios de la reserva
-	 * @param horariosAsignados Los horarios de la reserva
+	 * @param eventosAsignados Los horarios de la reserva
 	 */
-	public void setHorariosAsignados(ArrayList<Horario> horariosAsignados){
-		this.horariosAsignados=horariosAsignados;
+	public void setEventossAsignados(ArrayList<Evento> eventosAsignados){
+		this.eventosAsignados=eventosAsignados;
 	}
 
 	/**
@@ -121,18 +103,6 @@ public class Reserva implements Serializable{
 		this.recurso = recurso;
 	}
 
-	/**
-	 * Obtiene la fecha incial de una reserva
-	 * @return La fecha inicial de la reserva
-	 */
-	public Date getHoraInicio(){
-		Date minDate = horariosAsignados.get(0).getFecha();
-		for (Horario horario:horariosAsignados){
-			if(horario.getFecha().before(minDate)){
-				minDate=horario.getFecha();
-			}
-		}
-		return minDate;
-	}
+
 
 }

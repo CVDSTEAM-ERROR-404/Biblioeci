@@ -21,10 +21,10 @@ import java.io.IOException;
  * @version: 5/11/2019
  */
 
-@ManagedBean(name="ServiciosBean")
+@ManagedBean(name="RecursosBean")
 
 @SessionScoped
-public class ServiciosBiblioEciBean extends BasePageBean {
+public class RecursosBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
     private TipoRecurso tipoRecurso;

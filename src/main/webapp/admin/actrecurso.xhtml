@@ -36,8 +36,8 @@
 					<p:inputText class="inttext" id="ID" type="int" required="true" binding="#{id}"/>
 
 					<p:outputLabel class="intlabel"  value="Estado: " />
-					<p:selectOneMenu value="#{ServiciosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
-						<f:selectItems value="#{ServiciosBean.getEstados()}"  />
+					<p:selectOneMenu value="#{RecursosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
+						<f:selectItems value="#{RecursosBean.getEstados()}"  />
 					</p:selectOneMenu>
 					
 				</p:panelGrid>
@@ -45,7 +45,7 @@
 				
 				</p:fieldset>
 				<f:facet name="footer">
-					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{ServiciosBean.cambiarEstadoRecurso(id.value)}" update="actrecurso_form"/>
+					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{RecursosBean.cambiarEstadoRecurso(id.value)}" update="actrecurso_form"/>
 						 
 					
 					<h:outputLink value="login1.xhtml"

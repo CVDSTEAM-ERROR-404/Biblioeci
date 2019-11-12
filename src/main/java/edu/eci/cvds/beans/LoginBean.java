@@ -78,9 +78,9 @@ public class LoginBean extends BasePageBean{
             logger.login(correo,password,rememberMe);
             FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            ServiciosBiblioEciBean.setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+            RecursosBean.setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }catch (IOException e) {
-            ServiciosBiblioEciBean.setErrorMessage("Error en el servidor");
+            RecursosBean.setErrorMessage("Error en el servidor");
         }
 
 

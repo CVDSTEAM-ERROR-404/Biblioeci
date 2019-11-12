@@ -10,7 +10,6 @@ import java.util.Date;
  */
 
 public class Horario implements Serializable {
-    private int id;
     private Date fecha ;
 
     /**
@@ -22,35 +21,9 @@ public class Horario implements Serializable {
     }
 
     /**
-     * Constructor de la clase Horario
-     * @param fecha Fecha del horario
-     * @param id Identificador del horario
-     */
-    public Horario(int id, Date fecha) {
-        this(fecha);
-        this.id = id;
-    }
-
-    /**
      * Constructor por defecto de la clase Horario
      */
     public Horario(){
-    }
-
-    /**
-     * Muestra el identificador del horario
-     * @return El identificador del horario
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Cambia el identificador del horario
-     * @param id El identificador del horario
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**

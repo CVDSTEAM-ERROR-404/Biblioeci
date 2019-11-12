@@ -63,6 +63,14 @@ body{
   background-position: center;
 }
 
+.bodyUnauthorized{
+		background-color:white !important;
+		background-image:url('../images/img-01.png');
+  background-repeat: no-repeat;
+  text-align: center;
+  background-position: center;
+	
+}
 /*---------------------------------------------*/
 a {
 	font-family: Poppins-Regular;

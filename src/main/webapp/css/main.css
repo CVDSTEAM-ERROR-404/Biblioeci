@@ -75,7 +75,7 @@ a {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   background-color: #cc0000;
-  padding: 10px 20px;
+ 
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -95,7 +95,12 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: white;
+  color: black;
+}
+
+.link1{
+	
+	background-color:white !important;
 }
 
 /*---------------------------------------------*/

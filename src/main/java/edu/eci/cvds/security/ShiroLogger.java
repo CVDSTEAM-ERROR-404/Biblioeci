@@ -54,4 +54,7 @@ public class ShiroLogger implements SesionLogger {
         SecurityUtils.getSubject().logout();
     }
 
+    public boolean isAdmin(){return SecurityUtils.getSubject().hasRole("Administrador");}
+
+    public boolean isUser(){return SecurityUtils.getSubject().hasRole("Usuario");}
 }

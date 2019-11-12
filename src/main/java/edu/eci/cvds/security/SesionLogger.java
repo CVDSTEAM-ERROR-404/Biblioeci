@@ -29,4 +29,8 @@ public interface SesionLogger {
      * Desconecta al usuario del recurso web de la biblioteca
      */
     public void logout();
+
+    public boolean isUser();
+
+    public boolean isAdmin();
 }

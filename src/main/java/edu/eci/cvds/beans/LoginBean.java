@@ -76,26 +76,23 @@ public class LoginBean extends BasePageBean{
     public void login(){
         try {
             logger.login(correo,password,rememberMe);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+            goHome();
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             RecursosBean.setErrorMessage(excepcionServiciosBiblioEci.getMessage());
-        }catch (IOException e) {
-            RecursosBean.setErrorMessage("Error en el servidor");
         }
-
-
     }
+
+    public boolean isLogged(){
+        return logger.isLogged();
+    }
+
 
     /**
      * Si hay un usuario logueado, redirige a su respectiva pagina web
      */
-    public void isLogged(){
-        if( logger.isLogged()){
-            try{
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void avoidAccessToLogin(){
+        if( isLogged()){
+            goHome();
         }
     }
 
@@ -105,9 +102,20 @@ public class LoginBean extends BasePageBean{
     public void logout(){
         logger.logout();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/home.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void goHome(){
+        try {
+            if (logger.isAdmin()) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+            } else {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/home.xhtml");
+            }
+        } catch (IOException e) {
+            RecursosBean.setErrorMessage("Error en el servidor");
         }
     }
 }

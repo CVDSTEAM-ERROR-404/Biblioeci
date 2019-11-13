@@ -12,20 +12,22 @@
 	</resultMap>
 
   
-  <update parameterType="map" id="cancelarEventosPendientesReserva">
+  <update parameterType="map" id="cancelarEventosPendientesRecurso">
 	  update evento as eve
 	    set estado='Cancelada'
+    FROM
+      reserva as res
     WHERE
-      eve.reserva=#{reserva} and now() &lt;= eve.hora_inicio;
+      res.recurso=#{recurso} AND res.id=eve.reserva AND now() &lt;= eve.hora_inicio;
   </update>
 
 
 
-  <insert parameterType="map" id="registrarEvento">
+  <insert parameterType="Evento" id="registrarEvento" useGeneratedKeys="true" keyProperty="evento.id" keyColumn="id">
     INSERT INTO evento(reserva, hora_inicio, hora_fin, estado) values (#{reserva.id}, #{inicio}, {fin}, #{evento.estado});
   </insert>
     
-	<insert parameterType="map" id="registrarEventoEstado">
+	<insert parameterType="Evento" id="registrarEventoEstado" useGeneratedKeys="true" keyProperty="evento.id" keyColumn="id">
     INSERT INTO evento(reserva, hora_inicio, hora_fin, estado) values (#{reserva.id}, #{inicio}, {fin}, #{estado});
   </insert>
 

@@ -47,7 +47,7 @@
 			EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
   </update>
 
-	<insert parameterType="map" id="registrarReserva">
+	<insert parameterType="Reserva" id="registrarReserva" useGeneratedKeys="true" keyProperty="reserva.id" keyColumn="id">
     INSERT INTO reserva(tipo, estado, usuario ,recurso) values (#{reserva.tipo}, #{reserva.estado}, #{usuario}, #{reserva.recurso.id});
   </insert>
 

@@ -12,10 +12,10 @@ import edu.eci.cvds.samples.entities.Reserva;
  */
 public interface EventoMapper {
     /**
-     * Cancela todos los eventos pendientes de una reserva específica
-     * @param idReserva ID de la reserva
+     * Cancela todos los eventos pendientes de una recurso específico
+     * @param idReserva ID del recurso
      */
-    public void cancelarEventosPendientesReserva(@Param("reserva") long idReserva);
+    public void cancelarEventosPendientesRecurso(@Param("recurso") long idRecurso);
 
     /**
      * Registra un nuevo evento de una reserva

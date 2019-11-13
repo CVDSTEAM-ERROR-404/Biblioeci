@@ -68,7 +68,7 @@
     WHERE id = #{id};
   </update>
    
-  <insert parameterType="map" id="agregarRecurso">
+  <insert parameterType="Recurso" id="agregarRecurso" useGeneratedKeys="true" keyProperty="recurso.id" keyColumn="id">
     INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});
   </insert>
   

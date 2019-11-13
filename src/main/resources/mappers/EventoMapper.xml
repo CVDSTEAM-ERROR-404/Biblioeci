@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoMapper">
+	<resultMap type='Evento' id='EventoResult'>
+		<id property='id' column='id'/>
+		<result property='estado' column='estado'/>
+        <association property="horaInicio" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.HorarioResult" columnPrefix='horarioi_'></association>      
+        <association property="horaFin" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.horarioResult" columnPrefix='horariof_'></association>      
+	</resultMap>
+
+
+    
+	
+	
+</mapper>

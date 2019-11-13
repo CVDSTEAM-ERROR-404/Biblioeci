@@ -5,8 +5,7 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioMapper">
 	<resultMap type='Horario' id='HorarioResult'>
-		<id property='id' column='id'/>
-		<result property='fecha' column='fecha'/>
+		<id property='fecha' column='fecha'/>
 	</resultMap>
 	
 	

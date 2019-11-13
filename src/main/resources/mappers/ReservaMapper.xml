@@ -7,48 +7,47 @@
 	<resultMap type='Reserva' id='ReservaResult'>
 		<id property='id' column='id'/>
 		<result property='tipo' column='tipo'/>
-		<result property='periodicidad' column='periodicidad'/>  
 		<result property='estado' column='estado'/>
 		<association property="recurso" javaType="Recurso"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.RecursoResult" columnPrefix='recurso_'></association>      
-		<collection property='horariosAsignados' ofType='Horario' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioMapper.HorarioResult' columnPrefix='horario_'></collection>
+		<collection property='eventosAsignados' ofType='Evento' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioMapper.EventoResult' columnPrefix='evento_'></collection>
 	</resultMap>
 	
-	
+
 	<select parameterType='map' id='consultarReservasPendientes' resultMap='ReservaResult'>
     SELECT 
       res.id as id, 
       res.tipo as tipo,
-      res.periodicidad as periodicidad,
       res.estado as estado,
       recu.id as recurso_id, 
-	  recu.nombre as recurso_nombre, 
-	  recu.tipo as recurso_tipo, 
-	  recu.capacidad as recurso_capacidad, 
-	  recu.estado as recurso_estado, 
-	  ho.id as horario_id, 
-	  ho.fecha_hora as horario_fecha
+			recu.nombre as recurso_nombre, 
+			recu.tipo as recurso_tipo, 
+			recu.capacidad as recurso_capacidad, 
+			recu.estado as recurso_estado, 
+			eve.id as evento_id,
+			eve.estado as evento_estado, 
+			eve.hora_inicio as evento_horarioi_horaInicio,
+			eve.hora_fin as evento_horariof_horaFin
      FROM
       reserva as res,
-	  recurso as recu, 
-	  horario_asignado as ha,
-	  horario as ho
+			recurso as recu, 
+			evento as eve
      WHERE
       res.recurso=#{id} AND res.recurso=recu.id AND
-	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND 
-	  now() &lt;= ho.fecha_hora AND res.estado='Activa';
+			eve.reserva=res.id AND 
+			now() &lt;= eve.hora_inicio AND res.estado='Activa';
   </select>
 
-  <update parameterType="map" id="cancelarReservasPendientes">
+     
+  
+	<update parameterType="map" id="cancelarReservasPendientes">
 	  update reserva as res
 	  set estado='Cancelada'
 	  FROM
-	  recurso as recu,
-	  horario_asignado as ha,
-	  horario as ho
+	  	reserva as res,
+			evento as eve
 	  WHERE
-	  res.recurso=#{id} AND res.recurso=recu.id AND
-	  res.id=ha.id_reserva AND ha.id_horario=ho.id AND
-	  now() &lt; ho.fecha_hora AND res.estado='Activa';
+	  res.recurso=#{id} AND eve.reserva=res.id AND
+	  now() &lt;= eve.hora_inicio AND res.estado='Activa';
   </update>
   
 

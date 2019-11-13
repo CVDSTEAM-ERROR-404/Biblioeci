@@ -9,6 +9,7 @@
         <typeAlias type="edu.eci.cvds.samples.entities.Recurso" alias="Recurso"/>
         <typeAlias type="edu.eci.cvds.samples.entities.Usuario" alias="Usuario"/>
 		<typeAlias type="edu.eci.cvds.samples.entities.Reserva" alias="Reserva"/>
+        <typeAlias type="edu.eci.cvds.samples.entities.Evento" alias="Evento"/>
     </typeAliases>
 
 <environments default="development">
@@ -28,6 +29,7 @@
         <mapper resource="mappers/RecursoMapper.xml"></mapper>
         <mapper resource="mappers/UsuarioMapper.xml"></mapper>
 		<mapper resource="mappers/ReservaMapper.xml"></mapper>
+        <mapper resource="mappers/EventoMapper.xml"></mapper>
     </mappers>
 
 </configuration>

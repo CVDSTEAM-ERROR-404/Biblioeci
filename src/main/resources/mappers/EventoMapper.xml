@@ -20,7 +20,13 @@
   </update>
 
 
+
+  <insert parameterType="map" id="registrarEvento">
+    INSERT INTO evento(reserva, hora_inicio, hora_fin, estado) values (#{reserva.id}, #{inicio}, {fin}, #{evento.estado});
+  </insert>
     
-	
-	
+	<insert parameterType="map" id="registrarEventoEstado">
+    INSERT INTO evento(reserva, hora_inicio, hora_fin, estado) values (#{reserva.id}, #{inicio}, {fin}, #{estado});
+  </insert>
+
 </mapper>

@@ -2,6 +2,7 @@ package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoReserva;
 
 /**
  * Esta interfaz conecta los servicios relacionados con las reservas a la base de datos
@@ -23,4 +24,13 @@ public interface ReservaMapper {
 	 * @param id El identificador del recurso
 	 */
 	public void cancelarReservasPendientes(@Param("id")long id);
+	
+	
+
+	/**
+	 * Registra una nueva reserva de un recurso y un usuario
+	 * @param reserva Reserva a registrar
+	 * @param usuario Correo del usuario que va a reservar
+	 */
+	public void registrarReserva(@Param("reserva")Reserva reserva, @Param("usuario") String usuario);
 }

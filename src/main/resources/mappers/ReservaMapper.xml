@@ -40,15 +40,16 @@
      
   
 	<update parameterType="map" id="cancelarReservasPendientes">
-	  update reserva as eve
-	  set estado='Cancelada'
-	  FROM
-	  	reserva as res,
-			evento as eve
+	  update reserva as res
+	  	set estado='Cancelada'
 	  WHERE
-	  res.recurso=#{id} AND eve.reserva=res.id AND res.estado='Activa'
-	  EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
+			res.recurso=#{id} AND res.estado='Activa' AND
+			EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
   </update>
+
+	<insert parameterType="map" id="registrarReserva">
+    INSERT INTO reserva(tipo, estado, usuario ,recurso) values (#{reserva.tipo}, #{reserva.estado}, #{usuario}, #{reserva.recurso.id});
+  </insert>
 
 
   

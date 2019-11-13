@@ -40,7 +40,7 @@ Ver [funcionalidades](resources/md/manual.md)
 ## Arquitectura y Diseño
 
 #### Modelo E-R
-![](resources/modelos/er.png)
+![](resources/modelos/er1.png)
 #### Diagrama de Clases
 ![](resources/modelos/class.png)
 

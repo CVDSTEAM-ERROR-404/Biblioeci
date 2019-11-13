@@ -11,6 +11,14 @@
         <association property="horaFin" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.horarioResult" columnPrefix='horariof_'></association>      
 	</resultMap>
 
+  
+  <update parameterType="map" id="cancelarEventosPendientesReserva">
+	  update evento as eve
+	    set estado='Cancelada'
+    WHERE
+      eve.reserva=#{reserva} and now() &lt;= eve.hora_inicio;
+  </update>
+
 
     
 	

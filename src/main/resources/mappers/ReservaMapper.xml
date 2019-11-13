@@ -33,22 +33,24 @@
 			evento as eve
      WHERE
       res.recurso=#{id} AND res.recurso=recu.id AND
-			eve.reserva=res.id AND 
-			now() &lt;= eve.hora_inicio AND res.estado='Activa';
+			eve.reserva=res.id AND res.estado='Activa' AND 
+			EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
   </select>
 
      
   
 	<update parameterType="map" id="cancelarReservasPendientes">
-	  update reserva as res
+	  update reserva as eve
 	  set estado='Cancelada'
 	  FROM
 	  	reserva as res,
 			evento as eve
 	  WHERE
-	  res.recurso=#{id} AND eve.reserva=res.id AND
-	  now() &lt;= eve.hora_inicio AND res.estado='Activa';
+	  res.recurso=#{id} AND eve.reserva=res.id AND res.estado='Activa'
+	  EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
   </update>
+
+
   
 
 	

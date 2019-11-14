@@ -24,25 +24,27 @@
 
 	<link rel="stylesheet" type="text/css" href="/css/util.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet" />
  	</h:head>
 	
 	<h:body>
-		<h:form id="actrecurso_form">
+		<h:form id="actrecurso_form" autocomplete="off" >
 			<p:growl id="growl" showDetail="false" sticky="true" />
-			<p:panel class="panelCenter" id="actpanelrecurso"   style="width: 900px;">
+			<p:panel class="panelCenter" id="actpanelrecurso"   style="width: 950px;">
 			<center>
 			<p:fieldset legend="Consultar recursos" >
-			<p:dataTable  var="rec" value="#{RecursosBean.consultarRecursos()}"
+			<p:dataTable  var="rec" value="#{RecursosBean.consultarRecursos()}" 
                      paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                      rowsPerPageTemplate="5,10,15"
 					 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-					 paginatorPosition="bottom" rows="10" style="width:820px;" >
+					 paginatorPosition="bottom" rows="10" style="width:850px;" >
 					 
 					<f:facet name="header" style="color:black;">
 						Recursos
 					</f:facet>
 					
-					<p:column headerText="ID" width="50">
+					<p:column headerText="ID" width="50"  >
 						<h:outputText value="#{rec.getId()}" />
 					</p:column>
 					
@@ -66,40 +68,56 @@
 						<h:outputText value="#{rec.getEstado()}" />
 					</p:column>
 					
+					<p:column headerText="Actualizar">
+					<p:commandLink update=":actrecurso_form:outgrid" oncomplete="PF('recursoDialog').show()" style="background:white;">
+						<i class="material-icons">
+									info
+						</i>
+						<f:setPropertyActionListener  value="#{rec}" target="#{RecursosBean.selectedRecurso}" />
+					</p:commandLink>	
+							
+					</p:column>
+					
 			</p:dataTable>
 			</p:fieldset>
 			</center>
 			
 			<br/>
-			<center>
-			<p:fieldset legend="Actualizar recurso" style="width:700px;">
 			
-				
-				<center>
-				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
-					<p:outputLabel class="intlabel" for="ID" value="ID: " />
-					<p:inputText class="inttext" id="ID" type="int" required="true" binding="#{id}"/>
+			<p:dialog header="Actualizar" widgetVar="recursoDialog"  resizable="false" >
+			
+				<p:outputPanel id="outgrid" style="text-align:center;"  >
+					<p:panelGrid id="grid1" columns="2"  >
+						<p:outputLabel class="intlabel"  value="ID: " />
+						<p:outputLabel class="intlabel"  value="#{RecursosBean.getSelectedRecurso().getId()}" />
+						
 
-					<p:outputLabel class="intlabel"  value="Estado: " />
-					<p:selectOneMenu value="#{RecursosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
-						<f:selectItems value="#{RecursosBean.getEstados()}"  />
-					</p:selectOneMenu>
+						<p:outputLabel class="intlabel"  value="Estado: " />
+						<p:selectOneMenu value="#{RecursosBean.estadoRecurso}" style="width:216px; background:#cc0000;">
+							<f:selectItems value="#{RecursosBean.getEstados()}"  />
+						</p:selectOneMenu>
+						
+						<f:facet name="footer">
+						<h:commandButton class="buttond" value="Actualizar" style="font-size:12px; " actionListener="#{RecursosBean.cambiarEstadoRecurso(RecursosBean.getSelectedRecurso().getId())}" update="actrecurso_form"/>
+							 
+						
+						<h:outputLink value="login1.xhtml"
+							styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+							<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+						</h:outputLink>
+					</f:facet>
 					
-				</p:panelGrid>
+					</p:panelGrid>
+					
+					
 				
+					</p:outputPanel>
 			
-				</center>
-				</p:fieldset>
-				</center>
-				<f:facet name="footer">
-					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{RecursosBean.cambiarEstadoRecurso(id.value)}" update="actrecurso_form"/>
-						 
-					
-					<h:outputLink value="login1.xhtml"
-						styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
-					</h:outputLink>
-				</f:facet>
+			</p:dialog>
+				
+				
+				
+				
 				
 			</p:panel>
 		

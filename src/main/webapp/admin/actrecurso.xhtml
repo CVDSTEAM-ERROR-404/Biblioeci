@@ -29,8 +29,53 @@
 	<h:body>
 		<h:form id="actrecurso_form">
 			<p:growl id="growl" showDetail="false" sticky="true" />
-			<p:panel class="panelCenter" id="actpanelrecurso"   style="width: 400px;">
-			<p:fieldset legend="Actualizar recurso" >
+			<p:panel class="panelCenter" id="actpanelrecurso"   style="width: 900px;">
+			<center>
+			<p:fieldset legend="Consultar recursos" >
+			<p:dataTable  var="rec" value="#{RecursosBean.consultarRecursos()}"
+                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15"
+					 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+					 paginatorPosition="bottom" rows="10" style="width:820px;" >
+					 
+					<f:facet name="header" style="color:black;">
+						Recursos
+					</f:facet>
+					
+					<p:column headerText="ID" width="50">
+						<h:outputText value="#{rec.getId()}" />
+					</p:column>
+					
+					<p:column headerText="Nombre" width="120">
+						<h:outputText value="#{rec.getNombre()}" />
+					</p:column>
+					
+					<p:column headerText="Ubicacion" width="120">
+						<h:outputText value="#{rec.getUbicacion()}" />
+					</p:column>
+					
+					<p:column headerText="Tipo" width="200">
+						<h:outputText value="#{rec.getTipo()}" />
+					</p:column>
+						
+					<p:column headerText="Capacidad" width="110">
+						<h:outputText value="#{rec.getCapacidad()}" />
+					</p:column>
+					
+					<p:column headerText="Estado" width="140">
+						<h:outputText value="#{rec.getEstado()}" />
+					</p:column>
+					
+			</p:dataTable>
+			</p:fieldset>
+			</center>
+			
+			<br/>
+			<center>
+			<p:fieldset legend="Actualizar recurso" style="width:700px;">
+			
+				
+				<center>
 				<p:panelGrid  class="grid" id="grid" cellpadding="2" columns="2"  >
 					<p:outputLabel class="intlabel" for="ID" value="ID: " />
 					<p:inputText class="inttext" id="ID" type="int" required="true" binding="#{id}"/>
@@ -41,9 +86,11 @@
 					</p:selectOneMenu>
 					
 				</p:panelGrid>
-			
 				
+			
+				</center>
 				</p:fieldset>
+				</center>
 				<f:facet name="footer">
 					<h:commandButton class="button1"   value="Actualizar" style="font-size:12px;" actionListener="#{RecursosBean.cambiarEstadoRecurso(id.value)}" update="actrecurso_form"/>
 						 
@@ -53,6 +100,7 @@
 						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
 					</h:outputLink>
 				</f:facet>
+				
 			</p:panel>
 		
 		</h:form>	 

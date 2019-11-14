@@ -30,45 +30,47 @@
 	<h:body>
 		<h:form id="cancel_reserva_form">
 			
-			<p:panel class="panelCenter2" id="panelCancel"   style="width: 850px;">
-			<p:dataTable class="tableCenter" var="res" value="#{RecursosBean.getReservasFuturas()}"
+			<p:panel class="panelCenter" id="panelCancel"   style="width: 650px; ">
+			<center>
+			<p:fieldset legend="Cancelar Reservas" >
+			<p:dataTable  var="res" value="#{RecursosBean.getReservasFuturas()}"
                      paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                      rowsPerPageTemplate="5,10,15"
 					 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-					 paginatorPosition="bottom" rows="10" style="width:800px;" >
+					 paginatorPosition="bottom" rows="10" style="width:570px;" >
 				
 				<f:facet name="header" style="color:black;">
 					Reservas pendientes
 				</f:facet>
 				
-				<p:column headerText="ID" sortBy="#{row.ID}" 
-					filterBy="#{res.getID()}" filterStyle="width:50px;"
-					filterMatchMode="contains">
+				<p:column headerText="ID">
 					<h:outputText value="#{res.getID()}" />
 				</p:column>
 				
-				<p:column headerText="Recurso">
-					<h:outputText value="#{res.recurso.getID()}" />
+				
+				<p:column headerText="tipo">
+					<h:outputText value="#{res.getTipo()}" />
 				</p:column>
+				
+				<p:column headerText="Nombre_recurso">
+					<h:outputText value="#{res.recurso.getNombre()}" />
+				</p:column>
+				
 				
 
 				
-				
-				
-				
-				
-				
 				<f:facet name="footer">
-					<h:commandButton class="button1" id="cancel"  value="Cancelar" style="font-size:12px;" actionListener="#{RecursosBean.cancelarReservasPendientes()}"/>
+					<h:commandButton class="buttonl" id="cancel"  value="Cancelar" style="font-size:12px;" actionListener="#{RecursosBean.cancelarReservasPendientes()}"/>
 					
-					<h:commandButton class="button2" style="font-size:12px;" value="No cancelar" rendered="#{RecursosBean.showButton}" actionListener="#{RecursosBean.successOperation(RecursosBean.successUpdate)}" />
+					<h:commandButton class="buttonr" style="font-size:12px;" value="No cancelar" rendered="#{RecursosBean.showButton}" actionListener="#{RecursosBean.successOperation(RecursosBean.successUpdate)}" />
 					
 					
 					
 				</f:facet>
 				
 			</p:dataTable>
-			
+			</p:fieldset>
+			</center>
 		</p:panel>
 		
 		

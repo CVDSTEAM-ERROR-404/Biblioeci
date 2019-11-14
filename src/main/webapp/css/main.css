@@ -73,7 +73,7 @@ body{
 }
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
+	font-family: Raleway-Bold !important;;
 	font-size: 14px;
 	line-height: 1.7;
 	color: white;
@@ -560,6 +560,14 @@ iframe {
 .button4:hover {
   background: #333333;
 }
+
+.buttonr:hover {
+  background: #333333;
+}
+
+.buttonl:hover {
+  background: #333333;
+}
  
 .button1{
   font-family: Raleway-Bold !important;
@@ -572,7 +580,7 @@ iframe {
   height: 42px;
   border-radius: 3px;
   background: #cc0000;
-  margin-left:10%;
+  margin-left:20%;
   margin-right:25%;
   padding: 0 25px;
   
@@ -645,6 +653,44 @@ iframe {
   text-align:center; 
 }
 
+.buttonr{
+  font-family: Raleway-Bold !important;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+  height: 42px;
+  border-radius: 3px;
+  background: #cc0000;
+  padding: 0 25px;
+  display: inline;
+  text-align:center; 
+  margin-right:10%;
+}
+
+.buttonl{
+  font-family: Raleway-Bold !important;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+
+  width: 50px%;
+  height: 42px;
+  border-radius: 3px;
+  background: #cc0000;
+  margin-left:10%;
+  margin-right:25%;
+  padding: 0 25px;
+  
+  
+  
+   display: inline;
+    text-align:center; 
+    
+	
+}
+
 .centerB{
     margin:0 auto;
     display:block;
@@ -655,6 +701,7 @@ iframe {
 
 .ui-button:hover {
   background: #333333;
+  font-family: Raleway-Bold !important;
 }
 
 .ui-selectonemenu-trigger{

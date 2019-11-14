@@ -78,6 +78,13 @@
 							
 					</p:column>
 					
+					<f:facet name="footer">
+						<h:outputLink value="login1.xhtml"
+								styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+								<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+						</h:outputLink>
+					</f:facet>
+					
 			</p:dataTable>
 			</p:fieldset>
 			</center>
@@ -98,25 +105,16 @@
 						</p:selectOneMenu>
 						
 						<f:facet name="footer">
-						<h:commandButton class="buttond" value="Actualizar" style="font-size:12px; " actionListener="#{RecursosBean.cambiarEstadoRecurso(RecursosBean.getSelectedRecurso().getId())}" update="actrecurso_form"/>
-							 
+							<h:commandButton class="button3" value="Actualizar" style="font-size:12px; " actionListener="#{RecursosBean.cambiarEstadoRecurso(RecursosBean.getSelectedRecurso().getId())}" update="actrecurso_form"/>
 						
-						<h:outputLink value="login1.xhtml"
-							styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-							<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
-						</h:outputLink>
-					</f:facet>
+						</f:facet>
 					
 					</p:panelGrid>
 					
 					
-				
-					</p:outputPanel>
+				</p:outputPanel>
 			
 			</p:dialog>
-				
-				
-				
 				
 				
 			</p:panel>

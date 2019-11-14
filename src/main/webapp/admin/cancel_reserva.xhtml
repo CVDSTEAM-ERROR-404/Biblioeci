@@ -43,19 +43,20 @@
 					Reservas pendientes
 				</f:facet>
 				
-				<p:column headerText="ID">
+				<p:column headerText="ID" width="50">
 					<h:outputText value="#{res.getId()}" />
 				</p:column>
 				
-				<p:column headerText="Nombre_usuario">
-					<h:outputText value="#{res.usuario.getNombre()}" />
-				</p:column>
-				
-				<p:column headerText="tipo">
+				<p:column headerText="tipo" width="150" >
 					<h:outputText value="#{res.getTipo()}" />
 				</p:column>
 				
-				<p:column headerText="Nombre_recurso">
+				<p:column headerText="Usuario" width="120">
+					<h:outputText value="#{res.usuario.getNombre()}" />
+				</p:column>
+				
+				
+				<p:column headerText="Recurso" width="120">
 					<h:outputText value="#{res.recurso.getNombre()}" />
 				</p:column>
 				<p:column headerText="Proximo evento">

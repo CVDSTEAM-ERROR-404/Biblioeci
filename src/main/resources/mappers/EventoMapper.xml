@@ -7,8 +7,8 @@
 	<resultMap type='Evento' id='EventoResult'>
 		<id property='id' column='id'/>
 		<result property='estado' column='estado'/>
-        <association property="horaInicio" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.HorarioResult" columnPrefix='horarioi_'></association>      
-        <association property="horaFin" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.horarioResult" columnPrefix='horariof_'></association>      
+        <association property="horaInicio" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioResult" columnPrefix='horarioi_'></association>
+        <association property="horaFin" javaType="Horario"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioResult" columnPrefix='horariof_'></association>
 	</resultMap>
 
   

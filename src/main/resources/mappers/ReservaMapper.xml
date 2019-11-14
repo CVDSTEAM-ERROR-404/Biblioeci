@@ -9,7 +9,7 @@
 		<result property='tipo' column='tipo'/>
 		<result property='estado' column='estado'/>
 		<association property="recurso" javaType="Recurso"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.RecursoResult" columnPrefix='recurso_'></association>      
-		<collection property='eventosAsignados' ofType='Evento' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.HorarioMapper.EventoResult' columnPrefix='evento_'></collection>
+		<collection property='eventosAsignados' ofType='Evento' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoMapper.EventoResult' columnPrefix='evento_'></collection>
 	</resultMap>
 	
 

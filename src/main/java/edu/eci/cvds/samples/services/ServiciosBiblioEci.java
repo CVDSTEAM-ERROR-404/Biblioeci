@@ -64,6 +64,7 @@ public interface ServiciosBiblioEci {
      */
     public abstract List<Recurso> consultarRecursosDisponibles(int capacidad , UbicacionRecurso ubicacionRecurso,TipoRecurso tipo)throws  ExcepcionServiciosBiblioEci;
 
+    public abstract void registrarReserva(Reserva reserva);
 
 
 

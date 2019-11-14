@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS Reserva (
   id SERIAL,
   tipo varchar(45) not null,
   estado varchar(45) not null,
+  fecha_solicitud timestamp not null,
   usuario varchar(45) NOT NULL REFERENCES Usuario(correo),
   recurso INTEGER NOT NULL REFERENCES Recurso(id),
   PRIMARY KEY (id));

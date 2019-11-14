@@ -130,6 +130,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return  recursos;
     }
 
+    @Override
+    public void registrarReserva(Reserva reserva) {
+
+    }
 
 
     /**

@@ -30,7 +30,6 @@ public interface ReservaMapper {
 	/**
 	 * Registra una nueva reserva de un recurso y un usuario
 	 * @param reserva Reserva a registrar
-	 * @param usuario Correo del usuario que va a reservar
 	 */
-	public void registrarReserva(@Param("reserva")Reserva reserva, @Param("usuario") String usuario);
+	public void registrarReserva(@Param("reserva")Reserva reserva);
 }

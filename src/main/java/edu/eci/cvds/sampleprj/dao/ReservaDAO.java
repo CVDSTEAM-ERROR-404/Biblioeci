@@ -30,7 +30,6 @@ public interface ReservaDAO{
 	/**
 	 * Registra una nueva reserva de un recurso y un usuario
 	 * @param reserva Reserva a registrar
-	 * @param usuario Correo del usuario que va a reservar
 	 */
-	public void registrarReserva(Reserva reserva,String usuario)throws PersistenceException;
+	public void registrarReserva(Reserva reserva)throws PersistenceException;
 }

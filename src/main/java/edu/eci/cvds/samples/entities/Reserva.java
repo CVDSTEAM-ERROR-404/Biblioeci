@@ -2,6 +2,7 @@ package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Reserva realizada dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
@@ -16,6 +17,8 @@ public class Reserva implements Serializable{
 	private String estado;
 	private ArrayList<Evento> eventosAsignados;
 	private Recurso recurso;
+	private Date fechaSolicitud;
+	private Usuario usuario;
 
 	/**
 	 * Constructor por defecto de la clase Reserva
@@ -27,7 +30,7 @@ public class Reserva implements Serializable{
 	 * Muestra el identificador de la reserva
 	 * @return El identificador de la reserva
 	 */
-	public int getID(){
+	public int getId(){
 		return id;
 	}
 
@@ -35,7 +38,7 @@ public class Reserva implements Serializable{
 	 * Cambia el identificador de la reserva
 	 * @param id El identificador de la reserva
 	 */
-	public void setID(int id){
+	public void setId(int id){
 		this.id=id;
 	}
 
@@ -83,9 +86,10 @@ public class Reserva implements Serializable{
 	 * Cambia los horarios de la reserva
 	 * @param eventosAsignados Los horarios de la reserva
 	 */
-	public void setEventossAsignados(ArrayList<Evento> eventosAsignados){
+	public void setEventosAsignados(ArrayList<Evento> eventosAsignados){
 		this.eventosAsignados=eventosAsignados;
 	}
+
 
 	/**
 	 * Muestra el recurso sobre el cual se realizo la reserva
@@ -102,6 +106,23 @@ public class Reserva implements Serializable{
 	public void setRecurso(Recurso recurso){
 		this.recurso = recurso;
 	}
+
+	public Date getFechaSolicitud() {
+		return fechaSolicitud;
+	}
+
+	public void setFechaSolicitud(Date fechaSolicitud) {
+		this.fechaSolicitud = fechaSolicitud;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 
 
 

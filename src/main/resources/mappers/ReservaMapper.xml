@@ -8,7 +8,9 @@
 		<id property='id' column='id'/>
 		<result property='tipo' column='tipo'/>
 		<result property='estado' column='estado'/>
-		<association property="recurso" javaType="Recurso"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.RecursoResult" columnPrefix='recurso_'></association>      
+		<result property='fechaSolicitud' column='fecha_solicitud'/>
+		<association property="usuario" javaType="Usuario" resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.UsuarioMapper.UsuarioResult" columnPrefix='usuario_'></association>
+		<association property="recurso" javaType="Recurso"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.RecursoResult" columnPrefix='recurso_'></association>
 		<collection property='eventosAsignados' ofType='Evento' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoMapper.EventoResult' columnPrefix='evento_'></collection>
 	</resultMap>
 	
@@ -18,6 +20,12 @@
       res.id as id, 
       res.tipo as tipo,
       res.estado as estado,
+	  res.fecha_solicitud as fecha_solicitud,
+
+	  us.correo as usuario_correo,
+		us.u_area as usuario_area,
+	  us.nombre as usuario_nombre,
+
       recu.id as recurso_id, 
 			recu.nombre as recurso_nombre, 
 			recu.tipo as recurso_tipo, 
@@ -29,10 +37,12 @@
 			eve.hora_fin as evento_horariof_horaFin
      FROM
       reserva as res,
-			recurso as recu, 
+			recurso as recu,
+			usuario as us,
 			evento as eve
      WHERE
       res.recurso=#{id} AND res.recurso=recu.id AND
+		    us.correo=res.usuario AND
 			eve.reserva=res.id AND res.estado='Activa' AND 
 			EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
   </select>
@@ -48,7 +58,7 @@
   </update>
 
 	<insert parameterType="Reserva" id="registrarReserva" useGeneratedKeys="true" keyProperty="reserva.id" keyColumn="id">
-    INSERT INTO reserva(tipo, estado, usuario ,recurso) values (#{reserva.tipo}, #{reserva.estado}, #{usuario}, #{reserva.recurso.id});
+    INSERT INTO reserva(tipo,fecha_solicitud ,estado, usuario ,recurso) values (#{reserva.tipo},#{reserva.fechaSolicitud}, #{reserva.estado}, #{reserva.usuario.correo}, #{reserva.recurso.id});
   </insert>
 
 

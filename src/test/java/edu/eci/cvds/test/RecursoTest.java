@@ -40,8 +40,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertEquals(rec.getEstado(), EstadoRecurso.Disponible);
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()==id+1){fail("No debio encontrar el recurso con daño reparable");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()==id+1){fail("No debio encontrar el recurso con daño reparable");}
         }
         assertTrue(found);
     }
@@ -56,8 +56,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getCapacidad()==3);
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()==id+1){fail("No debio encontrar el recurso con otra capacidad");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()==id+1){fail("No debio encontrar el recurso con otra capacidad");}
         }
         assertTrue(found);
     }
@@ -72,8 +72,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO));
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()==id+1){fail("No debio encontrar el recurso con otro tipo");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()==id+1){fail("No debio encontrar el recurso con otro tipo");}
         }
         assertTrue(found);
     }
@@ -89,8 +89,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO) && rec.getCapacidad()==6);
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()>id){fail("No debio encontrar el recurso con otro tipo u otra ubicacion");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()>id){fail("No debio encontrar el recurso con otro tipo u otra ubicacion");}
         }
         assertTrue(found);
     }
@@ -105,8 +105,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB));
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()==id+1){fail("No debio encontrar el recurso con otra ubicacion");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()==id+1){fail("No debio encontrar el recurso con otra ubicacion");}
         }
         assertTrue(found);
     }
@@ -122,8 +122,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB));
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()>id){fail("No debio encontrar el recurso con otro tipo u otra ubicacion");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()>id){fail("No debio encontrar el recurso con otro tipo u otra ubicacion");}
         }
         assertTrue(found);
     }
@@ -139,8 +139,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB) && rec.getCapacidad()==4);
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()>id){fail("No debio encontrar el recurso con otra capacidad u otra ubicacion");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()>id){fail("No debio encontrar el recurso con otra capacidad u otra ubicacion");}
         }
         assertTrue(found);
     }
@@ -160,8 +160,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         boolean found = false;
         for(Recurso rec: disponibles){
             assertTrue(rec.getEstado().equals(EstadoRecurso.Disponible) && rec.getUbicacion().equals(UbicacionRecurso.BloqueB) && rec.getCapacidad()==2 && rec.getTipo().equals(TipoRecurso.SALA_DE_ESTUDIO));
-            if(rec.getID()==id){found = true;}
-            if(rec.getID()>id){fail("No debio encontrar el recurso con otra capacidad u otra ubicacion");}
+            if(rec.getId()==id){found = true;}
+            if(rec.getId()>id){fail("No debio encontrar el recurso con otra capacidad u otra ubicacion");}
         }
         assertTrue(found);
     }

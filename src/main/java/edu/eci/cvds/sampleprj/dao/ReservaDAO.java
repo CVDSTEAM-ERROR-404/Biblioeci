@@ -26,4 +26,11 @@ public interface ReservaDAO{
 	 * @throws PersistenceException Cuando ocurre algun error al cancelar las reservas pendientes
 	 */
 	public void cancelarReservasPendientes(long id)throws PersistenceException;
+
+	/**
+	 * Registra una nueva reserva de un recurso y un usuario
+	 * @param reserva Reserva a registrar
+	 * @param usuario Correo del usuario que va a reservar
+	 */
+	public void registrarReserva(Reserva reserva,String usuario)throws PersistenceException;
 }

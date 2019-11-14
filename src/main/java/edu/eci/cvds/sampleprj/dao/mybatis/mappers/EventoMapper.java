@@ -13,18 +13,16 @@ import edu.eci.cvds.samples.entities.Reserva;
 public interface EventoMapper {
     /**
      * Cancela todos los eventos pendientes de una recurso específico
-     * @param idReserva ID del recurso
+     * @param idRecurso ID del recurso
      */
     public void cancelarEventosPendientesRecurso(@Param("recurso") long idRecurso);
 
     /**
      * Registra un nuevo evento de una reserva
      * @param evento Evento a registrar
-     * @param fechaInicio Fecha de inicio del evento
-     * @param fechaFin Fecha de fin del evento
-     * @param reserva Reserva del evento
+     * @param idReserva id de la Reserva del evento
      */
-    public void registrarEvento(@Param("evento") Evento evento, @Param("inicio") Date fechaInicio ,@Param("fin") Date fechaFin, @Param("reserva") Reserva reserva);
+    public void registrarEvento(@Param("evento") Evento evento,  @Param("idReserva") long idReserva);
 
     /**
      * Registra un evento por medio del estado de este
@@ -32,8 +30,8 @@ public interface EventoMapper {
      * @param fechaInicio Fecha de inicio del evento
      * @param fechaFin Fecha fin del evento
      * @param reserva Reserva del evento
-     */
-    public void registrarEventoEstado(@Param("estado") String estado, @Param("inicio") Date fechaInicio ,@Param("fin") Date fechaFin, @Param("reserva") Reserva reserva);
 
+    public void registrarEventoEstado(@Param("estado") String estado, @Param("inicio") Date fechaInicio ,@Param("fin") Date fechaFin, @Param("reserva") Reserva reserva);
+*/
     
 }

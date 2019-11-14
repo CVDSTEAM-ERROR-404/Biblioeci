@@ -68,7 +68,7 @@ public class Recurso implements Serializable{
      * Muestra el identificador del recurso
      * @return El identificador del recurso
      */
-    public int getID(){
+    public int getId(){
         return id;
     }
 
@@ -76,7 +76,7 @@ public class Recurso implements Serializable{
      * Cambia el identificador del recurso
      * @param id El identificador del recurso
      */
-    public void setID(int id){
+    public void setId(int id){
         this.id=id;
     }
 

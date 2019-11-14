@@ -5,21 +5,13 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 
+import edu.eci.cvds.sampleprj.dao.*;
+import edu.eci.cvds.sampleprj.dao.mybatis.*;
 import edu.eci.cvds.security.SesionLogger;
 import edu.eci.cvds.security.ShiroLogger;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
-import edu.eci.cvds.sampleprj.dao.HorarioDAO;
-import edu.eci.cvds.sampleprj.dao.RecursoDAO;
-import edu.eci.cvds.sampleprj.dao.ReservaDAO;
-
-import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
-import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISHorarioDAO;
-import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISRecursoDAO;
-import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISReservaDAO;
-
-import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISUsuarioDAO;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.impl.ServiciosBiblioEciImpl;
 
@@ -59,7 +51,8 @@ public class GuiceContextListener implements ServletContextListener {
                 bind(RecursoDAO.class).to(MyBATISRecursoDAO.class);
                 bind(HorarioDAO.class).to(MyBATISHorarioDAO.class);
 				bind(ReservaDAO.class).to(MyBATISReservaDAO.class);
-                bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class); 
+                bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class);
+                bind(EventoDAO.class).to(MyBATISEventoDAO.class);
                 bind(SesionLogger.class).to(ShiroLogger.class);
             }
         });

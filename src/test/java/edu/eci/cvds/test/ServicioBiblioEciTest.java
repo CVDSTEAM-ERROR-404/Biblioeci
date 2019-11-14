@@ -16,6 +16,6 @@ public class ServicioBiblioEciTest {
 
     protected int obtenerID() throws ExcepcionServiciosBiblioEci {
         List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
-        return recursos.get(recursos.size()-1).getID();
+        return recursos.get(recursos.size()-1).getId();
     }
 }

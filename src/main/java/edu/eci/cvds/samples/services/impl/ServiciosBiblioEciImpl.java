@@ -4,12 +4,8 @@ import java.util.List;
 
 import com.google.inject.Inject;
 
-import edu.eci.cvds.sampleprj.dao.HorarioDAO;
-import edu.eci.cvds.sampleprj.dao.PersistenceException;
-import edu.eci.cvds.sampleprj.dao.ReservaDAO;
+import edu.eci.cvds.sampleprj.dao.*;
 
-import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
-import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
@@ -27,9 +23,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     private HorarioDAO horarioDAO;
     @Inject
     private ReservaDAO reservaDAO;
-
     @Inject
     private UsuarioDAO UsuarioDAO;
+    @Inject
+    private EventoDAO eventoDAO;
 
     /**
      * Registra un recurso en la base de datos de la biblioteca
@@ -39,7 +36,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     public void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci {
         if(cli==null){throw new ExcepcionServiciosBiblioEci("El recurso a registrar no puede ser nulo");}
-        if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una capacidad invalida");}
+        if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.getNombre()+"tiene una capacidad invalida");}
         try {
             recursoDAO.save(cli);
         } catch (PersistenceException e) {
@@ -110,6 +107,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     public void cancelarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
         try {
             reservaDAO.cancelarReservasPendientes(id);
+            eventoDAO.cancelarEventosPendientesRecurso(id);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al cancelar las reservas futuras");
         }

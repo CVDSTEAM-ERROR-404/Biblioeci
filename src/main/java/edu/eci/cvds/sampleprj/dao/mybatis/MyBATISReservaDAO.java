@@ -53,4 +53,18 @@ public class MyBATISReservaDAO implements ReservaDAO{
 		}
 	}
 
+	/**
+	 * Registra una nueva reserva de un recurso y un usuario
+	 *
+	 * @param reserva Reserva a registrar
+	 * @param usuario Correo del usuario que va a reservar
+	 */
+	@Override
+	public void registrarReserva(Reserva reserva, String usuario) throws PersistenceException {
+		try{
+			reservaMapper.registrarReserva(reserva,usuario);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al registrar la reserva",e);
+		}
+	}
 }

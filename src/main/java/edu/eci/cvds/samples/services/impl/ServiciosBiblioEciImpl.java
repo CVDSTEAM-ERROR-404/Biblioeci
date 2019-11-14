@@ -133,7 +133,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     }
 
     @Override
-    public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento,String periodicidad) throws ExcepcionServiciosBiblioEci {
+    public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         try {
             reservaDAO.registrarReserva(reserva);
         if(reserva.getEstado().equals(TipoReserva.Simple)){
@@ -144,7 +144,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             Calendar fin= Calendar.getInstance();
             inicio.setTime(fechaInicio);
             fin.setTime(fechaFinEvento);
-            inicio.add(reserva.getTipo().getCalendarConstant(),1);
+            while(inicio.getTime().before(fechaFinRecurrencia)) {
+                eventoDAO.registrarEvento(new Evento(inicio.getTime(),fin.getTime()),reserva.getId());
+                inicio.add(reserva.getTipo().getCalendarConstant(),1);
+                fin.add(reserva.getTipo().getCalendarConstant(),1);
+            }
         }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al registrar la reserva");

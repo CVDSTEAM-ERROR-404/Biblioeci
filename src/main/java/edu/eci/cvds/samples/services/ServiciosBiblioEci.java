@@ -1,5 +1,6 @@
 package edu.eci.cvds.samples.services;
 
+import java.util.Date;
 import java.util.List;
 
 import edu.eci.cvds.samples.entities.*;
@@ -64,7 +65,7 @@ public interface ServiciosBiblioEci {
      */
     public abstract List<Recurso> consultarRecursosDisponibles(int capacidad , UbicacionRecurso ubicacionRecurso,TipoRecurso tipo)throws  ExcepcionServiciosBiblioEci;
 
-    public abstract void registrarReserva(Reserva reserva);
+    public abstract void registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento, String periodicidad) throws ExcepcionServiciosBiblioEci;
 
 
 

@@ -14,11 +14,19 @@ public class Reserva implements Serializable{
 	
 	private int id;
 	private TipoReserva tipo;
-	private String estado;
+	private EstadoReserva estado;
 	private ArrayList<Evento> eventosAsignados;
 	private Recurso recurso;
 	private Date fechaSolicitud;
 	private Usuario usuario;
+
+	public Reserva(TipoReserva tipo, Recurso recurso, Usuario usuario) {
+		this.tipo = tipo;
+		this.recurso = recurso;
+		this.fechaSolicitud = new Date();
+		this.usuario = usuario;
+		this.estado=EstadoReserva.Activa;
+	}
 
 	/**
 	 * Constructor por defecto de la clase Reserva
@@ -62,7 +70,7 @@ public class Reserva implements Serializable{
 	 * Muestra el estado de la reserva
 	 * @return El estado de la reserva
 	 */
-	public String getEstado(){
+	public EstadoReserva getEstado(){
 		return estado;
 	}
 
@@ -70,7 +78,7 @@ public class Reserva implements Serializable{
 	 * Cambia el estado de la reserva
 	 * @param estado El estado de la reserva
 	 */
-	public void setEstado(String estado){
+	public void setEstado(EstadoReserva estado){
 		this.estado=estado;
 	}
 
@@ -122,7 +130,15 @@ public class Reserva implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
+	public Date nextEvent(){
+		Date nextEvent=null;
+		for (Evento evento:eventosAsignados){
+			if (nextEvent==null||evento.getHoraInicio().before(nextEvent)){
+				nextEvent=evento.getHoraInicio();
+			}
+		}
+		return nextEvent;
+	}
 
 
 

@@ -1,40 +1,47 @@
 package edu.eci.cvds.samples.entities;
 
-public class Evento {
-    int id;
-    Horario horaInicio;
-    Horario horaFin;
-    String estado;
+import java.util.Date;
 
-    public int getID(){
+public class Evento {
+    private int id;
+    private Date horaInicio;
+    private Date horaFin;
+    private EstadoReserva estado;
+    public Evento(){};
+    public Evento(Date horaInicio, Date horaFin) {
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.estado= EstadoReserva.Activa;
+    }
+    public int getId(){
         return id;
     }
 
-    public void setID(int id){
+    public void setId(int id){
         this.id=id;
     }
 
-    public Horario getHoraInicio(){
+    public Date getHoraInicio(){
         return horaInicio;
     }
 
-    public void setHoraInicio(Horario horaInicio){
+    public void setHoraInicio(Date horaInicio){
         this.horaInicio=horaInicio;
     }
 
-    public Horario getHoraFin(){
+    public Date getHoraFin(){
         return horaFin;
     }
 
-    public void setHoraFin(Horario horaFin){
+    public void setHoraFin(Date horaFin){
         this.horaFin=horaFin;
     }
 
-    public String getEstado(){
+    public EstadoReserva getEstado(){
         return estado;
     }
 
-    public void setEstado(String estado){
+    public void setEstado(EstadoReserva estado){
         this.estado = estado;
     }
 

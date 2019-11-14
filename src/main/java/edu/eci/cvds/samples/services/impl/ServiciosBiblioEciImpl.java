@@ -1,5 +1,7 @@
 package edu.eci.cvds.samples.services.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -131,8 +133,22 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     }
 
     @Override
-    public void registrarReserva(Reserva reserva) {
-
+    public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento,String periodicidad) throws ExcepcionServiciosBiblioEci {
+        try {
+            reservaDAO.registrarReserva(reserva);
+        if(reserva.getEstado().equals(TipoReserva.Simple)){
+            eventoDAO.registrarEvento(new Evento(fechaInicio,fechaFinEvento),reserva.getId());
+        }
+        else {
+            Calendar inicio=Calendar.getInstance();
+            Calendar fin= Calendar.getInstance();
+            inicio.setTime(fechaInicio);
+            fin.setTime(fechaFinEvento);
+            inicio.add(reserva.getTipo().getCalendarConstant(),1);
+        }
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al registrar la reserva");
+        }
     }
 
 

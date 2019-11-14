@@ -432,7 +432,18 @@ iframe {
 	
 }
 
-
+.pi {
+    font-family: 'primeicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 /*==================================================================
 [ Restyle Checkbox ]*/
@@ -568,6 +579,10 @@ iframe {
 .buttonl:hover {
   background: #333333;
 }
+
+.buttond:hover {
+  background: #333333;
+}
  
 .button1{
   font-family: Raleway-Bold !important;
@@ -585,6 +600,26 @@ iframe {
   padding: 0 25px;
   
   
+  
+   display: inline;
+    text-align:center; 
+    
+	
+}
+
+.buttond{
+  font-family: Raleway-Bold !important;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+
+  height: 42px;
+  border-radius: 3px;
+  background: #cc0000 ;
+  margin-left:10%;
+  margin-right:10%;
+  padding: 0 25px;
   
    display: inline;
     text-align:center; 
@@ -710,6 +745,10 @@ iframe {
 }
 .ui-icon{
 	background-image:url(https://download.jqueryui.com/themeroller/images/ui-icons_fff_256x240.png) !important;
+}
+
+.ui-icon1{
+	background-image:url(https://download.jqueryui.com/themeroller/images/ui-icons_000_256x240.png) !important;
 }
 /*------------------------------------------------------------------
 [ Button sign in with ]*/

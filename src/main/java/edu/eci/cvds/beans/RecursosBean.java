@@ -35,6 +35,7 @@ public class RecursosBean extends BasePageBean {
 	private List<Recurso> recursosDisponibles;
     private String successUpdate = "Actualización exitosa";
     private UbicacionRecurso ubicacionRecurso;
+	private Recurso selectedRecurso;
 
     /**
      * Retorna la ubicacion del recurso que se va a utilizar
@@ -70,6 +71,7 @@ public class RecursosBean extends BasePageBean {
      */
     public void setEstadoRecurso(EstadoRecurso estadoRecurso) {
         this.estadoRecurso = estadoRecurso;
+		System.out.println(estadoRecurso);
     }
 
     /**
@@ -158,6 +160,18 @@ public class RecursosBean extends BasePageBean {
      */
     public void setShowButton(boolean showButton) { this.showButton = showButton; }
 
+
+	public Recurso getSelectedRecurso(){ 
+		
+		return selectedRecurso;
+		
+	}
+	
+	public void setSelectedRecurso(Recurso selectedRecurso){
+		this.selectedRecurso = selectedRecurso;
+		
+		}
+
     /**
      * Registra un recurso en la base de datos de la biblioteca
      * @param nombre El nombre del recurso que se va a registrar
@@ -213,9 +227,11 @@ public class RecursosBean extends BasePageBean {
 	public void cambiarEstadoRecurso(int id){
 		try {
 		    idRecurso=id;
+			System.out.println(estadoRecurso);
             serviciosBiblioEci.cambiarEstadoRecurso(idRecurso , estadoRecurso);
             showButton=estadoRecurso.equals(EstadoRecurso.Daño_Reparable);
             reservasFuturas=serviciosBiblioEci.consultarReservasPendientes(idRecurso);
+			
             if (reservasFuturas.size()!=0 && !(estadoRecurso.equals(EstadoRecurso.Disponible))) {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/cancel_reserva.xhtml");
                 }

@@ -47,6 +47,9 @@
 					<h:outputText value="#{res.getId()}" />
 				</p:column>
 				
+				<p:column headerText="Nombre_usuario">
+					<h:outputText value="#{res.usuario.getNombre()}" />
+				</p:column>
 				
 				<p:column headerText="tipo">
 					<h:outputText value="#{res.getTipo()}" />
@@ -57,14 +60,10 @@
 				</p:column>
 				
 				
-
-				
 				<f:facet name="footer">
 					<h:commandButton class="buttonl" id="cancel"  value="Cancelar" style="font-size:12px;" actionListener="#{RecursosBean.cancelarReservasPendientes()}"/>
 					
 					<h:commandButton class="buttonr" style="font-size:12px;" value="No cancelar" rendered="#{RecursosBean.showButton}" actionListener="#{RecursosBean.successOperation(RecursosBean.successUpdate)}" />
-					
-					
 					
 				</f:facet>
 				

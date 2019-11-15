@@ -1,7 +1,9 @@
 package edu.eci.cvds.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import com.google.inject.Injector;
@@ -42,4 +44,28 @@ public abstract class BasePageBean implements Serializable {
     }
 
 
+    /**
+     * Envia un mensaje de operacion exitosa y actualiza la pagina
+     * @param message El mensaje de operacion exitosa
+     */
+    public void successOperation(String message){
+        setMessage(message);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setMessage(String message){
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+    /**
+     * Envia un mensaje de error en la pagina web
+     * @param message El mensaje que se va a enviar
+     */
+    public void setErrorMessage(String message){
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
 }

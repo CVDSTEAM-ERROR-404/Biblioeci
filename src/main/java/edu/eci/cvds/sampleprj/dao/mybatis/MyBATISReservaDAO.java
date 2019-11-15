@@ -67,4 +67,9 @@ public class MyBATISReservaDAO implements ReservaDAO{
 			throw new PersistenceException("Error al registrar la reserva",e);
 		}
 	}
+
+	@Override
+	public List<Reserva> consultarReservas() throws PersistenceException {
+		return null;
+	}
 }

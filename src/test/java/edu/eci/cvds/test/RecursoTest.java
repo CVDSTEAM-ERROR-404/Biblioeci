@@ -20,9 +20,6 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RecursoTest extends ServicioBiblioEciTest{
 
-    public RecursoTest(){super();
-    }
-
     @Test
     public void shouldNotConsultAResourceWithNullId() throws ExcepcionServiciosBiblioEci{
         Recurso recurso = serviciosBiblioEci.consultarRecurso(0);

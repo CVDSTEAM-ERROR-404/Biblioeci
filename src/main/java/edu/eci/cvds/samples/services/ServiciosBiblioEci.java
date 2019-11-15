@@ -72,4 +72,6 @@ public interface ServiciosBiblioEci {
 
     public abstract List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci;
 
+    public abstract List<Reserva> consultarReservas() throws ExcepcionServiciosBiblioEci;
+
 }

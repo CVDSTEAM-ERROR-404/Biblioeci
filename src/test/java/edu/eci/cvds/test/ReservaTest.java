@@ -2,16 +2,10 @@ package edu.eci.cvds.test;
 
 import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
-
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -64,17 +58,8 @@ public class ReservaTest extends ServicioBiblioEciTest{
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,null);
         serviciosBiblioEci.registrarRecurso(recurso);
-		serviciosBiblioEci.registrarReserva(reserva,new Date(),new Date(),new Date());
+		serviciosBiblioEci.registrarReserva(reserva,new Date(119,10,20,7,0,0),new Date(),new Date(119,10,20,8,0,0));
         System.out.println(serviciosBiblioEci.consultarEventos());
+        System.out.println(serviciosBiblioEci.consultarReservasPendientes(recurso.getId()));
     }
-
-
-
-
-
-
-
-
-
-
 }

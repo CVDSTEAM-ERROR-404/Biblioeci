@@ -18,10 +18,6 @@ import static org.junit.Assert.*;
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EstadoTest extends ServicioBiblioEciTest{
-
-    public EstadoTest() {
-        super();
-    }
 	
     @Test
     public void shouldChangeStateOfAvailableToReparableDamage() throws ExcepcionServiciosBiblioEci {

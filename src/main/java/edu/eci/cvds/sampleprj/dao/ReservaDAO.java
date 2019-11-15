@@ -32,4 +32,6 @@ public interface ReservaDAO{
 	 * @param reserva Reserva a registrar
 	 */
 	public void registrarReserva(Reserva reserva)throws PersistenceException;
+
+    public List<Reserva> consultarReservas() throws PersistenceException;
 }

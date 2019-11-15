@@ -39,7 +39,8 @@
 				<p:panelGrid  class="grid" id="grid" cellpadding="4" columns="2"  >
 					
 					<p:outputLabel class="intlabel"  value="Tipo: " />
-					<p:selectOneMenu value="#{ReservasBean.tipoReserva}" style="width:216px; background:#cc0000;">
+					<p:selectOneMenu value="#{ReservasBean.tipoReserva}" style="width:216px; background:#cc0000;" >
+						<f:ajax render="reserva_form:panelrecurso" />
 							<f:selectItems  value="#{ReservasBean.getTiposReserva()}" />
 					</p:selectOneMenu>
 					

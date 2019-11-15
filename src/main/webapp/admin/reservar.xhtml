@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	  
+
+	<h:head>
+		<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/images/icons/eci.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css" />
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/css/util.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+ 	</h:head>
+
+
+	<h:body>
+		
+	
+	
+		<h:form id="reserva_form">
+			<p:growl id="growl-reserva" showDetail="false" sticky="true"/> 
+			
+			<p:panel class="panelCenter" id="panelrecurso"   style="width: 450px;">
+				<p:fieldset legend="Registrar reserva" >
+				<p:panelGrid  class="grid" id="grid" cellpadding="4" columns="2"  >
+					
+					<p:outputLabel class="intlabel"  value="Tipo: " />
+					<p:selectOneMenu value="#{ReservasBean.tipoReserva}" style="width:216px; background:#cc0000;">
+							<f:selectItems  value="#{ReservasBean.getTiposReserva()}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="datetime1" value="Hora inicio:" />
+					<p:calendar id="datetime1"  pattern="MM/dd/yyyy HH:mm" binding="#{date1}" />
+					
+					<p:outputLabel for="datetime2" value="Hora fin:" />
+					<p:calendar id="datetime2" pattern="MM/dd/yyyy HH:mm" binding="#{date2}"/>
+					
+					<p:outputLabel for="datetime3" rendered="#{ReservasBean.getRecurrente()}" value="Hora fin reservacion:" />
+					<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}" />
+			 
+				</p:panelGrid>
+			
+				
+			</p:fieldset>
+			<f:facet name="footer">
+				
+					
+					<h:commandButton class="button1"   value="Reservar" style="font-size:12px;" actionListener="#{ReservasBean.registrarReserva(date1.value, date2.value, date3.value)}" update="reserva_form"/>
+						 
+					
+					<h:outputLink value="login1.xhtml"
+						styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+					</h:outputLink>
+				
+				
+				</f:facet>
+			</p:panel>
+		
+		</h:form>	 
+	</h:body>
+</html>

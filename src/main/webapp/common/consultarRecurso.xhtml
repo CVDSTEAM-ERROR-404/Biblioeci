@@ -74,7 +74,9 @@
 						 paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 						 rowsPerPageTemplate="5,10,15"
 						 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-						 paginatorPosition="bottom" rows="10" style="width:650px;" >
+						 paginatorPosition="bottom" rows="10" style="width:650px;"  
+						 selectionMode="single" id="id" 
+                         rowKey="#{rec.getId()}" selection="#{ReservasBean.selectedRecurso}" >
 					
 						<f:facet name="header" style="color:black;">
 							Recursos disponibles
@@ -99,6 +101,17 @@
 						<p:column headerText="Capacidad" width="120">
 							<h:outputText value="#{rec.getCapacidad()}" />
 						</p:column>
+						
+						<f:facet name="footer">
+							<h:outputLink value="/admin/reservar.xhtml"
+								styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+								<span class="ui-button-text" style="padding: 15px 25px;" >Ver</span>
+							</h:outputLink>
+							
+							
+							
+							
+						</f:facet>
 						
 					</p:dataTable>
 					</center>

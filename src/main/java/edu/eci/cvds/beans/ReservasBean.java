@@ -38,7 +38,9 @@ public class ReservasBean extends BasePageBean{
     }
 
     public void setSelectedRecurso(Recurso selectedRecurso) {
+		
         this.selectedRecurso = selectedRecurso;
+		System.out.println(selectedRecurso);
     }
 
     public TipoReserva getTipoReserva() {

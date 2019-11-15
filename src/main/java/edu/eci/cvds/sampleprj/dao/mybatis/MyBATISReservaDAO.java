@@ -62,6 +62,7 @@ public class MyBATISReservaDAO implements ReservaDAO{
 		try{
 			reservaMapper.registrarReserva(reserva);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			System.out.println(e.getMessage());
 			throw new PersistenceException("Error al registrar la reserva",e);
 		}
 	}

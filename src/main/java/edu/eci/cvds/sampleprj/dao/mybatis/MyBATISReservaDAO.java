@@ -32,8 +32,6 @@ public class MyBATISReservaDAO implements ReservaDAO{
 			reservas=reservaMapper.consultarReservasPendientes(id);
 		}
 		catch (org.apache.ibatis.exceptions.PersistenceException e){
-			System.out.println(e.getMessage());
-			
 			throw new PersistenceException("Error al cosultar las reservas futuras ",e);
 		}
 		return reservas;
@@ -68,8 +66,28 @@ public class MyBATISReservaDAO implements ReservaDAO{
 		}
 	}
 
+
 	@Override
-	public List<Reserva> consultarReservas() throws PersistenceException {
-		return null;
+	public List<Reserva> consultarReserva(long id) throws PersistenceException {
+		List<Reserva> reservas=null;
+		try{
+			reservas=reservaMapper.consultarReserva(id);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al cosultar la reserva "+id,e);
+		}
+		return reservas;
+	}
+
+	@Override
+	public List<Reserva> consultarReserva() throws PersistenceException {
+		List<Reserva> reservas=null;
+		try{
+			reservas=reservaMapper.consultarReserva();
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al cosultar las reservas",e);
+		}
+		return reservas;
 	}
 }

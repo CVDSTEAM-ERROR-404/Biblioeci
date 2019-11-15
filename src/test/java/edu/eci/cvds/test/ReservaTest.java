@@ -56,10 +56,19 @@ public class ReservaTest extends ServicioBiblioEciTest{
     @Test
     public void should() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,null);
         serviciosBiblioEci.registrarRecurso(recurso);
-		serviciosBiblioEci.registrarReserva(reserva,new Date(119,10,20,7,0,0),new Date(),new Date(119,10,20,8,0,0));
-        System.out.println(serviciosBiblioEci.consultarEventos());
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,null);
+		serviciosBiblioEci.registrarReserva(reserva,new Date(119,10,20,7,0,0),new Date(119,10,30),new Date(119,10,20,8,0,0));
+        System.out.println("Todos los eventos");
+		System.out.println(serviciosBiblioEci.consultarEventos());
+        System.out.println("Los eventos de la reserva");
+        System.out.println(serviciosBiblioEci.consultarEvento(reserva.getId()));
+        System.out.println("Todas las Reservas");
+        System.out.println(serviciosBiblioEci.consultarReservas());
+        System.out.println("La reserva con la id "+reserva.getId());
+        System.out.println(serviciosBiblioEci.consultarReserva(reserva.getId()));
+        System.out.println("Todas las Reservas pendientes del recurso");
         System.out.println(serviciosBiblioEci.consultarReservasPendientes(recurso.getId()));
+
     }
 }

@@ -7,8 +7,8 @@
 	<resultMap type='Evento' id='EventoResult'>
 		<id property='id' column='id'/>
 		<result property='estado' column='estado'/>
-        <result property="horaInicio" column="horaInicio"></result>
-        <result property="horaFin" column="horaFin"></result>
+        <result property="horaInicio" column="hora_inicio"></result>
+        <result property="horaFin" column="hora_fin"></result>
 	</resultMap>
 
   

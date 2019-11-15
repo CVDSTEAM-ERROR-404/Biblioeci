@@ -130,6 +130,7 @@ public class Reserva implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
 	public Date nextEvent(){
 		Date nextEvent=null;
 		for (Evento evento:eventosAsignados){
@@ -138,6 +139,10 @@ public class Reserva implements Serializable{
 			}
 		}
 		return nextEvent;
+	}
+
+	public String toString(){
+		return id+" "+tipo+" "+estado+" "+recurso+" "+usuario+" "+fechaSolicitud;
 	}
 
 

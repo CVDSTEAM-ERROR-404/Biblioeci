@@ -33,8 +33,8 @@
 			recu.estado as recurso_estado, 
 			eve.id as evento_id,
 			eve.estado as evento_estado, 
-			eve.hora_inicio as evento_horaInicio,
-			eve.hora_fin as evento_horaFin
+			eve.hora_inicio as evento_hora_inicio,
+			eve.hora_fin as evento_hora_fin
      FROM
       reserva as res,
 			recurso as recu,
@@ -61,8 +61,27 @@
     INSERT INTO reserva(tipo,fecha_solicitud ,estado, usuario ,recurso) values (#{reserva.tipo},#{reserva.fechaSolicitud}, #{reserva.estado}, #{reserva.usuario.correo}, #{reserva.recurso.id});
   </insert>
 
+	<select parameterType="map" id="consultarReserva" resultMap='ReservaResult'>
+		SELECT
+		reserva.id as id,
+		reserva.tipo as tipo,
+		reserva.estado as estado,
+		fecha_solicitud,
+		usuario,
+		recurso as recurso_id,
+		rec.nombre as recurso_nombre,
+		rec.ubicacion as recurso_ubicacion,
+		rec.tipo as recurso_tipo,
+		rec.capacidad as recurso_capacidad,
+		rec.estado as recurso_estado
+		FROM
+		reserva, recurso as rec
+		WHERE
+			rec.id = reserva.recurso
+			<if test="id != null">
+				 AND reserva.id = #{id}
+			</if>
+	</select>
 
-  
 
-	
 </mapper>

@@ -32,4 +32,8 @@ public interface ReservaMapper {
 	 * @param reserva Reserva a registrar
 	 */
 	public void registrarReserva(@Param("reserva")Reserva reserva);
+
+    public List<Reserva> consultarReserva();
+
+	public List<Reserva> consultarReserva(@Param("id")long id);
 }

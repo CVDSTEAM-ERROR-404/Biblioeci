@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Reserva (
   estado varchar(45) not null,
   fecha_solicitud timestamp not null,
   usuario varchar(45) REFERENCES Usuario(correo),
-  recurso INTEGER NOT NULL REFERENCES Recurso(id),
+  recurso INTEGER REFERENCES not null Recurso(id),
   PRIMARY KEY (id));
 
 
@@ -41,3 +41,5 @@ CREATE TABLE IF NOT EXISTS Evento (
   hora_fin timestamp NOT NULL,
   estado varchar(45),
   PRIMARY KEY (id));
+
+--insert into usuario(correo,contraseña,rol,u_area,nombre) values('a@gmail.com','erwr',null,'ffsf','faffs');

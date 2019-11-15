@@ -6,6 +6,8 @@ import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoMapper;
 import edu.eci.cvds.samples.entities.Evento;
 
+import java.util.List;
+
 public class MyBATISEventoDAO implements EventoDAO {
 
     @Inject
@@ -26,5 +28,27 @@ public class MyBATISEventoDAO implements EventoDAO {
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
             throw new PersistenceException("Error al registrar evento");
         }
+    }
+
+    @Override
+    public List<Evento> consultarEventos() throws PersistenceException {
+        List<Evento> eventos = null;
+        try{
+            eventos = eventoMapper.consultarEventos();
+        } catch (org.apache.ibatis.exceptions.PersistenceException e) {
+            throw new PersistenceException("Error al registrar evento");
+        }
+        return eventos;
+    }
+
+    @Override
+    public List<Evento> consultarEventos(int id) throws PersistenceException {
+        List<Evento> eventos = null;
+        try{
+            eventos = eventoMapper.consultarEventos(id);
+        } catch (org.apache.ibatis.exceptions.PersistenceException e) {
+            throw new PersistenceException("Error al registrar evento");
+        }
+        return eventos;
     }
 }

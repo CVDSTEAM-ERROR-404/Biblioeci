@@ -1,6 +1,6 @@
 package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 
-import java.sql.Date;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import edu.eci.cvds.samples.entities.Evento;
@@ -23,6 +23,10 @@ public interface EventoMapper {
      * @param idReserva id de la Reserva del evento
      */
     public void registrarEvento(@Param("evento") Evento evento,  @Param("idReserva") long idReserva);
+
+    public List<Evento> consultarEventos();
+
+    public List<Evento> consultarEventos(@Param("reserva") long id);
 
     /**
      * Registra un evento por medio del estado de este

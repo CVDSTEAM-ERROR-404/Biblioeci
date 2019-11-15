@@ -67,6 +67,10 @@ public interface ServiciosBiblioEci {
 
     public abstract void registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci;
 
+    public abstract List<Evento> consultarEventos() throws ExcepcionServiciosBiblioEci;
+
+    public abstract List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci;
+
 
 
 }

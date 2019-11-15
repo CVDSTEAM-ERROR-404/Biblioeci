@@ -2,6 +2,7 @@ package edu.eci.cvds.sampleprj.dao;
 
 import edu.eci.cvds.samples.entities.Evento;
 
+import java.util.List;
 
 
 public interface EventoDAO {
@@ -17,6 +18,10 @@ public interface EventoDAO {
      * @param idReserva id de la Reserva del evento
      */
     public void registrarEvento(Evento evento, long idReserva) throws PersistenceException;
+
+    public List<Evento> consultarEventos() throws PersistenceException;
+
+    public List<Evento> consultarEventos(int id) throws PersistenceException;
 
     /**
      * Registra un evento por medio del estado de este

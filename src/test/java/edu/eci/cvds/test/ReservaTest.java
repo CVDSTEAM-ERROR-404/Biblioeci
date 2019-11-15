@@ -1,14 +1,14 @@
 package edu.eci.cvds.test;
 
-import edu.eci.cvds.samples.entities.Recurso;
-import edu.eci.cvds.samples.entities.TipoRecurso;
-import edu.eci.cvds.samples.entities.UbicacionRecurso;
+import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
 
+
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -59,7 +59,16 @@ public class ReservaTest extends ServicioBiblioEciTest{
         }
     }
     //para las demas pruebas es necesario el metodo para hacer reservas
-
+	/*
+    @Test
+    public void should() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,new Usuario());
+        serviciosBiblioEci.registrarRecurso(recurso);
+		serviciosBiblioEci.registrarReserva(reserva,new Date(),new Date(),new Date());
+        System.out.println(serviciosBiblioEci.consultarEventos());
+    }
+	*/
 
     
 

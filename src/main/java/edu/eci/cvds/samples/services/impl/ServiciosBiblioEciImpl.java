@@ -151,8 +151,31 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             }
         }
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci("Error al registrar la reserva");
+            throw new ExcepcionServiciosBiblioEci("Error al registrar la reserva",e);
         }
+    }
+
+    @Override
+    public List<Evento> consultarEventos() throws ExcepcionServiciosBiblioEci {
+        List<Evento> eventos = null;
+        try {
+            eventos = eventoDAO.consultarEventos();
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar eventos");
+        }
+        return eventos;
+    }
+
+    @Override
+    public List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci {
+        List<Evento> eventos = null;
+        if(id<1){throw new ExcepcionServiciosBiblioEci("La reserva con el id "+id+"es invalido");}
+        try {
+            eventos = eventoDAO.consultarEventos(id);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar eventos de la reserva"+id);
+        }
+        return eventos;
     }
 
 

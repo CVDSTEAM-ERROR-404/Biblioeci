@@ -31,4 +31,20 @@
     INSERT INTO evento(reserva, hora_inicio, hora_fin, estado) values (#{reserva.id}, #{inicio}, {fin}, #{estado});
   </insert>
 
+    <select parameterType='map' id='consultarEventos' resultMap='EventoResult'>
+        SELECT
+        id,
+        nombre,
+        ubicacion,
+        tipo,
+        capacidad,
+        estado
+        FROM
+        recurso
+        <where>
+            <if test="reserva != null">
+                reserva = #{reserva}
+            </if>
+        </where>
+    </select>
 </mapper>

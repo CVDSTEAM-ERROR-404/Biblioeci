@@ -135,6 +135,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         try {
+            long duracionEventos=(fechaFinEvento.getTime()-fechaInicio.getTime()) / (60 * 1000) % 60;
+            if(duracionEventos>120){ throw new ExcepcionServiciosBiblioEci("Las reservas máximo pueden durar 2 horas");}
+            if(duracionEventos<=0||(fechaFinRecurrencia!=null && !fechaFinRecurrencia.after(fechaInicio))){
+                throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser después que la fecha final");
+            }
             reservaDAO.registrarReserva(reserva);
             if(reserva.getTipo().equals(TipoReserva.Simple)){
                 eventoDAO.registrarEvento(new Evento(fechaInicio,fechaFinEvento),reserva.getId());

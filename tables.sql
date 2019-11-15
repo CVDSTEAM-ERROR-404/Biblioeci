@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Reserva (
   tipo varchar(45) not null,
   estado varchar(45) not null,
   fecha_solicitud timestamp not null,
-  usuario varchar(45) REFERENCES Usuario(correo),
+  usuario varchar(45) not null REFERENCES Usuario(correo),
   recurso INTEGER not null REFERENCES Recurso(id),
   PRIMARY KEY (id));
 

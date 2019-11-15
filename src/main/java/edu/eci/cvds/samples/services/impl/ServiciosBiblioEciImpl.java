@@ -134,6 +134,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
+		if(fechaInicio==null){throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");}
+        if(fechaFinEvento==null){throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula");}
         try {
             long duracionEventos=(fechaFinEvento.getTime()-fechaInicio.getTime())/(1000*60);
             if(duracionEventos>120){ throw new ExcepcionServiciosBiblioEci("Las reservas máximo pueden durar 2 horas");}

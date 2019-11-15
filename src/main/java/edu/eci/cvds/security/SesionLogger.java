@@ -33,4 +33,5 @@ public interface SesionLogger {
     public boolean isUser();
 
     public boolean isAdmin();
+    public String getUser();
 }

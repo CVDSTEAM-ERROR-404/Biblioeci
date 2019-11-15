@@ -34,13 +34,12 @@
     <select parameterType='map' id='consultarEventos' resultMap='EventoResult'>
         SELECT
         id,
-        nombre,
-        ubicacion,
-        tipo,
-        capacidad,
+        reserva,
+        hora_inicio,
+        hora_fin,
         estado
         FROM
-        recurso
+        evento
         <where>
             <if test="reserva != null">
                 reserva = #{reserva}

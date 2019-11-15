@@ -16,6 +16,7 @@ public class Usuario implements Serializable{
 	private String correo;
 	private ArrayList<Reserva> reservas;
 
+
 	public String getArea() {
 		return area;
 	}

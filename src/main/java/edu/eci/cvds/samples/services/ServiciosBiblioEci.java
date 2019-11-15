@@ -1,5 +1,6 @@
 package edu.eci.cvds.samples.services;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -70,7 +71,5 @@ public interface ServiciosBiblioEci {
     public abstract List<Evento> consultarEventos() throws ExcepcionServiciosBiblioEci;
 
     public abstract List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci;
-
-
 
 }

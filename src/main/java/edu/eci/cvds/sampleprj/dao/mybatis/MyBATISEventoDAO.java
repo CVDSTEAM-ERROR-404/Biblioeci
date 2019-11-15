@@ -26,7 +26,7 @@ public class MyBATISEventoDAO implements EventoDAO {
         try{
             eventoMapper.registrarEvento(evento,idReserva);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al registrar evento");
+            throw new PersistenceException("Error al registrar evento",e);
         }
     }
 
@@ -36,7 +36,7 @@ public class MyBATISEventoDAO implements EventoDAO {
         try{
             eventos = eventoMapper.consultarEventos();
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al registrar evento");
+            throw new PersistenceException("Error al consular eventos",e);
         }
         return eventos;
     }
@@ -47,7 +47,7 @@ public class MyBATISEventoDAO implements EventoDAO {
         try{
             eventos = eventoMapper.consultarEventos(id);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al registrar evento");
+            throw new PersistenceException("Error al consular eventos");
         }
         return eventos;
     }

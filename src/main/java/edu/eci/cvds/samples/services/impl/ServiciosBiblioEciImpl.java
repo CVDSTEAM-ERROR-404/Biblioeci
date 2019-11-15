@@ -1,5 +1,7 @@
 package edu.eci.cvds.samples.services.impl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +23,6 @@ import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private RecursoDAO recursoDAO;
-    @Inject
-    private HorarioDAO horarioDAO;
     @Inject
     private ReservaDAO reservaDAO;
     @Inject
@@ -136,20 +136,20 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         try {
             reservaDAO.registrarReserva(reserva);
-        if(reserva.getEstado().equals(TipoReserva.Simple)){
-            eventoDAO.registrarEvento(new Evento(fechaInicio,fechaFinEvento),reserva.getId());
-        }
-        else {
-            Calendar inicio=Calendar.getInstance();
-            Calendar fin= Calendar.getInstance();
-            inicio.setTime(fechaInicio);
-            fin.setTime(fechaFinEvento);
-            while(inicio.getTime().before(fechaFinRecurrencia)) {
-                eventoDAO.registrarEvento(new Evento(inicio.getTime(),fin.getTime()),reserva.getId());
-                inicio.add(reserva.getTipo().getCalendarConstant(),1);
-                fin.add(reserva.getTipo().getCalendarConstant(),1);
+            if(reserva.getTipo().equals(TipoReserva.Simple)){
+                eventoDAO.registrarEvento(new Evento(fechaInicio,fechaFinEvento),reserva.getId());
             }
-        }
+            else {
+                Calendar inicio=Calendar.getInstance();
+                Calendar fin= Calendar.getInstance();
+                inicio.setTime(fechaInicio);
+                fin.setTime(fechaFinEvento);
+                while(inicio.getTime().before(fechaFinRecurrencia)) {
+                    eventoDAO.registrarEvento(new Evento(inicio.getTime(),fin.getTime()),reserva.getId());
+                    inicio.add(reserva.getTipo().getCalendarConstant(),1);
+                    fin.add(reserva.getTipo().getCalendarConstant(),1);
+                }
+            }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al registrar la reserva",e);
         }
@@ -161,7 +161,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         try {
             eventos = eventoDAO.consultarEventos();
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci("Error al consultar eventos");
+            throw new ExcepcionServiciosBiblioEci("Error al consultar eventos",e);
         }
         return eventos;
     }
@@ -177,6 +177,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return eventos;
     }
+
 
 
     /**

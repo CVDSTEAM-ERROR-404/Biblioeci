@@ -40,7 +40,6 @@ public class ServiciosBiblioEciFactory {
 				bind(RecursoDAO.class).to(MyBATISRecursoDAO.class);
 				bind(ReservaDAO.class).to(MyBATISReservaDAO.class);
 				bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class);
-				bind(HorarioDAO.class).to(MyBATISHorarioDAO.class);
                 bind(EventoDAO.class).to(MyBATISEventoDAO.class);
 
             }
@@ -57,7 +56,6 @@ public class ServiciosBiblioEciFactory {
 				bind(RecursoDAO.class).to(MyBATISRecursoDAO.class);
 				bind(ReservaDAO.class).to(MyBATISReservaDAO.class);
 				bind(UsuarioDAO.class).to(MyBATISUsuarioDAO.class);
-				bind(HorarioDAO.class).to(MyBATISHorarioDAO.class);
                 bind(EventoDAO.class).to(MyBATISEventoDAO.class);
             }
         }

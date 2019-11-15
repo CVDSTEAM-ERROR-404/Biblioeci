@@ -5,7 +5,6 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias type="edu.eci.cvds.samples.entities.Horario" alias="Horario"/>
         <typeAlias type="edu.eci.cvds.samples.entities.Recurso" alias="Recurso"/>
         <typeAlias type="edu.eci.cvds.samples.entities.Usuario" alias="Usuario"/>
 		<typeAlias type="edu.eci.cvds.samples.entities.Reserva" alias="Reserva"/>
@@ -25,7 +24,6 @@
 </environments>
 
     <mappers>
-        <mapper resource="mappers/HorarioMapper.xml"></mapper>
         <mapper resource="mappers/RecursoMapper.xml"></mapper>
         <mapper resource="mappers/UsuarioMapper.xml"></mapper>
 		<mapper resource="mappers/ReservaMapper.xml"></mapper>

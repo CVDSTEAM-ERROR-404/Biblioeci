@@ -45,5 +45,8 @@ public class Evento {
         this.estado = estado;
     }
 
-
+    @Override
+    public String toString() {
+        return id+" "+estado+" "+horaInicio+" "+horaFin;
+    }
 }

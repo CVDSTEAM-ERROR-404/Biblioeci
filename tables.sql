@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Reserva (
   estado varchar(45) not null,
   fecha_solicitud timestamp not null,
   usuario varchar(45) REFERENCES Usuario(correo),
-  recurso INTEGER REFERENCES not null Recurso(id),
+  recurso INTEGER not null REFERENCES Recurso(id),
   PRIMARY KEY (id));
 
 

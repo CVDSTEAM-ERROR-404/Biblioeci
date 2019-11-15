@@ -10,5 +10,7 @@ import edu.eci.cvds.samples.entities.Usuario;
  */
 
 public interface UsuarioDAO{
+
+    public Usuario consultarUsuario(String correo) throws PersistenceException;
     
 }

@@ -23,14 +23,15 @@
 	  res.fecha_solicitud as fecha_solicitud,
 
 	  us.correo as usuario_correo,
-		us.u_area as usuario_area,
+		us.u_area as usuario_u_area,
 	  us.nombre as usuario_nombre,
 
       recu.id as recurso_id, 
 			recu.nombre as recurso_nombre, 
 			recu.tipo as recurso_tipo, 
-			recu.capacidad as recurso_capacidad, 
-			recu.estado as recurso_estado, 
+			recu.capacidad as recurso_capacidad,
+			recu.ubicacion as recurso_ubicacion,
+			recu.estado as recurso_estado,
 			eve.id as evento_id,
 			eve.estado as evento_estado, 
 			eve.hora_inicio as evento_hora_inicio,
@@ -73,11 +74,15 @@
 		rec.ubicacion as recurso_ubicacion,
 		rec.tipo as recurso_tipo,
 		rec.capacidad as recurso_capacidad,
-		rec.estado as recurso_estado
+		rec.estado as recurso_estado,
+		usu.correo as usuario_correo,
+		usu.u_area as usuario_u_area,
+		usu.nombre as usuario_nombre
 		FROM
-		reserva, recurso as rec
+		reserva, recurso as rec,usuario as usu
 		WHERE
 			rec.id = reserva.recurso
+		AND usu.correo = reserva.usuario
 			<if test="id != null">
 				 AND reserva.id = #{id}
 			</if>

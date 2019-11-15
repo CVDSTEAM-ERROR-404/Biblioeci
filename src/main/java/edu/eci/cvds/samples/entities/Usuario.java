@@ -48,4 +48,9 @@ public class Usuario implements Serializable{
 	public void setReservas(ArrayList<Reserva> reservas) {
 		this.reservas = reservas;
 	}
+
+	@Override
+	public String toString() {
+		return nombre+" "+correo+" "+area;
+	}
 }

@@ -42,4 +42,5 @@ CREATE TABLE IF NOT EXISTS Evento (
   estado varchar(45),
   PRIMARY KEY (id));
 
---insert into usuario(correo,contraseña,rol,u_area,nombre) values('a@gmail.com','erwr',null,'ffsf','faffs');
+insert into rol(nombre) values ('administrador');
+insert into usuario(correo,contraseña,rol,u_area,nombre) values ('a@gmail.com','aaa',1,'aaa','Pepito');

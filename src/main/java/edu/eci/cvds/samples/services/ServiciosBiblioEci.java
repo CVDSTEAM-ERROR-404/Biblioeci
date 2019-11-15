@@ -76,4 +76,6 @@ public interface ServiciosBiblioEci {
 
     public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci;
 
+    public Usuario consultarUsuario(String correo) throws ExcepcionServiciosBiblioEci;
+
 }

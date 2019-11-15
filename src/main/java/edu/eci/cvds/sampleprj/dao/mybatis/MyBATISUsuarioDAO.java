@@ -19,5 +19,15 @@ public class MyBATISUsuarioDAO implements UsuarioDAO {
 	private UsuarioMapper usuarioMapper;
 
 
-	
+	@Override
+	public Usuario consultarUsuario(String correo) throws PersistenceException {
+		Usuario usuario =null;
+		try{
+			usuario = usuarioMapper.consultarUsuario(correo);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al consultar el usuario con el correo "+correo,e);
+		}
+		return usuario;
+	}
 }

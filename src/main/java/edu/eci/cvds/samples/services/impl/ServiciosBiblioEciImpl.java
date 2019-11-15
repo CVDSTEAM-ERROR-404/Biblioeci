@@ -26,7 +26,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private ReservaDAO reservaDAO;
     @Inject
-    private UsuarioDAO UsuarioDAO;
+    private UsuarioDAO usuarioDAO;
     @Inject
     private EventoDAO eventoDAO;
 
@@ -198,6 +198,18 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             throw new ExcepcionServiciosBiblioEci("Error al consultar la reserva"+id,e);
         }
         return reservas;
+    }
+
+    @Override
+    public Usuario consultarUsuario(String correo) throws ExcepcionServiciosBiblioEci {
+        Usuario usuario =null;
+        try{
+            usuario = usuarioDAO.consultarUsuario(correo);
+        }
+        catch (PersistenceException e){
+            throw new ExcepcionServiciosBiblioEci("Error al consultar el usuario con el correo "+correo,e);
+        }
+        return usuario;
     }
 
 

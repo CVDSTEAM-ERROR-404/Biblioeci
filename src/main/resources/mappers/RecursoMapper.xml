@@ -71,5 +71,19 @@
   <insert parameterType="Recurso" id="agregarRecurso" useGeneratedKeys="true" keyProperty="rec.id" keyColumn="id">
     INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});
   </insert>
+
+
+  <select parameterType='map' id='consultarEventosRecurso' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoMapper.EventoResult'>
+        SELECT
+            id,
+            estado,
+            hora_inicio,
+            hora_fin
+        from recurso as rec, reserva as res, evento as eve
+        WHERE rec.id=#{recurso} and rec.id=res.recurso and rec.id=eve.reserva AND
+            ((#{fecha_inicio} &lt; eve.hora_fin and eve.hora_inicio &lt; #{fecha_final}) or
+            (#{fecha_inicio} &lt;= eve.hora_inicio and eve.hora_fin &lt;= #{fecha_final}) or
+            ( eve.hora_inicio &lt;= #{fecha_inicio} and  #{fecha_final} &lt;= eve.hora_fin) )
+    </select>
   
 </mapper>

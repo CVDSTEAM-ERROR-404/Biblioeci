@@ -53,4 +53,5 @@ public interface RecursoDAO{
      */
     public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo) throws PersistenceException;
 
+    
 }

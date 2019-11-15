@@ -1,5 +1,6 @@
 package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -38,4 +39,13 @@ public interface EventoMapper {
     public void registrarEventoEstado(@Param("estado") String estado, @Param("inicio") Date fechaInicio ,@Param("fin") Date fechaFin, @Param("reserva") Reserva reserva);
 */
     
+
+    /**
+	 * Retorna todos los eventos que interfieran con el horario pasado en los eventos del recurso
+	 * @param recurso Id del recurso a consultar
+	 * @param fechaInicio Fecha de inicio de la reserva
+	 * @param fechaFinal Fecha de fin de la reserva
+	 * @return Lista de eventos que interfieran con el horario indicado
+	 */
+	public List<Evento> consultarEventosRecurso(@Param("recurso") long recurso,@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
 }

@@ -78,4 +78,14 @@ public interface ServiciosBiblioEci {
 
     public Usuario consultarUsuario(String correo) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Consulta si el recurso está libre en el horario especificado
+     * @param recurso Id del recurso a consultar
+     * @param horaInicio Hora y fecha de inicio de la posible reserva
+     * @param horaFin Hora y fecha de fin de la posible reserva
+     * @return Si el recurso está disponible en el horario disponible
+     * @throws ExcepcionServiciosBiblioEci
+     */
+    public abstract boolean consultarDisponibilidadRecurso(long recurso, Date horaInicio, Date horaFin) throws ExcepcionServiciosBiblioEci;
+
 }

@@ -2,6 +2,7 @@ package edu.eci.cvds.sampleprj.dao;
 
 import edu.eci.cvds.samples.entities.Evento;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,4 +34,12 @@ public interface EventoDAO {
     public void registrarEventoEstado( String estado, Date fechaInicio , Date fechaFin, Reserva reserva);
     */
 
+    /**
+	 * Retorna todos los eventos que interfieran con el horario pasado en los eventos del recurso
+	 * @param recurso Id del recurso a consultar
+	 * @param fechaInicio Fecha de inicio de la reserva
+	 * @param fechaFinal Fecha de fin de la reserva
+	 * @return Lista de eventos que interfieran con el horario indicado
+	 */
+	public List<Evento> consultarEventosRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws PersistenceException;
 }

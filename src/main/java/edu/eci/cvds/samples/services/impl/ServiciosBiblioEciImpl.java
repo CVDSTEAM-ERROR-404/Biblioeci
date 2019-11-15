@@ -236,5 +236,15 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return reservas;
     }
 
-
+    @Override
+    public boolean consultarDisponibilidadRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws ExcepcionServiciosBiblioEci {
+        boolean ans  = false;
+        try{
+            List<Evento> eventos = eventoDAO.consultarEventosRecurso(recurso, fechaInicio, fechaFinal);
+            ans = eventos.size()==0;
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar las reservas futuras");
+        }
+        return ans;
+    }
 }

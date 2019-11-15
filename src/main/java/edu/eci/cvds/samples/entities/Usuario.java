@@ -53,4 +53,8 @@ public class Usuario implements Serializable{
 	public String toString() {
 		return nombre+" "+correo+" "+area;
 	}
+
+	public boolean equals(Usuario usuario) {
+		return area.equals(usuario.getArea()) && nombre.equals(usuario.getNombre()) && correo.equals(usuario.getCorreo());
+	}
 }

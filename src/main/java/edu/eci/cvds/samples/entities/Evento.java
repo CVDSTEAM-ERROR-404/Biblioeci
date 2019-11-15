@@ -49,4 +49,8 @@ public class Evento {
     public String toString() {
         return id+" "+estado+" "+horaInicio+" "+horaFin;
     }
+
+    public boolean equals(Evento evento){
+        return horaInicio.equals(evento.getHoraInicio()) && horaFin.equals(evento.getHoraFin());
+    }
 }

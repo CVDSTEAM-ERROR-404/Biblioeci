@@ -145,6 +145,10 @@ public class Reserva implements Serializable{
 		return id+" "+tipo+" "+estado+" "+recurso+" "+usuario+" "+fechaSolicitud;
 	}
 
+	public boolean equals(Reserva reserva){
+		//falta el usuario
+		return tipo.equals(reserva.getTipo()) && estado.equals(reserva.getEstado()) && recurso.equals(reserva.getRecurso()) && fechaSolicitud.equals(reserva.getFechaSolicitud());
+	}
 
 
 }

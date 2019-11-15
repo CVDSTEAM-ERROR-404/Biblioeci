@@ -61,7 +61,7 @@ public class ReservasBean extends BasePageBean{
             Usuario  usuario=serviciosBiblioEci.consultarUsuario(logger.getUser());
             serviciosBiblioEci.registrarReserva(new Reserva(tipoReserva,selectedRecurso,usuario),fechaInicio,fechaFinRecurrencia,fechaFin);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
-            RecursosBean.setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
 

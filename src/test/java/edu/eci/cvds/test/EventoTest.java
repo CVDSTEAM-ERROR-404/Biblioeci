@@ -38,7 +38,7 @@ public class EventoTest extends ServicioBiblioEciTest {
             assertEquals("La reserva con el id "+id+"es invalido",e.getMessage());
         }
     }
-    /**
+
 
     @Test
     public void shouldConsultAllEvents() throws ExcepcionServiciosBiblioEci {
@@ -62,14 +62,20 @@ public class EventoTest extends ServicioBiblioEciTest {
         Date fechaFinal = calendarFinal.getTime();
         serviciosBiblioEci.registrarReserva(reserva,fechaInicial,null,fechaFinal);
         List<Evento> eventos = serviciosBiblioEci.consultarEventos();
+		System.out.println("Todos los eventos");
+		System.out.println(eventos);
         List<Evento> eventosReserva = serviciosBiblioEci.consultarEvento(reserva.getId());
-        for(Evento evento:eventos){
+		System.out.println("Los eventos de la reserva");
+		System.out.println(eventosReserva);
+        for(Evento eventores:eventosReserva){
             boolean found = false;
-            for(Evento eventores:eventosReserva){
-                if(evento.equals(eventores)){found=true;}
+            for(Evento evento:eventos){
+                if(evento.equals(eventores)){
+					found=true;
+					break;
+				}
             }
             assertTrue(found);
         }
     }
-    */
 }

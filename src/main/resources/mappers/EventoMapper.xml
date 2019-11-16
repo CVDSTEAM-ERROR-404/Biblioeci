@@ -49,8 +49,8 @@
 
   <select parameterType='map' id='consultarEventosRecurso' resultMap='EventoResult'>
         SELECT
-            id,
-            estado,
+            eve.id,
+            eve.estado,
             hora_inicio,
             hora_fin
         from recurso as rec, reserva as res, evento as eve

@@ -60,7 +60,7 @@ public class MyBATISEventoDAO implements EventoDAO {
         try {
             eventos = eventoMapper.consultarEventosRecurso(recurso, fechaInicio, fechaFinal);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al consultar disponibilidad del recurso "+recurso);
+            throw new PersistenceException("Error al consultar disponibilidad del recurso "+recurso,e);
         }
         return eventos;
     }

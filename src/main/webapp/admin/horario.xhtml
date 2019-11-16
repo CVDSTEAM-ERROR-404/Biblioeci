@@ -31,47 +31,44 @@
 		
 	
 	
-		<h:form id="reserva_form">
-			<p:growl id="growl-reserva" showDetail="false" sticky="true"/> 
+		<h:form id="horario_form">
+			<p:growl id="growl-horario" showDetail="false" sticky="true"/> 
+			<h:panelGrid columnClasses="value">
+				<p:schedule id="schedule"  widgetVar="myschedule" >
+		 
+					<p:ajax event="dateSelect"  update="eventDetails" oncomplete="PF('eventDialog').show();" />
+					
+				</p:schedule>
+			</h:panelGrid>
 			
-			<p:panel class="panelCenter" id="panelrecurso"   style="width: 450px;">
-				<p:fieldset legend="Registrar reserva" >
-				<p:panelGrid  class="grid" id="grid" cellpadding="4" columns="2"  >
+			<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+				<h:panelGrid id="eventDetails" columns="2">
 					
 					<p:outputLabel class="intlabel"  value="Tipo: " />
 					<p:selectOneMenu value="#{ReservasBean.tipoReserva}" style="width:216px; background:#cc0000;" >
-						<f:ajax render="reserva_form:panelrecurso" />
+						<f:ajax render="reserva_form:panelreserva" />
 							<f:selectItems  value="#{ReservasBean.getTiposReserva()}" />
 					</p:selectOneMenu>
 					
 					<p:outputLabel for="datetime1" value="Hora inicio:" />
-					<p:calendar id="datetime1"  pattern="MM/dd/yyyy HH:mm" binding="#{date1}" required="true" maxHour="19" />
+					<p:calendar id="datetime1"  pattern="MM/dd/yyyy HH:mm" binding="#{date1}" maxHour="19" required="true" />
 					
 					<p:outputLabel for="datetime2" value="Hora fin:" />
-					<p:calendar id="datetime2" pattern="MM/dd/yyyy HH:mm" binding="#{date2}" required="true" maxHour="19"  />
+					<p:calendar id="datetime2" pattern="MM/dd/yyyy HH:mm" binding="#{date2}" maxHour="19" required="true"  />
 					
 					<p:outputLabel for="datetime3" rendered="#{ReservasBean.getRecurrente()}" value="Hora fin reservacion:" />
-					<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}" required="true" maxHour="19"  />
-			 
-				</p:panelGrid>
-			
+					<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}" maxHour="19" required="true"  />
+		 
+					<p:commandButton type="reset" value="Reset" />
+					<p:commandButton id="addButton" value="Save" action="#{scheduleJava8View.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
 				
-			</p:fieldset>
-			<f:facet name="footer">
-				
-					
 					<h:commandButton class="button1"   value="Reservar" style="font-size:12px;" actionListener="#{ReservasBean.registrarReserva(date1.value, date2.value, date3.value)}" update="reserva_form"/>
 						 
 					
-					<h:outputLink value="login1.xhtml"
-						styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
-					</h:outputLink>
+					
 				
-				
-				</f:facet>
-			</p:panel>
-		
-		</h:form>	 
+				</h:panelGrid>
+			</p:dialog>    
+		</h:form>
 	</h:body>
 </html>

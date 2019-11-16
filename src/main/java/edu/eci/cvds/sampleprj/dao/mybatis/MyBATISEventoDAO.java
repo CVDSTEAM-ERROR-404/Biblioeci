@@ -19,7 +19,7 @@ public class MyBATISEventoDAO implements EventoDAO {
         try {
             eventoMapper.cancelarEventosPendientesRecurso(idRecurso);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al cancelar los eventos futuros");
+            throw new PersistenceException("Error al cancelar los eventos futuros",e);
         }
     }
 

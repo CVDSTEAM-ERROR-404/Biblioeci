@@ -25,7 +25,7 @@ public class EventoTest extends ServicioBiblioEciTest {
         try {
             serviciosBiblioEci.consultarEvento(id);
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("La reserva con el id "+id+"es invalido",e.getMessage());
+            assertEquals("La reserva con el id "+id+" es invalido",e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class EventoTest extends ServicioBiblioEciTest {
         try {
             serviciosBiblioEci.consultarEvento(id);
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("La reserva con el id "+id+"es invalido",e.getMessage());
+            assertEquals("La reserva con el id "+id+" es invalido",e.getMessage());
         }
     }
 

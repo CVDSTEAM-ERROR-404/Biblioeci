@@ -62,6 +62,91 @@ public class ReservaTest extends ServicioBiblioEciTest{
     }
 
     @Test
+    public void shouldNotConsultReservationsWithANegativeId(){
+        int id = -1;
+        try {
+            serviciosBiblioEci.consultarReserva(id);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La reserva con el id "+id+" es invalido",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotConsultReservationsWithIdZero(){
+        int id = 0;
+        try {
+            serviciosBiblioEci.consultarReserva(id);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La reserva con el id "+id+" es invalido",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldReturnANullListWhenTheReservationDoesntExist() throws ExcepcionServiciosBiblioEci {
+        List<Reserva> reservas = serviciosBiblioEci.consultarReserva(100);
+        assertEquals(0,reservas.size());
+    }
+
+    @Test
+    public void shouldConsultTheFutureReservations() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        Calendar calendarInicio = Calendar.getInstance();
+        Calendar calendarFinal = Calendar.getInstance();
+        int day = calendarInicio.getTime().getDate();
+        int month = calendarInicio.getTime().getMonth();
+        int year = calendarInicio.getTime().getYear();
+        if(calendarInicio.getTime().getDay()==6){
+            calendarInicio.set(year+1900,month,day+2,7,0,0);
+            calendarFinal.set(year+1900,month,day+2,8,0,0);
+        }
+        else{
+            calendarInicio.set(year+1900,month,day+1,7,0,0);
+            calendarFinal.set(year+1900,month,day+1,8,0,0);
+        }
+        Date fechaInicial = calendarInicio.getTime();
+        Date fechaFinal = calendarFinal.getTime();
+        serviciosBiblioEci.registrarReserva(reserva,fechaInicial,null,fechaFinal);
+        List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(recurso.getId());
+        assertTrue(reservas.size()==1 && reservas.get(0).equals(reserva));
+    }
+
+    @Test
+    public void shouldCancelTheFutureReservations() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        Calendar calendarInicio = Calendar.getInstance();
+        Calendar calendarFinal = Calendar.getInstance();
+        int day = calendarInicio.getTime().getDate();
+        int month = calendarInicio.getTime().getMonth();
+        int year = calendarInicio.getTime().getYear();
+        if(calendarInicio.getTime().getDay()==6){
+            calendarInicio.set(year+1900,month,day+2,7,0,0);
+            calendarFinal.set(year+1900,month,day+2,8,0,0);
+        }
+        else{
+            calendarInicio.set(year+1900,month,day+1,7,0,0);
+            calendarFinal.set(year+1900,month,day+1,8,0,0);
+        }
+        Date fechaInicial = calendarInicio.getTime();
+        Date fechaFinal = calendarFinal.getTime();
+        serviciosBiblioEci.registrarReserva(reserva,fechaInicial,null,fechaFinal);
+        serviciosBiblioEci.cancelarReservasPendientes(recurso.getId());
+        List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(recurso.getId());
+        List<Reserva> reservasCanceladas = serviciosBiblioEci.consultarReserva(reserva.getId());
+        List<Evento> eventoCanceladas = serviciosBiblioEci.consultarEvento(reserva.getId());
+        assertEquals(reservas.size(),0);
+        for(Reserva res : reservasCanceladas){
+            assertEquals(res.getEstado(),EstadoReserva.Cancelada);
+        }
+        for(Evento eve : eventoCanceladas){
+            assertEquals(eve.getEstado(),EstadoReserva.Cancelada);
+        }
+    }
+
+    @Test
     public void shouldMakeASimpleReservation() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);

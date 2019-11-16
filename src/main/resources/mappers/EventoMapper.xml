@@ -13,12 +13,10 @@
 
   
   <update parameterType="map" id="cancelarEventosPendientesRecurso">
-	  update evento as eve
-	    set estado='Cancelada'
-    FROM
-      reserva as res
-    WHERE
-      res.recurso=#{recurso} AND res.id=eve.reserva AND now() &lt;= eve.hora_inicio;
+      UPDATE evento
+      set estado = 'Cancelada'
+      WHERE
+      evento.reserva=(select id from reserva r where r.id = evento.reserva AND r.recurso = #{recurso})  AND (now() &lt;= evento.hora_inicio);
   </update>
 
 

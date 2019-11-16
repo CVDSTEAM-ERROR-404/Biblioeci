@@ -108,10 +108,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     public void cancelarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
         try {
-            reservaDAO.cancelarReservasPendientes(id);
             eventoDAO.cancelarEventosPendientesRecurso(id);
+            reservaDAO.cancelarReservasPendientes(id);
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci("Error al cancelar las reservas futuras");
+            throw new ExcepcionServiciosBiblioEci("Error al cancelar las reservas futuras",e);
         }
     }
 
@@ -176,7 +176,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     public List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci {
         List<Evento> eventos = null;
-        if(id<1){throw new ExcepcionServiciosBiblioEci("La reserva con el id "+id+"es invalido");}
+        if(id<1){throw new ExcepcionServiciosBiblioEci("La reserva con el id "+(int)id+" es invalido");}
         try {
             eventos = eventoDAO.consultarEventos(id);
         } catch (PersistenceException e) {
@@ -198,6 +198,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci {
+        if(id<1){throw new ExcepcionServiciosBiblioEci("La reserva con el id "+id+" es invalido");}
         List<Reserva> reservas = null;
         try {
             reservas = reservaDAO.consultarReserva(id);

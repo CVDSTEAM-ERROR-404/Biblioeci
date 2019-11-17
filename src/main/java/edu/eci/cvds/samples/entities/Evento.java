@@ -50,7 +50,16 @@ public class Evento {
         return id+" "+estado+" "+horaInicio+" "+horaFin;
     }
 
-    public boolean equals(Evento evento){
-        return horaInicio.equals(evento.getHoraInicio()) && horaFin.equals(evento.getHoraFin());
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal;
+        if(!obj.getClass().getSimpleName().equals("Evento")){
+            equal = false;
+        }
+        else {
+            Evento evento = (Evento) obj;
+            equal = horaInicio.equals(evento.getHoraInicio()) && horaFin.equals(evento.getHoraFin());
+        }
+        return equal;
     }
 }

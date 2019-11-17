@@ -10,20 +10,21 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
-
-
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EstadoTest extends ServicioBiblioEciTest{
-	
+
+    public EstadoTest() throws ExcepcionServiciosBiblioEci {
+    }
+
     @Test
     public void shouldChangeStateOfAvailableToReparableDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        int id = obtenerID();
+        int id = recurso.getId();
         serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
@@ -33,7 +34,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
     public void shouldChangeStateOfAvailableToTotalDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        int id = obtenerID();
+        int id = recurso.getId();
         serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
@@ -43,7 +44,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
     public void shouldChangeStateOfReparableDamageToAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        int id = obtenerID();
+        int id = recurso.getId();
         serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
@@ -56,7 +57,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
     public void shouldChangeStateOfReparableDamageToTotalDamage() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        int id = obtenerID();
+        int id = recurso.getId();
         serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Reparable);
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
         assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Reparable);
@@ -66,7 +67,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
     }
 
     @Test
-    public void shouldHaveAvailableStateByDefect() throws ExcepcionServiciosBiblioEci {
+    public void shouldHaveAvailableStateByDefect(){
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         assertEquals(recurso.getEstado(), EstadoRecurso.Disponible);
     }
@@ -86,8 +87,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
         try{
             Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
-            int id = obtenerID();
-            serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Disponible);
+            serviciosBiblioEci.cambiarEstadoRecurso(recurso.getId(), EstadoRecurso.Disponible);
             fail("Se esperaba fallo porque no se puede cambiar el estado de un recuso al que tenia anteriormente");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals(e.getMessage(),"No se puede cambiar el estado de un recuso al que tenia anteriormente");
@@ -99,7 +99,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
 		try{
 			Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
 			serviciosBiblioEci.registrarRecurso(recurso);
-            int id = obtenerID();
+            int id = recurso.getId();
 			serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
 			Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
 			assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
@@ -118,7 +118,7 @@ public class EstadoTest extends ServicioBiblioEciTest{
         try{
             Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
-            int id = obtenerID();
+            int id = recurso.getId();
             serviciosBiblioEci.cambiarEstadoRecurso(id, EstadoRecurso.Daño_Total);
             Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
             assertEquals(resultado.getEstado(), EstadoRecurso.Daño_Total);
@@ -133,12 +133,10 @@ public class EstadoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotChangeStateToNull(){
-        Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+            Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
             serviciosBiblioEci.registrarRecurso(recurso);
-            int id = obtenerID();
-            serviciosBiblioEci.cambiarEstadoRecurso(id, null);
+            serviciosBiblioEci.cambiarEstadoRecurso(recurso.getId(), null);
             fail("Se esperaba la excepcion por estado nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals(e.getMessage(),"No se puede cambiar a un estado nulo");

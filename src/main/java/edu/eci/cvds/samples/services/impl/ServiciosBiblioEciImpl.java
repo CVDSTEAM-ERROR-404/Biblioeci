@@ -123,6 +123,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      */
     @Override
     public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion,TipoRecurso tipo) throws ExcepcionServiciosBiblioEci {
+        if(capacidad<0){throw new ExcepcionServiciosBiblioEci("La capacidad no puede ser negativa");}
         List<Recurso> recursos = null;
         try{
             recursos=recursoDAO.consultarRecursosDisponibles(capacidad,ubicacion,tipo);
@@ -228,8 +229,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      */
     @Override
     public List<Reserva> consultarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
+        if(id<1){throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1");}
         List <Reserva> reservas=null;
         try{
+            if(consultarRecurso(id)==null){throw new ExcepcionServiciosBiblioEci("El recurso no existe");}
             reservas=reservaDAO.consultarReservasPendientes(id);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al consultar las reservas futuras");
@@ -239,8 +242,12 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public boolean consultarDisponibilidadRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws ExcepcionServiciosBiblioEci {
+        if(fechaInicio==null){throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");}
+        if(fechaFinal==null){throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula");}
+        if(recurso<1){throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1");}
         boolean ans  = false;
         try{
+            if(consultarRecurso(recurso)==null){throw new ExcepcionServiciosBiblioEci("El recurso no existe");}
             List<Evento> eventos = eventoDAO.consultarEventosRecurso(recurso, fechaInicio, fechaFinal);
             ans = eventos.size()==0;
         } catch (PersistenceException e) {

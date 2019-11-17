@@ -164,19 +164,25 @@ public class Recurso implements Serializable{
      * Muestra el estado completo del recurso en forma de string
      * @return El estado completo del recurso
      */
-    public String toString(){
-	    return id+" "+nombre+" "+ubicacion+" "+tipo+" "+capacidad+" "+estado;
+    @Override
+    public String toString() {
+        return id+" "+nombre+" "+ubicacion+" "+tipo+" "+capacidad+" "+estado;
     }
 
     /**
-     * Compara dos recursos para ver si son similares(el identificador no cuenta)
-     * @param recurso El recurso con el que se va a comparar
-     * @return El valor booleano que determina si los dos recursos son similares
+     * Compara dos objeto para ver si son similares
+     * @param obj El objeto con el que se va a comparar
+     * @return El valor booleano que determina si los dos objetos son similares
      */
-    public boolean equals(Recurso recurso){
-        boolean equal = false;
-        if(nombre.equals(recurso.getNombre()) && ubicacion.equals(recurso.getUbicacion()) && capacidad==recurso.getCapacidad() && tipo.equals(recurso.getTipo())){
-            equal = true;
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal;
+        if(!obj.getClass().getSimpleName().equals("Recurso")){
+            equal = false;
+        }
+        else {
+            Recurso recurso = (Recurso) obj;
+            equal = nombre.equals(recurso.getNombre()) && ubicacion.equals(recurso.getUbicacion()) && capacidad==recurso.getCapacidad() && tipo.equals(recurso.getTipo()) && id==recurso.getId();
         }
         return equal;
     }

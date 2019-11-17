@@ -141,13 +141,22 @@ public class Reserva implements Serializable{
 		return nextEvent;
 	}
 
-	public String toString(){
+	@Override
+	public String toString() {
 		return id+" "+tipo+" "+estado+" "+recurso+" "+usuario+" "+fechaSolicitud;
 	}
 
-	public boolean equals(Reserva reserva){
-		//falta el usuario
-		return tipo.equals(reserva.getTipo()) && estado.equals(reserva.getEstado()) && recurso.equals(reserva.getRecurso()) && fechaSolicitud.equals(reserva.getFechaSolicitud());
+	@Override
+	public boolean equals(Object obj) {
+		boolean equal;
+		if(!obj.getClass().getSimpleName().equals("Reserva")){
+			equal = false;
+		}
+		else {
+			Reserva reserva = (Reserva) obj;
+			equal = tipo.equals(reserva.getTipo()) && estado.equals(reserva.getEstado()) && recurso.equals(reserva.getRecurso()) && fechaSolicitud.equals(reserva.getFechaSolicitud());
+		}
+		return equal;
 	}
 
 

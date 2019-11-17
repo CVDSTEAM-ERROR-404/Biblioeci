@@ -54,7 +54,16 @@ public class Usuario implements Serializable{
 		return nombre+" "+correo+" "+area;
 	}
 
-	public boolean equals(Usuario usuario) {
-		return area.equals(usuario.getArea()) && nombre.equals(usuario.getNombre()) && correo.equals(usuario.getCorreo());
+	@Override
+	public boolean equals(Object obj) {
+		boolean equal;
+		if(!obj.getClass().getSimpleName().equals("Usuario")){
+			equal = false;
+		}
+		else {
+			Usuario usuario = (Usuario) obj;
+			equal = area.equals(usuario.getArea()) && nombre.equals(usuario.getNombre()) && correo.equals(usuario.getCorreo());
+		}
+		return equal;
 	}
 }

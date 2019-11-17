@@ -6,6 +6,8 @@ import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import edu.eci.cvds.samples.entities.Usuario;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ServicioBiblioEciTest {
@@ -22,4 +24,42 @@ public class ServicioBiblioEciTest {
         List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
         return recursos.get(recursos.size()-1).getId();
     }
+
+    protected Date getInitialDate(){
+        Calendar calendarInicio = Calendar.getInstance();
+        int day = calendarInicio.getTime().getDate();
+        int month = calendarInicio.getTime().getMonth();
+        int year = calendarInicio.getTime().getYear();
+        if(calendarInicio.getTime().getDay()==6){calendarInicio.set(year+1900,month,day+2,7,0,0);}
+        else{calendarInicio.set(year+1900,month,day+1,7,0,0);}
+        return calendarInicio.getTime();
+    }
+
+    protected Date getFinalDate(){
+        Calendar calendarFinal = Calendar.getInstance();
+        int day = calendarFinal.getTime().getDate();
+        int month = calendarFinal.getTime().getMonth();
+        int year = calendarFinal.getTime().getYear();
+        if(calendarFinal.getTime().getDay()==6){calendarFinal.set(year+1900,month,day+2,8,0,0);}
+        else{calendarFinal.set(year+1900,month,day+1,8,0,0);}
+        return calendarFinal.getTime();
+    }
+
+    protected Date getFinalDate(int horas){
+        Calendar calendarFinal = Calendar.getInstance();
+        int day = calendarFinal.getTime().getDate();
+        int month = calendarFinal.getTime().getMonth();
+        int year = calendarFinal.getTime().getYear();
+        if(calendarFinal.getTime().getDay()==6){calendarFinal.set(year+1900,month,day+2,8+horas,0,0);}
+        else{calendarFinal.set(year+1900,month,day+1,8+horas,0,0);}
+        return calendarFinal.getTime();
+    }
+
+    protected Date getConcurrentDate(int numDias){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getInitialDate());
+        calendar.add(Calendar.DAY_OF_YEAR,numDias);
+        return calendar.getTime();
+    }
+
 }

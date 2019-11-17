@@ -8,8 +8,6 @@ import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import org.junit.Test;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -29,34 +27,18 @@ public class EventoTest extends ServicioBiblioEciTest {
     @Test
     public void shouldConsultAllEvents() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-        serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
-        Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
-        Date fechaFinal = calendarFinal.getTime();
-        serviciosBiblioEci.registrarReserva(reserva,fechaInicial,null,fechaFinal);
+        serviciosBiblioEci.registrarRecurso(recurso);
+        serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
         List<Evento> eventos = serviciosBiblioEci.consultarEventos();
-        System.out.println("Todos los eventos");
-        System.out.println(eventos);
         List<Evento> eventosReserva = serviciosBiblioEci.consultarEvento(reserva.getId());
-        System.out.println("Los eventos de la reserva");
-        System.out.println(eventosReserva);
         for(Evento eventores:eventosReserva){
             boolean found = false;
             for(Evento evento:eventos){
-                if(evento.equals(eventores)){found=true;}
+                if (evento.equals(eventores)) {
+                    found = true;
+                    break;
+                }
             }
             assertTrue(found);
         }

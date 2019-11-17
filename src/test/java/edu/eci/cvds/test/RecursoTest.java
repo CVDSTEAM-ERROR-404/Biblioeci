@@ -11,8 +11,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -173,22 +171,11 @@ public class RecursoTest extends ServicioBiblioEciTest{
     }
 
     @Test
-    public void shouldNotConsultAvailabilityIfTheFinalDateIsNull() throws ExcepcionServiciosBiblioEci {
+    public void shouldNotConsultAvailabilityIfTheFinalDateIsNull(){
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-        Calendar calendarInicio = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),fechaInicial,null);
+            serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),getInitialDate(),null);
             fail("Debio fallar por no tener fecha final");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("La fecha final no puede ser nula",e.getMessage());
@@ -198,20 +185,9 @@ public class RecursoTest extends ServicioBiblioEciTest{
     @Test
     public void shouldNotConsultAvailabilityIfTheInitialDateIsNull(){
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarFinal.getTime().getDate();
-        int month = calendarFinal.getTime().getMonth();
-        int year = calendarFinal.getTime().getYear();
-        if(calendarFinal.getTime().getDay()==6){
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaFinal = calendarFinal.getTime();
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),null,fechaFinal);
+            serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),null,getFinalDate());
             fail("Debio fallar por no tener fecha inicial");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("La fecha inicial no puede ser nula",e.getMessage());
@@ -221,24 +197,9 @@ public class RecursoTest extends ServicioBiblioEciTest{
     @Test
     public void shouldReturnAnEmptyListWhenConsultAvailabilityOfAnUnexistentResource(){
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-        Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
-        Date fechaFinal = calendarFinal.getTime();
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId()+1,fechaInicial,fechaFinal);
+            serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId()+1,getInitialDate(),getFinalDate());
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("El recurso no existe",e.getMessage());
         }
@@ -246,23 +207,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotConsultAvailabilityOfAResourceWithIdZero(){
-        Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
-        Date fechaFinal = calendarFinal.getTime();
         try {
-            serviciosBiblioEci.consultarDisponibilidadRecurso(0,fechaInicial,fechaFinal);
+            serviciosBiblioEci.consultarDisponibilidadRecurso(0,getInitialDate(),getFinalDate());
             fail("Debio fallar porque el recurso no puede tener id cero");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("El id no puede ser menor que 1",e.getMessage());
@@ -271,23 +217,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotConsultAvailabilityOfAResourceWithNegativeId(){
-        Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
-        Date fechaFinal = calendarFinal.getTime();
         try {
-            serviciosBiblioEci.consultarDisponibilidadRecurso(-1,fechaInicial,fechaFinal);
+            serviciosBiblioEci.consultarDisponibilidadRecurso(-1,getInitialDate(),getFinalDate());
             fail("Debio fallar porque el recurso no puede tener id negativa");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("El id no puede ser menor que 1",e.getMessage());
@@ -413,25 +344,10 @@ public class RecursoTest extends ServicioBiblioEciTest{
     @Test
     public void shouldReturnFalseIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
-        serviciosBiblioEci.registrarRecurso(recurso);
-        Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
-        Date fechaFinal = calendarFinal.getTime();
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
-        serviciosBiblioEci.registrarReserva(reserva,fechaInicial,null,fechaFinal);
-        assertFalse(serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),fechaInicial,fechaFinal));
+        serviciosBiblioEci.registrarRecurso(recurso);
+        serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+        assertFalse(serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),getInitialDate(),getFinalDate()));
     }
 
 
@@ -445,21 +361,6 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldReturnTrueIfTheResourceIsAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
         serviciosBiblioEci.registrarRecurso(recurso);
-        Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate();
-        int month = calendarInicio.getTime().getMonth();
-        int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){
-            calendarInicio.set(year+1900,month,day+2,7,0,0);
-            calendarFinal.set(year+1900,month,day+2,8,0,0);
-        }
-        else{
-            calendarInicio.set(year+1900,month,day+1,7,0,0);
-            calendarFinal.set(year+1900,month,day+1,8,0,0);
-        }
-        Date fechaInicial = calendarInicio.getTime();
-        Date fechaFinal = calendarFinal.getTime();
-        assertTrue(serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),fechaInicial,fechaFinal));
+        assertTrue(serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),getInitialDate(),getFinalDate()));
     }
 }

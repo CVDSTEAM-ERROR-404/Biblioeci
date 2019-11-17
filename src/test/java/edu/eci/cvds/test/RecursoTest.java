@@ -420,7 +420,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
         Date fechaFinal = calendarFinal.getTime();
         assertTrue(serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),fechaInicial,fechaFinal));
     }
-    /*
+    
     @Test
     public void shouldReturnFalseIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
@@ -442,13 +442,8 @@ public class RecursoTest extends ServicioBiblioEciTest{
         Date fechaFinal = calendarFinal.getTime();
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,fechaInicial,null,fechaFinal);
-        System.out.println(serviciosBiblioEci.consultarReserva(reserva.getId()));
-        System.out.println(serviciosBiblioEci.consultarEvento(reserva.getId()));
-        System.out.println(fechaInicial);
-        System.out.println(fechaFinal);
         boolean ans = serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),fechaInicial,fechaFinal);
-        System.out.println(ans);
         assertFalse(ans);
     }
-    */
+    
 }

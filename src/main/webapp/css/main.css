@@ -432,6 +432,11 @@ iframe {
 	
 }
 
+.fc-today{
+  background: #67a2dd !important;
+
+}
+
 .pi {
     font-family: 'primeicons';
     speak: none;

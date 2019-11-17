@@ -53,32 +53,32 @@
 			</p:panel>
 
 
-			<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-				<h:panelGrid id="eventDetails" columns="2">
-					
-					<p:outputLabel class="intlabel"  value="Tipo: " />
-					<p:selectOneMenu value="#{ReservasBean.tipoReserva}" style="width:216px; background:#cc0000;" >
-						<f:ajax render="reserva_form:panelreserva" />
-							<f:selectItems  value="#{ReservasBean.getTiposReserva()}" />
-					</p:selectOneMenu>
-					
-					<p:outputLabel for="datetime1" value="Hora inicio:" />
-					<p:calendar id="datetime1" value="#{HorarioBean.event.startDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date1}" maxHour="19" required="true" />
-					
-					<p:outputLabel for="datetime2" value="Hora fin:" />
-					<p:calendar id="datetime2" value="#{HorarioBean.event.endDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date2}" maxHour="19" required="true"  />
-					
-					<p:outputLabel for="datetime3" rendered="#{ReservasBean.getRecurrente()}" value="Hora fin reservacion:" />
-					<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}" maxHour="19" required="true"  />
+			<p:dialog widgetVar="eventDialog" header="Reserva" showEffect="clip" hideEffect="clip">
+				<p:panel id="panel_reserva" >
+					<h:panelGrid id="eventDetails" columns="2">
+
+						<p:outputLabel class="intlabel"  value="Tipo: " />
+						<p:selectOneMenu value="#{ReservasBean.tipoReserva}" style="width:216px; background:#cc0000;" >
+							<f:ajax render="horario_form:panel_reserva" />
+								<f:selectItems  value="#{ReservasBean.getTiposReserva()}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="datetime1" value="Hora inicio:" />
+						<p:calendar id="datetime1" value="#{HorarioBean.event.startDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date1}" maxHour="19" required="true" />
+
+						<p:outputLabel for="datetime2" value="Hora fin:" />
+						<p:calendar id="datetime2" value="#{HorarioBean.event.endDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date2}" maxHour="19" required="true"  />
+
+						<p:outputLabel for="datetime3" rendered="#{ReservasBean.getRecurrente()}" value="Hora fin reservacion:" />
+						<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}" maxHour="19" required="true"  />
 
 
+					</h:panelGrid>
 
-					<h:commandButton class="button3"   value="Reservar" style="font-size:12px;" actionListener="#{ReservasBean.registrarReserva(date1.value, date2.value, date3.value)}" update="horario_form"/>
-
-					
-					
-				
-				</h:panelGrid>
+					<f:facet name="footer">
+						<h:commandButton class="button3"   value="Reservar" style="font-size:12px;" actionListener="#{ReservasBean.registrarReserva(date1.value, date2.value, date3.value)}" update="horario_form"/>
+					</f:facet>
+				</p:panel>
 			</p:dialog>    
 		</h:form>
 	</h:body>

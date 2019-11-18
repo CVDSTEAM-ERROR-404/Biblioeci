@@ -3,25 +3,27 @@ package edu.eci.cvds.guice;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-
-import edu.eci.cvds.sampleprj.dao.*;
-import edu.eci.cvds.sampleprj.dao.mybatis.*;
+import edu.eci.cvds.sampleprj.dao.RecursoDAO;
+import edu.eci.cvds.sampleprj.dao.EventoDAO;
+import edu.eci.cvds.sampleprj.dao.ReservaDAO;
+import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISRecursoDAO;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISEventoDAO;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISReservaDAO;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBATISUsuarioDAO;
 import edu.eci.cvds.security.SesionLogger;
 import edu.eci.cvds.security.ShiroLogger;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
-
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.impl.ServiciosBiblioEciImpl;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
  * Esta clase conecta la pagina web con el contexto de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
 
 public class GuiceContextListener implements ServletContextListener {
@@ -55,7 +57,6 @@ public class GuiceContextListener implements ServletContextListener {
                 bind(SesionLogger.class).to(ShiroLogger.class);
             }
         });
-
         servletContextEvent.getServletContext().setAttribute(Injector.class.getName(), injector);
     }
 }

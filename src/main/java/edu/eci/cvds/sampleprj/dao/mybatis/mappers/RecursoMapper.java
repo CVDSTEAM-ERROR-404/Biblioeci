@@ -5,7 +5,6 @@ import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import org.apache.ibatis.annotations.Param;
-
 import edu.eci.cvds.samples.entities.Recurso;
 
 /**
@@ -35,14 +34,11 @@ public interface RecursoMapper {
      */
     public List<Recurso> consultarRecursos();
 
-
     /**
      * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
      */
     public List<Recurso> consultarRecursosDisponibles(@Param("capacidad") long capacidad,@Param("tipo") TipoRecurso tipo,@Param("ubicacion") UbicacionRecurso ubicacion);
-
-
 
     /**
      * Cambia el estado de un recurso denro de la base de datos y disponibles
@@ -51,7 +47,4 @@ public interface RecursoMapper {
      * @return La cantidad de recursos actualizados
      */
 	public int cambiarEstado(@Param("id") long id, @Param("estado") EstadoRecurso estado);
-
-
-    
 }

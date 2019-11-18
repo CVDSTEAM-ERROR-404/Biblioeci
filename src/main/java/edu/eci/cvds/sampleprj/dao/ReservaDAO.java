@@ -1,15 +1,13 @@
 package edu.eci.cvds.sampleprj.dao;
 
-import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import java.util.List;
 import edu.eci.cvds.samples.entities.Reserva;
 
 /**
  * Esta interfaz conecta los servicios de reservas con su base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
-
 public interface ReservaDAO{
 
 	/**
@@ -33,7 +31,17 @@ public interface ReservaDAO{
 	 */
 	public void registrarReserva(Reserva reserva)throws PersistenceException;
 
+	/**
+	 * Consulta todas las reservas de la base de datos
+	 * @return Una lista con todas las reservas de la base de datos de la biblioteca
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas
+	 */
     public List<Reserva> consultarReserva() throws PersistenceException;
 
+	/**
+	 * Consulta una reserva de la base de datos
+	 * @return Una lista con la reserva de la base de datos de la biblioteca
+	 * @throws PersistenceException Cuando ocurre algun error al consultar la reserva
+	 */
 	public List<Reserva> consultarReserva(long id) throws PersistenceException;
 }

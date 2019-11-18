@@ -1,6 +1,5 @@
 package edu.eci.cvds.sampleprj.dao;
 
-
 import edu.eci.cvds.samples.entities.Usuario;
 
 /**
@@ -8,9 +7,14 @@ import edu.eci.cvds.samples.entities.Usuario;
  * @author: CVDSTEAM-ERROR-404
  * @version: 5/11/2019
  */
-
 public interface UsuarioDAO{
 
+    /**
+     * Consulta un usuario dentro de la base de datos
+     * @param correo El correo del usuario
+     * @return El usuario dentro de la base de datos, si no existe retorna null
+     * @throws PersistenceException Cuando ocrre un error al coonsultar el usuario
+     */
     public Usuario consultarUsuario(String correo) throws PersistenceException;
     
 }

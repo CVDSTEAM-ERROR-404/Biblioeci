@@ -3,13 +3,12 @@ package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
 import edu.eci.cvds.samples.entities.Evento;
 import edu.eci.cvds.samples.entities.Reserva;
 /**
  * Esta interfaz conecta los servicios relacionados con el evento a la base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
 public interface EventoMapper {
     /**
@@ -25,8 +24,17 @@ public interface EventoMapper {
      */
     public void registrarEvento(@Param("evento") Evento evento,  @Param("idReserva") long idReserva);
 
+    /**
+     * Consulta todos los eventos de la base de datos
+     * @return Una lista con todos los eventos de la base de datos
+     */
     public List<Evento> consultarEventos();
 
+    /**
+     * Consulta todos los eventos de una reserva
+     * @param id El identificador de la reserva
+     * @return Una lista con todos los eventos de una reserva
+     */
     public List<Evento> consultarEventos(@Param("reserva") long id);
 
     /**
@@ -38,7 +46,6 @@ public interface EventoMapper {
 
     public void registrarEventoEstado(@Param("estado") String estado, @Param("inicio") Date fechaInicio ,@Param("fin") Date fechaFin, @Param("reserva") Reserva reserva);
 */
-    
 
     /**
 	 * Retorna todos los eventos que interfieran con el horario pasado en los eventos del recurso

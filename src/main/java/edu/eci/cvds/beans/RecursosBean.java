@@ -1,16 +1,11 @@
 package edu.eci.cvds.beans;
 
 import java.util.List;
-
 import javax.faces.bean.SessionScoped;
-
 import com.google.inject.Inject;
-
 import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -18,11 +13,9 @@ import java.io.IOException;
 /**
  * Esta clase conecta la pagina web con los diferentes servicios de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
-
 @ManagedBean(name="RecursosBean")
-
 @SessionScoped
 public class RecursosBean extends BasePageBean {
     @Inject
@@ -157,13 +150,18 @@ public class RecursosBean extends BasePageBean {
      */
     public void setShowButton(boolean showButton) { this.showButton = showButton; }
 
-
-	public Recurso getSelectedRecurso(){ 
-		
+    /**
+     * Muestra el recurso que se va a utilizar
+     * @return El recurso que se va a utilizar
+     */
+	public Recurso getSelectedRecurso(){
 		return selectedRecurso;
-		
 	}
-	
+
+    /**
+     * Cambia el recurso que se va a utilizar
+     * @param selectedRecurso El nuevo recurso que se va a utilizar
+     */
 	public void setSelectedRecurso(Recurso selectedRecurso){
 		this.selectedRecurso = selectedRecurso;
 		
@@ -213,8 +211,6 @@ public class RecursosBean extends BasePageBean {
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
         }
-
-        
     }
 
     /**
@@ -243,8 +239,6 @@ public class RecursosBean extends BasePageBean {
         }
 	}
 
-
-
     /**
      * Cancela las reservas pendientes de un recurso de la base de datos
      */
@@ -256,8 +250,4 @@ public class RecursosBean extends BasePageBean {
             excepcionServiciosBiblioEci.printStackTrace();
         }
     }
-
-
-
-
 }

@@ -7,7 +7,9 @@ public class Evento {
     private Date horaInicio;
     private Date horaFin;
     private EstadoReserva estado;
+
     public Evento(){};
+    
     public Evento(Date horaInicio, Date horaFin) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;

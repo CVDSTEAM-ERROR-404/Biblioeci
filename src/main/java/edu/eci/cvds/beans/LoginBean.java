@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Esta clase conecta la pagina web del login con el servicio de login de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
 
 @ManagedBean(name="LoginBean")
@@ -82,6 +82,10 @@ public class LoginBean extends BasePageBean{
         }
     }
 
+    /**
+     * Determina si hay un usuario logueado
+     * @return El valor booleano que determina si hay un usuario logueado
+     */
     public boolean isLogged(){
         return logger.isLogged();
     }
@@ -107,6 +111,10 @@ public class LoginBean extends BasePageBean{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Actualiza la pagina a la del indice de cada usuario
+     */
     public void goHome(){
         try {
             if (logger.isAdmin()) {

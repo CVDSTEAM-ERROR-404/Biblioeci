@@ -5,7 +5,6 @@ package edu.eci.cvds.samples.entities;
  * @author: CVDSTEAM-ERROR-404
  * @version: 5/11/2019
  */
-
 public enum EstadoRecurso {
     Disponible,Daño_Reparable,Daño_Total
 }

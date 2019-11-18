@@ -28,6 +28,7 @@ public interface ReservaDAO{
 	/**
 	 * Registra una nueva reserva de un recurso y un usuario
 	 * @param reserva Reserva a registrar
+	 * @throws PersistenceException Cuando ocurre algun error al realizar una reserva
 	 */
 	public void registrarReserva(Reserva reserva)throws PersistenceException;
 

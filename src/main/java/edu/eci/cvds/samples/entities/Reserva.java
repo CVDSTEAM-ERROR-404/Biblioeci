@@ -7,9 +7,8 @@ import java.util.Date;
 /**
  * Reserva realizada dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
-
 public class Reserva implements Serializable{
 	
 	private int id;
@@ -20,6 +19,12 @@ public class Reserva implements Serializable{
 	private Date fechaSolicitud;
 	private Usuario usuario;
 
+	/**
+	 * Constructor de la clase Reserva
+	 * @param tipo El tipo de la reserva
+	 * @param recurso El recurso sobre el cual se realiza la reserva
+	 * @param usuario El usuario que realiza la reserva
+	 */
 	public Reserva(TipoReserva tipo, Recurso recurso, Usuario usuario) {
 		this.tipo = tipo;
 		this.recurso = recurso;
@@ -115,22 +120,42 @@ public class Reserva implements Serializable{
 		this.recurso = recurso;
 	}
 
+	/**
+	 * Muestra la fecha cuando se realizo la reserva
+	 * @return La fecha cuando se realizo la reserva
+	 */
 	public Date getFechaSolicitud() {
 		return fechaSolicitud;
 	}
 
+	/**
+	 * Cambia la fecha cuando se realizo la reserva
+	 * @param fechaSolicitud La nueva fecha cuando se realizo la reserva
+	 */
 	public void setFechaSolicitud(Date fechaSolicitud) {
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
+	/**
+	 * Muestra el usuario que realizo la reserva
+	 * @return El usuario que realizo la reserva
+	 */
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
+	/**
+	 * Cambia el usuario que realizo la reserva
+	 * @param usuario El nuevo usuario que realizo la reserva
+	 */
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
+	/**
+	 * Determina la fecha inicial del proximo evento de la reserva cuando es recurrente
+	 * @return La fecha incial del proximo evento
+	 */
 	public Date nextEvent(){
 		Date nextEvent=null;
 		for (Evento evento:eventosAsignados){
@@ -141,11 +166,20 @@ public class Reserva implements Serializable{
 		return nextEvent;
 	}
 
+	/**
+	 * Muestra La informacion de la reserva
+	 * @return Un String que determina la informacion de la reserva
+	 */
 	@Override
 	public String toString() {
 		return id+" "+tipo+" "+estado+" "+recurso+" "+usuario+" "+fechaSolicitud;
 	}
 
+	/**
+	 * Compara un objeto con la reserva para mirar si son iguales
+	 * @param obj El objeto a comparar
+	 * @return El valor booleano que determina si el objeto es igual a la reserva
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		boolean equal;

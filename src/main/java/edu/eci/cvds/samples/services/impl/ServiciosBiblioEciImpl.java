@@ -17,9 +17,8 @@ import org.mybatis.guice.transactional.Transactional;
 /**
  * Esta clase implementa los servicios utilizados dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
-
 public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private RecursoDAO recursoDAO;
@@ -136,6 +135,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return  recursos;
     }
 
+    /**
+     * Registra una nueva reserva de un recurso y un usuario
+     * @param reserva Reserva a registrar
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al realizar una reserva
+     */
     @Override
     @Transactional
     public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
@@ -156,6 +160,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
     }
 
+    /**
+     * Consulta todos los eventos
+     * @return Una lista con todos los eventos
+     * @throws ExcepcionServiciosBiblioEci- Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public List<Evento> consultarEventos() throws ExcepcionServiciosBiblioEci {
         List<Evento> eventos;
@@ -167,6 +176,12 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return eventos;
     }
 
+    /**
+     * Consulta todos los eventos de una reserva
+     * @param id El identificador de la reserva
+     * @return Una lista con todos los eventos de una reserva
+     * @throws ExcepcionServiciosBiblioEci - Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci {
         List<Evento> eventos;
@@ -179,6 +194,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return eventos;
     }
 
+    /**
+     * Consulta todas las reservas de la base de datos
+     * @return Una lista con todas las reservas de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar las reservas
+     */
     @Override
     public List<Reserva> consultarReservas() throws ExcepcionServiciosBiblioEci {
         List<Reserva> reservas;
@@ -190,6 +210,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return reservas;
     }
 
+    /**
+     * Consulta una reserva de la base de datos
+     * @return Una lista con la reserva de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la reserva
+     */
     @Override
     public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci {
         if(id<1){throw new ExcepcionServiciosBiblioEci("La reserva con el id "+id+" es invalido");}
@@ -202,6 +227,12 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return reservas;
     }
 
+    /**
+     * Consulta un usuario dentro de la base de datos
+     * @param correo El correo del usuario
+     * @return El usuario dentro de la base de datos, si no existe retorna null
+     * @throws ExcepcionServiciosBiblioEci Cuando ocrre un error al coonsultar el usuario
+     */
     @Override
     public Usuario consultarUsuario(String correo) throws ExcepcionServiciosBiblioEci {
         Usuario usuario;

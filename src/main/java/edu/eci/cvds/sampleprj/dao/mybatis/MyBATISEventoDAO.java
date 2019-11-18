@@ -14,6 +14,11 @@ public class MyBATISEventoDAO implements EventoDAO {
     @Inject
     private EventoMapper eventoMapper;
 
+    /**
+     * Cancela todos los eventos pendientes de una recurso específico
+     * @param idRecurso ID del recurso
+     * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public void cancelarEventosPendientesRecurso(long idRecurso) throws PersistenceException {
         try {
@@ -23,6 +28,12 @@ public class MyBATISEventoDAO implements EventoDAO {
         }
     }
 
+    /**
+     * Registra un nuevo evento de una reserva
+     * @param evento Evento a registrar
+     * @param idReserva id de la Reserva del evento
+     * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public void registrarEvento(Evento evento, long idReserva) throws PersistenceException {
         try {
@@ -32,6 +43,11 @@ public class MyBATISEventoDAO implements EventoDAO {
         }
     }
 
+    /**
+     * Consulta todos los eventos
+     * @return Una lista con todos los eventos
+     * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public List<Evento> consultarEventos() throws PersistenceException {
         List<Evento> eventos = null;

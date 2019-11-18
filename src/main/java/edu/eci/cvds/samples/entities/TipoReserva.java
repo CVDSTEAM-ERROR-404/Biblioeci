@@ -12,9 +12,18 @@ public enum TipoReserva {
 
     private int calendarConstant;
 
+    /**
+     * Constructor de la enumeracion TipoReserva
+     * @param calendarConstant La cantidad en la que incrementa el tipo de la reserva
+     */
     TipoReserva(int calendarConstant){
         this.calendarConstant = calendarConstant;
     }
+
+    /**
+     * Muestra la cantidad en la que incrementa el tipo de la reserva
+     * @return La cantidad en la que incrementa el tipo de la reserva
+     */
     public int getCalendarConstant() {
         return calendarConstant;
     }

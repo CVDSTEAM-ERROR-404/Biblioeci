@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS Recurso (
   tipo varchar(45) not null,
   capacidad int not null,
   estado varchar(45) not null,
+  inicio_disponibilidad varchar(20) not null,
+  fin_disponibilidad varchar(20) not null,
   PRIMARY KEY (id));
 
 
@@ -39,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Evento (
   reserva INTEGER NOT NULL REFERENCES reserva(id),
   hora_inicio timestamp NOT NULL,
   hora_fin timestamp NOT NULL,
-  estado varchar(45),
+  estado varchar(45) not null,
   PRIMARY KEY (id));
 
 insert into rol(nombre) values ('administrador');

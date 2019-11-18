@@ -11,9 +11,10 @@
 		<result property='tipo' column='tipo'/>
 		<result property='capacidad' column='capacidad'/>  
 		<result property='estado' column='estado'/>
+        <result property='inicioDisponibilidad' column='inicio_disponibilidad'/>
+        <result property='finDisponibilidad' column='fin_disponibilidad'/>
 	</resultMap>
-  
-  
+
   <select parameterType='map' id='consultarRecurso' resultMap='RecursoResult'>
     SELECT 
       id, 
@@ -21,7 +22,9 @@
       ubicacion,
       tipo,
       capacidad,
-      estado
+      estado,
+      inicio_disponibilidad,
+      fin_disponibilidad
      FROM
       recurso
      WHERE
@@ -35,7 +38,9 @@
       ubicacion,
       tipo,
       capacidad,
-      estado
+      estado,
+      inicio_disponibilidad,
+      fin_disponibilidad
     FROM
       recurso;
   </select>
@@ -48,7 +53,9 @@
       ubicacion,
       tipo,
       capacidad,
-      estado
+      estado,
+      inicio_disponibilidad,
+      fin_disponibilidad
     FROM
       recurso
 	WHERE estado='Disponible' 
@@ -69,7 +76,7 @@
   </update>
    
   <insert parameterType="Recurso" id="agregarRecurso" useGeneratedKeys="true" keyProperty="rec.id" keyColumn="id">
-    INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado});
+    INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado,inicio_disponibilidad ,fin_disponibilidad) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado},#{rec.inicioDisponibilidad},#{rec.finDisponibilidad});
   </insert>
 
   

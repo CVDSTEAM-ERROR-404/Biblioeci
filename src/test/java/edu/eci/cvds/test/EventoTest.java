@@ -26,7 +26,7 @@ public class EventoTest extends ServicioBiblioEciTest {
 
     @Test
     public void shouldConsultAllEvents() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarRecurso(recurso);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());

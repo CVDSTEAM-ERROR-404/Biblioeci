@@ -20,7 +20,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldCancelTheFutureReservations() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
@@ -39,7 +39,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAllReservations() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
@@ -56,7 +56,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultTheFutureReservations() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
@@ -66,7 +66,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldMakeADailyRecurrentReservation() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
@@ -80,7 +80,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldMakeAMonthlyRecurrentReservation() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Mensual,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(90),getFinalDate());
@@ -94,7 +94,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldMakeASimpleReservation() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
@@ -108,7 +108,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldMakeAWeeklyRecurrentReservation() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Semanal,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(28),getFinalDate());
@@ -122,7 +122,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldReturnAEmptyListWhenConsultReservationsOfAnResourceWithoutReservations() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         serviciosBiblioEci.registrarRecurso(recurso);
         List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(recurso.getId());
         assertEquals(0,reservas.size());
@@ -180,7 +180,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithADurationGreaterThanTwoHours(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
@@ -193,7 +193,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithAnFinalRecurrentDateLessOrEqualThanTheInitialDate(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
@@ -206,7 +206,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithAnInitialDateGreaterThanTheFinalDate(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
@@ -230,7 +230,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithoutFinalDate(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
@@ -243,7 +243,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithoutInitialDate(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
@@ -256,7 +256,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithoutReservationType(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5);
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(null,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);

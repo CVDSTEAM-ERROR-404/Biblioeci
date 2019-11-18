@@ -32,6 +32,8 @@
 			recu.capacidad as recurso_capacidad,
 			recu.ubicacion as recurso_ubicacion,
 			recu.estado as recurso_estado,
+		    recu.inicio_disponibilidad as recurso_inicio_disponibilidad,
+		    recu.fin_disponibilidad as recurso_fin_disponibilidad,
 			eve.id as evento_id,
 			eve.estado as evento_estado, 
 			eve.hora_inicio as evento_hora_inicio,
@@ -75,6 +77,8 @@
 		rec.tipo as recurso_tipo,
 		rec.capacidad as recurso_capacidad,
 		rec.estado as recurso_estado,
+		rec.inicio_disponibilidad as recurso_inicio_disponibilidad,
+		rec.fin_disponibilidad as recurso_fin_disponibilidad,
 		usu.correo as usuario_correo,
 		usu.u_area as usuario_u_area,
 		usu.nombre as usuario_nombre

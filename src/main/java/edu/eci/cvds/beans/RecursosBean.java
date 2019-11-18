@@ -1,5 +1,7 @@
 package edu.eci.cvds.beans;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.SessionScoped;
 import com.google.inject.Inject;
@@ -172,9 +174,10 @@ public class RecursosBean extends BasePageBean {
      * @param nombre El nombre del recurso que se va a registrar
      * @param capacidad La capacidad del recurso que se va a registrar
      */
-    public void registrarRecurso(String nombre, int capacidad) {
+    public void registrarRecurso(String nombre, int capacidad, Date inicioDisponibilidad, Date finDisponibilidad){
         try{
-			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacionRecurso, tipoRecurso, capacidad));
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacionRecurso, tipoRecurso, capacidad,sdf.format(inicioDisponibilidad),sdf.format(finDisponibilidad)));
 			successOperation("Registro exitoso");
 
         } catch (ExcepcionServiciosBiblioEci e) {

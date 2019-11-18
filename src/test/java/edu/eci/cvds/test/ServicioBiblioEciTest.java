@@ -6,6 +6,8 @@ import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import edu.eci.cvds.samples.entities.Usuario;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +62,12 @@ public class ServicioBiblioEciTest {
         calendar.setTime(getInitialDate());
         calendar.add(Calendar.DAY_OF_YEAR,numDias);
         return calendar.getTime();
+    }
+    protected String getInitialDateResource(){
+        return "07:00";
+    }
+    protected String getFinalDateResource(){
+        return "19:00";
     }
 
 }

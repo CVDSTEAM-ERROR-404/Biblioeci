@@ -16,6 +16,9 @@ public class Recurso implements Serializable{
 	private TipoRecurso tipo;
 	private int capacidad;
     private EstadoRecurso estado;
+    private String inicioDisponibilidad;
+    private String finDisponibilidad;
+
 
     /**
      * Constructor de la clase Recurso
@@ -23,39 +26,15 @@ public class Recurso implements Serializable{
      * @param ubicacion La ubicacion del recurso
      * @param tipo El tipo del recurso
      * @param capacidad La capacidad del recurso
-     * @param id El identificador del recurso
-     * @param estado El estado del recurso
      */
-	public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad, int id, EstadoRecurso estado){
-        this(nombre,ubicacion,tipo,capacidad,estado);
-        this.id=id;
-    }
-
-    /**
-     * Constructor de la clase Recurso
-     * @param nombre El nombre del recurso
-     * @param ubicacion La ubicacion del recurso
-     * @param tipo El tipo del recurso
-     * @param capacidad La capacidad del recurso
-     * @param estado El estado del recurso
-     */
-    public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad, EstadoRecurso estado){
+    public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad, String inicioDisponibilidad, String finDisponibilidad){
         this.nombre=nombre;
         this.ubicacion=ubicacion;
         this.tipo=tipo;
         this.capacidad=capacidad;
-        this.estado=estado;
-    }
-
-    /**
-     * Constructor de la clase Recurso
-     * @param nombre El nombre del recurso
-     * @param ubicacion La ubicacion del recurso
-     * @param tipo El tipo del recurso
-     * @param capacidad La capacidad del recurso
-     */
-    public Recurso(String nombre, UbicacionRecurso ubicacion, TipoRecurso tipo, int capacidad){
-        this(nombre,ubicacion,tipo,capacidad, EstadoRecurso.Disponible);
+        this.estado=EstadoRecurso.Disponible;
+        this.inicioDisponibilidad=inicioDisponibilidad;
+        this.finDisponibilidad=finDisponibilidad;
     }
 
     /**
@@ -166,7 +145,7 @@ public class Recurso implements Serializable{
      */
     @Override
     public String toString() {
-        return id+" "+nombre+" "+ubicacion+" "+tipo+" "+capacidad+" "+estado;
+        return id+" "+nombre+" "+ubicacion+" "+tipo+" "+capacidad+" "+estado+" "+inicioDisponibilidad+" "+finDisponibilidad;
     }
 
     /**
@@ -185,5 +164,21 @@ public class Recurso implements Serializable{
             equal = nombre.equals(recurso.getNombre()) && ubicacion.equals(recurso.getUbicacion()) && capacidad==recurso.getCapacidad() && tipo.equals(recurso.getTipo()) && id==recurso.getId();
         }
         return equal;
+    }
+
+    public String getInicioDisponibilidad() {
+        return inicioDisponibilidad;
+    }
+
+    public void setInicioDisponibilidad(String inicioDisponibilidad) {
+        this.inicioDisponibilidad = inicioDisponibilidad;
+    }
+
+    public String getFinDisponibilidad() {
+        return finDisponibilidad;
+    }
+
+    public void setFinDisponibilidad(String finDisponibilidad) {
+        this.finDisponibilidad = finDisponibilidad;
     }
 }

@@ -11,7 +11,7 @@ import org.apache.shiro.subject.Subject;
 /**
  * Esta clase conecta el login de un recurso web con la base de datos de la biblioteca por medio de la libreria apache shiro
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
 
 public class ShiroLogger implements SesionLogger {
@@ -54,12 +54,26 @@ public class ShiroLogger implements SesionLogger {
         SecurityUtils.getSubject().logout();
     }
 
+    /**
+     * Muestra si el usuario logueado es un cliente de la biblioteca
+     * @return El valor booleano que determina si el usuario loguead es un cliente de la biblioteca
+     */
+    @Override
     public boolean isAdmin(){return SecurityUtils.getSubject().hasRole("Administrador");}
 
+    /**
+     * Muestra si el usuario logueado es un administrador de la biblioteca
+     * @return El valor booleano que determina si el usuario loguead es un administrador de la biblioteca
+     */
     @Override
     public String getUser() {
         return (String) SecurityUtils.getSubject().getSession().getAttribute("Correo");
     }
 
+    /**
+     * Muestra el correo del usuario logueado
+     * @return Un String con el correo del usuario logueado
+     */
+    @Override
     public boolean isUser(){return SecurityUtils.getSubject().hasRole("Usuario");}
 }

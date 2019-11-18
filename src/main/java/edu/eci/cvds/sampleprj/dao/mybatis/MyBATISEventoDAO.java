@@ -59,6 +59,12 @@ public class MyBATISEventoDAO implements EventoDAO {
         return eventos;
     }
 
+    /**
+     * Consulta todos los eventos de una reserva
+     * @param id El identificador de la reserva
+     * @return Una lista con todos los eventos de una reserva
+     * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public List<Evento> consultarEventos(int id) throws PersistenceException {
         List<Evento> eventos = null;
@@ -70,6 +76,14 @@ public class MyBATISEventoDAO implements EventoDAO {
         return eventos;
     }
 
+    /**
+     * Retorna todos los eventos que interfieran con el horario pasado en los eventos del recurso
+     * @param recurso Id del recurso a consultar
+     * @param fechaInicio Fecha de inicio de la reserva
+     * @param fechaFinal Fecha de fin de la reserva
+     * @return Lista de eventos que interfieran con el horario indicado
+     * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
+     */
     @Override
     public List<Evento> consultarEventosRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws PersistenceException{
         List<Evento> eventos = null;

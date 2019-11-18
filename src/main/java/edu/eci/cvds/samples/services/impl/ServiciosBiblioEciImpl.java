@@ -1,15 +1,22 @@
 package edu.eci.cvds.samples.services.impl;
 
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import com.google.inject.Inject;
-
-import edu.eci.cvds.sampleprj.dao.*;
-
-import edu.eci.cvds.samples.entities.*;
+import edu.eci.cvds.sampleprj.dao.RecursoDAO;
+import edu.eci.cvds.sampleprj.dao.ReservaDAO;
+import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
+import edu.eci.cvds.sampleprj.dao.EventoDAO;
+import edu.eci.cvds.sampleprj.dao.PersistenceException;
+import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.EstadoRecurso;
+import edu.eci.cvds.samples.entities.UbicacionRecurso;
+import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.Evento;
+import edu.eci.cvds.samples.entities.Usuario;
+import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.mybatis.guice.transactional.Transactional;
@@ -264,6 +271,14 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return reservas;
     }
 
+    /**
+     * Consulta la disponibilidad de un recurso en cierta franja horaria
+     * @param recurso Identificador del recurso
+     * @param fechaInicio La fecha inicial de la franja
+     * @param fechaFinal La fecha final de la franja
+     * @return El valor booleano que determina si el recurso esta disponible en la franja horaria
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar la disponibilidad del recurso
+     */
     @Override
     public boolean consultarDisponibilidadRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws ExcepcionServiciosBiblioEci {
         if(fechaInicio==null){throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");}
@@ -280,6 +295,14 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return ans;
     }
 
+    /**
+     * Registra los distintos eventos de una reserva recurrente
+     * @param reserva La reserva que se va a registrar
+     * @param fechaInicio La fecha inicial de la reserva
+     * @param fechaFinRecurrencia La fecha final de la recurrencia
+     * @param fechaFinEvento La fecha final del evento
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar algun evento
+     */
     private void registrarEventosRecurrentes(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento)throws ExcepcionServiciosBiblioEci{
         Calendar inicio=Calendar.getInstance();
         Calendar fin= Calendar.getInstance();
@@ -300,6 +323,14 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             throw new ExcepcionServiciosBiblioEci("Error al insertar los eventos recurrentes");
         }
     }
+
+    /**
+     * Verifica que las echas de una reserva sean validas para registrarla
+     * @param fechaInicio La fecha inicial de la reserva
+     * @param fechaFinRecurrencia La fecha final de la recurrencia
+     * @param fechaFinEvento La fecha final de la reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando las fechas no son validas
+     */
     private void validarFechas(Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento)throws  ExcepcionServiciosBiblioEci{
         if(fechaInicio==null){throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");}
         if(fechaFinEvento==null){throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula");}

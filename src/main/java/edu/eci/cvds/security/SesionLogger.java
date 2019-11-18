@@ -7,7 +7,6 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
  * @author: CVDSTEAM-ERROR-404
  * @version: 5/11/2019
  */
-
 public interface SesionLogger {
 
     /**
@@ -30,8 +29,21 @@ public interface SesionLogger {
      */
     public void logout();
 
+    /**
+     * Muestra si el usuario logueado es un cliente de la biblioteca
+     * @return El valor booleano que determina si el usuario loguead es un cliente de la biblioteca
+     */
     public boolean isUser();
 
+    /**
+     * Muestra si el usuario logueado es un administrador de la biblioteca
+     * @return El valor booleano que determina si el usuario loguead es un administrador de la biblioteca
+     */
     public boolean isAdmin();
+
+    /**
+     * Muestra el correo del usuario logueado
+     * @return Un String con el correo del usuario logueado
+     */
     public String getUser();
 }

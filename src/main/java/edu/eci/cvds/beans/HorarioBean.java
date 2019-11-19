@@ -39,7 +39,7 @@ public class HorarioBean extends BasePageBean {
             List<Reserva>reservas  =serviciosBiblioEci.consultarReservasPendientes(5);
             for(Reserva reserva:reservas){
                 for(Evento evento:reserva.getEventosAsignados()){
-                    event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin());
+                    event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraInicio(),evento.getHoraFin());
                     eventModel.addEvent(event);
                 }
             }
@@ -64,5 +64,12 @@ public class HorarioBean extends BasePageBean {
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
+
+    public int getHourStartEvent(Date date){
+
+        return date.getHours();
+    }
+
+
 
 }

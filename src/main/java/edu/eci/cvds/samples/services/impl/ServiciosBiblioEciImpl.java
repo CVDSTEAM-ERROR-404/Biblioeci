@@ -194,8 +194,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      */
     @Override
     @Transactional
-    public void registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento)
-            throws ExcepcionServiciosBiblioEci {
+    public void registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
+        if(reserva.getUsuario() == null)throw new ExcepcionServiciosBiblioEci("El usuario debe estar autenticado para poder reservar");
         validarFechas(fechaInicio, fechaFinRecurrencia, fechaFinEvento, reserva);
         try {
             reservaDAO.registrarReserva(reserva);

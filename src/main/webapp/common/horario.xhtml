@@ -35,7 +35,7 @@
 			<p:panel class="panelCenter" id="panelhorario"   style="width: 900px;">
 				<h:panelGrid columnClasses="value">
 
-					<p:schedule id="schedule" value="#{HorarioBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm" axisFormat="H:mm"  >
+					<p:schedule id="schedule" value="#{ReservasBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm" axisFormat="H:mm"  >
 
 						<p:ajax event="dateSelect" listener="#{ReservasBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
 
@@ -43,10 +43,7 @@
 				</h:panelGrid>
 				<f:facet name="footer">
 					<center>
-					<h:outputLink value="login1.xhtml"
-								  styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-						<span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
-					</h:outputLink>
+					<h:commandButton update="con_recurso_form" class="button3"   value="Volver" style="font-size:12px;" actionListener="#{LoginBean.goHome()}" />
 					</center>
 				</f:facet>
 

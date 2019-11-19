@@ -151,7 +151,7 @@ public class ReservasBean extends BasePageBean{
 
     public void redirectHorario() throws ExcepcionServiciosBiblioEci {
         try{
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/horario.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("horario.xhtml");
         }
         catch (IOException e) {
             e.printStackTrace();

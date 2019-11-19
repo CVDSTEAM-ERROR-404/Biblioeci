@@ -21,6 +21,12 @@ public class LoginBean extends BasePageBean{
     private boolean rememberMe;
     @Inject
     private SesionLogger logger;
+    private boolean isAdmin;
+
+    public boolean isAdmin() {
+        return logger.isAdmin();
+    }
+
 
     /**
      * Retorna el valor booleano que determina si el usuario se va a recordar
@@ -105,25 +111,8 @@ public class LoginBean extends BasePageBean{
      */
     public void logout(){
         logger.logout();
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/home.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        goHome();
     }
 
-    /**
-     * Actualiza la pagina a la del indice de cada usuario
-     */
-    public void goHome(){
-        try {
-            if (logger.isAdmin()) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
-            } else {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/home.xhtml");
-            }
-        } catch (IOException e) {
-            setErrorMessage("Error en el servidor");
-        }
-    }
+
 }

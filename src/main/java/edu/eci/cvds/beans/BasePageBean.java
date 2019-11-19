@@ -50,11 +50,7 @@ public abstract class BasePageBean implements Serializable {
      */
     public void successOperation(String message){
         setMessage(message);
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login1.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        goHome();
     }
     public void setMessage(String message){
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
@@ -67,5 +63,15 @@ public abstract class BasePageBean implements Serializable {
     public void setErrorMessage(String message){
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+    /**
+     * Actualiza la pagina a la del indice de cada usuario
+     */
+    public void goHome(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/home.xhtml");
+        } catch (IOException e) {
+            setErrorMessage("Error en el servidor");
+        }
     }
 }

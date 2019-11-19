@@ -573,6 +573,10 @@ iframe {
   background: #333333;
 }
 
+.button5:hover {
+  background: #333333;
+}
+
 .button4:hover {
   background: #333333;
 }
@@ -677,6 +681,26 @@ iframe {
   
   display: block;  
   text-align:center; 
+}
+
+.button5{
+
+  position: absolute;
+  top: 70px;
+  right: 16px;
+  font-family: Raleway-Bold !important;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+  height: 42px;
+  border-radius: 3px;
+  background: #cc0000;
+  margin: 0 auto;
+  padding: 0 25px;
+
+  display: block;
+  text-align:center;
 }
 
 .button2{

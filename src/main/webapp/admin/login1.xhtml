@@ -53,20 +53,17 @@
 					<span class="ui-button-text" style="padding: 15px 25px">Actualizar estado</span>
 				</h:outputLink>
 				<br/>
-				<h:outputLink value="/common/consultarRecurso.xhtml"
-					styleClass="ui-button  ui-button-text-only button3" style="font-size:12px; color:FFF;">
-					<span class="ui-button-text" style="padding: 15px 25px">Consultar recurso</span>
-				</h:outputLink>
-				<br/>
-			 
 
 
-			
-				
 			
 		 </p:panel>
 		 <h:commandButton class="button4" value="Logout" style="font-size:12px;" actionListener="#{LoginBean.logout()}" />
-		 
+
+		<h:outputLink value="/home.xhtml"
+					  styleClass="ui-button  ui-button-text-only button5" style="font-size:12px; color:FFF;">
+			<span class="ui-button-text" style="padding: 15px 25px">Ver funciones user</span>
+		</h:outputLink>
+
 	</h:form>	 
 	</h:body>
 </html>

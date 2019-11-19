@@ -50,8 +50,13 @@
 			<h:commandButton class="button4" value="Logout" style="font-size:12px;" rendered="#{LoginBean.isLogged()}" actionListener="#{LoginBean.logout()}" />
 			
 			<h:outputLink value="login.xhtml" rendered="#{!(LoginBean.isLogged())}"
-					styleClass="ui-button  ui-button-text-only button4" style="font-size:12px; color:FFF;">
+					styleClass="ui-button  ui-button-text-only button4" style="font-size:12px; color:FFF;" update="home_form">
 					<span class="ui-button-text" style="padding: 15px 25px">Iniciar sesión</span>
+			</h:outputLink>
+
+			<h:outputLink value="admin/login1.xhtml" rendered="#{LoginBean.isAdmin()}"
+						  styleClass="ui-button  ui-button-text-only button5" style="font-size:12px; color:FFF;">
+				<span class="ui-button-text" style="padding: 15px 25px">Ver funciones admin</span>
 			</h:outputLink>
 			
 		</h:form>	 

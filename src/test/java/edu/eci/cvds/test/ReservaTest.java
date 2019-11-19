@@ -286,7 +286,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
             assertEquals("La fecha inicial debe ser despues de la fecha actual",e.getMessage());
         }
     }
-
+	
     @Test
     public void shouldNotMakeARecurrentReservationIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
@@ -294,7 +294,11 @@ public class ReservaTest extends ServicioBiblioEciTest{
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+			System.out.println(reserva.getId());
+			System.out.println(serviciosBiblioEci.consultarReservas());
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+			System.out.println(serviciosBiblioEci.consultarReservas());
+			System.out.println(serviciosBiblioEci.consultarEventos());
             fail("Debio fallar por realizar una reserva en un horario no disponible");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Todos los horarios de esta reserva estan ocupados actualmente",e.getMessage());

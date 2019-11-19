@@ -4,14 +4,13 @@ import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import com.google.inject.Inject;
-import org.mybatis.guice.transactional.Transactional;
 import edu.eci.cvds.samples.entities.Reserva;
 import java.util.List;
 
 /**
  * Esta clase conecta los servicios de reservas por medio de la configuracion de MyBATIS
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 18/11/2019
  */
 
 public class MyBATISReservaDAO implements ReservaDAO{

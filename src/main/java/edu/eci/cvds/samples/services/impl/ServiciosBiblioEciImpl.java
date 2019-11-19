@@ -341,6 +341,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser después que la fecha final");
         }
         if(duracionEventos>120){ throw new ExcepcionServiciosBiblioEci("Las reservas máximo pueden durar 2 horas");}
+        if(reserva==null){throw new ExcepcionServiciosBiblioEci("No se puede registrar una reserva nula");}
         if(reserva.getRecurso()==null){throw new ExcepcionServiciosBiblioEci("No se puede reservar un recurso nulo");}
         if(!reserva.getRecurso().isAvailable(fechaInicio,fechaFinEvento)){throw new ExcepcionServiciosBiblioEci("El recurso no se puede reservar a esa hora");}
     }

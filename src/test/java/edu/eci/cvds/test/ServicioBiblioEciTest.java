@@ -5,9 +5,6 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEciFactory;
 import edu.eci.cvds.samples.entities.Usuario;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +22,16 @@ public class ServicioBiblioEciTest {
     protected int getLastRecursoId() throws ExcepcionServiciosBiblioEci {
         List<Recurso> recursos = serviciosBiblioEci.consultarRecurso();
         return recursos.get(recursos.size()-1).getId();
+    }
+
+    protected Date getInitialDate(int dias){
+        Calendar calendarInicio = Calendar.getInstance();
+        int day = calendarInicio.getTime().getDate()+dias;
+        int month = calendarInicio.getTime().getMonth();
+        int year = calendarInicio.getTime().getYear();
+        if(calendarInicio.getTime().getDay()==6){calendarInicio.set(year+1900,month,day+2,7,0,0);}
+        else{calendarInicio.set(year+1900,month,day+1,7,0,0);}
+        return calendarInicio.getTime();
     }
 
     protected Date getInitialDate(){

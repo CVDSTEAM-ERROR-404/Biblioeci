@@ -1,6 +1,12 @@
 package edu.eci.cvds.test;
 
-import edu.eci.cvds.samples.entities.*;
+import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.entities.UbicacionRecurso;
+import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoReserva;
+import edu.eci.cvds.samples.entities.Evento;
+import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -255,6 +261,47 @@ public class ReservaTest extends ServicioBiblioEciTest{
     }
 
     @Test
+    public void shouldNotMakeASimpleReservationIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            fail("Debio fallar por realizar una reserva en un horario no disponible");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El recurso escogido esta ocupado en ese horario",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationIfTheInitialIsDateIsPreviousToNow() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(-3),null,getFinalDate());
+            fail("Debio fallar por realizar una reserva con una fecha inicial previa a la fecha actual");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La fecha inicial debe ser despues de la fecha actual",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeARecurrentReservationIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+            fail("Debio fallar por realizar una reserva en un horario no disponible");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Todos los horarios de esta reserva estan ocupados actualmente",e.getMessage());
+        }
+    }
+
+    @Test
     public void shouldNotMakeAReservationWithoutReservationType(){
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(null,recurso,usuario);
@@ -264,6 +311,16 @@ public class ReservaTest extends ServicioBiblioEciTest{
             fail("Debio fallar por tener una reserva sin tipo");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Error al registrar la reserva",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationWithANullReservation() throws ExcepcionServiciosBiblioEci {
+        try {
+            serviciosBiblioEci.registrarReserva(null,getInitialDate(),getConcurrentDate(10),getFinalDate());
+            fail("Debio fallar por tener una reserva nula");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se puede registrar una reserva nula",e.getMessage());
         }
     }
 

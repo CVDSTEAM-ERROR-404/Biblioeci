@@ -122,7 +122,7 @@ public class ReservasBean extends BasePageBean{
             List<Reserva> reservas  =serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());
             for(Reserva reserva:reservas){
                 for(Evento evento:reserva.getEventosAsignados()){
-                    event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin());
+                    event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin(),reserva.getTipo().name());
                     eventModel.addEvent(event);
                 }
             }

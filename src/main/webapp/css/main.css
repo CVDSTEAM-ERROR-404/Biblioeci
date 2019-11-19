@@ -1004,6 +1004,15 @@ iframe {
 	background-color:#cc0000;
 }
 
+.Simple  {
+    background: #cc0000 !important;
+
+}
+
+.Recurrente_Diaria  .Recurrente_Semanal  .Recurrente_Mensual  {
+    background: #99ccff !important;
+}
+
 .ui-fieldset-legend{
 	font-size:17px !important;
 	background:#cc0000 !important;

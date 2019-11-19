@@ -121,7 +121,7 @@ public class MyBATISReservaDAO implements ReservaDAO {
 	public MutablePair<Date, Date> consultarSemestre() throws PersistenceException {
 		MutablePair<Date, Date> semestre = null;
 		try {
-			reservaMapper.consultarSemestre();
+			semestre = reservaMapper.consultarSemestre();
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
 			throw new PersistenceException("Error al registrar el semestre", e);
 		}

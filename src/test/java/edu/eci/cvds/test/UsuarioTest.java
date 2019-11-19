@@ -2,10 +2,12 @@ package edu.eci.cvds.test;
 
 import edu.eci.cvds.samples.entities.Usuario;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
+import org.apache.commons.lang3.tuple.MutablePair;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -31,5 +33,11 @@ public class UsuarioTest extends ServicioBiblioEciTest{
     public void shouldReturnNullWhenConsultAUserWithNullMail() throws ExcepcionServiciosBiblioEci {
         Usuario usuario = serviciosBiblioEci.consultarUsuario(null);
         assertNull(usuario);
+    }
+
+    @Test
+    public void shouldConsultSchedule() throws ExcepcionServiciosBiblioEci {
+        MutablePair semestre = serviciosBiblioEci.consultarSemestreActual();
+        assertTrue(semestre!=null && semestre.getLeft()!=null && semestre.getRight()!=null);
     }
 }

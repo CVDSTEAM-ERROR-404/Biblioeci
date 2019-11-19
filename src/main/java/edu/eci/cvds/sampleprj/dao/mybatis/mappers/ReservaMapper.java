@@ -63,8 +63,8 @@ public interface ReservaMapper {
 	
 	/**
 	 * Registra la fecha inicial y final de un semestre
-	 * @param fecha_inicio Fecha inicial del semestre
-	 * @param fecha_final Fecha final del semestre
+	 * @param fechaInicio Fecha inicial del semestre
+	 * @param fechaFinal Fecha final del semestre
 	 */
 	public void registrarSemestre(@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
 }

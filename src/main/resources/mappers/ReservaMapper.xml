@@ -15,8 +15,8 @@
 	</resultMap>
 
 	<resultMap id="pairResultMap" type="Pair">
-    <association property="left"  javaType="java.util.Date" column='fecha_inicio'/>
-    <association property="right"  javaType="java.util.Date" column='fecha_fin'/>
+    	<result property="left"  javaType="java.util.Date" column='fecha_inicio'/>
+    	<result property="right"  javaType="java.util.Date" column='fecha_fin'/>
 	</resultMap>
 
 	<sql id="getAllReservas">

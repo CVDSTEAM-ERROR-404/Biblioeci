@@ -52,3 +52,4 @@ CREATE TABLE IF NOT EXISTS Semestre (
 
 insert into rol(nombre) values ('administrador');
 insert into usuario(correo,contraseña,rol,u_area,nombre) values ('a@gmail.com','aaa',1,'aaa','Pepito');
+insert into Semestre(fecha_inicio,fecha_fin) values('2019-08-05 07:00:00','2020-12-07 13:00:00');

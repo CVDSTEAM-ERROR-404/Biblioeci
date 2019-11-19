@@ -195,7 +195,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate(3));
             fail("Debio fallar por tener una reserva con mas de dos horas de duracion");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("Las reservas máximo pueden durar 2 horas",e.getMessage());
+            assertEquals("Las reservas maximo pueden durar 2 horas",e.getMessage());
         }
     }
 
@@ -230,6 +230,58 @@ public class ReservaTest extends ServicioBiblioEciTest{
             fail("Debio fallar por tener una reserva cuya fecha final era previa a la inicial");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("La fecha inicial no puede ser después que la fecha final",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationWithAInitialDateOutOfTheSemester(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(-1000),null,getFinalDate());
+            fail("Debio fallar por tener una reserva cuya fecha inicial no estaba en el semestre");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La fecha de la reserva no esta en el semestre",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationWithAFinalDateOutOfTheSemester(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getInitialDate(2000));
+            fail("Debio fallar por tener una reserva cuya fecha final no estaba en el semestre");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La fecha de la reserva no esta en el semestre",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationWithoutUser(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,null);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            fail("Debio fallar por tener una reserva sin usuario");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El usuario debe estar autenticado para poder reservar",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeARecurrentReservationWithAFinalRecurrentDateOutOfTheSemester(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getInitialDate(2000),getFinalDate());
+            fail("Debio fallar por tener una reserva recurrente cuya fecha final de recurrencia no estaba en el semestre");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La fecha de la reserva no esta en el semestre",e.getMessage());
         }
     }
 

@@ -19,7 +19,6 @@ import edu.eci.cvds.samples.entities.Usuario;
 import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
-
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.mybatis.guice.transactional.Transactional;
 
@@ -51,20 +50,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     @Transactional
     public void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci {
-        if (cli == null) {
-            throw new ExcepcionServiciosBiblioEci("El recurso a registrar no puede ser nulo");
-        }
-        if (cli.getCapacidad() <= 0) {
-            throw new ExcepcionServiciosBiblioEci("El recurso " + cli.toString() + " tiene una capacidad invalida");
-        }
-        if (cli.getFinDisponibilidad() == null || cli.getInicioDisponibilidad() == null) {
-            throw new ExcepcionServiciosBiblioEci(
-                    "El recurso " + cli.toString() + " no puede tener algun valor de la franja horaria nulo");
-        }
-        if (!cli.haveValidAvailability()) {
-            throw new ExcepcionServiciosBiblioEci(
-                    "El recurso " + cli.toString() + " tiene una disponibilidad invalida");
-        }
+        if (cli == null) {throw new ExcepcionServiciosBiblioEci("El recurso a registrar no puede ser nulo"); }
+        if (cli.getCapacidad() <= 0) { throw new ExcepcionServiciosBiblioEci("El recurso " + cli.toString() + " tiene una capacidad invalida"); }
+        if (cli.getFinDisponibilidad() == null || cli.getInicioDisponibilidad() == null) { throw new ExcepcionServiciosBiblioEci("El recurso " + cli.toString() + " no puede tener algun valor de la franja horaria nulo"); }
+        if (!cli.haveValidAvailability()) { throw new ExcepcionServiciosBiblioEci("El recurso " + cli.toString() + " tiene una disponibilidad invalida"); }
         try {
             recursoDAO.save(cli);
         } catch (PersistenceException e) {
@@ -124,19 +113,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws ExcepcionServiciosBiblioEci {
         try {
             Recurso recurso = recursoDAO.load(id);
-            if (estado == null) {
-                throw new ExcepcionServiciosBiblioEci("No se puede cambiar a un estado nulo");
-            }
-            if (recurso == null) {
-                throw new ExcepcionServiciosBiblioEci("No se puede cambiar el estado de un recuso nulo");
-            }
-            if (recurso.getEstado().equals(estado)) {
-                throw new ExcepcionServiciosBiblioEci(
-                        "No se puede cambiar el estado de un recuso al que tenia anteriormente");
-            }
-            if (recurso.getEstado().equals(EstadoRecurso.Daño_Total)) {
-                throw new ExcepcionServiciosBiblioEci("Un recurso irreparable no puede cambiar su estado");
-            }
+            if (estado == null) { throw new ExcepcionServiciosBiblioEci("No se puede cambiar a un estado nulo"); }
+            if (recurso == null) {throw new ExcepcionServiciosBiblioEci("No se puede cambiar el estado de un recuso nulo"); }
+            if (recurso.getEstado().equals(estado)) { throw new ExcepcionServiciosBiblioEci("No se puede cambiar el estado de un recuso al que tenia anteriormente"); }
+            if (recurso.getEstado().equals(EstadoRecurso.Daño_Total)) { throw new ExcepcionServiciosBiblioEci("Un recurso irreparable no puede cambiar su estado"); }
             recursoDAO.cambiarEstadoRecurso(id, estado);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci(e.getMessage(), e);
@@ -171,11 +151,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      *                                     datos al consultar los recursos
      */
     @Override
-    public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo)
-            throws ExcepcionServiciosBiblioEci {
-        if (capacidad < 0) {
-            throw new ExcepcionServiciosBiblioEci("La capacidad no puede ser negativa");
-        }
+    public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo) throws ExcepcionServiciosBiblioEci {
+        if (capacidad < 0) { throw new ExcepcionServiciosBiblioEci("La capacidad no puede ser negativa"); }
         List<Recurso> recursos;
         try {
             recursos = recursoDAO.consultarRecursosDisponibles(capacidad, ubicacion, tipo);
@@ -240,9 +217,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     public List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci {
         List<Evento> eventos;
-        if (id < 1) {
-            throw new ExcepcionServiciosBiblioEci("La reserva con el id " + id + " es invalido");
-        }
+        if (id < 1) { throw new ExcepcionServiciosBiblioEci("La reserva con el id " + id + " es invalido"); }
         try {
             eventos = eventoDAO.consultarEventos(id);
         } catch (PersistenceException e) {
@@ -279,9 +254,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      */
     @Override
     public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci {
-        if (id < 1) {
-            throw new ExcepcionServiciosBiblioEci("La reserva con el id " + id + " es invalido");
-        }
+        if (id < 1) { throw new ExcepcionServiciosBiblioEci("La reserva con el id " + id + " es invalido"); }
         List<Reserva> reservas;
         try {
             reservas = reservaDAO.consultarReserva(id);
@@ -321,14 +294,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      */
     @Override
     public List<Reserva> consultarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
-        if (id < 1) {
-            throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1");
-        }
+        if (id < 1) { throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1"); }
         List<Reserva> reservas;
         try {
-            if (consultarRecurso(id) == null) {
-                throw new ExcepcionServiciosBiblioEci("El recurso no existe");
-            }
+            if (consultarRecurso(id) == null) { throw new ExcepcionServiciosBiblioEci("El recurso no existe"); }
             reservas = reservaDAO.consultarReservasPendientes(id);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al consultar las reservas futuras");
@@ -348,23 +317,14 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      *                                     disponibilidad del recurso
      */
     @Override
-    public boolean consultarDisponibilidadRecurso(long recurso, Date fechaInicio, Date fechaFinal)
-            throws ExcepcionServiciosBiblioEci {
-        if (fechaInicio == null) {
-            throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");
-        }
-        if (fechaFinal == null) {
-            throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula");
-        }
-        if (recurso < 1) {
-            throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1");
-        }
+    public boolean consultarDisponibilidadRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws ExcepcionServiciosBiblioEci {
+        if (fechaInicio == null) { throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula"); }
+        if (fechaFinal == null) { throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula"); }
+        if (recurso < 1) { throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1"); }
         boolean ans;
         try {
             Recurso rec = consultarRecurso(recurso);
-            if (rec == null) {
-                throw new ExcepcionServiciosBiblioEci("El recurso no existe");
-            }
+            if (rec == null) { throw new ExcepcionServiciosBiblioEci("El recurso no existe"); }
             List<Evento> eventos = eventoDAO.consultarEventosRecurso(recurso, fechaInicio, fechaFinal);
             ans = eventos.size() == 0;
         } catch (PersistenceException e) {
@@ -383,8 +343,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar algun
      *                                     evento
      */
-    private void registrarEventosRecurrentes(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia,
-            Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
+    private void registrarEventosRecurrentes(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         Calendar inicio = Calendar.getInstance();
         Calendar fin = Calendar.getInstance();
         inicio.setTime(fechaInicio);
@@ -399,8 +358,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
                 inicio.add(reserva.getTipo().getCalendarConstant(), 1);
                 fin.add(reserva.getTipo().getCalendarConstant(), 1);
             }
-            if (insertados == 0)
-                throw new ExcepcionServiciosBiblioEci("Todos los horarios de esta reserva estan ocupados actualmente");
+            if (insertados == 0){ throw new ExcepcionServiciosBiblioEci("Todos los horarios de esta reserva estan ocupados actualmente"); }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al insertar los eventos recurrentes");
         }
@@ -414,35 +372,23 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      * @param fechaFinEvento      La fecha final de la reserva
      * @throws ExcepcionServiciosBiblioEci Cuando las fechas no son validas
      */
-    private void validarFechas(Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento, Reserva reserva)
-            throws ExcepcionServiciosBiblioEci {
-        if (fechaInicio == null) {
-            throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");
-        }
-        if (fechaFinEvento == null) {
-            throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula");
-        }
+    private void validarFechas(Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento, Reserva reserva) throws ExcepcionServiciosBiblioEci {
+        if(fechaInicio == null) { throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula"); }
+        if(fechaFinEvento == null) { throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula"); }
         long duracionEventos = (fechaFinEvento.getTime() - fechaInicio.getTime()) / (1000 * 60);
-        if (fechaInicio.before(new Date())) {
-            throw new ExcepcionServiciosBiblioEci("La fecha inicial debe ser despues de la fecha actual");
+        MutablePair<Date,Date> semestre = consultarSemestreActual();
+        Date fechaInicioSemestre = semestre.getLeft();
+        Date fechaFinSemestre = semestre.getRight();
+        if(fechaInicio.before(fechaInicioSemestre) || fechaFinEvento.after(fechaFinSemestre) || (fechaFinRecurrencia!=null && fechaFinRecurrencia.after(fechaFinSemestre))){
+            throw new ExcepcionServiciosBiblioEci("La fecha de la reserva no esta en el semestre");
         }
-        if (duracionEventos <= 0 || (fechaFinRecurrencia != null && !fechaFinRecurrencia.after(fechaInicio))) {
-            throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser después que la fecha final");
-        }
-        if (duracionEventos > 120) {
-            throw new ExcepcionServiciosBiblioEci("Las reservas máximo pueden durar 2 horas");
-        }
-        if (reserva == null) {
-            throw new ExcepcionServiciosBiblioEci("No se puede registrar una reserva nula");
-        }
-        if (reserva.getRecurso() == null) {
-            throw new ExcepcionServiciosBiblioEci("No se puede reservar un recurso nulo");
-        }
-        if (!reserva.getRecurso().isAvailable(fechaInicio, fechaFinEvento)) {
-            throw new ExcepcionServiciosBiblioEci("El recurso no se puede reservar a esa hora");
-        }
-        if(reserva.getUsuario() == null)throw new ExcepcionServiciosBiblioEci("El usuario debe estar autenticado para poder reservar");
-
+        if(fechaInicio.before(new Date())) { throw new ExcepcionServiciosBiblioEci("La fecha inicial debe ser despues de la fecha actual"); }
+        if(duracionEventos <= 0 || (fechaFinRecurrencia != null && !fechaFinRecurrencia.after(fechaInicio))) { throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser después que la fecha final"); }
+        if(duracionEventos > 120) { throw new ExcepcionServiciosBiblioEci("Las reservas maximo pueden durar 2 horas"); }
+        if(reserva == null) { throw new ExcepcionServiciosBiblioEci("No se puede registrar una reserva nula"); }
+        if(reserva.getRecurso() == null) { throw new ExcepcionServiciosBiblioEci("No se puede reservar un recurso nulo"); }
+        if(!reserva.getRecurso().isAvailable(fechaInicio, fechaFinEvento)) { throw new ExcepcionServiciosBiblioEci("El recurso no se puede reservar a esa hora"); }
+		if(reserva.getUsuario() == null){throw new ExcepcionServiciosBiblioEci("El usuario debe estar autenticado para poder reservar");}
     }
 
     @Override
@@ -460,7 +406,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         try {
             semestre = reservaDAO.consultarSemestre();
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci("Error al registrar el semestre");
+            throw new ExcepcionServiciosBiblioEci("Error al registrar el semestre",e);
         }
         return semestre;
     }

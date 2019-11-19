@@ -58,10 +58,10 @@
 					</p:selectOneMenu>
 
 					<p:outputLabel for="datetime1" value="Disponibilidad inicial:" />
-					<p:calendar id="datetime1"  pattern="HH:mm" binding="#{horai}" maxHour="19" minHour="7" timeOnly="true" required="true" />
+					<p:calendar id="datetime1"  pattern="HH" binding="#{horai}" maxHour="19" minHour="7" timeOnly="true" required="true" />
 
 					<p:outputLabel for="datetime2" value="Disponibilidad final:" />
-					<p:calendar id="datetime2"  pattern="HH:mm" binding="#{horaf}" maxHour="19" minHour="7" timeOnly="true" required="true" />
+					<p:calendar id="datetime2"  pattern="HH" binding="#{horaf}" maxHour="19" minHour="7" timeOnly="true" required="true" />
 			
 					<p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
 					<p:inputText class="inttext" id="capacidad" type="int" required="true" binding="#{cap}">

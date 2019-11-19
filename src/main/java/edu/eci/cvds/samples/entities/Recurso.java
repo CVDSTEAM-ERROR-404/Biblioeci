@@ -228,4 +228,14 @@ public class Recurso implements Serializable{
         }
         return ans;
     }
+
+    public int intInicioDisponibilidad(){
+        String[] time = inicioDisponibilidad.split(":");
+        return Integer.parseInt(time[0]);
+    }
+
+    public int intFinDisponibilidad(){
+        String[] time = finDisponibilidad.split(":");
+        return Integer.parseInt(time[0]);
+    }
 }

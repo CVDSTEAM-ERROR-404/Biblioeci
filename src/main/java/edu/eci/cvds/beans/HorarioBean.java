@@ -26,29 +26,30 @@ import java.util.List;
 @ManagedBean(name="HorarioBean")
 @SessionScoped
 public class HorarioBean extends BasePageBean {
-    private ScheduleModel eventModel;
+    private ScheduleModel eventModel=new DefaultScheduleModel();;
     private ScheduleEvent event = new DefaultScheduleEvent();
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
 
-    @PostConstruct
-    public void init() {
+
+    public void loadEvents(){
+        //System.out.println("kha?");
         eventModel = new DefaultScheduleModel();
         try {
-            super.init();
-           List<Reserva>reservas  =serviciosBiblioEci.consultarReserva(5);
+            List<Reserva>reservas  =serviciosBiblioEci.consultarReservasPendientes(5);
             for(Reserva reserva:reservas){
                 for(Evento evento:reserva.getEventosAsignados()){
                     event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin());
                     eventModel.addEvent(event);
                 }
             }
-       } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             excepcionServiciosBiblioEci.printStackTrace();
         }
     }
 
     public ScheduleEvent getEvent() {
+        //System.out.println(event.getEndDate());
         return event;
     }
 

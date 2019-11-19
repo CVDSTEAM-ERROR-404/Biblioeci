@@ -12,6 +12,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
+
+import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -199,11 +201,19 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithAnFinalRecurrentDateLessOrEqualThanTheInitialDate(){
+        System.out.println("Prueba Reserva Recurrente con fecha fin recurencia igual a fecha inicio");
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getInitialDate(),getFinalDate());
+            Date initialDate = getInitialDate();
+            Date recurrentDate = getInitialDate(-1);
+            serviciosBiblioEci.registrarReserva(reserva,initialDate,recurrentDate,getFinalDate());
+            System.out.println("Id reserva: "+reserva.getId());
+            System.out.println("Reservas");
+            System.out.println(serviciosBiblioEci.consultarReservas());
+            System.out.println("Eventos");
+            System.out.println(serviciosBiblioEci.consultarEventos());
             fail("Debio fallar por tener una reserva recurrente cuya recurrencia termina antes o al mismo tiempo que la primera reserva");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("La fecha inicial no puede ser después que la fecha final",e.getMessage());
@@ -289,15 +299,21 @@ public class ReservaTest extends ServicioBiblioEciTest{
 	
     @Test
     public void shouldNotMakeARecurrentReservationIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
+        System.out.println("Prueba Reserva Recurrente con recurso ocupado");
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
-			System.out.println(reserva.getId());
+			System.out.println("Id reserva: "+reserva.getId());
+			System.out.println("Reservas Antes");
 			System.out.println(serviciosBiblioEci.consultarReservas());
+            System.out.println("Eventos Antes");
+            System.out.println(serviciosBiblioEci.consultarEventos());
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+            System.out.println("Reservas Despues");
 			System.out.println(serviciosBiblioEci.consultarReservas());
+            System.out.println("Eventos Despues");
 			System.out.println(serviciosBiblioEci.consultarEventos());
             fail("Debio fallar por realizar una reserva en un horario no disponible");
         } catch (ExcepcionServiciosBiblioEci e) {

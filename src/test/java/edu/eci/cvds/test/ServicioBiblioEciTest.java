@@ -26,11 +26,11 @@ public class ServicioBiblioEciTest {
 
     protected Date getInitialDate(int dias){
         Calendar calendarInicio = Calendar.getInstance();
-        int day = calendarInicio.getTime().getDate()+dias;
+        int day = calendarInicio.getTime().getDate();
         int month = calendarInicio.getTime().getMonth();
         int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){calendarInicio.set(year+1900,month,day+2,7,0,0);}
-        else{calendarInicio.set(year+1900,month,day+1,7,0,0);}
+        if(calendarInicio.getTime().getDay()==(6+dias)%7){calendarInicio.set(year+1900,month,day+2+dias,7,0,0);}
+        else{calendarInicio.set(year+1900,month,day+1+dias,7,0,0);}
         return calendarInicio.getTime();
     }
 

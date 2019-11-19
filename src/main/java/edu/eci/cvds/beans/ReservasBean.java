@@ -1,16 +1,21 @@
 package edu.eci.cvds.beans;
 
 import com.google.inject.Inject;
-import edu.eci.cvds.samples.entities.Recurso;
-import edu.eci.cvds.samples.entities.Reserva;
-import edu.eci.cvds.samples.entities.TipoReserva;
-import edu.eci.cvds.samples.entities.Usuario;
+import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.security.ShiroLogger;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Esta clase conecta la pagina web con los servicios de reserva de la aplicacion de la biblioteca
@@ -20,6 +25,7 @@ import java.util.Date;
 @ManagedBean(name="ReservasBean")
 @SessionScoped
 public class ReservasBean extends BasePageBean{
+
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
     @Inject
@@ -101,4 +107,6 @@ public class ReservasBean extends BasePageBean{
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
+
+
 }

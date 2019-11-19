@@ -5,14 +5,17 @@ import edu.eci.cvds.samples.entities.Evento;
 import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +24,7 @@ import java.util.List;
  * @version: 18/11/2019
  */
 @ManagedBean(name="HorarioBean")
-@ViewScoped
+@SessionScoped
 public class HorarioBean extends BasePageBean {
     private ScheduleModel eventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
@@ -55,6 +58,10 @@ public class HorarioBean extends BasePageBean {
 
     public ScheduleModel getEventModel() {
         return eventModel;
+    }
+
+    public void onDateSelect(SelectEvent selectEvent) {
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
 }

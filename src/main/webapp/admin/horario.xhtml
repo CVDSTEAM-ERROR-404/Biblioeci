@@ -37,7 +37,7 @@
 				<h:panelGrid columnClasses="value">
 					<p:schedule id="schedule" value="#{HorarioBean.eventModel}" widgetVar="myschedule" >
 
-						<p:ajax event="dateSelect" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+						<p:ajax event="dateSelect" listener="#{HorarioBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
 
 					</p:schedule>
 				</h:panelGrid>

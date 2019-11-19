@@ -179,11 +179,11 @@ public class RecursosBean extends BasePageBean {
      * @param capacidad La capacidad del recurso que se va a registrar
      */
     public void registrarRecurso(String nombre, int capacidad, Date inicioDisponibilidad, Date finDisponibilidad){
+
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-			serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacionRecurso, tipoRecurso, capacidad,sdf.format(inicioDisponibilidad),sdf.format(finDisponibilidad)));
-			successOperation("Registro exitoso");
-
+            serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacionRecurso, tipoRecurso, capacidad,sdf.format(inicioDisponibilidad),sdf.format(finDisponibilidad)));
+            successOperation("Registro exitoso");
         } catch (ExcepcionServiciosBiblioEci e) {
            setErrorMessage(e.getMessage());
         } finally {

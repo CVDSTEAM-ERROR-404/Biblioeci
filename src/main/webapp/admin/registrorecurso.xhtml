@@ -56,6 +56,12 @@
 					<p:selectOneMenu value="#{RecursosBean.ubicacionRecurso}" style="width:216px; background:#cc0000;">
 							<f:selectItems value="#{RecursosBean.getUbicaciones()}"  />
 					</p:selectOneMenu>
+
+					<p:outputLabel for="datetime1" value="Disponibilidad inicial:" />
+					<p:calendar id="datetime1"  pattern="HH:mm" binding="#{horai}" maxHour="19" minHour="7" timeOnly="true" required="true" />
+
+					<p:outputLabel for="datetime2" value="Disponibilidad final:" />
+					<p:calendar id="datetime2"  pattern="HH:mm" binding="#{horaf}" maxHour="19" minHour="7" timeOnly="true" required="true" />
 			
 					<p:outputLabel class="intlabel" for="capacidad" value="capacidad: " />
 					<p:inputText class="inttext" id="capacidad" type="int" required="true" binding="#{cap}">
@@ -69,7 +75,7 @@
 			<f:facet name="footer">
 				
 					
-					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{RecursosBean.registrarRecurso(nom.value,cap.value)}" update="recurso_form"/>
+					<h:commandButton class="button1"   value="Registrar" style="font-size:12px;" actionListener="#{RecursosBean.registrarRecurso(nom.value,cap.value,horai.value,horaf.value)}" update="recurso_form"/>
 						 
 					
 					<h:outputLink value="login1.xhtml"

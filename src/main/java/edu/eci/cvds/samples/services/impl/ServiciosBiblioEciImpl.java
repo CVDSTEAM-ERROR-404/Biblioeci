@@ -150,7 +150,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     @Transactional
     public void registrarReserva(Reserva reserva, Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
-		validarFechas(fechaInicio,fechaFinRecurrencia,fechaFinEvento);
+		validarFechas(fechaInicio,fechaFinRecurrencia,fechaFinEvento,reserva);
         try {
             reservaDAO.registrarReserva(reserva);
             if(reserva.getTipo().equals(TipoReserva.Simple)){
@@ -286,7 +286,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         if(recurso<1){throw new ExcepcionServiciosBiblioEci("El id no puede ser menor que 1");}
         boolean ans;
         try{
-            if(consultarRecurso(recurso)==null){throw new ExcepcionServiciosBiblioEci("El recurso no existe");}
+            Recurso rec = consultarRecurso(recurso);
+            if(rec==null){throw new ExcepcionServiciosBiblioEci("El recurso no existe");}
             List<Evento> eventos = eventoDAO.consultarEventosRecurso(recurso, fechaInicio, fechaFinal);
             ans = eventos.size()==0;
         } catch (PersistenceException e) {
@@ -331,7 +332,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      * @param fechaFinEvento La fecha final de la reserva
      * @throws ExcepcionServiciosBiblioEci Cuando las fechas no son validas
      */
-    private void validarFechas(Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento)throws  ExcepcionServiciosBiblioEci{
+    private void validarFechas(Date fechaInicio,Date fechaFinRecurrencia,Date fechaFinEvento, Reserva reserva)throws  ExcepcionServiciosBiblioEci{
         if(fechaInicio==null){throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser nula");}
         if(fechaFinEvento==null){throw new ExcepcionServiciosBiblioEci("La fecha final no puede ser nula");}
         long duracionEventos=(fechaFinEvento.getTime()-fechaInicio.getTime())/(1000*60);
@@ -340,5 +341,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser después que la fecha final");
         }
         if(duracionEventos>120){ throw new ExcepcionServiciosBiblioEci("Las reservas máximo pueden durar 2 horas");}
+        if(reserva.getRecurso()==null){throw new ExcepcionServiciosBiblioEci("No se puede reservar un recurso nulo");}
+        if(!reserva.getRecurso().isAvailable(fechaInicio,fechaFinEvento)){throw new ExcepcionServiciosBiblioEci("El recurso no se puede reservar a esa hora");}
     }
 }

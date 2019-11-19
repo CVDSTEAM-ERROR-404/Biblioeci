@@ -224,7 +224,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
             fail("Debio fallar por tener una reserva sin un recurso");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("Error al registrar la reserva",e.getMessage());
+            assertEquals("No se puede reservar un recurso nulo",e.getMessage());
         }
     }
 
@@ -264,6 +264,32 @@ public class ReservaTest extends ServicioBiblioEciTest{
             fail("Debio fallar por tener una reserva sin tipo");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Error al registrar la reserva",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationWithAInitialDatePreviousTheAvailableDateOfTheResource(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"08:00","19:00");
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            fail("Debio fallar por tener una reserva de un recurso a una hopra a la que no esta disponible");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El recurso no se puede reservar a esa hora",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAReservationWithAFinalDateAfterTheAvailableDateOfTheResource(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"01:00","07:00");
+        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            fail("Debio fallar por tener una reserva de un recurso a una hopra a la que no esta disponible");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El recurso no se puede reservar a esa hora",e.getMessage());
         }
     }
 

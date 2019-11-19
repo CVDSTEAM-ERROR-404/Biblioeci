@@ -1,6 +1,8 @@
 package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.Date;
 
 /**
  * Recurso utilizado dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
@@ -140,6 +142,38 @@ public class Recurso implements Serializable{
     }
 
     /**
+     * Muestra la hora en la que inicia la disponibilidad del recurso
+     * @return La hora en la que inicia la disponibilidad del recurso
+     */
+    public String getInicioDisponibilidad() {
+        return inicioDisponibilidad;
+    }
+
+    /**
+     * Cambia la hora en la que inicia la disponibilidad del recurso
+     * @param inicioDisponibilidad La nueva hora en la que inicia la disponibilidad del recurso
+     */
+    public void setInicioDisponibilidad(String inicioDisponibilidad) {
+        this.inicioDisponibilidad = inicioDisponibilidad;
+    }
+
+    /**
+     * Muestra la hora en la que finaliza la disponibilidad del recurso
+     * @return La hora en la que finaliza la disponibilidad del recurso
+     */
+    public String getFinDisponibilidad() {
+        return finDisponibilidad;
+    }
+
+    /**
+     * Cambia la hora en la que finaliza la disponibilidad del recurso
+     * @param finDisponibilidad La nueva hora en la que finaliza la disponibilidad del recurso
+     */
+    public void setFinDisponibilidad(String finDisponibilidad) {
+        this.finDisponibilidad = finDisponibilidad;
+    }
+
+    /**
      * Muestra el estado completo del recurso en forma de string
      * @return El estado completo del recurso
      */
@@ -166,19 +200,32 @@ public class Recurso implements Serializable{
         return equal;
     }
 
-    public String getInicioDisponibilidad() {
-        return inicioDisponibilidad;
+    /**
+     * Convierte una hora en String de la forma (hh:mm) a formato LocalTime
+     * @param tiempo La hora en formato String
+     * @return Una hora en formato LocalTime
+     */
+    private LocalTime fromStringToLocalTime(String tiempo){
+        String[] time = tiempo.split(":");
+        LocalTime hora = LocalTime.of(Integer.parseInt(time[0]),Integer.parseInt(time[1]));
+        return hora;
     }
 
-    public void setInicioDisponibilidad(String inicioDisponibilidad) {
-        this.inicioDisponibilidad = inicioDisponibilidad;
-    }
-
-    public String getFinDisponibilidad() {
-        return finDisponibilidad;
-    }
-
-    public void setFinDisponibilidad(String finDisponibilidad) {
-        this.finDisponibilidad = finDisponibilidad;
+    /**
+     * Muestra si es posible reservar un recurso en una franja horaria
+     * @param fechaInicio El inicio de la franja horaria
+     * @param fechaFinal El final de la franja horaria
+     * @return Un valor booleano que determina si es posible reservar un recurso en una franja horaria
+     */
+    public boolean isAvailable(Date fechaInicio, Date fechaFinal) {
+        LocalTime horaFinal = fromStringToLocalTime(finDisponibilidad);
+        LocalTime horaInicial = fromStringToLocalTime(inicioDisponibilidad);
+        LocalTime horaInicioReserva = LocalTime.of(fechaInicio.getHours(),fechaFinal.getMinutes());
+        LocalTime horaFinReserva = LocalTime.of(fechaFinal.getHours(),fechaFinal.getMinutes());
+        boolean ans = true;
+        if(horaFinReserva.isAfter(horaFinal) || horaInicioReserva.isBefore(horaInicial)){
+            ans = false;
+        }
+        return ans;
     }
 }

@@ -284,6 +284,30 @@ public class RecursoTest extends ServicioBiblioEciTest{
     }
 
     @Test
+    public void shouldNotRegisterAResourceWithANullInitialAvailability(){
+        Recurso recurso = null;
+        try {
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,null,getFinalDateResource());
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por inicio de disponibilidad nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithANullFinalAvailability(){
+        Recurso recurso = null;
+        try {
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),null);
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por final de disponibilidad nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
+        }
+    }
+
+    @Test
     public void shouldNotRegisterAResourceWithNegativeCapacity(){
         Recurso recurso = null;
         try {

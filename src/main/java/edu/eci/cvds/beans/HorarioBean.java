@@ -1,5 +1,10 @@
 package edu.eci.cvds.beans;
 
+import com.google.inject.Inject;
+import edu.eci.cvds.samples.entities.Evento;
+import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
+import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
@@ -8,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Esta clase conecta la pagina web del calendario con el servicio de bibliotecas de la escuela
@@ -16,13 +22,27 @@ import java.io.Serializable;
  */
 @ManagedBean(name="HorarioBean")
 @ViewScoped
-public class HorarioBean implements Serializable {
+public class HorarioBean extends BasePageBean {
     private ScheduleModel eventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
+    @Inject
+    private ServiciosBiblioEci serviciosBiblioEci;
 
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
+        try {
+            super.init();
+           List<Reserva>reservas  =serviciosBiblioEci.consultarReserva(5);
+            for(Reserva reserva:reservas){
+                for(Evento evento:reserva.getEventosAsignados()){
+                    event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin());
+                    eventModel.addEvent(event);
+                }
+            }
+       } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            excepcionServiciosBiblioEci.printStackTrace();
+        }
     }
 
     public ScheduleEvent getEvent() {

@@ -45,7 +45,7 @@
 			evento as eve
      WHERE
       res.recurso=#{id} AND res.recurso=recu.id AND
-		    us.correo=res.usuario AND
+		us.correo=res.usuario AND
 			eve.reserva=res.id AND res.estado='Activa' AND 
 			EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
   </select>
@@ -66,9 +66,9 @@
 
 	<select parameterType="map" id="consultarReserva" resultMap='ReservaResult'>
 		SELECT
-		reserva.id as id,
-		reserva.tipo as tipo,
-		reserva.estado as estado,
+		res.id as id,
+		res.tipo as tipo,
+		res.estado as estado,
 		fecha_solicitud,
 		usuario,
 		recurso as recurso_id,
@@ -81,14 +81,22 @@
 		rec.fin_disponibilidad as recurso_fin_disponibilidad,
 		usu.correo as usuario_correo,
 		usu.u_area as usuario_u_area,
-		usu.nombre as usuario_nombre
+		usu.nombre as usuario_nombre,
+		eve.id as evento_id,
+		eve.estado as evento_estado,
+		eve.hora_inicio as evento_hora_inicio,
+		eve.hora_fin as evento_hora_fin
 		FROM
-		reserva, recurso as rec,usuario as usu
+		reserva as res,
+		recurso as rec,
+		usuario as usu,
+		evento as eve
 		WHERE
-			rec.id = reserva.recurso
-		AND usu.correo = reserva.usuario
+		res.recurso=rec.id AND
+		usu.correo=res.usuario AND
+		eve.reserva=res.id
 			<if test="id != null">
-				 AND reserva.id = #{id}
+				 AND res.id = #{id}
 			</if>
 	</select>
 

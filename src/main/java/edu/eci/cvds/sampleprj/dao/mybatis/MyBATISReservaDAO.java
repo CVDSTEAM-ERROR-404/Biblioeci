@@ -89,4 +89,16 @@ public class MyBATISReservaDAO implements ReservaDAO{
 		}
 		return reservas;
 	}
+
+	@Override
+	public List<Reserva> consultarReservasRecurso(long recurso) throws PersistenceException {
+		List<Reserva> reservas=null;
+		try{
+			reservas=reservaMapper.consultarReservasRecurso(recurso);
+		}
+		catch (org.apache.ibatis.exceptions.PersistenceException e){
+			throw new PersistenceException("Error al cosultar las reservas del recurso "+recurso,e);
+		}
+		return reservas;
+	}
 }

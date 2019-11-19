@@ -9,6 +9,7 @@
         <typeAlias type="edu.eci.cvds.samples.entities.Usuario" alias="Usuario"/>
 		<typeAlias type="edu.eci.cvds.samples.entities.Reserva" alias="Reserva"/>
         <typeAlias type="edu.eci.cvds.samples.entities.Evento" alias="Evento"/>
+        <typeAlias type="org.apache.commons.lang3.tuple.MutablePair" alias="Pair"/>        
     </typeAliases>
 
 <environments default="development">

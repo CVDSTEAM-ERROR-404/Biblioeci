@@ -13,41 +13,51 @@
 		<association property="recurso" javaType="Recurso"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper.RecursoResult" columnPrefix='recurso_'></association>
 		<collection property='eventosAsignados' ofType='Evento' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.EventoMapper.EventoResult' columnPrefix='evento_'></collection>
 	</resultMap>
-	
 
-	<select parameterType='map' id='consultarReservasPendientes' resultMap='ReservaResult'>
-    SELECT 
-      res.id as id, 
-      res.tipo as tipo,
-      res.estado as estado,
-	  res.fecha_solicitud as fecha_solicitud,
+	<resultMap id="pairResultMap" type="Pair">
+    <association property="left"  javaType="java.util.Date" column='fecha_inicio'/>
+    <association property="right"  javaType="java.util.Date" column='fecha_fin'/>
+	</resultMap>
 
-	  us.correo as usuario_correo,
-		us.u_area as usuario_u_area,
-	  us.nombre as usuario_nombre,
-
-      recu.id as recurso_id, 
-			recu.nombre as recurso_nombre, 
-			recu.tipo as recurso_tipo, 
-			recu.capacidad as recurso_capacidad,
-			recu.ubicacion as recurso_ubicacion,
-			recu.estado as recurso_estado,
-		    recu.inicio_disponibilidad as recurso_inicio_disponibilidad,
-		    recu.fin_disponibilidad as recurso_fin_disponibilidad,
+	<sql id="getAllReservas">
+		SELECT
+			res.id as id,
+			res.tipo as tipo,
+			res.estado as estado,
+			fecha_solicitud,
+			usuario,
+			recurso as recurso_id,
+			rec.nombre as recurso_nombre,
+			rec.ubicacion as recurso_ubicacion,
+			rec.tipo as recurso_tipo,
+			rec.capacidad as recurso_capacidad,
+			rec.estado as recurso_estado,
+			rec.inicio_disponibilidad as recurso_inicio_disponibilidad,
+			rec.fin_disponibilidad as recurso_fin_disponibilidad,
+			usu.correo as usuario_correo,
+			usu.u_area as usuario_u_area,
+			usu.nombre as usuario_nombre,
 			eve.id as evento_id,
-			eve.estado as evento_estado, 
+			eve.estado as evento_estado,
 			eve.hora_inicio as evento_hora_inicio,
 			eve.hora_fin as evento_hora_fin
-     FROM
-      reserva as res,
-			recurso as recu,
-			usuario as us,
+		FROM
+			reserva as res,
+			recurso as rec,
+			usuario as usu,
 			evento as eve
-     WHERE
-      res.recurso=#{id} AND res.recurso=recu.id AND
-		us.correo=res.usuario AND
-			eve.reserva=res.id AND res.estado='Activa' AND 
-			EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
+		WHERE
+			res.recurso=rec.id AND
+			usu.correo=res.usuario AND
+			eve.reserva=res.id
+	</sql>
+
+
+	<select parameterType='map' id='consultarReservasPendientes' resultMap='ReservaResult'>
+    <include refid="getAllReservas"/>
+		<if test="id != null">
+			AND res.estado='Activa' AND res.recurso=#{id} AND EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
+		</if>
   </select>
 
      
@@ -65,39 +75,28 @@
   </insert>
 
 	<select parameterType="map" id="consultarReserva" resultMap='ReservaResult'>
-		SELECT
-		res.id as id,
-		res.tipo as tipo,
-		res.estado as estado,
-		fecha_solicitud,
-		usuario,
-		recurso as recurso_id,
-		rec.nombre as recurso_nombre,
-		rec.ubicacion as recurso_ubicacion,
-		rec.tipo as recurso_tipo,
-		rec.capacidad as recurso_capacidad,
-		rec.estado as recurso_estado,
-		rec.inicio_disponibilidad as recurso_inicio_disponibilidad,
-		rec.fin_disponibilidad as recurso_fin_disponibilidad,
-		usu.correo as usuario_correo,
-		usu.u_area as usuario_u_area,
-		usu.nombre as usuario_nombre,
-		eve.id as evento_id,
-		eve.estado as evento_estado,
-		eve.hora_inicio as evento_hora_inicio,
-		eve.hora_fin as evento_hora_fin
-		FROM
-		reserva as res,
-		recurso as rec,
-		usuario as usu,
-		evento as eve
-		WHERE
-		res.recurso=rec.id AND
-		usu.correo=res.usuario AND
-		eve.reserva=res.id
+		<include refid="getAllReservas"/>
 			<if test="id != null">
 				 AND res.id = #{id}
 			</if>
+	</select>
+
+	
+
+	<select parameterType="map" id="consultarReservasRecurso" resultMap='ReservaResult'>
+			<include refid="getAllReservas"/>
+			<if test="recurso != null">
+				 AND rec.id = #{recurso}
+			</if>
+	</select>
+
+
+	<select parameterType="map" id="consultarSemestre" resultMap='pairResultMap'>
+		SELECT
+			fecha_inicio,
+			fecha_fin
+		FROM
+			Semestre;
 	</select>
 
 

@@ -44,5 +44,11 @@ CREATE TABLE IF NOT EXISTS Evento (
   estado varchar(45) not null,
   PRIMARY KEY (id));
 
+
+CREATE TABLE IF NOT EXISTS Semestre (
+  fecha_inicio TIMESTAMP NOT NULL,
+  fecha_fin TIMESTAMP not null
+);
+
 insert into rol(nombre) values ('administrador');
 insert into usuario(correo,contraseña,rol,u_area,nombre) values ('a@gmail.com','aaa',1,'aaa','Pepito');

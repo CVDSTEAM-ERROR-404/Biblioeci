@@ -34,7 +34,8 @@
 			<p:growl id="growl-horario" showDetail="false" sticky="true"/>
 			<p:panel class="panelCenter" id="panelhorario"   style="width: 900px;">
 				<h:panelGrid columnClasses="value">
-					<p:schedule id="schedule" value="#{ReservasBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5" >
+
+					<p:schedule id="schedule" value="#{HorarioBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm" axisFormat="H:mm"  >
 
 						<p:ajax event="dateSelect" listener="#{ReservasBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
 

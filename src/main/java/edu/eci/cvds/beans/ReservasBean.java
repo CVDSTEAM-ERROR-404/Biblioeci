@@ -10,15 +10,13 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
-
-import javax.annotation.PostConstruct;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * Esta clase conecta la pagina web con los servicios de reserva de la aplicacion de la biblioteca
@@ -29,7 +27,6 @@ import java.util.List;
 @SessionScoped
 public class ReservasBean extends BasePageBean{
 
-    @ManagedProperty(value = "#{param.selectedRecurso}")
     private Recurso selectedRecurso;
 
     @Inject
@@ -122,7 +119,7 @@ public class ReservasBean extends BasePageBean{
     public void loadEvents(){
         eventModel = new DefaultScheduleModel();
         try {
-            List<Reserva>reservas  =serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());
+            List<Reserva> reservas  =serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());
             for(Reserva reserva:reservas){
                 for(Evento evento:reserva.getEventosAsignados()){
                     event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin());

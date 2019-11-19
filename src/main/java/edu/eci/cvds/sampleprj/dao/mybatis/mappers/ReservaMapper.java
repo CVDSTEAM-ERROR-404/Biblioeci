@@ -1,8 +1,12 @@
 package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.ibatis.annotations.Param;
 import edu.eci.cvds.samples.entities.Reserva;
+
 
 /**
  * Esta interfaz conecta los servicios relacionados con las reservas a la base de datos
@@ -43,4 +47,24 @@ public interface ReservaMapper {
 	 * @return Una lista con las reservas de la base de datos de la biblioteca
 	 */
 	public List<Reserva> consultarReserva(@Param("id")long id);
+
+	/**
+	 * Retorna una lista de las reservas del recurso especificado
+	 * @param recurso Id del recurso especificado
+	 * @return Lista de las reservas del recurso
+	 */
+	public List<Reserva> consultarReservasRecurso(@Param("recurso") long recurso);
+
+	/**
+	 * Retorna la fecha final e inicial del semestre actual
+	 * @return Fecha inicial y final del semestre
+	 */
+	public MutablePair<Date, Date> consultarSemestre();
+	
+	/**
+	 * Registra la fecha inicial y final de un semestre
+	 * @param fecha_inicio Fecha inicial del semestre
+	 * @param fecha_final Fecha final del semestre
+	 */
+	public void registrarSemestre(@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
 }

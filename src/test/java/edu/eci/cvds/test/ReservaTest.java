@@ -12,6 +12,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
+
+import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -204,7 +206,9 @@ public class ReservaTest extends ServicioBiblioEciTest{
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getInitialDate(),getFinalDate());
+            Date initialDate = getInitialDate();
+            Date recurrentDate = getInitialDate(-1);
+            serviciosBiblioEci.registrarReserva(reserva,initialDate,recurrentDate,getFinalDate());
             System.out.println("Id reserva: "+reserva.getId());
             System.out.println("Reservas");
             System.out.println(serviciosBiblioEci.consultarReservas());

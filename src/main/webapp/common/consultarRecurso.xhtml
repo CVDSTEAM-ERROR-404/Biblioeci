@@ -25,13 +25,15 @@
 
 	<link rel="stylesheet" type="text/css" href="/css/util.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			  rel="stylesheet" />
  	</h:head>
 
 	<h:body>
 		
 		<h:form id="con_recurso_form">
 			<p:growl id="growl" showDetail="false" sticky="true" />
-			<p:panel class="panelCenter" id="panelrecurso"   style="width: 725px;">
+			<p:panel class="panelCenter" id="panelrecurso"   style="width: 900px;">
 				<p:fieldset legend="Filtrar recurso" >
 				<center>
 					<p:panelGrid  class="grid" id="grid" cellpadding="3" columns="2"  >
@@ -70,13 +72,12 @@
 				<br/>
 				<p:fieldset legend="Recursos" >
 					<center>
-					<p:dataTable  var="rec" value="#{RecursosBean.getRecursosDisponibles()}"
+					<p:dataTable  var="rec" value="#{RecursosBean.consultarRecursosDisponibles(cap.value)}"
 						 paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 						 rowsPerPageTemplate="5,10,15"
 						 currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-						 paginatorPosition="bottom" rows="10" style="width:650px;"  
-						 selectionMode="single" id="id" 
-                         rowKey="#{rec.getId()}" selection="#{ReservasBean.selectedRecurso}"  >
+						 paginatorPosition="bottom" rows="10" style="width:750px;"  id="id"
+                         rowKey="#{rec.getId()}"  selectionMode="single" selection="#{ReservasBean.selectedRecurso}">
 					
 						<f:facet name="header" style="color:black;">
 							Recursos disponibles
@@ -101,16 +102,10 @@
 						<p:column headerText="Capacidad" width="120">
 							<h:outputText value="#{rec.getCapacidad()}" />
 						</p:column>
-						
+
+
 						<f:facet name="footer">
-							<h:outputLink value="/admin/horario.xhtml"
-								styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
-								<span class="ui-button-text" style="padding: 15px 25px;" >Ver</span>
-							</h:outputLink>
-							
-							
-							
-							
+							<h:commandButton class="button3" value="ver" actionListener="#{ReservasBean.redirectHorario()}"  />
 						</f:facet>
 						
 					</p:dataTable>

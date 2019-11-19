@@ -31,7 +31,6 @@ public class RecursosBean extends BasePageBean {
     private boolean showButton;
     private int idRecurso;
     private List<Reserva> reservasFuturas;
-	private List<Recurso> recursosDisponibles;
     private String successUpdate = "Actualización exitosa";
     private UbicacionRecurso ubicacionRecurso;
 	private Recurso selectedRecurso;
@@ -132,17 +131,6 @@ public class RecursosBean extends BasePageBean {
      */
     public void setReservasFuturas(List<Reserva> reservasFuturas) { this.reservasFuturas = reservasFuturas; }
 
-    /**
-     * Retorna todas los recursos disponibles para reservar
-     * @return Una lista con todas los recursos disponibles para reservar
-     */
-	public List<Recurso> getRecursosDisponibles() { return recursosDisponibles; }
-
-    /**
-     * Cambia los recursos disponibles para reservar
-     * @param recursosDisponibles Una lista con los nuevos recursos disponibles para reservar
-     */
-    public void setRecursosDisponibles(List<Recurso> recursosDisponibles) { this.recursosDisponibles = recursosDisponibles; }
 
     /**
      * Determina si se está mostrando el boton
@@ -211,13 +199,14 @@ public class RecursosBean extends BasePageBean {
      * @param capacidad El filtro de capacidad de la consulta (si no hay usar 0)
      * @return Una lista con los recursos disponibles dentro de la base de datos de la biblioteca
      */
-    public void consultarRecursosDisponibles(int capacidad){
-        recursosDisponibles = null;
+    public List<Recurso> consultarRecursosDisponibles(int capacidad){
+        List<Recurso> recursosDisponibles = null;
         try {
             recursosDisponibles = serviciosBiblioEci.consultarRecursosDisponibles(capacidad, ubicacionRecurso, tipoRecurso);
         } catch (ExcepcionServiciosBiblioEci e) {
             setErrorMessage(e.getMessage());
         }
+        return recursosDisponibles;
     }
 
     /**
@@ -245,6 +234,8 @@ public class RecursosBean extends BasePageBean {
             setUbicacionRecurso(null);
         }
 	}
+
+
 
     /**
      * Cancela las reservas pendientes de un recurso de la base de datos

@@ -2,6 +2,9 @@ package edu.eci.cvds.samples.services;
 
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang3.tuple.MutablePair;
+
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
@@ -122,5 +125,20 @@ public interface ServiciosBiblioEci {
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar la disponibilidad del recurso
      */
     public abstract boolean consultarDisponibilidadRecurso(long recurso, Date horaInicio, Date horaFin) throws ExcepcionServiciosBiblioEci;
+
+    /**
+     * Registra un semestre con las fechas dadas
+     * @param fechaInicio Fecha inicial del semestre
+     * @param fechaFin Fecha final del semestre
+     * @throws ExcepcionServiciosBiblioEci
+     */
+    public abstract void registrarSemestre(Date fechaInicio, Date fechaFin) throws ExcepcionServiciosBiblioEci;
+
+    /**
+     * Retorna un par de fechas(fecha inicial, fecha final) del semestre
+     * @return Fechas del semestre
+     * @throws ExcepcionServiciosBiblioEci
+     */
+    public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci;
 
 }

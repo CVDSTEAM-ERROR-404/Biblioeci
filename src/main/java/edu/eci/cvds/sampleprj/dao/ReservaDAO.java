@@ -1,6 +1,11 @@
 package edu.eci.cvds.sampleprj.dao;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang3.mutable.Mutable;
+import org.apache.commons.lang3.tuple.MutablePair;
+
 import edu.eci.cvds.samples.entities.Reserva;
 
 /**
@@ -53,5 +58,20 @@ public interface ReservaDAO{
 	 * @throws PersistenceException
 	 */
 	public List<Reserva> consultarReservasRecurso(long recurso) throws PersistenceException;
+
+	/**
+	 * Registra las fechas de un semestre
+	 * @param fechaInicio Fecha inicial del semestre
+	 * @param fechaFinal Fecha final del semestre
+	 * @throws PersistenceException
+	 */
+	public void registrarSemestre(Date fechaInicio, Date fechaFinal) throws PersistenceException;
+
+	/**
+	 * Retorna un par de fechas(fecha inicial, fecha final) del semestre
+	 * @return Fechas del semestre
+	 * @throws PersistenceException
+	 */
+	public MutablePair<Date, Date> consultarSemestre() throws PersistenceException;
 
 }

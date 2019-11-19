@@ -90,13 +90,18 @@
 			</if>
 	</select>
 
+	<insert parameterType="map" id="registrarSemestre">
+    INSERT INTO semestre(fecha_inicio, fecha_fin) values (#{fecha_inicio}, #{fecha_final});
+  </insert>
 
 	<select parameterType="map" id="consultarSemestre" resultMap='pairResultMap'>
 		SELECT
 			fecha_inicio,
 			fecha_fin
 		FROM
-			Semestre;
+			semestre
+		WHERE fecha_inicio &lt;= now() AND now() &lt;= fecha_fin
+		LIMIT 1;
 	</select>
 
 

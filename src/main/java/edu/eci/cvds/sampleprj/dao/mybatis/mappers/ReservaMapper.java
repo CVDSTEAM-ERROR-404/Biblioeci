@@ -56,9 +56,15 @@ public interface ReservaMapper {
 	public List<Reserva> consultarReservasRecurso(@Param("recurso") long recurso);
 
 	/**
-	 * Retorna la fecha final e inicial del semestre
+	 * Retorna la fecha final e inicial del semestre actual
 	 * @return Fecha inicial y final del semestre
 	 */
 	public MutablePair<Date, Date> consultarSemestre();
-
+	
+	/**
+	 * Registra la fecha inicial y final de un semestre
+	 * @param fecha_inicio Fecha inicial del semestre
+	 * @param fecha_final Fecha final del semestre
+	 */
+	public void registrarSemestre(@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
 }

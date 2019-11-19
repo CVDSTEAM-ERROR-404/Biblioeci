@@ -74,3 +74,6 @@ Se utilizó la metodoloía Scrum en la cual el equipo se reune y planea lo que s
  #### Taiga
  
  [Taiga backlog](https://tree.taiga.io/project/jcro15-gestion-de-recursos-biblioteca/backlog)
+ #### Información sprints
+ 
+ Ver [Sprints](resources/md/Sprints.md)

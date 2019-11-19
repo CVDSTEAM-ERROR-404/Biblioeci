@@ -284,6 +284,30 @@ public class RecursoTest extends ServicioBiblioEciTest{
     }
 
     @Test
+    public void shouldNotRegisterAResourceWithAFinalAvailabilityPreviousThatTheInitialAvailability() {
+        Recurso recurso = null;
+        try {
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getFinalDateResource(),getInitialDateResource());
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por disponibilidad invalida");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El recurso "+recurso.toString()+" tiene una disponibilidad invalida",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotRegisterAResourceWithInitialAvailabilityEqualsToFinalAvailability() {
+        Recurso recurso = null;
+        try {
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getInitialDateResource());
+            serviciosBiblioEci.registrarRecurso(recurso);
+            fail("Se esperaba la excepcion por disponibilidad invalida");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El recurso "+recurso.toString()+" tiene una disponibilidad invalida",e.getMessage());
+        }
+    }
+
+    @Test
     public void shouldNotRegisterAResourceWithANullInitialAvailability(){
         Recurso recurso = null;
         try {
@@ -291,7 +315,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por inicio de disponibilidad nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
+            assertEquals("El recurso "+recurso.toString()+" no puede tener algun valor de la franja horaria nulo",e.getMessage());
         }
     }
 
@@ -303,7 +327,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por final de disponibilidad nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("Error al guardar el recurso "+recurso,e.getMessage());
+            assertEquals("El recurso "+recurso.toString()+" no puede tener algun valor de la franja horaria nulo",e.getMessage());
         }
     }
 
@@ -315,7 +339,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad negativa");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("El recurso "+recurso+"tiene una capacidad invalida",e.getMessage());
+            assertEquals("El recurso "+recurso+" tiene una capacidad invalida",e.getMessage());
         }
     }
 
@@ -327,7 +351,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad cero");
         } catch (ExcepcionServiciosBiblioEci e) {
-            assertEquals("El recurso "+recurso+"tiene una capacidad invalida",e.getMessage());
+            assertEquals("El recurso "+recurso+" tiene una capacidad invalida",e.getMessage());
         }
     }
 

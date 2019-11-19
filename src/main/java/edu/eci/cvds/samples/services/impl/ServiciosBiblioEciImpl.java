@@ -45,7 +45,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Transactional
     public void registrarRecurso(Recurso cli) throws ExcepcionServiciosBiblioEci {
         if(cli==null){throw new ExcepcionServiciosBiblioEci("El recurso a registrar no puede ser nulo");}
-        if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+"tiene una capacidad invalida");}
+        if(cli.getCapacidad()<=0){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+" tiene una capacidad invalida");}
+        if(cli.getFinDisponibilidad()==null || cli.getInicioDisponibilidad()==null){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+" no puede tener algun valor de la franja horaria nulo");}
+        if(!cli.haveValidAvailability()){throw new ExcepcionServiciosBiblioEci("El recurso "+cli.toString()+" tiene una disponibilidad invalida");}
         try {
             recursoDAO.save(cli);
         } catch (PersistenceException e) {
@@ -219,6 +221,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta una reserva de la base de datos
+     * @param id El identificador de la reserva
      * @return Una lista con la reserva de la base de datos de la biblioteca
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la reserva
      */

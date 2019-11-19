@@ -229,13 +229,34 @@ public class Recurso implements Serializable{
         return ans;
     }
 
+    /**
+     * Muestra la hora del inicio de la franja de disponibilidad del recurso
+     * @return La hora del inicio de la franja de disponibilidad del recurso
+     */
     public int intInicioDisponibilidad(){
         String[] time = inicioDisponibilidad.split(":");
         return Integer.parseInt(time[0]);
     }
 
+    /**
+     * Muestra la hora del final de la franja de disponibilidad del recurso
+     * @return La hora del final de la franja de disponibilidad del recurso
+     */
     public int intFinDisponibilidad(){
         String[] time = finDisponibilidad.split(":");
         return Integer.parseInt(time[0]);
+    }
+
+    /**
+     * Muestra si la franja horaria del recurso es valida
+     * @return Un valor booleano que determina si la franja horaria del recurso es valida
+     */
+    public boolean haveValidAvailability() {
+        LocalTime horaFinal = fromStringToLocalTime(finDisponibilidad);
+        LocalTime horaInicial = fromStringToLocalTime(inicioDisponibilidad);
+        boolean ans;
+        if(horaFinal.isBefore(horaInicial) || horaFinal.equals(horaInicial)){ ans = false; }
+        else{ ans = true; }
+        return ans;
     }
 }

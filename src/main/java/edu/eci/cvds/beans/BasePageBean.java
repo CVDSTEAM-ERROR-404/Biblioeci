@@ -61,6 +61,7 @@ public abstract class BasePageBean implements Serializable {
      * @param message El mensaje que se va a enviar
      */
     public void setErrorMessage(String message){
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }

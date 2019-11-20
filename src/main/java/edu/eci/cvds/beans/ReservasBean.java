@@ -119,15 +119,23 @@ public class ReservasBean extends BasePageBean{
     public void loadEvents(){
         eventModel = new DefaultScheduleModel();
         try {
-            List<Reserva> reservas  =serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());
-            for(Reserva reserva:reservas){
-                for(Evento evento:reserva.getEventosAsignados()){
-                    event = new DefaultScheduleEvent("Reserva de "+reserva.getRecurso().getNombre(),evento.getHoraFin(),evento.getHoraFin(),reserva.getTipo().name());
-                    eventModel.addEvent(event);
+            if (selectedRecurso==null){
+                setErrorMessage("Para visualizar los horarios primero se debe escoger un recurso");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("consultarRecurso.xhtml");
+            }
+            else {
+                List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());
+                for (Reserva reserva : reservas) {
+                    for (Evento evento : reserva.getEventosAsignados()) {
+                        event = new DefaultScheduleEvent("Reserva de " + reserva.getRecurso().getNombre(), evento.getHoraFin(), evento.getHoraFin(), reserva.getTipo().name());
+                        eventModel.addEvent(event);
+                    }
                 }
             }
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             excepcionServiciosBiblioEci.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 

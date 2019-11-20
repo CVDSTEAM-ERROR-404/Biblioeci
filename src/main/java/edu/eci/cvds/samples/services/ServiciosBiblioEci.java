@@ -1,5 +1,6 @@
 package edu.eci.cvds.samples.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -76,8 +77,9 @@ public interface ServiciosBiblioEci {
      * Registra una nueva reserva de un recurso y un usuario
      * @param reserva Reserva a registrar
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al realizar una reserva
+     * @return
      */
-    public abstract void registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci;
+    public abstract ArrayList<Evento> registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci;
 
     /**
      * Consulta todos los eventos

@@ -5,15 +5,19 @@ import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.security.ShiroLogger;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,7 +110,15 @@ public class ReservasBean extends BasePageBean{
     public void registrarReserva(Date fechaInicio, Date fechaFin, Date fechaFinRecurrencia ){
         try{
             Usuario  usuario=serviciosBiblioEci.consultarUsuario(logger.getUser());
-            serviciosBiblioEci.registrarReserva(new Reserva(tipoReserva,selectedRecurso,usuario),fechaInicio,fechaFinRecurrencia,fechaFin);
+            ArrayList<Evento>eventosNoRegistrados= serviciosBiblioEci.registrarReserva(new Reserva(tipoReserva,selectedRecurso,usuario),fechaInicio,fechaFinRecurrencia,fechaFin);
+            String mensaje="\n";
+            if(eventosNoRegistrados!= null && eventosNoRegistrados.size()!=0){
+                for(Evento evento :eventosNoRegistrados){
+                    mensaje=mensaje.concat("• "+evento.getHoraInicio().toLocaleString()+"-"+evento.getHoraFin().toLocaleString()+"\n");
+                }
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "El recurso se encontraba ocupado en las siguientes fechas:", mensaje);
+                PrimeFaces.current().dialog().showMessageDynamic(message);
+            }
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
@@ -115,9 +127,8 @@ public class ReservasBean extends BasePageBean{
         eventModel = new DefaultScheduleModel();
         try {
             if (selectedRecurso==null){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("consultarRecurso.xhtml");
                 setErrorMessage("Para visualizar los horarios primero se debe escoger un recurso");
-
+                FacesContext.getCurrentInstance().getExternalContext().redirect("consultarRecurso.xhtml");
             }
             else {
                 List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());

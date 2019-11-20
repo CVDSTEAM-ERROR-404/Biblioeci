@@ -1,5 +1,6 @@
 package edu.eci.cvds.samples.services.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -168,11 +169,13 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      * @param reserva Reserva a registrar
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al realizar una
      *                                     reserva
+     * @return
      */
     @Override
     @Transactional
-    public void registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
+    public ArrayList<Evento> registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         validarFechas(fechaInicio, fechaFinRecurrencia, fechaFinEvento, reserva);
+        ArrayList<Evento> ocupados = null;
         try {
             reservaDAO.registrarReserva(reserva);
             if (reserva.getTipo().equals(TipoReserva.Simple)) {
@@ -181,11 +184,12 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
                 }
                 eventoDAO.registrarEvento(new Evento(fechaInicio, fechaFinEvento), reserva.getId());
             } else {
-                registrarEventosRecurrentes(reserva, fechaInicio, fechaFinRecurrencia, fechaFinEvento);
+                ocupados=registrarEventosRecurrentes(reserva, fechaInicio, fechaFinRecurrencia, fechaFinEvento);
             }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al registrar la reserva", e);
         }
+        return ocupados;
     }
 
     /**
@@ -343,17 +347,21 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar algun
      *                                     evento
      */
-    private void registrarEventosRecurrentes(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
+    private ArrayList<Evento> registrarEventosRecurrentes(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         Calendar inicio = Calendar.getInstance();
         Calendar fin = Calendar.getInstance();
         inicio.setTime(fechaInicio);
         fin.setTime(fechaFinEvento);
+        ArrayList<Evento> noInsertados = new ArrayList<>();;
         int insertados = 0;
         try {
             while (inicio.getTime().before(fechaFinRecurrencia)) {
                 if (consultarDisponibilidadRecurso(reserva.getRecurso().getId(), inicio.getTime(), fin.getTime())) {
                     eventoDAO.registrarEvento(new Evento(inicio.getTime(), fin.getTime()), reserva.getId());
                     insertados += 1;
+                }
+                else {
+                    noInsertados.add(new Evento(inicio.getTime(),fin.getTime()));
                 }
                 inicio.add(reserva.getTipo().getCalendarConstant(), 1);
                 fin.add(reserva.getTipo().getCalendarConstant(), 1);
@@ -362,6 +370,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al insertar los eventos recurrentes");
         }
+        return noInsertados;
     }
 
     /**

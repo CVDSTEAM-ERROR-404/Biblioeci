@@ -96,8 +96,14 @@ public class LoginBean extends BasePageBean{
 
         try {
             logger.login(correo,password,rememberMe);
-            String path = url.replace("http://localhost:8080","");
-            FacesContext.getCurrentInstance().getExternalContext().redirect(path);
+            if(url!=null) {
+                String path = url.replace("http://localhost:8080", "");
+                FacesContext.getCurrentInstance().getExternalContext().redirect(path);
+                url=null;
+            }
+            else{
+                goHome();
+            }
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
@@ -135,7 +141,6 @@ public class LoginBean extends BasePageBean{
     public void captureUrl(){
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         url = req.getRequestURL().toString();
-        System.out.println(url);
         try{
             FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
         }

@@ -4,7 +4,9 @@ import com.google.inject.Inject;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.security.SesionLogger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -14,6 +16,7 @@ import java.io.IOException;
  */
 
 @ManagedBean(name="LoginBean")
+@SessionScoped
 public class LoginBean extends BasePageBean{
 
     private String correo;
@@ -22,6 +25,16 @@ public class LoginBean extends BasePageBean{
     @Inject
     private SesionLogger logger;
     private boolean isAdmin;
+
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public boolean isAdmin() {
         return logger.isAdmin();
@@ -80,11 +93,16 @@ public class LoginBean extends BasePageBean{
      * Loguea al usuario por medio del SessionLogger y actualiza la vista de la pagina web
      */
     public void login(){
+
         try {
             logger.login(correo,password,rememberMe);
-            goHome();
+            String path = url.replace("http://localhost:8080","");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(path);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+        catch (IOException e) {
+            setErrorMessage("Error en el servidor");
         }
     }
 
@@ -113,6 +131,21 @@ public class LoginBean extends BasePageBean{
         logger.logout();
         goHome();
     }
+
+    public void captureUrl(){
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        url = req.getRequestURL().toString();
+        System.out.println(url);
+        try{
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
+        }
+        catch (IOException e) {
+            setErrorMessage("Error en el servidor");
+        }
+
+    }
+
+
 
 
 }

@@ -69,12 +69,7 @@ public class ReservasBean extends BasePageBean{
      * @param selectedRecurso El recurso sobre el cual se hara la reserva
      */
     public void setSelectedRecurso(Recurso selectedRecurso) {
-		this.selectedRecurso = null;
         this.selectedRecurso = selectedRecurso;
-        if(this.selectedRecurso == null){
-            setErrorMessage("Debes seleccionar un recurso");
-        }
-		System.out.println(selectedRecurso);
     }
 
     /**
@@ -120,8 +115,9 @@ public class ReservasBean extends BasePageBean{
         eventModel = new DefaultScheduleModel();
         try {
             if (selectedRecurso==null){
-                setErrorMessage("Para visualizar los horarios primero se debe escoger un recurso");
                 FacesContext.getCurrentInstance().getExternalContext().redirect("consultarRecurso.xhtml");
+                setErrorMessage("Para visualizar los horarios primero se debe escoger un recurso");
+
             }
             else {
                 List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());

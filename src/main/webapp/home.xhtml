@@ -33,6 +33,8 @@
 
 	
 		<h:form id="home_form">
+
+			<p:growl id="growl" globalOnly="true" showDetail="false" sticky="true"/>
 			<p:panel class="panelCenter" id="panelhome" style="width: 350px;">
 				<p:panel class="red" />
 				<img src="logo.png" alt="logo"  />
@@ -48,11 +50,8 @@
 				</p:panel>
 			</p:panel>
 			<h:commandButton class="button4" value="Logout" style="font-size:12px;" rendered="#{LoginBean.isLogged()}" actionListener="#{LoginBean.logout()}" />
-			
-			<h:outputLink value="login.xhtml" rendered="#{!(LoginBean.isLogged())}"
-					styleClass="ui-button  ui-button-text-only button4" style="font-size:12px; color:FFF;" update="home_form">
-					<span class="ui-button-text" style="padding: 15px 25px">Iniciar sesión</span>
-			</h:outputLink>
+			<h:commandButton actionListener="#{LoginBean.captureUrl()}"  rendered="#{!(LoginBean.isLogged())}" value="Iniciar sesion" class="button4"  />
+
 
 			<h:outputLink value="admin/login1.xhtml" rendered="#{LoginBean.isAdmin()}"
 						  styleClass="ui-button  ui-button-text-only button5" style="font-size:12px; color:FFF;">

@@ -31,7 +31,7 @@
 		"#{ReservasBean.loadEvents()}"
 
 		<h:form id="horario_form">
-			<p:growl id="growl-horario" showDetail="false" sticky="true"/>
+			<p:growl id="growl" showDetail="false" globalOnly="true" sticky="true" />
 			<p:panel class="panelCenter" id="panelhorario"   style="width: 900px;">
 				<h:panelGrid columnClasses="value">
 
@@ -76,7 +76,9 @@
 						<h:commandButton class="button3"   value="Reservar" style="font-size:12px;" actionListener="#{ReservasBean.registrarReserva(date1.value, date2.value, date3.value)}" update="horario_form"/>
 					</f:facet>
 				</p:panel>
-			</p:dialog>    
+			</p:dialog>
+			<h:commandButton class="button4" value="Logout" style="font-size:12px;" rendered="#{LoginBean.isLogged()}" actionListener="#{LoginBean.logout()}" />
+			<h:commandButton actionListener="#{LoginBean.captureUrl()}" rendered="#{!(LoginBean.isLogged())}" value="Iniciar sesion" class="button4"  />
 		</h:form>
 	</h:body>
 </html>

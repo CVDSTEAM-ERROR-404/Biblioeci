@@ -32,7 +32,7 @@
 	<h:body>
 		
 		<h:form id="con_recurso_form">
-			<p:growl id="growl" showDetail="false" sticky="true" />
+			<p:growl id="growl" showDetail="false" globalOnly="true" sticky="true" />
 			<p:panel class="panelCenter" id="panelrecurso"   style="width: 900px;">
 				<p:fieldset legend="Filtrar recurso" >
 				<center>
@@ -112,7 +112,8 @@
 					</center>
 				</p:fieldset>
 			</p:panel>
-			
+			<h:commandButton class="button4" value="Logout" style="font-size:12px;" rendered="#{LoginBean.isLogged()}" actionListener="#{LoginBean.logout()}" />
+			<h:commandButton actionListener="#{LoginBean.captureUrl()}" rendered="#{!(LoginBean.isLogged())}" value="Iniciar sesion" class="button4"  />
 		
 		</h:form>	 
 	</h:body>

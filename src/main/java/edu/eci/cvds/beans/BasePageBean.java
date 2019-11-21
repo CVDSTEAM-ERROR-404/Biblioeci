@@ -40,6 +40,9 @@ public abstract class BasePageBean implements Serializable {
         this.injector = injector;
     }
 
+    /**
+     * Inicializa el Bean de la pagina web
+     */
     @PostConstruct
     public void init() {
         getInjector().injectMembers(this);
@@ -54,6 +57,11 @@ public abstract class BasePageBean implements Serializable {
         setMessage(message);
         goHome();
     }
+
+    /**
+     * Envia un mensaje de operacion y actualiza el contexto de la pagina
+     * @param message El mensaje de operacion
+     */
     public void setMessage(String message){
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));

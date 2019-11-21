@@ -4,11 +4,8 @@ import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import com.google.inject.Inject;
-
 import org.apache.commons.lang3.tuple.MutablePair;
-
 import edu.eci.cvds.samples.entities.Reserva;
-
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +16,6 @@ import java.util.List;
  * @author: CVDSTEAM-ERROR-404
  * @version: 18/11/2019
  */
-
 public class MyBATISReservaDAO implements ReservaDAO {
 
 	@Inject
@@ -27,16 +23,13 @@ public class MyBATISReservaDAO implements ReservaDAO {
 
 	/**
 	 * Consulta las reservas pendientes de un recurso de la base de datos
-	 * 
 	 * @param id El identificador del recurso
-	 * @return Una lista con las reservas pendientes dentro de la base de datos de
-	 *         la biblioteca
-	 * @throws PersistenceException Cuando ocurre algun error al consultar las
-	 *                              reservas pendientes
+	 * @return Una lista con las reservas pendientes dentro de la base de datos dela biblioteca
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas pendientes
 	 */
 	@Override
 	public List<Reserva> consultarReservasPendientes(long id) throws PersistenceException {
-		List<Reserva> reservas = null;
+		List<Reserva> reservas;
 		try {
 			reservas = reservaMapper.consultarReservasPendientes(id);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -47,10 +40,8 @@ public class MyBATISReservaDAO implements ReservaDAO {
 
 	/**
 	 * Cancela las reservas pendientes de un recurso de la base de datos
-	 * 
 	 * @param id El identificador del recurso
-	 * @throws PersistenceException Cuando ocurre algun error al cancelar las
-	 *                              reservas pendientes
+	 * @throws PersistenceException Cuando ocurre algun error al cancelar las reservas pendientes
 	 */
 	@Override
 	public void cancelarReservasPendientes(long id) throws PersistenceException {
@@ -63,7 +54,6 @@ public class MyBATISReservaDAO implements ReservaDAO {
 
 	/**
 	 * Registra una nueva reserva de un recurso y un usuario
-	 *
 	 * @param reserva Reserva a registrar
 	 */
 	@Override
@@ -75,9 +65,15 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		}
 	}
 
+	/**
+	 * Consulta las reservas de la base de datos
+	 * @param id El identificador de la reserva
+	 * @return Una lista con las reservas de la base de datos de la biblioteca
+	 * @throws PersistenceException Cuando courre un error al consultar las reservas
+	 */
 	@Override
 	public List<Reserva> consultarReserva(long id) throws PersistenceException {
-		List<Reserva> reservas = null;
+		List<Reserva> reservas;
 		try {
 			reservas = reservaMapper.consultarReserva(id);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -86,9 +82,14 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		return reservas;
 	}
 
+	/**
+	 * Consulta todas las reservas de la base de datos
+	 * @return Una lista con todas las reservas de la base de datos de la biblioteca
+	 * @throws PersistenceException Cuando courre un error al consultar las reservas
+	 */
 	@Override
 	public List<Reserva> consultarReserva() throws PersistenceException {
-		List<Reserva> reservas = null;
+		List<Reserva> reservas;
 		try {
 			reservas = reservaMapper.consultarReserva();
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -97,9 +98,15 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		return reservas;
 	}
 
+	/**
+	 * Retorna una lista de las reservas del recurso especificado
+	 * @param recurso Id del recurso especificado
+	 * @return Lista de las reservas del recurso
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas
+	 */
 	@Override
 	public List<Reserva> consultarReservasRecurso(long recurso) throws PersistenceException {
-		List<Reserva> reservas = null;
+		List<Reserva> reservas;
 		try {
 			reservas = reservaMapper.consultarReservasRecurso(recurso);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -108,6 +115,12 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		return reservas;
 	}
 
+	/**
+	 * Registra la fecha inicial y final de un semestre
+	 * @param fechaInicio Fecha inicial del semestre
+	 * @param fechaFinal Fecha final del semestre
+	 * @throws PersistenceException Cuando ocurre algun error al registrar el semestre
+	 */
 	@Override
 	public void registrarSemestre(Date fechaInicio, Date fechaFinal) throws PersistenceException {
 		try {
@@ -117,9 +130,14 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		}
 	}
 
+	/**
+	 * Retorna la fecha final e inicial del semestre actual
+	 * @return Fecha inicial y final del semestre
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las fechas del semestre
+	 */
 	@Override
 	public MutablePair<Date, Date> consultarSemestre() throws PersistenceException {
-		MutablePair<Date, Date> semestre = null;
+		MutablePair<Date, Date> semestre;
 		try {
 			semestre = reservaMapper.consultarSemestre();
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {

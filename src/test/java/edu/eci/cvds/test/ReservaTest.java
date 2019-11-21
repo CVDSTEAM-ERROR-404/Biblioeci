@@ -7,12 +7,12 @@ import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.entities.Evento;
 import edu.eci.cvds.samples.entities.EstadoReserva;
+import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
-
 import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
@@ -323,7 +323,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
     }
 
     @Test
-    public void shouldNotMakeASimpleReservationIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
+    public void shouldNotMakeASimpleReservationIfTheResourceIsNotAvailable() {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         try {
@@ -337,7 +337,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
     }
 
     @Test
-    public void shouldNotMakeAReservationIfTheInitialIsDateIsPreviousToNow() throws ExcepcionServiciosBiblioEci {
+    public void shouldNotMakeAReservationIfTheInitialIsDateIsPreviousToNow() {
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         try {
@@ -350,19 +350,22 @@ public class ReservaTest extends ServicioBiblioEciTest{
     }
 	
     @Test
-    public void shouldNotMakeARecurrentReservationIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
+    public void shouldNotMakeARecurrentReservationIfTheResourceIsNotAvailable(){
         System.out.println("Prueba Reserva Recurrente con recurso ocupado");
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
+            Date fechaInicial = getInitialDate();
+            Date fechaFinal = getFinalDate();
+            Date fechaFinRecurrencia = getConcurrentDate(10);
             serviciosBiblioEci.registrarRecurso(recurso);
-            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+            serviciosBiblioEci.registrarReserva(reserva,fechaInicial,fechaFinRecurrencia,fechaFinal);
 			System.out.println("Id reserva: "+reserva.getId());
 			System.out.println("Reservas Antes");
 			System.out.println(serviciosBiblioEci.consultarReservas());
             System.out.println("Eventos Antes");
             System.out.println(serviciosBiblioEci.consultarEventos());
-            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
+            serviciosBiblioEci.registrarReserva(reserva,fechaInicial,fechaFinRecurrencia,fechaFinal);
             System.out.println("Reservas Despues");
 			System.out.println(serviciosBiblioEci.consultarReservas());
             System.out.println("Eventos Despues");
@@ -387,7 +390,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
     }
 
     @Test
-    public void shouldNotMakeAReservationWithANullReservation() throws ExcepcionServiciosBiblioEci {
+    public void shouldNotMakeAReservationWithANullReservation(){
         try {
             serviciosBiblioEci.registrarReserva(null,getInitialDate(),getConcurrentDate(10),getFinalDate());
             fail("Debio fallar por tener una reserva nula");
@@ -403,7 +406,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
-            fail("Debio fallar por tener una reserva de un recurso a una hopra a la que no esta disponible");
+            fail("Debio fallar por tener una reserva de un recurso a una hora a la que no esta disponible");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("El recurso no se puede reservar a esa hora",e.getMessage());
         }
@@ -426,5 +429,33 @@ public class ReservaTest extends ServicioBiblioEciTest{
     public void shouldReturnANullListWhenTheReservationDoesntExist() throws ExcepcionServiciosBiblioEci {
         List<Reserva> reservas = serviciosBiblioEci.consultarReserva(100);
         assertEquals(0,reservas.size());
+    }
+
+    @Test
+    public void shouldNotMakeAreservationOfATotalDamageRecourse(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.cambiarEstadoRecurso(recurso.getId(), EstadoRecurso.Daño_Total);
+            Recurso nuevoRecurso = serviciosBiblioEci.consultarRecurso(recurso.getId());
+            Reserva reserva = new Reserva(TipoReserva.Simple,nuevoRecurso,usuario);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se puede reservar un recurso que no tenga estado disponible",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotMakeAreservationOfAReparableDamageRecourse(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            serviciosBiblioEci.cambiarEstadoRecurso(recurso.getId(), EstadoRecurso.Daño_Reparable);
+            Recurso nuevoRecurso = serviciosBiblioEci.consultarRecurso(recurso.getId());
+            Reserva reserva = new Reserva(TipoReserva.Simple,nuevoRecurso,usuario);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se puede reservar un recurso que no tenga estado disponible",e.getMessage());
+        }
     }
 }

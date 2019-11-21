@@ -3,9 +3,7 @@ package edu.eci.cvds.samples.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.tuple.MutablePair;
-
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
@@ -76,8 +74,11 @@ public interface ServiciosBiblioEci {
     /**
      * Registra una nueva reserva de un recurso y un usuario
      * @param reserva Reserva a registrar
+	 * @param fechaInicio Fecha Inicial de la reserva
+	 * @param fechaFinRecurrencia Fecha Final de la recurrencia en una reserva recurrente
+	 * @param fechaFinEvento Fecha Final de la reserva
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al realizar una reserva
-     * @return
+     * @return Una lista con los eventos de esa reserva
      */
     public abstract ArrayList<Evento> registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci;
 

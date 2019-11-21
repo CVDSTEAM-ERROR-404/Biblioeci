@@ -50,7 +50,7 @@ public class MyBATISEventoDAO implements EventoDAO {
      */
     @Override
     public List<Evento> consultarEventos() throws PersistenceException {
-        List<Evento> eventos = null;
+        List<Evento> eventos;
         try {
             eventos = eventoMapper.consultarEventos();
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -67,7 +67,7 @@ public class MyBATISEventoDAO implements EventoDAO {
      */
     @Override
     public List<Evento> consultarEventos(int id) throws PersistenceException {
-        List<Evento> eventos = null;
+        List<Evento> eventos;
         try {
             eventos = eventoMapper.consultarEventos(id);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -86,7 +86,7 @@ public class MyBATISEventoDAO implements EventoDAO {
      */
     @Override
     public List<Evento> consultarEventosRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws PersistenceException{
-        List<Evento> eventos = null;
+        List<Evento> eventos;
         try {
             eventos = eventoMapper.consultarEventosRecurso(recurso, fechaInicio, fechaFinal);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {

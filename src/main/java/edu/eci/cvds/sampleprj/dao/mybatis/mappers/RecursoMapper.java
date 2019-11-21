@@ -36,6 +36,9 @@ public interface RecursoMapper {
 
     /**
      * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
+     * @param capacidad Filtra por la capacidad de los recursos (Si es 0 no filtra)
+     * @param ubicacion Filtra por la ubicacion de los recursos (Si es null no filtra)
+     * @param tipo  Filtra por el tipo de los recursos (Si es null no filtra)
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
      */
     public List<Recurso> consultarRecursosDisponibles(@Param("capacidad") long capacidad,@Param("tipo") TipoRecurso tipo,@Param("ubicacion") UbicacionRecurso ubicacion);

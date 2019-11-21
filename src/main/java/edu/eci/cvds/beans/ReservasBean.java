@@ -1,7 +1,11 @@
 package edu.eci.cvds.beans;
 
 import com.google.inject.Inject;
-import edu.eci.cvds.samples.entities.*;
+import edu.eci.cvds.samples.entities.Recurso;
+import edu.eci.cvds.samples.entities.TipoReserva;
+import edu.eci.cvds.samples.entities.Usuario;
+import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.Evento;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import edu.eci.cvds.security.ShiroLogger;
@@ -11,7 +15,6 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -123,6 +126,10 @@ public class ReservasBean extends BasePageBean{
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
+	
+	/**
+     * Carga los eventos del calendario de reservas
+     */
     public void loadEvents(){
         eventModel = new DefaultScheduleModel();
         try {
@@ -148,22 +155,41 @@ public class ReservasBean extends BasePageBean{
 
     }
 
+	/**
+     * Obtiene el evento seleccionado en el calendario de reservas
+     * @return El evento seleccionado en el calendario de reservas
+     */
     public ScheduleEvent getEvent() {
         return event;
     }
 
+	/**
+     * Cambia el evento seleccionado en el calendario de reservas
+     * @param event El nuevo evento seleccionado en el calendario de reservas
+     */
     public void setEvent(ScheduleEvent event) {
         this.event = event;
     }
 
+	/**
+     * Obtiene el modelo del evento seleccionado en el calendario de reservas
+     * @return El modelo del evento seleccionado en el calendario de reservas
+     */
     public ScheduleModel getEventModel() {
         return eventModel;
     }
 
+	/**
+     * Obtiene el evento de la fecha seleccionada del calendario
+     * @param selectEvent El evento seleccionado en el calendario de reservas
+     */
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
+	/**
+     * Redirige a la pagina web del calendario de reservas
+     */
     public void redirectHorario() throws ExcepcionServiciosBiblioEci {
         try{
             FacesContext.getCurrentInstance().getExternalContext().redirect("horario.xhtml");

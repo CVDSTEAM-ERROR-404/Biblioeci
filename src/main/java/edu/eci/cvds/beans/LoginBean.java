@@ -28,14 +28,26 @@ public class LoginBean extends BasePageBean{
 
     private String url;
 
+	/**
+     * Retorna la url de la pagina web
+     * @return La url de la pagina web
+     */
     public String getUrl() {
         return url;
     }
 
+	/**
+     * Cambia la url de la pagina web
+     * @param url La nueva url de la pagina web
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+	/**
+     * Muestra si el usuario logueado es un administrador
+     * @return El valor booleano que determina si el usuario logueado es un administrador
+     */
     public boolean isAdmin() {
         return logger.isAdmin();
     }

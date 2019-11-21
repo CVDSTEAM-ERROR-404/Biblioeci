@@ -1,9 +1,9 @@
 package edu.eci.cvds.samples.services.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 import com.google.inject.Inject;
 import edu.eci.cvds.sampleprj.dao.RecursoDAO;
 import edu.eci.cvds.sampleprj.dao.ReservaDAO;
@@ -24,9 +24,7 @@ import org.apache.commons.lang3.tuple.MutablePair;
 import org.mybatis.guice.transactional.Transactional;
 
 /**
- * Esta clase implementa los servicios utilizados dentro de la biblioteca de la
- * Escuela Colombiana de Ingenieria Julio Garavito
- * 
+ * Esta clase implementa los servicios utilizados dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
  * @version: 18/11/2019
  */
@@ -42,11 +40,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Registra un recurso en la base de datos de la biblioteca
-     * 
      * @param cli El recurso que se va a registrar
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar el
-     *                                     recurso, el recurso no posee capacidad
-     *                                     valida o el recurso esta vacío
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar el recurso
      */
     @Override
     @Transactional
@@ -64,13 +59,10 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     }
 
     /**
-     * Consulta un recurso en la base de datos de la biblioteca, si no existe
-     * retorna null
-     * 
+     * Consulta un recurso en la base de datos de la biblioteca, si no existe retorna null
      * @param id El identificador del recurso
      * @return El recurso de la base de datos
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar el
-     *                                     recurso
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar el recurso
      */
     @Override
     public Recurso consultarRecurso(long id) throws ExcepcionServiciosBiblioEci {
@@ -102,12 +94,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     }
 
     /**
-     * Cambia el estado de un recurso en la base de datos
-     * 
-     * @param id     El identificador del recurso
-     * @param estado El nuevo estado del recurso
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cambiar el
-     *                                     estado de un recurso
+     * Consulta todos los recursos en la base de datos de la biblioteca
+     * @return Una lista con todos los recursos en la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar todos los recursos
      */
     @Override
     @Transactional
@@ -126,10 +115,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Cancela las reservas pendientes de un recurso
-     * 
      * @param id El identificador del recurso
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar las
-     *                                     reservas pendientes del recurso
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar las reservas pendientes del recurso
      */
     @Override
     @Transactional
@@ -143,13 +130,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     }
 
     /**
-     * Consulta los recursos dentro de la base de datos de la biblioteca y que están
-     * disponibles
-     *
-     * @return Una lista con los recursos dentro de la base de datos de la
-     *         biblioteca
-     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de
-     *                                     datos al consultar los recursos
+     * Consulta los recursos dentro de la base de datos de la biblioteca que estan disponibles
+     * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
      */
     @Override
     public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo) throws ExcepcionServiciosBiblioEci {
@@ -165,15 +148,17 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Registra una nueva reserva de un recurso y un usuario
-     * 
      * @param reserva Reserva a registrar
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al realizar una
-     *                                     reserva
-     * @return
+	 * @param fechaInicio Fecha Inicial de la reserva
+	 * @param fechaFinRecurrencia Fecha Final de la recurrencia en una reserva recurrente
+	 * @param fechaFinEvento Fecha Final de la reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al realizar una reserva
+     * @return Una lista con los eventos no registrados de esa reserva
      */
     @Override
     @Transactional
     public ArrayList<Evento> registrarReserva(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
+		validarReserva(reserva);
         validarFechas(fechaInicio, fechaFinRecurrencia, fechaFinEvento, reserva);
         ArrayList<Evento> ocupados = null;
         try {
@@ -194,10 +179,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta todos los eventos
-     * 
      * @return Una lista con todos los eventos
-     * @throws ExcepcionServiciosBiblioEci- Cuando hay errores en la consulta de la
-     *                                      base datos
+     * @throws ExcepcionServiciosBiblioEci Cuando hay errores en la consulta de la base datos
      */
     @Override
     public List<Evento> consultarEventos() throws ExcepcionServiciosBiblioEci {
@@ -212,11 +195,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta todos los eventos de una reserva
-     * 
      * @param id El identificador de la reserva
      * @return Una lista con todos los eventos de una reserva
-     * @throws ExcepcionServiciosBiblioEci - Cuando hay errores en la consulta de la
-     *                                     base datos
+     * @throws ExcepcionServiciosBiblioEci Cuando hay errores en la consulta de la base de datos
      */
     @Override
     public List<Evento> consultarEvento(int id) throws ExcepcionServiciosBiblioEci {
@@ -232,10 +213,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta todas las reservas de la base de datos
-     * 
      * @return Una lista con todas las reservas de la base de datos de la biblioteca
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar
-     *                                     las reservas
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar las reservas
      */
     @Override
     public List<Reserva> consultarReservas() throws ExcepcionServiciosBiblioEci {
@@ -250,11 +229,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta una reserva de la base de datos
-     * 
      * @param id El identificador de la reserva
      * @return Una lista con la reserva de la base de datos de la biblioteca
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la
-     *                                     reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la reserva
      */
     @Override
     public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci {
@@ -270,11 +247,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta un usuario dentro de la base de datos
-     * 
      * @param correo El correo del usuario
      * @return El usuario dentro de la base de datos, si no existe retorna null
-     * @throws ExcepcionServiciosBiblioEci Cuando ocrre un error al coonsultar el
-     *                                     usuario
+     * @throws ExcepcionServiciosBiblioEci Cuando ocrre un error al coonsultar el usuario
      */
     @Override
     public Usuario consultarUsuario(String correo) throws ExcepcionServiciosBiblioEci {
@@ -287,14 +262,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return usuario;
     }
 
-    /**
+	/**
      * Consulta las reservas pendientes de un recurso en la base de datos de la
      * biblioteca
-     * 
-     * @return Una lista con todas las reservas pendientes de un recurso en la base
-     *         de datos de la biblioteca
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las
-     *                                     reservas pendientes de un recurso
+     * @return Una lista con todas las reservas pendientes de un recurso en la base de datos de la biblioteca
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas pendientes de un recurso
      */
     @Override
     public List<Reserva> consultarReservasPendientes(int id) throws ExcepcionServiciosBiblioEci {
@@ -311,14 +283,11 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Consulta la disponibilidad de un recurso en cierta franja horaria
-     * 
-     * @param recurso     Identificador del recurso
+     * @param recurso Identificador del recurso
      * @param fechaInicio La fecha inicial de la franja
-     * @param fechaFinal  La fecha final de la franja
-     * @return El valor booleano que determina si el recurso esta disponible en la
-     *         franja horaria
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar la
-     *                                     disponibilidad del recurso
+     * @param fechaFinal La fecha final de la franja
+     * @return El valor booleano que determina si el recurso esta disponible en lafranja horaria
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar la disponibilidad del recurso
      */
     @Override
     public boolean consultarDisponibilidadRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws ExcepcionServiciosBiblioEci {
@@ -339,20 +308,19 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     /**
      * Registra los distintos eventos de una reserva recurrente
-     * 
-     * @param reserva             La reserva que se va a registrar
-     * @param fechaInicio         La fecha inicial de la reserva
+     * @param reserva La reserva que se va a registrar
+     * @param fechaInicio  La fecha inicial de la reserva
      * @param fechaFinRecurrencia La fecha final de la recurrencia
-     * @param fechaFinEvento      La fecha final del evento
-     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar algun
-     *                                     evento
+     * @param fechaFinEvento La fecha final del evento
+	 * @return Una lista con los eventos que no pudieron ser insertados
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar algun evento
      */
     private ArrayList<Evento> registrarEventosRecurrentes(Reserva reserva, Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento) throws ExcepcionServiciosBiblioEci {
         Calendar inicio = Calendar.getInstance();
         Calendar fin = Calendar.getInstance();
         inicio.setTime(fechaInicio);
         fin.setTime(fechaFinEvento);
-        ArrayList<Evento> noInsertados = new ArrayList<>();;
+        ArrayList<Evento> noInsertados = new ArrayList<>();
         int insertados = 0;
         try {
             while (inicio.getTime().before(fechaFinRecurrencia)) {
@@ -372,13 +340,13 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return noInsertados;
     }
-
+	
     /**
-     * Verifica que las echas de una reserva sean validas para registrarla
-     * 
-     * @param fechaInicio         La fecha inicial de la reserva
+     * Verifica que las fechas de una reserva sean validas para registrarla
+     * @param fechaInicio La fecha inicial de la reserva
      * @param fechaFinRecurrencia La fecha final de la recurrencia
-     * @param fechaFinEvento      La fecha final de la reserva
+     * @param fechaFinEvento La fecha final de la reserva
+     * @param reserva La reserva que se va a verificar
      * @throws ExcepcionServiciosBiblioEci Cuando las fechas no son validas
      */
     private void validarFechas(Date fechaInicio, Date fechaFinRecurrencia, Date fechaFinEvento, Reserva reserva) throws ExcepcionServiciosBiblioEci {
@@ -394,14 +362,31 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         if(fechaInicio.before(new Date())) { throw new ExcepcionServiciosBiblioEci("La fecha inicial debe ser despues de la fecha actual"); }
         if(duracionEventos <= 0 || (fechaFinRecurrencia != null && !fechaFinRecurrencia.after(fechaInicio))) { throw new ExcepcionServiciosBiblioEci("La fecha inicial no puede ser después que la fecha final"); }
         if(duracionEventos > 120) { throw new ExcepcionServiciosBiblioEci("Las reservas maximo pueden durar 2 horas"); }
+        if(!reserva.getRecurso().isAvailable(fechaInicio, fechaFinEvento)) { throw new ExcepcionServiciosBiblioEci("El recurso no se puede reservar a esa hora"); }
+    }
+	
+	/**
+     * Verifica que la reserva cumpla con los paramteros basicos
+     * @param reserva La reserva que se va a validar
+     * @throws ExcepcionServiciosBiblioEci Cuando las fechas no son validas
+     */
+    private void validarReserva(Reserva reserva) throws ExcepcionServiciosBiblioEci {
         if(reserva == null) { throw new ExcepcionServiciosBiblioEci("No se puede registrar una reserva nula"); }
         if(reserva.getRecurso() == null) { throw new ExcepcionServiciosBiblioEci("No se puede reservar un recurso nulo"); }
-        if(!reserva.getRecurso().isAvailable(fechaInicio, fechaFinEvento)) { throw new ExcepcionServiciosBiblioEci("El recurso no se puede reservar a esa hora"); }
-		if(reserva.getUsuario() == null){throw new ExcepcionServiciosBiblioEci("El usuario debe estar autenticado para poder reservar");}
+        if(!reserva.getRecurso().getEstado().equals(EstadoRecurso.Disponible)){throw new ExcepcionServiciosBiblioEci("No se puede reservar un recurso que no tenga estado disponible"); }
+        if(reserva.getUsuario() == null){throw new ExcepcionServiciosBiblioEci("El usuario debe estar autenticado para poder reservar");}
     }
 
+	/**
+     * Registra las fechas de un semestre
+     * @param fechaInicio Fecha inicial del semestre
+     * @param fechaFin Fecha final del semestre
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error registrando el semestre
+     */
     @Override
     public void registrarSemestre(Date fechaInicio, Date fechaFin) throws ExcepcionServiciosBiblioEci {
+		if(fechaInicio==null || fechaFin==null){throw new ExcepcionServiciosBiblioEci("No se puede registrar un semestre con alguna fecha nula");}
+        if(fechaInicio.after(fechaFin) || fechaInicio.equals(fechaFin)){throw new ExcepcionServiciosBiblioEci("No se puede registrar un semestre con fechas invalidas");}
         try {
             reservaDAO.registrarSemestre(fechaInicio, fechaFin);
         } catch (PersistenceException e) {
@@ -409,9 +394,14 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
     }
 
+	/**
+     * Retorna un par de fechas(fecha inicial, fecha final) del semestre
+     * @return Fechas del semestre
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error consultando el semestre
+     */
     @Override
     public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci {
-        MutablePair<Date, Date> semestre= null;
+        MutablePair<Date, Date> semestre;
         try {
             semestre = reservaDAO.consultarSemestre();
         } catch (PersistenceException e) {

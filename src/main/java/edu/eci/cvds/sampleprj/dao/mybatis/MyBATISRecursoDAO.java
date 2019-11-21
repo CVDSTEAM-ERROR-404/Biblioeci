@@ -32,7 +32,7 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	 */
 	@Override
 	public Recurso load(long id) throws PersistenceException {
-		Recurso ans=null;
+		Recurso ans;
 		try {
 			ans=recursoMapper.consultarRecurso(id);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -64,7 +64,7 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	 */
 	@Override
 	public List<Recurso> consultarRecursos() throws PersistenceException {
-		List<Recurso> ans = null;
+		List<Recurso> ans;
 		try {
 			ans=recursoMapper.consultarRecursos();
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -94,14 +94,16 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	}
 
 	/**
-	 * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
-	 *
+	 * Consulta los recursos dentro de la base de datos de la biblioteca que están disponibles
+	 * @param capacidad Filtra por la capacidad de los recursos (Si es 0 no filtra)
+	 * @param ubicacion Filtra por la ubicacion de los recursos (Si es null no filtra)
+	 * @param tipo  Filtra por el tipo de los recursos (Si es null no filtra)
 	 * @return Una lista con los recursos dentro de la base de datos de la biblioteca
 	 * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
 	 */
 	@Override
 	public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo) throws PersistenceException {
-		List<Recurso> recursos=null;
+		List<Recurso> recursos;
 		try{
 			recursos=recursoMapper.consultarRecursosDisponibles(capacidad, tipo,ubicacion);
 		}

@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 /**
  * Esta clase conecta los servicios de usuarios por medio de la configuracion de MyBATIS
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 20/11/2019
  */
 
 public class MyBATISUsuarioDAO implements UsuarioDAO {
@@ -17,10 +17,15 @@ public class MyBATISUsuarioDAO implements UsuarioDAO {
 	@Inject
 	private UsuarioMapper usuarioMapper;
 
-
+	/**
+	 * Consulta un usuario dentro de la base de datos
+	 * @param correo El correo del usuario
+	 * @return El usuario dentro de la base de datos, si no existe retorna null
+	 * @throws PersistenceException Cuando ocrre un error al consultar el usuario
+	 */
 	@Override
 	public Usuario consultarUsuario(String correo) throws PersistenceException {
-		Usuario usuario =null;
+		Usuario usuario;
 		try{
 			usuario = usuarioMapper.consultarUsuario(correo);
 		}

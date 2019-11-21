@@ -1,8 +1,6 @@
 package edu.eci.cvds.sampleprj.dao;
 
 import java.util.List;
-
-import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
@@ -49,6 +47,9 @@ public interface RecursoDAO{
     /**
      * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @param capacidad Filtra por la capacidad de los recursos (Si es 0 no filtra)
+     * @param ubicacion Filtra por la ubicacion de los recursos (Si es null no filtra)
+     * @param tipo  Filtra por el tipo de los recursos (Si es null no filtra)
      * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
      */
     public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo) throws PersistenceException;

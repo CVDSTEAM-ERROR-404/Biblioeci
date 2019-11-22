@@ -33,15 +33,12 @@ import java.util.List;
 @ManagedBean(name="ReservasBean")
 @SessionScoped
 public class ReservasBean extends BasePageBean{
-
-    private Recurso selectedRecurso;
-
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
     @Inject
     private ShiroLogger logger;
 
-
+    private Recurso selectedRecurso;
     private TipoReserva tipoReserva;
     private boolean isRecurrente;
     private ScheduleModel eventModel=new DefaultScheduleModel();;
@@ -151,8 +148,6 @@ public class ReservasBean extends BasePageBean{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
 	/**

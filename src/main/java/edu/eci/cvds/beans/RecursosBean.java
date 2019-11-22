@@ -158,7 +158,6 @@ public class RecursosBean extends BasePageBean {
      */
 	public void setSelectedRecurso(Recurso selectedRecurso){
 		this.selectedRecurso = selectedRecurso;
-		
 		}
 
     /**

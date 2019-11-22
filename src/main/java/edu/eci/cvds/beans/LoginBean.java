@@ -19,13 +19,13 @@ import java.io.IOException;
 @SessionScoped
 public class LoginBean extends BasePageBean{
 
+    @Inject
+    private SesionLogger logger;
+
     private String correo;
     private String password;
     private boolean rememberMe;
-    @Inject
-    private SesionLogger logger;
     private boolean isAdmin;
-
     private String url;
 
 	/**
@@ -132,7 +132,6 @@ public class LoginBean extends BasePageBean{
         return logger.isLogged();
     }
 
-
     /**
      * Si hay un usuario logueado, redirige a su respectiva pagina web
      */
@@ -150,6 +149,9 @@ public class LoginBean extends BasePageBean{
         goHome();
     }
 
+    /**
+     * Obtiene la url de la pagina web en la que se esta, previa a la autenticacion
+     */
     public void captureUrl(){
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         url = req.getRequestURL().toString();
@@ -159,10 +161,5 @@ public class LoginBean extends BasePageBean{
         catch (IOException e) {
             setErrorMessage("Error en el servidor");
         }
-
     }
-
-
-
-
 }

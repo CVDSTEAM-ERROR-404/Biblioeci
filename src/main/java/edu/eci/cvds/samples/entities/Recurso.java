@@ -254,9 +254,6 @@ public class Recurso implements Serializable{
     public boolean haveValidAvailability() {
         LocalTime horaFinal = fromStringToLocalTime(finDisponibilidad);
         LocalTime horaInicial = fromStringToLocalTime(inicioDisponibilidad);
-        boolean ans;
-        if(horaFinal.isBefore(horaInicial) || horaFinal.equals(horaInicial)){ ans = false; }
-        else{ ans = true; }
-        return ans;
+        return !horaFinal.isBefore(horaInicial) && !horaFinal.equals(horaInicial);
     }
 }

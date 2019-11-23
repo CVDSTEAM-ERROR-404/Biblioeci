@@ -3,6 +3,8 @@ package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.Evento;
 /**
  * Esta interfaz conecta los servicios relacionados con el evento a la base de datos
@@ -53,5 +55,19 @@ public interface EventoMapper {
 	 * @param fechaFinal Fecha de fin de la reserva
 	 * @return Lista de eventos que interfieran con el horario indicado
 	 */
-	public List<Evento> consultarEventosRecurso(@Param("recurso") long recurso,@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
+    public List<Evento> consultarEventosRecurso(@Param("recurso") long recurso,@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
+    
+    /**
+     * Cambia el estado del evento indicado
+     * @param evento Id del evento
+     * @param estado Estado a actualizar
+     */
+    public void cambiarEstadoEvento(@Param("estado") long evento,@Param("estado") EstadoReserva estado);
+
+    /**
+     * Cancela todos los eventos de la reserva que inician luego de la fecha dada
+     * @param reserva Id de la reserva
+     * @param fecha Fecha focal de cancelación
+     */
+    public void cancelarEventosDespues(@Param("reserva") long reserva, @Param("fecha") Date fecha);
 }

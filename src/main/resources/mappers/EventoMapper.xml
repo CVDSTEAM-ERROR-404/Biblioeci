@@ -7,15 +7,15 @@
 	<resultMap type='Evento' id='EventoResult'>
 		<id property='id' column='id'/>
 		<result property='estado' column='estado'/>
-        <result property="horaInicio" column="hora_inicio"></result>
-        <result property="horaFin" column="hora_fin"></result>
+    <result property="horaInicio" column="hora_inicio"></result>
+    <result property="horaFin" column="hora_fin"></result>
 	</resultMap>
 
   
   <update parameterType="map" id="cancelarEventosPendientesRecurso">
-      UPDATE evento
+    UPDATE evento
       set estado = 'Cancelada'
-      WHERE
+    WHERE
       evento.reserva=(select id from reserva r where r.id = evento.reserva AND r.recurso = #{recurso})  AND (now() &lt;= evento.hora_inicio);
   </update>
 
@@ -29,34 +29,50 @@
     INSERT INTO evento(reserva, hora_inicio, hora_fin, estado) values (#{reserva.id}, #{inicio}, {fin}, #{estado});
   </insert>
 
-    <select parameterType='map' id='consultarEventos' resultMap='EventoResult'>
-        SELECT
-        id,
-        reserva,
-        hora_inicio,
-        hora_fin,
-        estado
-        FROM
-        evento
-        <where>
-            <if test="reserva != null">
-                reserva = #{reserva}
-            </if>
-        </where>
-    </select>
+  <select parameterType='map' id='consultarEventos' resultMap='EventoResult'>
+    SELECT
+      id,
+      reserva,
+      hora_inicio,
+      hora_fin,
+      estado
+    FROM
+      evento
+    <where>
+      <if test="reserva != null">
+        reserva = #{reserva}
+      </if>
+    </where>
+  </select>
 
     
 
   <select parameterType='map' id='consultarEventosRecurso' resultMap='EventoResult'>
-        SELECT
-            eve.id,
-            eve.estado,
-            hora_inicio,
-            hora_fin
-        from recurso as rec, reserva as res, evento as eve
-        WHERE rec.id=#{recurso} and rec.id=res.recurso and res.id=eve.reserva AND
-            ((#{fecha_inicio} &lt; eve.hora_fin and eve.hora_inicio &lt; #{fecha_final}) or
-            (#{fecha_inicio} &lt;= eve.hora_inicio and eve.hora_fin &lt;= #{fecha_final}) or
-            ( eve.hora_inicio &lt;= #{fecha_inicio} and  #{fecha_final} &lt;= eve.hora_fin) )
-    </select>
+    SELECT
+      eve.id,
+      eve.estado,
+      hora_inicio,
+      hora_fin
+    FROM 
+      recurso as rec, reserva as res, evento as eve
+    WHERE 
+      rec.id=#{recurso} and rec.id=res.recurso and res.id=eve.reserva AND
+      ((#{fecha_inicio} &lt; eve.hora_fin and eve.hora_inicio &lt; #{fecha_final}) or
+      (#{fecha_inicio} &lt;= eve.hora_inicio and eve.hora_fin &lt;= #{fecha_final}) or
+      ( eve.hora_inicio &lt;= #{fecha_inicio} and  #{fecha_final} &lt;= eve.hora_fin) )
+  </select>
+
+  <update parameterType="map" id="cambiarEstadoEvento">
+    UPDATE evento
+      set estado = #{estado}
+    WHERE
+      evento.id=#{evento};
+  </update>
+
+  <update parameterType="map" id="cancelarEventosDespues">
+    UPDATE evento
+      set estado = 'Cancelada'
+    WHERE
+      evento.reserva=#{reserva} AND #{fecha} &lt;= evento.hora_inicio;
+  </update>
 </mapper>

@@ -3,6 +3,8 @@ package edu.eci.cvds.sampleprj.dao;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.tuple.MutablePair;
+
+import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.Reserva;
 
 /**
@@ -70,5 +72,36 @@ public interface ReservaDAO{
 	 * @throws PersistenceException Cuando ocurre algun error consultando el semestre
 	 */
 	public MutablePair<Date, Date> consultarSemestre() throws PersistenceException;
+
+	/**
+	 * Retorna todas las reservas del usuario
+	 * @param usuario Id del usuario
+	 * @return Todas las reservas del usuario
+	 * @throws PersistenceException
+	 */
+	public List<Reserva> consultarReservasUsuario(long usuario) throws PersistenceException;
+
+	/**
+	 * Retorna la fecha de finalización de la reserva indicada
+	 * @param reserva Id de la reserva
+	 * @return Fecha de finalización de la reserva(último evento)
+	 * @throws PersistenceException
+	 */
+	public Date consultarFechaFinalizacion(long reserva) throws PersistenceException;
+
+	/**
+	 * Retorna la fecha de la próxima ocurrencia de la reserva
+	 * @param reserva Id de la reserva
+	 * @return Fecha del próximo evento de la reserva
+	 * @throws PersistenceException
+	 */
+	public Date consultarProximaOcurrencia(long reserva) throws PersistenceException;
+
+	/**
+	 * Cambia el estado de la reserva
+	 * @param reserva Id de la reserva
+	 * @param estado nuevo estado de la reserva
+	 */
+	public void cambiarEstadoReserva(long reserva,EstadoReserva estado) throws PersistenceException;
 
 }

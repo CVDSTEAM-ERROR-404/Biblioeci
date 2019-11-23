@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.ibatis.annotations.Param;
+
+import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.Reserva;
 
 
@@ -67,4 +69,32 @@ public interface ReservaMapper {
 	 * @param fechaFinal Fecha final del semestre
 	 */
 	public void registrarSemestre(@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
+
+	/**
+	 * Consulta todas las reservas del usuario
+	 * @param usuario Id del usuario
+	 * @return Todas las reservas del usuario
+	 */
+	public List<Reserva> consultarReservasUsuario(@Param("usuario") long usuario);
+
+	/**
+	 * Retorna la fecha de finalización de la reserva
+	 * @param reserva Id de la reserva
+	 * @return Fecha en que termina la reserva indicada
+	 */
+	public Date consultarFechaFinalizacion(@Param("reserva") long reserva);
+
+	/**
+	 * Retorna la fecha de inicio del próximo evento de la reserva
+	 * @param reserva Id de la reserva
+	 * @return Fecha de inicio del próximo evento de la reserva
+	 */
+	public Date consultarProximaOcurrencia(@Param("reserva")  long reserva);
+	
+	/**
+	 * Cambia el estado de la reserva
+	 * @param reserva Id de la reserva
+	 * @param estado nuevo estado de la reserva
+	 */
+	public void cambiarEstadoReserva(@Param("reserva") long reserva, @Param("estado") EstadoReserva estado);
 }

@@ -104,12 +104,12 @@
 		LIMIT 1;
 	</select>
 		
-	<select parameterType="map" id="consultarReservasUsuario" resultMap='pairResultMap'>
+	<select parameterType="map" id="consultarReservasActivasUsuario" resultMap='ReservaResult'>
 		<include refid="getAllReservas"/>
 		<if test="usuario != null">
 			AND res.usuario = #{usuario}
 		</if>
-		ORDER BY res.fecha_solicitud DESC;
+		ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;
 	</select>
 
 	<select parameterType="map" id="consultarFechaFinalizacion" resultType="java.util.Date">
@@ -128,7 +128,7 @@
 		FROM
 			evento as eve
 		WHERE
-			eve.reserva=#{reserva} AND eve.estado='Activa'AND now() &lt;= hora_inicio;
+			eve.reserva=#{reserva} AND eve.estado='Activa'AND now() &lt;= eve.hora_inicio;
 	</select>
 
 	
@@ -138,4 +138,23 @@
 		WHERE
 			res.id = #{reserva};
 	</update>
+
+
+	<select parameterType="map" id="consultarReservasPasadasUsuario" resultMap='ReservaResult'>
+		<include refid="getAllReservas"/>
+		<if test="usuario != null">
+			AND res.usuario = #{usuario} AND
+			(SELECT MAX(eve1.hora_fin) FROM evento as eve1 WHERE eve1.reserva=res.id) &lt; now()
+		</if>
+		ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;
+	</select>
+
+
+	<select parameterType="map" id="consultarReservasCanceladasUsuario" resultMap='ReservaResult'>
+		<include refid="getAllReservas"/>
+		<if test="usuario != null">
+			AND res.usuario = #{usuario} AND res.estado='Cancelada'
+		</if>
+		ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;
+	</select>
 </mapper>

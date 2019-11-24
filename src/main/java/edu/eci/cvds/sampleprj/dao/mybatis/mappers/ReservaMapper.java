@@ -71,11 +71,25 @@ public interface ReservaMapper {
 	public void registrarSemestre(@Param("fecha_inicio") Date fechaInicio,@Param("fecha_final") Date fechaFinal);
 
 	/**
-	 * Consulta todas las reservas del usuario
+	 * Consulta todas las reservas activas del usuario 
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
-	public List<Reserva> consultarReservasUsuario(@Param("usuario") long usuario);
+	public List<Reserva> consultarReservasActivasUsuario(@Param("usuario") long usuario);
+
+	/**
+	 * Consulta todas las reservas pasadas del usuario 
+	 * @param usuario Id del usuario
+	 * @return Todas las reservas del usuario
+	 */
+	public List<Reserva> consultarReservasPasadasUsuario(@Param("usuario") long usuario);
+
+	/**
+	 * Consulta todas las reservas canceladas del usuario 
+	 * @param usuario Id del usuario
+	 * @return Todas las reservas del usuario
+	 */
+	public List<Reserva> consultarReservasCanceladasUsuario(@Param("usuario") long usuario);
 
 	/**
 	 * Retorna la fecha de finalización de la reserva

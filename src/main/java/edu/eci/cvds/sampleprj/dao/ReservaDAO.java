@@ -74,12 +74,26 @@ public interface ReservaDAO{
 	public MutablePair<Date, Date> consultarSemestre() throws PersistenceException;
 
 	/**
-	 * Retorna todas las reservas del usuario
+	 * Retorna todas las reservas activas del usuario
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 * @throws PersistenceException
 	 */
-	public List<Reserva> consultarReservasUsuario(long usuario) throws PersistenceException;
+	public List<Reserva> consultarReservasActivasUsuario(long usuario) throws PersistenceException;
+
+	/**
+	 * Consulta todas las reservas pasadas del usuario 
+	 * @param usuario Id del usuario
+	 * @return Todas las reservas del usuario
+	 */
+	public List<Reserva> consultarReservasPasadasUsuario(long usuario)throws PersistenceException;
+
+	/**
+	 * Consulta todas las reservas canceladas del usuario 
+	 * @param usuario Id del usuario
+	 * @return Todas las reservas del usuario
+	 */
+	public List<Reserva> consultarReservasCanceladasUsuario(long usuario) throws PersistenceException;
 
 	/**
 	 * Retorna la fecha de finalización de la reserva indicada

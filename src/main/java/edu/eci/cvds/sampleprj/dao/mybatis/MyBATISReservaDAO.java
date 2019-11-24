@@ -164,10 +164,10 @@ public class MyBATISReservaDAO implements ReservaDAO {
 	}
 
 	@Override
-	public List<Reserva> consultarReservasUsuario(long usuario) throws PersistenceException {
+	public List<Reserva> consultarReservasActivasUsuario(long usuario) throws PersistenceException {
 		List<Reserva> reservas = null;
 		try {
-			reservas = reservaMapper.consultarReservasUsuario(usuario);
+			reservas = reservaMapper.consultarReservasActivasUsuario(usuario);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
 			throw new PersistenceException("Error al consultar reservas del usuario " + usuario, e);
 		}
@@ -201,8 +201,30 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		try {
 			reservaMapper.cambiarEstadoReserva(reserva, estado);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al ambiar el estado de la reserva "+reserva, e);
+			throw new PersistenceException("Error al cambiar el estado de la reserva "+reserva, e);
 		}
+	}
+
+	@Override
+	public List<Reserva> consultarReservasPasadasUsuario(long usuario) throws PersistenceException {
+		List<Reserva> reservas = null;
+		try {
+			reservas = reservaMapper.consultarReservasPasadasUsuario(usuario);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar las reservas pasadas del usuario "+ usuario, e);
+		}
+		return reservas;
+	}
+
+	@Override
+	public List<Reserva> consultarReservasCanceladasUsuario(long usuario) throws PersistenceException {
+		List<Reserva> reservas = null;
+		try {
+			reservas = reservaMapper.consultarReservasCanceladasUsuario(usuario);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar las reservas canceladas del usuario "+ usuario, e);
+		}
+		return reservas;
 	}
 
 	

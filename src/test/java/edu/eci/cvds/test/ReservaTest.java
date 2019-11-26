@@ -34,12 +34,10 @@ public class ReservaTest extends ServicioBiblioEciTest{
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
         serviciosBiblioEci.cancelarReservasPendientes(recurso.getId());
         List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(recurso.getId());
-        List<Reserva> reservasCanceladas = serviciosBiblioEci.consultarReserva(reserva.getId());
+        Reserva res = serviciosBiblioEci.consultarReserva(reserva.getId());
         List<Evento> eventoCanceladas = serviciosBiblioEci.consultarEvento(reserva.getId());
         assertEquals(reservas.size(),0);
-        for(Reserva res : reservasCanceladas){
-            assertEquals(res.getEstado(),EstadoReserva.Cancelada);
-        }
+        assertEquals(res.getEstado(),EstadoReserva.Cancelada);
         for(Evento eve : eventoCanceladas){
             assertEquals(eve.getEstado(),EstadoReserva.Cancelada);
         }
@@ -78,10 +76,8 @@ public class ReservaTest extends ServicioBiblioEciTest{
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(10),getFinalDate());
-        List<Reserva> reservas = serviciosBiblioEci.consultarReserva(reserva.getId());
-        for(Reserva res:reservas){
-            assertEquals(res.getId(),reserva.getId());
-        }
+        Reserva res = serviciosBiblioEci.consultarReserva(reserva.getId());
+        assertEquals(res.getId(),reserva.getId());
         List<Evento> eventos = serviciosBiblioEci.consultarEvento(reserva.getId());
         assertTrue(eventos.size()>1);
     }
@@ -92,10 +88,8 @@ public class ReservaTest extends ServicioBiblioEciTest{
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Mensual,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(90),getFinalDate());
-        List<Reserva> reservas = serviciosBiblioEci.consultarReserva(reserva.getId());
-        for(Reserva res:reservas){
-            assertEquals(res.getId(),reserva.getId());
-        }
+        Reserva res = serviciosBiblioEci.consultarReserva(reserva.getId());
+        assertEquals(res.getId(),reserva.getId());
         List<Evento> eventos = serviciosBiblioEci.consultarEvento(reserva.getId());
         assertTrue(eventos.size()>1);
     }
@@ -106,10 +100,8 @@ public class ReservaTest extends ServicioBiblioEciTest{
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
-        List<Reserva> reservas = serviciosBiblioEci.consultarReserva(reserva.getId());
-        for(Reserva res:reservas){
-            assertEquals(res.getId(),reserva.getId());
-        }
+        Reserva res = serviciosBiblioEci.consultarReserva(reserva.getId());
+        assertEquals(res.getId(),reserva.getId());
         List<Evento> eventos = serviciosBiblioEci.consultarEvento(reserva.getId());
         assertEquals(1,eventos.size());
     }
@@ -120,10 +112,8 @@ public class ReservaTest extends ServicioBiblioEciTest{
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Semanal,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(28),getFinalDate());
-        List<Reserva> reservas = serviciosBiblioEci.consultarReserva(reserva.getId());
-        for(Reserva res:reservas){
-            assertEquals(res.getId(),reserva.getId());
-        }
+        Reserva res = serviciosBiblioEci.consultarReserva(reserva.getId());
+        assertEquals(res.getId(),reserva.getId());
         List<Evento> eventos = serviciosBiblioEci.consultarEvento(reserva.getId());
         assertTrue(eventos.size()>1);
     }
@@ -427,8 +417,8 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldReturnANullListWhenTheReservationDoesntExist() throws ExcepcionServiciosBiblioEci {
-        List<Reserva> reservas = serviciosBiblioEci.consultarReserva(100);
-        assertEquals(0,reservas.size());
+        Reserva res = serviciosBiblioEci.consultarReserva(100);
+        assertEquals(res,null);
     }
 
     @Test

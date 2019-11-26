@@ -81,14 +81,14 @@ public class MyBATISReservaDAO implements ReservaDAO {
 	 * @throws PersistenceException Cuando courre un error al consultar las reservas
 	 */
 	@Override
-	public List<Reserva> consultarReserva(long id) throws PersistenceException {
-		List<Reserva> reservas;
+	public Reserva consultarReserva(long id) throws PersistenceException {
+		Reserva reserva;
 		try {
-			reservas = reservaMapper.consultarReserva(id);
+			reserva = reservaMapper.consultarReserva(id);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
 			throw new PersistenceException("Error al cosultar la reserva " + id, e);
 		}
-		return reservas;
+		return reserva;
 	}
 
 	/**

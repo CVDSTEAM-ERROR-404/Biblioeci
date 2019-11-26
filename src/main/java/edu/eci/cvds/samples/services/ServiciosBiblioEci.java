@@ -109,7 +109,7 @@ public interface ServiciosBiblioEci {
      * @return Una lista con la reserva de la base de datos de la biblioteca
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la reserva
      */
-    public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci;
+    public Reserva consultarReserva(long id) throws ExcepcionServiciosBiblioEci;
 
     /**
      * Consulta un usuario dentro de la base de datos

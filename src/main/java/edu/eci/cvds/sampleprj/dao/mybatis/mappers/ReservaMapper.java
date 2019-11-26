@@ -48,7 +48,7 @@ public interface ReservaMapper {
 	 * @param id El identificador de la reserva
 	 * @return Una lista con las reservas de la base de datos de la biblioteca
 	 */
-	public List<Reserva> consultarReserva(@Param("id")long id);
+	public Reserva consultarReserva(@Param("id")long id);
 
 	/**
 	 * Retorna una lista de las reservas del recurso especificado

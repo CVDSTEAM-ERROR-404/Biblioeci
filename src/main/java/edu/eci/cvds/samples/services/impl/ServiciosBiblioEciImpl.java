@@ -234,15 +234,15 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la reserva
      */
     @Override
-    public List<Reserva> consultarReserva(long id) throws ExcepcionServiciosBiblioEci {
+    public Reserva consultarReserva(long id) throws ExcepcionServiciosBiblioEci {
         if (id < 1) { throw new ExcepcionServiciosBiblioEci("La reserva con el id " + id + " es invalido"); }
-        List<Reserva> reservas;
+        Reserva reserva;
         try {
-            reservas = reservaDAO.consultarReserva(id);
+            reserva = reservaDAO.consultarReserva(id);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al consultar la reserva" + id, e);
         }
-        return reservas;
+        return reserva;
     }
 
     /**

@@ -48,7 +48,7 @@ public interface ReservaDAO{
 	 * @return Una lista con la reserva de la base de datos de la biblioteca
 	 * @throws PersistenceException Cuando ocurre algun error al consultar la reserva
 	 */
-	public List<Reserva> consultarReserva(long id) throws PersistenceException;
+	public Reserva consultarReserva(long id) throws PersistenceException;
 
 	/**
 	 * Retorna todas las reservas del recurso

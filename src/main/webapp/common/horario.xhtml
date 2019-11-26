@@ -93,8 +93,11 @@
 						<p:outputLabel for="datef" value="Hora fin:" />
 						<p:outputLabel id="datef" class="intlabel" value="#{ReservasBean.event.endDate}" />
 
-						<p:outputLabel for="user" class="intlabel" value="Usuario" />
-						<p:outputLabel id="user"  value="#{ReservasBean.getSelectedReserva().getUsuario().getNombre()}" />
+						<p:outputLabel for="recurso" value="Recurso:" />
+						<p:outputLabel id="recurso" class="intlabel" value="#{ReservasBean.getSelectedReserva().getRecurso().getNombre()}" />
+
+						<p:outputLabel for="user" class="intlabel" value="Usuario" rendered="#{LoginBean.isAdmin()}" />
+						<p:outputLabel id="user"  value="#{ReservasBean.getSelectedReserva().getUsuario().getNombre()}" rendered="#{LoginBean.isAdmin()}" />
 
 					</p:panelGrid>
 

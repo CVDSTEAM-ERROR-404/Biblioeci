@@ -106,9 +106,9 @@
 		
 	<select parameterType="map" id="consultarReservasActivasUsuario" resultMap='ReservaResult'>
 		<include refid="getAllReservas"/>
-		<if test="usuario != null">
+
 			AND res.usuario = #{usuario}
-		</if>
+
 		ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;
 	</select>
 

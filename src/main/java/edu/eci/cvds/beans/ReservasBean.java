@@ -208,12 +208,14 @@ public class ReservasBean extends BasePageBean{
         }
     }
 
-    public void consultarReservasActivasUsuario(){
+    public List<Reserva> consultarReservasActivasUsuario(){
+        List<Reserva> reservas = null;
         try {
-            List<Reserva>reservas =serviciosBiblioEci.consultarReservasActivasUsuario(logger.getUser());
+            reservas =serviciosBiblioEci.consultarReservasActivasUsuario(logger.getUser());
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
+        return reservas;
     }
 
 

@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/images/icons/eci.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/util.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet" />
+</h:head>
+
+<h:body>
+    <h:form id="inforeservas_form" autocomplete="off" >
+        <p:growl id="growl" showDetail="false" sticky="true" />
+
+        <p:panel class="panelCenter" id="inforeserva"   style="width: 500px;">
+
+            <p:fieldset legend="Info reservas" >
+            <center>
+                <p:panelGrid  id="grid" columns="2"  >
+
+                    <p:outputLabel for="reservaid" class="intlabel"  value="Id reserva: " rendered="#{LoginBean.isAdmin()}" />
+                    <p:outputLabel id="reservaid" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getId()}" rendered="#{LoginBean.isAdmin()}" />
+
+                    <p:outputLabel for="reservatipo" class="intlabel"  value="Tipo reserva: " />
+                    <p:outputLabel id="reservatipo" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getTipo()}" />
+
+                    <p:outputLabel for="reservafecha" class="intlabel"  value="Fecha solicitud: " />
+                    <p:outputLabel id="reservafecha" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getFechaSolicitud()}" />
+
+                    <p:outputLabel for="recursoid" class="intlabel"  value="Id recurso: " rendered="#{LoginBean.isAdmin()}" />
+                    <p:outputLabel id="recursoid" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getId()}" rendered="#{LoginBean.isAdmin()}" />
+
+                    <p:outputLabel for="recurso" class="intlabel"  value="Nombre recurso: " />
+                    <p:outputLabel id="recurso" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getNombre()}" />
+
+                    <p:outputLabel for="recursotipo" class="intlabel"  value="Tipo recurso: " />
+                    <p:outputLabel id="recursotipo" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getTipo()}" />
+
+                    <p:outputLabel for="recursoubicacion" class="intlabel"  value="Ubicacion recurso: " />
+                    <p:outputLabel id="recursoubicacion" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getUbicacion()}" />
+
+                    <p:outputLabel for="recursocapacidad" class="intlabel"  value="Capacidad recurso: " />
+                    <p:outputLabel id="recursocapacidad" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getCapacidad()}" />
+
+                    <p:outputLabel for="reservausuario" class="intlabel"  value="Usuario: " />
+                    <p:outputLabel id="reservausuario" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getUsuario().getNombre()}" />
+
+                    <p:outputLabel for="reservaprograma" class="intlabel"  value="Programa usuario: " />
+                    <p:outputLabel id="reservaprograma" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getUsuario().getArea()}" />
+
+
+                </p:panelGrid>
+
+            </center>
+
+            </p:fieldset>
+
+            <f:facet name="footer">
+                <center>
+                <h:outputLink value="misReservas.xhtml"
+                              styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+                    <span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+                </h:outputLink>
+                 </center>
+            </f:facet>
+
+
+        </p:panel>
+
+    </h:form>
+</h:body>
+</html>

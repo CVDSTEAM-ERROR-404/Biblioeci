@@ -50,7 +50,9 @@ public class LoginBean extends BasePageBean{
     public boolean isAdmin() {
         return logger.isAdmin();
     }
-
+    public boolean isUser() {
+        return logger.isUser();
+    }
 
     /**
      * Retorna el valor booleano que determina si el usuario se va a recordar

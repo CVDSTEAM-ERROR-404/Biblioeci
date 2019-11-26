@@ -21,6 +21,7 @@ import org.mybatis.guice.transactional.Transactional;
  * @author: CVDSTEAM-ERROR-404
  * @version: 18/11/2019
  */
+
 public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Inject
     private RecursoDAO recursoDAO;
@@ -85,6 +86,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return ans;
     }
+
+
 
     /**
      * Consulta todos los recursos en la base de datos de la biblioteca
@@ -414,6 +417,17 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci(e.getMessage());
         }
+    }
+
+    @Override
+    public List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci {
+        List<Reserva> reservas;
+        try {
+            reservas=reservaDAO.consultarReservasRecurso(idRecurso);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del recurso",e);
+        }
+        return reservas;
     }
 
 }

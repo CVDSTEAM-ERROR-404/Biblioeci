@@ -38,6 +38,7 @@
 					<p:schedule id="schedule" value="#{ReservasBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm" axisFormat="H:mm"  >
 
 						<p:ajax event="dateSelect" listener="#{ReservasBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+						<p:ajax event="eventSelect" listener="#{ReservasBean.onEventSelect}" update="reservaDetails" oncomplete="PF('reservaDialog').show();" />
 
 					</p:schedule>
 				</h:panelGrid>
@@ -77,6 +78,29 @@
 					</f:facet>
 				</p:panel>
 			</p:dialog>
+
+
+			<p:dialog widgetVar="reservaDialog" header="Reserva" showEffect="clip" hideEffect="clip">
+				<p:panel id="panel_info_reserva" >
+					<p:panelGrid id="reservaDetails" columns="2">
+
+						<p:outputLabel class="intlabel"  value="Tipo: " />
+						<p:outputLabel class="intlabel" value="#{ReservasBean.getSelectedReserva().getTipo().name()}"/>
+
+						<p:outputLabel for="datei" value="Hora inicio:" />
+						<p:outputLabel id="datei" class="intlabel" value="#{ReservasBean.event.startDate}" />
+
+						<p:outputLabel for="datef" value="Hora fin:" />
+						<p:outputLabel id="datef" class="intlabel" value="#{ReservasBean.event.endDate}" />
+
+						<p:outputLabel for="user" class="intlabel" value="Usuario" />
+						<p:outputLabel id="user"  value="#{ReservasBean.getSelectedReserva().getUsuario().getNombre()}" />
+
+					</p:panelGrid>
+
+				</p:panel>
+			</p:dialog>
+
 			<h:commandButton class="button4" value="Logout" style="font-size:12px;" rendered="#{LoginBean.isLogged()}" actionListener="#{LoginBean.logout()}" />
 			<h:commandButton actionListener="#{LoginBean.captureUrl()}" rendered="#{!(LoginBean.isLogged())}" value="Iniciar sesion" class="button4"  />
 		</h:form>

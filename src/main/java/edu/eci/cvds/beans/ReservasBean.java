@@ -37,12 +37,20 @@ public class ReservasBean extends BasePageBean{
     private ServiciosBiblioEci serviciosBiblioEci;
     @Inject
     private ShiroLogger logger;
-
+    private Reserva selectedReserva;
     private Recurso selectedRecurso;
     private TipoReserva tipoReserva;
     private boolean isRecurrente;
     private ScheduleModel eventModel=new DefaultScheduleModel();;
     private ScheduleEvent event = new DefaultScheduleEvent();
+
+    public Reserva getSelectedReserva() {
+        return selectedReserva;
+    }
+
+    public void setSelectedReserva(Reserva selectedReserva) {
+        this.selectedReserva = selectedReserva;
+    }
 
     /**
      * Muestra si la reserva es recurrente
@@ -135,10 +143,11 @@ public class ReservasBean extends BasePageBean{
                 FacesContext.getCurrentInstance().getExternalContext().redirect("consultarRecurso.xhtml");
             }
             else {
-                List<Reserva> reservas = serviciosBiblioEci.consultarReservasPendientes(getSelectedRecurso().getId());
+                List<Reserva> reservas = serviciosBiblioEci.consultarReservasRecurso(getSelectedRecurso().getId());
                 for (Reserva reserva : reservas) {
                     for (Evento evento : reserva.getEventosAsignados()) {
-                        event = new DefaultScheduleEvent("Reserva de " + reserva.getRecurso().getNombre(), evento.getHoraFin(), evento.getHoraFin(), reserva.getTipo().name());
+                        event = new CustomScheduleEvent("Reserva de " + reserva.getRecurso().getNombre(), evento.getHoraInicio(), evento.getHoraFin(), reserva.getTipo().name(),reserva);
+
                         eventModel.addEvent(event);
                     }
                 }
@@ -180,6 +189,11 @@ public class ReservasBean extends BasePageBean{
      */
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+    }
+
+    public void onEventSelect(SelectEvent selectEvent) {
+        event = (CustomScheduleEvent) selectEvent.getObject();
+        selectedReserva = (Reserva) event.getData();
     }
 
 	/**

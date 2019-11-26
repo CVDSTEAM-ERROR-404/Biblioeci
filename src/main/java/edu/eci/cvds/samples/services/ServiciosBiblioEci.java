@@ -146,4 +146,6 @@ public interface ServiciosBiblioEci {
 
     public abstract void cancelarReserva(Reserva reserva) throws ExcepcionServiciosBiblioEci;
 
+    public abstract List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci;
+
 }

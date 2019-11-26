@@ -73,10 +73,10 @@ body{
 }
 /*---------------------------------------------*/
 a {
-	font-family: Raleway-Bold !important;;
+	font-family: Raleway-Bold !important;
 	font-size: 14px;
 	line-height: 1.7;
-	color: white;
+	color: white !important;
 	margin: 0px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;

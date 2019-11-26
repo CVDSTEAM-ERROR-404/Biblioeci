@@ -34,8 +34,8 @@
 
         <p:panel class="panelCenter" id="panelreserva"   style="width: 900px;">
 
-            <p:fieldset legend="Mis reservas" >
-                <center>
+            <p:tabView>
+            <p:tab title="Mis reservas">
                     <p:dataTable     var="res" value="#{ReservasBean.consultarReservasActivasUsuario()}"
                                      paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                   rowsPerPageTemplate="5,10,15"
@@ -61,7 +61,7 @@
                         <p:column headerText="Mas opciones">
                             <center>
                             <p:commandLink update="misreservas_form:outgrid" oncomplete="PF('reservaDialog').show()" style="background:white;">
-                                <i class="material-icons">
+                                <i class="material-icons" style="color:black !important;" >
                                     add_circle_outline
                                 </i>
 
@@ -73,16 +73,113 @@
 
 
                     </p:dataTable>
+             </p:tab>
 
-                </center>
 
-            </p:fieldset>
+                <p:tab title="Mis reservas pasadas">
+                    <p:dataTable     var="res" value="#{ReservasBean.consultarReservasPasadasUsuario()}"
+                                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                                     paginatorPosition="bottom" rows="10" style="width:750px;"  >
+
+                        <f:facet name="header" style="color:black;">
+                            Reservas
+                        </f:facet>
+
+                        <p:column headerText="Recurso"  width="120">
+                            <h:outputText value="#{res.getRecurso().getNombre()}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo"  width="160">
+                            <h:outputText value="#{res.getTipo().name()}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha Solicitud">
+                            <h:outputText value="#{res.getFechaSolicitud()}" />
+                        </p:column>
+
+                        <p:column headerText="Mas opciones">
+                            <center>
+                                <p:commandLink update="misreservas_form:outgrid2" oncomplete="PF('reservaDialog2').show()" style="background:white;">
+                                    <i class="material-icons" style="color:black !important;" >
+                                        add_circle_outline
+                                    </i>
+
+                                    <f:setPropertyActionListener  value="#{res}" target="#{ReservasBean.selectedReserva}" />
+                                </p:commandLink>
+                            </center>
+
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:tab>
+
+
+                <p:tab title="Mis reservas canceladas">
+                    <p:dataTable     var="res" value="#{ReservasBean.consultarReservasCanceladasUsuario()}"
+                                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                                     paginatorPosition="bottom" rows="10" style="width:750px;"  >
+
+                        <f:facet name="header" style="color:black;">
+                            Reservas
+                        </f:facet>
+
+                        <p:column headerText="Recurso"  width="120">
+                            <h:outputText value="#{res.getRecurso().getNombre()}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo"  width="160">
+                            <h:outputText value="#{res.getTipo().name()}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha Solicitud">
+                            <h:outputText value="#{res.getFechaSolicitud()}" />
+                        </p:column>
+
+                        <p:column headerText="Mas opciones">
+                            <center>
+                                <p:commandLink update="misreservas_form:outgrid2" oncomplete="PF('reservaDialog2').show()" style="background:white;">
+                                    <i class="material-icons" style="color:black !important;" >
+                                        add_circle_outline
+                                    </i>
+
+                                    <f:setPropertyActionListener  value="#{res}" target="#{ReservasBean.selectedReserva}" />
+                                </p:commandLink>
+                            </center>
+
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:tab>
+
+            </p:tabView>
+
 
             <p:dialog header="Mas opciones" widgetVar="reservaDialog"  resizable="false" >
 
                 <p:outputPanel id="outgrid" style="text-align:center; width:450px;"  >
 
                         <h:commandButton class="buttonp" value="Cancelar" style="font-size:12px; "  update="misreservas_form"/>
+
+                    <h:outputLink value="infoReservas.xhtml"
+                                  styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+                        <span class="ui-button-text" style="padding: 15px 25px;" >Ver info</span>
+                    </h:outputLink>
+
+                </p:outputPanel>
+
+            </p:dialog>
+
+
+            <p:dialog header="Mas opciones" widgetVar="reservaDialog2"  resizable="false" >
+
+                <p:outputPanel id="outgrid2" style="text-align:center; width:450px;"  >
+
 
                     <h:outputLink value="infoReservas.xhtml"
                                   styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">

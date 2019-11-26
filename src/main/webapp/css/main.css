@@ -592,6 +592,10 @@ iframe {
 .buttond:hover {
   background: #333333;
 }
+
+.buttonp:hover {
+  background: #333333;
+}
  
 .button1{
   font-family: Raleway-Bold !important;
@@ -614,6 +618,28 @@ iframe {
     text-align:center; 
     
 	
+}
+
+.buttonp{
+  font-family: Raleway-Bold !important;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+
+  width: 50px%;
+  height: 42px;
+  border-radius: 3px;
+  background: #cc0000;
+  margin-right:25%;
+  padding: 0 25px;
+
+
+
+   display: inline;
+    text-align:center;
+
+
 }
 
 .buttond{

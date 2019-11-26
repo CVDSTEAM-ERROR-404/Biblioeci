@@ -442,4 +442,27 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return  reservas;
     }
 
+    @Override
+    public List<Reserva> consultarReservasPasadasUsuario(String usuario) throws ExcepcionServiciosBiblioEci {
+        List<Reserva> reservas;
+        try {
+            reservas=reservaDAO.consultarReservasPasadasUsuario(usuario);
+        }catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del usuario",e);
+        }
+        return  reservas;
+
+    }
+
+    @Override
+    public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws ExcepcionServiciosBiblioEci {
+        List<Reserva> reservas;
+        try {
+            reservas=reservaDAO.consultarReservasCanceladasUsuario(usuario);
+        }catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del usuario",e);
+        }
+        return  reservas;
+    }
+
 }

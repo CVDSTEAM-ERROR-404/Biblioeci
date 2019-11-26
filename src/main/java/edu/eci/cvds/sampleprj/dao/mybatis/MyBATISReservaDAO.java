@@ -219,7 +219,7 @@ public class MyBATISReservaDAO implements ReservaDAO {
 	}
 
 	@Override
-	public List<Reserva> consultarReservasPasadasUsuario(long usuario) throws PersistenceException {
+	public List<Reserva> consultarReservasPasadasUsuario(String usuario) throws PersistenceException {
 		List<Reserva> reservas = null;
 		try {
 			reservas = reservaMapper.consultarReservasPasadasUsuario(usuario);
@@ -230,7 +230,7 @@ public class MyBATISReservaDAO implements ReservaDAO {
 	}
 
 	@Override
-	public List<Reserva> consultarReservasCanceladasUsuario(long usuario) throws PersistenceException {
+	public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws PersistenceException {
 		List<Reserva> reservas = null;
 		try {
 			reservas = reservaMapper.consultarReservasCanceladasUsuario(usuario);

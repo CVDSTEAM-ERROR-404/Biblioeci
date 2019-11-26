@@ -88,14 +88,14 @@ public interface ReservaDAO{
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
-	public List<Reserva> consultarReservasPasadasUsuario(long usuario)throws PersistenceException;
+	public List<Reserva> consultarReservasPasadasUsuario(String usuario)throws PersistenceException;
 
 	/**
 	 * Consulta todas las reservas canceladas del usuario 
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
-	public List<Reserva> consultarReservasCanceladasUsuario(long usuario) throws PersistenceException;
+	public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws PersistenceException;
 
 	/**
 	 * Retorna la fecha de finalización de la reserva indicada

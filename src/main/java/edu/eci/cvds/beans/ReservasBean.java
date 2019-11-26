@@ -217,6 +217,24 @@ public class ReservasBean extends BasePageBean{
         }
         return reservas;
     }
+    public List<Reserva> consultarReservasPasadasUsuario(){
+        List<Reserva> reservas = null;
+        try {
+            reservas =serviciosBiblioEci.consultarReservasPasadasUsuario(logger.getUser());
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+        return reservas;
+    }
+    public List<Reserva> consultarReservasCanceladasUsuario(){
+        List<Reserva> reservas = null;
+        try {
+            reservas =serviciosBiblioEci.consultarReservasCanceladasUsuario(logger.getUser());
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+        return reservas;
+    }
 
 
 }

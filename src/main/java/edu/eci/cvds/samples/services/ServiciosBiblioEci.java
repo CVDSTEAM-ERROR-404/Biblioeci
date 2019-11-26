@@ -150,5 +150,10 @@ public interface ServiciosBiblioEci {
 
     public List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
 
+    public List<Reserva> consultarReservasPasadasUsuario(String usuario) throws  ExcepcionServiciosBiblioEci;
+
+    public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
+
+
 
 }

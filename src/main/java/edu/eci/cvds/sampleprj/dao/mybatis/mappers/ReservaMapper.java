@@ -83,14 +83,14 @@ public interface ReservaMapper {
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
-	public List<Reserva> consultarReservasPasadasUsuario(@Param("usuario") long usuario);
+	public List<Reserva> consultarReservasPasadasUsuario(@Param("usuario") String usuario);
 
 	/**
 	 * Consulta todas las reservas canceladas del usuario 
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
-	public List<Reserva> consultarReservasCanceladasUsuario(@Param("usuario") long usuario);
+	public List<Reserva> consultarReservasCanceladasUsuario(@Param("usuario") String usuario);
 
 	/**
 	 * Retorna la fecha de finalización de la reserva

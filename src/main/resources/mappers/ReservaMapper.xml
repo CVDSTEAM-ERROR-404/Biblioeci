@@ -56,9 +56,10 @@
 	<select parameterType='map' id='consultarReservasPendientes' resultMap='ReservaResult'>
     <include refid="getAllReservas"/>
 		<if test="id != null">
-			AND res.estado='Activa' AND res.recurso=#{id} AND EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva);
+			AND res.estado='Activa' AND res.recurso=#{id} AND EXISTS(select * from evento as eve1 where now() &lt;= eve1.hora_inicio and res.id=eve1.reserva)
+			AND now() &lt;= eve.hora_inicio;
 		</if>
-  	</select>
+  </select>
 
      
   
@@ -86,7 +87,7 @@
 	<select parameterType="map" id="consultarReservasRecurso" resultMap='ReservaResult'>
 		<include refid="getAllReservas"/>
 		<if test="recurso != null">
-			AND rec.id = #{recurso}
+			AND rec.id = #{recurso} AND res.estado='Activa' AND eve.estado='Activa';
 		</if>
 	</select>
 

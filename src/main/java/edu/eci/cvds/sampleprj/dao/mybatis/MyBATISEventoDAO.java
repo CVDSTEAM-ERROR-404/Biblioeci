@@ -125,4 +125,16 @@ public class MyBATISEventoDAO implements EventoDAO {
             throw new PersistenceException("Error al cancelar los eventos de la reserva" + reserva, e);
         }
     }
+
+    @Override
+    public void cancelarEventosReserva(int idReserva) throws PersistenceException {
+        try{
+            eventoMapper.cancelarEventosReserva(idReserva);
+        }
+        catch (org.apache.ibatis.exceptions.PersistenceException e) {
+            throw new PersistenceException("Error al cancelar los eventos de la reserva" + idReserva, e);
+        }
+
+    }
+
 }

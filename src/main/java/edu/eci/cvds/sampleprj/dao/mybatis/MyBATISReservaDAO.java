@@ -4,6 +4,7 @@ import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ReservaMapper;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import com.google.inject.Inject;
+import edu.eci.cvds.samples.entities.Evento;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import edu.eci.cvds.samples.entities.EstadoReserva;
@@ -203,6 +204,18 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
 			throw new PersistenceException("Error al cambiar el estado de la reserva "+reserva, e);
 		}
+	}
+
+	@Override
+	public Evento reservaEnCurso(int id) throws PersistenceException {
+		Evento eventoEnCurso;
+		try{
+			eventoEnCurso= reservaMapper.reservaEnCurso(id);
+		}catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar si la reserva a cancelar esta en curso");
+		}
+		return eventoEnCurso;
+
 	}
 
 	@Override

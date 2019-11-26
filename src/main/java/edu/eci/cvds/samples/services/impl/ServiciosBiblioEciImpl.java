@@ -10,14 +10,7 @@ import edu.eci.cvds.sampleprj.dao.ReservaDAO;
 import edu.eci.cvds.sampleprj.dao.UsuarioDAO;
 import edu.eci.cvds.sampleprj.dao.EventoDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
-import edu.eci.cvds.samples.entities.Recurso;
-import edu.eci.cvds.samples.entities.Reserva;
-import edu.eci.cvds.samples.entities.EstadoRecurso;
-import edu.eci.cvds.samples.entities.UbicacionRecurso;
-import edu.eci.cvds.samples.entities.TipoRecurso;
-import edu.eci.cvds.samples.entities.Evento;
-import edu.eci.cvds.samples.entities.Usuario;
-import edu.eci.cvds.samples.entities.TipoReserva;
+import edu.eci.cvds.samples.entities.*;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -409,4 +402,18 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return semestre;
     }
+
+    @Override
+    @Transactional
+    public void cancelarReserva(Reserva reserva) throws ExcepcionServiciosBiblioEci {
+        try {
+            if(reservaDAO.reservaEnCurso(reserva.getId())!=null)throw new ExcepcionServiciosBiblioEci("La reserva esta en curso");
+            if(reservaDAO.consultarFechaFinalizacion(reserva.getId()).before(new Date()))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar reservas que ya finalizaron");
+            reservaDAO.cambiarEstadoReserva(reserva.getId(), EstadoReserva.Cancelada);
+            eventoDAO.cancelarEventosReserva(reserva.getId());
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci(e.getMessage());
+        }
+    }
+
 }

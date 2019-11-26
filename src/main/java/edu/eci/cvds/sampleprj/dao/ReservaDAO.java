@@ -2,6 +2,8 @@ package edu.eci.cvds.sampleprj.dao;
 
 import java.util.Date;
 import java.util.List;
+
+import edu.eci.cvds.samples.entities.Evento;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import edu.eci.cvds.samples.entities.EstadoReserva;
@@ -118,4 +120,5 @@ public interface ReservaDAO{
 	 */
 	public void cambiarEstadoReserva(long reserva,EstadoReserva estado) throws PersistenceException;
 
+	public Evento reservaEnCurso(int id) throws PersistenceException;
 }

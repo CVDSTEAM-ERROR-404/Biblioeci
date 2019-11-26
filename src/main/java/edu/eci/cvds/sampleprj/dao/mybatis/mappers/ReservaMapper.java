@@ -3,6 +3,7 @@ package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 import java.util.Date;
 import java.util.List;
 
+import edu.eci.cvds.samples.entities.Evento;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.ibatis.annotations.Param;
 
@@ -111,4 +112,6 @@ public interface ReservaMapper {
 	 * @param estado nuevo estado de la reserva
 	 */
 	public void cambiarEstadoReserva(@Param("reserva") long reserva, @Param("estado") EstadoReserva estado);
+
+	public Evento reservaEnCurso(@Param("idReserva") int id);
 }

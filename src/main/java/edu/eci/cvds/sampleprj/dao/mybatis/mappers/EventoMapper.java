@@ -70,4 +70,6 @@ public interface EventoMapper {
      * @param fecha Fecha focal de cancelación
      */
     public void cancelarEventosDespues(@Param("reserva") long reserva, @Param("fecha") Date fecha);
+
+    public void cancelarEventosReserva(@Param("idReserva") int idReserva);
 }

@@ -144,4 +144,6 @@ public interface ServiciosBiblioEci {
      */
     public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci;
 
+    public abstract void cancelarReserva(Reserva reserva) throws ExcepcionServiciosBiblioEci;
+
 }

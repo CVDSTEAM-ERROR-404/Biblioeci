@@ -408,8 +408,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     @Transactional
-    public void cancelarReserva(Reserva reserva) throws ExcepcionServiciosBiblioEci {
+    public void cancelarReserva(Reserva reserva,Usuario usuario) throws ExcepcionServiciosBiblioEci {
         try {
+            if(!usuario.equals(reserva.getUsuario()))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar las reservas de otro usuario");
             if(reservaDAO.reservaEnCurso(reserva.getId())!=null)throw new ExcepcionServiciosBiblioEci("La reserva esta en curso");
             if(reservaDAO.consultarFechaFinalizacion(reserva.getId()).before(new Date()))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar reservas que ya finalizaron");
             reservaDAO.cambiarEstadoReserva(reserva.getId(), EstadoReserva.Cancelada);
@@ -428,6 +429,17 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del recurso",e);
         }
         return reservas;
+    }
+
+    @Override
+    public List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci {
+        List<Reserva> reservas;
+        try {
+            reservas=reservaDAO.consultarReservasActivasUsuario(usuario);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del usuario",e);
+        }
+        return  reservas;
     }
 
 }

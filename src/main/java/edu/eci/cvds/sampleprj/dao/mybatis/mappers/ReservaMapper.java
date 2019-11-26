@@ -76,7 +76,7 @@ public interface ReservaMapper {
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
-	public List<Reserva> consultarReservasActivasUsuario(@Param("usuario") long usuario);
+	public List<Reserva> consultarReservasActivasUsuario(@Param("usuario") String usuario);
 
 	/**
 	 * Consulta todas las reservas pasadas del usuario 

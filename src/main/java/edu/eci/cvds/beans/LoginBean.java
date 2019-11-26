@@ -25,7 +25,6 @@ public class LoginBean extends BasePageBean{
     private String correo;
     private String password;
     private boolean rememberMe;
-    private boolean isAdmin;
     private String url;
 
 	/**

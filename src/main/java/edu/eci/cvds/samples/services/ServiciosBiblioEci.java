@@ -144,8 +144,11 @@ public interface ServiciosBiblioEci {
      */
     public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci;
 
-    public abstract void cancelarReserva(Reserva reserva) throws ExcepcionServiciosBiblioEci;
+    public abstract void cancelarReserva(Reserva reserva,Usuario usuario) throws ExcepcionServiciosBiblioEci;
 
     public abstract List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci;
+
+    public List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
+
 
 }

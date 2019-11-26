@@ -165,7 +165,7 @@ public class MyBATISReservaDAO implements ReservaDAO {
 	}
 
 	@Override
-	public List<Reserva> consultarReservasActivasUsuario(long usuario) throws PersistenceException {
+	public List<Reserva> consultarReservasActivasUsuario(String usuario) throws PersistenceException {
 		List<Reserva> reservas = null;
 		try {
 			reservas = reservaMapper.consultarReservasActivasUsuario(usuario);

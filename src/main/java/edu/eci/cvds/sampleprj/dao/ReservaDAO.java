@@ -81,7 +81,7 @@ public interface ReservaDAO{
 	 * @return Todas las reservas del usuario
 	 * @throws PersistenceException
 	 */
-	public List<Reserva> consultarReservasActivasUsuario(long usuario) throws PersistenceException;
+	public List<Reserva> consultarReservasActivasUsuario(String usuario) throws PersistenceException;
 
 	/**
 	 * Consulta todas las reservas pasadas del usuario 

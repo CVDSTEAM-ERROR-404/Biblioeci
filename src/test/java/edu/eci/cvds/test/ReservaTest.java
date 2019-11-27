@@ -18,6 +18,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -191,7 +192,6 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotMakeAReservationWithAnFinalRecurrentDateLessOrEqualThanTheInitialDate(){
-        System.out.println("Prueba Reserva Recurrente con fecha fin recurencia igual a fecha inicio");
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
@@ -199,11 +199,6 @@ public class ReservaTest extends ServicioBiblioEciTest{
             Date initialDate = getInitialDate();
             Date recurrentDate = getInitialDate(-1);
             serviciosBiblioEci.registrarReserva(reserva,initialDate,recurrentDate,getFinalDate());
-            System.out.println("Id reserva: "+reserva.getId());
-            System.out.println("Reservas");
-            System.out.println(serviciosBiblioEci.consultarReservas());
-            System.out.println("Eventos");
-            System.out.println(serviciosBiblioEci.consultarEventos());
             fail("Debio fallar por tener una reserva recurrente cuya recurrencia termina antes o al mismo tiempo que la primera reserva");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("La fecha inicial no puede ser después que la fecha final",e.getMessage());
@@ -341,7 +336,6 @@ public class ReservaTest extends ServicioBiblioEciTest{
 	
     @Test
     public void shouldNotMakeARecurrentReservationIfTheResourceIsNotAvailable(){
-        System.out.println("Prueba Reserva Recurrente con recurso ocupado");
         Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
         Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
         try {
@@ -350,16 +344,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
             Date fechaFinRecurrencia = getConcurrentDate(10);
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.registrarReserva(reserva,fechaInicial,fechaFinRecurrencia,fechaFinal);
-			System.out.println("Id reserva: "+reserva.getId());
-			System.out.println("Reservas Antes");
-			System.out.println(serviciosBiblioEci.consultarReservas());
-            System.out.println("Eventos Antes");
-            System.out.println(serviciosBiblioEci.consultarEventos());
             serviciosBiblioEci.registrarReserva(reserva,fechaInicial,fechaFinRecurrencia,fechaFinal);
-            System.out.println("Reservas Despues");
-			System.out.println(serviciosBiblioEci.consultarReservas());
-            System.out.println("Eventos Despues");
-			System.out.println(serviciosBiblioEci.consultarEventos());
             fail("Debio fallar por realizar una reserva en un horario no disponible");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Todos los horarios de esta reserva estan ocupados actualmente",e.getMessage());
@@ -418,7 +403,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
     @Test
     public void shouldReturnANullListWhenTheReservationDoesntExist() throws ExcepcionServiciosBiblioEci {
         Reserva res = serviciosBiblioEci.consultarReserva(100);
-        assertEquals(res,null);
+        assertNull(res);
     }
 
     @Test
@@ -430,6 +415,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
             Recurso nuevoRecurso = serviciosBiblioEci.consultarRecurso(recurso.getId());
             Reserva reserva = new Reserva(TipoReserva.Simple,nuevoRecurso,usuario);
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            fail("Debio fallar por realizar una reserva de un recurso que no esta disponible");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("No se puede reservar un recurso que no tenga estado disponible",e.getMessage());
         }
@@ -444,8 +430,97 @@ public class ReservaTest extends ServicioBiblioEciTest{
             Recurso nuevoRecurso = serviciosBiblioEci.consultarRecurso(recurso.getId());
             Reserva reserva = new Reserva(TipoReserva.Simple,nuevoRecurso,usuario);
             serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            fail("Debio fallar por realizar una reserva de un recurso que no esta disponible");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("No se puede reservar un recurso que no tenga estado disponible",e.getMessage());
         }
+    }
+
+    @Test
+    public void shouldConsultReservationsByAResource() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        serviciosBiblioEci.registrarRecurso(recurso);
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
+        serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(5),getFinalDate());
+        List<Reserva> reservas = serviciosBiblioEci.consultarReservasRecurso(recurso.getId());
+        for(Reserva res : reservas){
+            assertEquals(res,reserva);
+        }
+    }
+
+    @Test
+    public void shouldNotConsultReservationsByAResourceWithNegativeId(){
+        try {
+            List<Reserva> reservas = serviciosBiblioEci.consultarReservasRecurso(-1);
+            fail("Debio fallar por id negativa");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Identificador de recurso invalido",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotConsultReservationsByAResourceWithIdZero(){
+        try {
+            List<Reserva> reservas = serviciosBiblioEci.consultarReservasRecurso(0);
+            fail("Debio fallar por id cero");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Identificador de recurso invalido",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldReturnAnEmptyListWhenConsultReservationsByAUnexistentResource() throws ExcepcionServiciosBiblioEci {
+        List<Reserva> reservas = serviciosBiblioEci.consultarReservasRecurso(100);
+        assertEquals(0,reservas.size());
+    }
+
+    @Test
+    public void shouldConsultTheActiveReservationsOfAUser() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        serviciosBiblioEci.registrarRecurso(recurso);
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
+        serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(5),getFinalDate());
+        List<Reserva> reservas = serviciosBiblioEci.consultarReservasActivasUsuario(usuario.getNombre());
+        for(Reserva res : reservas){
+            assertTrue(res.equals(reserva) && res.getEstado().equals(EstadoReserva.Activa));
+        }
+    }
+
+    @Test
+    public void shouldNotConsultTheActiveReservationsOfANullUser(){
+        try {
+            List<Reserva> reservas = serviciosBiblioEci.consultarReservasActivasUsuario(null);
+            fail("Debio fallar por corre de usuario nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se pueden consultar reservas de un usuario nulo",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotConsultThePastReservationsOfANullUser(){
+        try {
+            List<Reserva> reservas = serviciosBiblioEci.consultarReservasPasadasUsuario(null);
+            fail("Debio fallar por corre de usuario nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se pueden consultar reservas de un usuario nulo",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotConsultTheCancelledReservationsOfANullUser(){
+        try {
+            List<Reserva> reservas = serviciosBiblioEci.consultarReservasCanceladasUsuario(null);
+            fail("Debio fallar por corre de usuario nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se pueden consultar reservas de un usuario nulo",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldConsultThePastReservationsOfAUser() throws ExcepcionServiciosBiblioEci {
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,serviciosBiblioEci.consultarRecurso(1),usuario);
+        serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(5),getFinalDate());
+        List<Reserva> reservas = serviciosBiblioEci.consultarReservasPasadasUsuario(usuario.getNombre());
+        System.out.println(reservas);
     }
 }

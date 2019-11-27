@@ -423,6 +423,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Override
     public List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci {
         List<Reserva> reservas;
+        if(idRecurso<1){throw new ExcepcionServiciosBiblioEci("Identificador de recurso invalido");}
         try {
             reservas=reservaDAO.consultarReservasRecurso(idRecurso);
         } catch (PersistenceException e) {
@@ -433,6 +434,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci {
+        if(usuario==null){throw new ExcepcionServiciosBiblioEci("No se pueden consultar reservas de un usuario nulo");}
         List<Reserva> reservas;
         try {
             reservas=reservaDAO.consultarReservasActivasUsuario(usuario);
@@ -444,6 +446,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public List<Reserva> consultarReservasPasadasUsuario(String usuario) throws ExcepcionServiciosBiblioEci {
+        if(usuario==null){throw new ExcepcionServiciosBiblioEci("No se pueden consultar reservas de un usuario nulo");}
         List<Reserva> reservas;
         try {
             reservas=reservaDAO.consultarReservasPasadasUsuario(usuario);
@@ -456,6 +459,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws ExcepcionServiciosBiblioEci {
+        if(usuario==null){throw new ExcepcionServiciosBiblioEci("No se pueden consultar reservas de un usuario nulo");}
         List<Reserva> reservas;
         try {
             reservas=reservaDAO.consultarReservasCanceladasUsuario(usuario);

@@ -113,5 +113,11 @@ public interface ReservaMapper {
 	 */
 	public void cambiarEstadoReserva(@Param("reserva") long reserva, @Param("estado") EstadoReserva estado);
 
-	public Evento reservaEnCurso(@Param("idReserva") int id);
+
+	/**
+	 * Retorna el evento de la reserva que está en curso
+	 * @param reserva Id de la reserva
+	 * @return Evento de la reserva en curso
+	 */
+	public Evento reservaEnCurso(@Param("idReserva") long reserva);
 }

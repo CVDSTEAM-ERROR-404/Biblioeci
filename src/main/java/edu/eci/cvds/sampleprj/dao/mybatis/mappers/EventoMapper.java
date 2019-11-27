@@ -71,5 +71,9 @@ public interface EventoMapper {
      */
     public void cancelarEventosDespues(@Param("reserva") long reserva, @Param("fecha") Date fecha);
 
-    public void cancelarEventosReserva(@Param("idReserva") int idReserva);
+    /**
+     * Cancela todos los eventos de la reserva que aún no han ocurrido
+     * @param idReserva Id de la reserva
+     */
+    public void cancelarEventosReserva(@Param("idReserva") long idReserva);
 }

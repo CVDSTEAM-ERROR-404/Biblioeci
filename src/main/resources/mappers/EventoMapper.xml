@@ -75,4 +75,12 @@
     WHERE
       evento.reserva=#{reserva} AND #{fecha} &lt;= evento.hora_inicio;
   </update>
+
+
+  <update parameterType="map" id="cancelarEventosReserva">
+    UPDATE evento
+      set estado = 'Cancelada'
+    WHERE
+      evento.reserva=#{idReserva}  AND (now() &lt;= evento.hora_inicio) AND estado='Activa';
+  </update>
 </mapper>

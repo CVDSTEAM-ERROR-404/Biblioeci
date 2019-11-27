@@ -78,6 +78,4 @@
   <insert parameterType="Recurso" id="agregarRecurso" useGeneratedKeys="true" keyProperty="rec.id" keyColumn="id">
     INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado,inicio_disponibilidad ,fin_disponibilidad) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado},#{rec.inicioDisponibilidad},#{rec.finDisponibilidad});
   </insert>
-
-  
 </mapper>

@@ -16,3 +16,16 @@ Retrospectiva sprint 1
 * El diseño de la base de datos genero problemas.
 * El ritmo de trabajo que manejamos fue eficiente.
 
+
+## Sprint 2
+
+**Sprint-backlog**\
+![](/resources/md/back2.PNG)
+
+**Sprint-burndown chart**\
+![](/resources/md/burn2.PNG)
+
+##### Resumen del sprint
+
+Retrospectiva sprint 2
+

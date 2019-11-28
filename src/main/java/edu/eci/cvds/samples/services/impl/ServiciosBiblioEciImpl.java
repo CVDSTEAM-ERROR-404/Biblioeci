@@ -1,6 +1,5 @@
 package edu.eci.cvds.samples.services.impl;
 
-import java.net.ServerSocket;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -425,8 +424,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Transactional
     public void cancelarEventoReserva(Reserva reserva, Usuario usuario, Evento evento) throws ExcepcionServiciosBiblioEci {
         try{
+            if(evento==null){throw new ExcepcionServiciosBiblioEci("El evento a cancelar no puede ser nulo");}
             validacionesCancelacion(reserva,usuario);
-            Date today =new Date();
+            Date today = new Date();
             if(evento.getHoraFin().after(today)&&evento.getHoraInicio().before(today))throw new ExcepcionServiciosBiblioEci("El evento esta en curso");
             if(evento.getHoraFin().before(today))throw new ExcepcionServiciosBiblioEci("El evento ya finalizo");
             eventoDAO.cambiarEstadoEvento(evento.getId(),EstadoReserva.Cancelada);

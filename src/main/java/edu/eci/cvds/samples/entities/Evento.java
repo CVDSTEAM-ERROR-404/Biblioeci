@@ -17,7 +17,7 @@ public class Evento implements Serializable {
     /**
      * Constructor por defecto de la clase Evento
      */
-    public Evento(){};
+    public Evento(){}
 
     /**
      * Constructor de la clase Evento

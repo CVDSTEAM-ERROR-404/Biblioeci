@@ -62,7 +62,7 @@ public interface EventoMapper {
      * @param evento Id del evento
      * @param estado Estado a actualizar
      */
-    public void cambiarEstadoEvento(@Param("estado") long evento,@Param("estado") EstadoReserva estado);
+    public void cambiarEstadoEvento(@Param("evento") long evento,@Param("estado") EstadoReserva estado);
 
     /**
      * Cancela todos los eventos de la reserva que inician luego de la fecha dada

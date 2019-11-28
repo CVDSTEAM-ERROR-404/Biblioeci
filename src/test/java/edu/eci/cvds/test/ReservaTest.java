@@ -587,25 +587,49 @@ public class ReservaTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotCancelAReservationThatIsActuallyRunning(){
-        Reserva reserva = null;
+        Reserva reserva;
         try {
             reserva = serviciosBiblioEci.consultarReserva(2);
             serviciosBiblioEci.cancelarReserva(reserva,usuario);
-            fail("Debio fallar porque al reserva esta en curso");
+            fail("Debio fallar porque la reserva esta en curso");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("La reserva esta en curso",e.getMessage());
         }
     }
 
     @Test
+    public void shouldNotCancelAEventOfAReservationThatIsActuallyRunning(){
+        Reserva reserva;
+        try {
+            reserva = serviciosBiblioEci.consultarReserva(2);
+            serviciosBiblioEci.cancelarEventoReserva(reserva,usuario,serviciosBiblioEci.consultarEvento(2).get(0));
+            fail("Debio fallar porque el evento de la reserva esta en curso");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El evento esta en curso",e.getMessage());
+        }
+    }
+
+    @Test
     public void shouldNotCancelAReservationThatAlreadyPassed(){
-        Reserva reserva = null;
+        Reserva reserva;
         try {
             reserva = serviciosBiblioEci.consultarReserva(1);
             serviciosBiblioEci.cancelarReserva(reserva,usuario);
-            fail("Debio fallar porque al reserva ya ocurrio");
+            fail("Debio fallar porque la reserva ya ocurrio");
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("No se pueden cancelar reservas que ya finalizaron",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCancelAEventOfAReservationThatAlreadyPassed(){
+        Reserva reserva;
+        try {
+            reserva = serviciosBiblioEci.consultarReserva(1);
+            serviciosBiblioEci.cancelarEventoReserva(reserva,usuario,serviciosBiblioEci.consultarEvento(1).get(0));
+            fail("Debio fallar porque el evento de la reserva ya ocurrio");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El evento ya finalizo",e.getMessage());
         }
     }
 
@@ -626,5 +650,76 @@ public class ReservaTest extends ServicioBiblioEciTest{
         }
         assertTrue(found);
     }
+
+    @Test
+    public void shouldCancelAEventOfAReservation() throws ExcepcionServiciosBiblioEci {
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        serviciosBiblioEci.registrarRecurso(recurso);
+        Reserva reserva = new Reserva(TipoReserva.Recurrente_Diaria,recurso,usuario);
+        serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),getConcurrentDate(5),getFinalDate());
+        Reserva nuevaReserva = serviciosBiblioEci.consultarReserva(reserva.getId());
+        List<Evento> eventos = serviciosBiblioEci.consultarEvento(nuevaReserva.getId());
+        serviciosBiblioEci.cancelarEventoReserva(nuevaReserva,usuario,eventos.get(0));
+        List<Evento> nuevosEventos = serviciosBiblioEci.consultarEvento(nuevaReserva.getId());
+        int eventosCancelados = 0;
+        boolean found = false;
+        for(Evento evento : nuevosEventos){
+            if(evento.getEstado().equals(EstadoReserva.Cancelada)){
+                eventosCancelados++;
+                if(evento.equals(eventos.get(0))){
+                    found = true;
+                }
+            }
+        }
+        assertEquals(1, eventosCancelados);
+        assertTrue(found);
+    }
+
+    @Test
+    public void shouldNotCancelAEventOfANullReservation(){
+        try {
+            serviciosBiblioEci.cancelarEventoReserva(null,usuario,new Evento());
+            fail("Debio fallar por intentar canelar una reserva nula");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("La reserva a cancelar no puede ser nula",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCancelAEventOfANullUser(){
+        try {
+            serviciosBiblioEci.cancelarEventoReserva(new Reserva(),null,new Evento());
+            fail("Debio fallar tener un usuario nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El usuario de la reserva no puede ser nulo",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCancelANullEventOfAResource(){
+        try {
+            serviciosBiblioEci.cancelarEventoReserva(new Reserva(),usuario,null);
+            fail("Debio fallar tener un evento nulo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("El evento a cancelar no puede ser nulo",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCancelAEventOfAnotherUser(){
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        try {
+            serviciosBiblioEci.registrarRecurso(recurso);
+            Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
+            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
+            Reserva nuevaReserva = serviciosBiblioEci.consultarReserva(reserva.getId());
+            serviciosBiblioEci.cancelarEventoReserva(nuevaReserva,usuario2,serviciosBiblioEci.consultarEvento(nuevaReserva.getId()).get(0));
+            fail("Debio fallar por cancelar la reserva de un usuario diferente al que la realizo");
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("No se pueden cancelar las reservas de otro usuario",e.getMessage());
+        }
+    }
+
+
 
 }

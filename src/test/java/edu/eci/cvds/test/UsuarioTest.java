@@ -27,7 +27,7 @@ public class UsuarioTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldReturnNullWhenConsultAUnexistentUser() throws ExcepcionServiciosBiblioEci {
-        Usuario usuario = serviciosBiblioEci.consultarUsuario("b@gmail.com");
+        Usuario usuario = serviciosBiblioEci.consultarUsuario("aa@gmail.com");
         assertNull(usuario);
     }
 

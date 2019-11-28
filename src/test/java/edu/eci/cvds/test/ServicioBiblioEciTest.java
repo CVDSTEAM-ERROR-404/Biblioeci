@@ -13,10 +13,12 @@ public class ServicioBiblioEciTest {
 	
     protected ServiciosBiblioEci serviciosBiblioEci;
 	protected Usuario usuario;
+    protected Usuario usuario2;
 
     protected ServicioBiblioEciTest() throws ExcepcionServiciosBiblioEci {
         serviciosBiblioEci = ServiciosBiblioEciFactory.getInstance().getServiciosBiblioEciTesting();
 		usuario = serviciosBiblioEci.consultarUsuario("a@gmail.com");
+        usuario2 = serviciosBiblioEci.consultarUsuario("b@gmail.com");
     }
 
     protected int getLastRecursoId() throws ExcepcionServiciosBiblioEci {
@@ -70,9 +72,11 @@ public class ServicioBiblioEciTest {
         calendar.add(Calendar.DAY_OF_YEAR,numDias);
         return calendar.getTime();
     }
+
     protected String getInitialDateResource(){
         return "07:00";
     }
+
     protected String getFinalDateResource(){
         return "19:00";
     }

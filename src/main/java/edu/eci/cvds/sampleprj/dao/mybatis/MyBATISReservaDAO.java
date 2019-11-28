@@ -212,7 +212,7 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		try{
 			eventoEnCurso= reservaMapper.reservaEnCurso(id);
 		}catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al consultar si la reserva a cancelar esta en curso");
+			throw new PersistenceException("Error al consultar si la reserva a cancelar esta en curso",e);
 		}
 		return eventoEnCurso;
 

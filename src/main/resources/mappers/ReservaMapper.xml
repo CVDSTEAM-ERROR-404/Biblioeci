@@ -168,7 +168,7 @@
     FROM
       evento
     WHERE
-      reserva = #{reserva} AND hora_inicio &lt;=now()  AND now() &lt; hora_fin
+      reserva = #{idReserva} AND hora_inicio &lt;=now()  AND now() &lt; hora_fin
     LIMIT 1;
   </select>
 </mapper>

@@ -52,7 +52,11 @@ CREATE TABLE IF NOT EXISTS Semestre (
 
 insert into rol(nombre) values ('administrador');
 insert into usuario(correo,contraseña,rol,u_area,nombre) values ('a@gmail.com','aaa',1,'aaa','Pepito');
+insert into usuario(correo,contraseña,rol,u_area,nombre) values ('b@gmail.com','aaa',1,'aaa','Juanito');
 insert into Semestre(fecha_inicio,fecha_fin) values('2019-08-05 07:00:00','2020-12-07 13:00:00');
 insert into recurso(nombre,ubicacion,tipo,capacidad,estado,inicio_disponibilidad,fin_disponibilidad) values ('pprueba','BloqueA','SALA_DE_ESTUDIO',5,'Disponible','07:00','19:00');
+insert into recurso(nombre,ubicacion,tipo,capacidad,estado,inicio_disponibilidad,fin_disponibilidad) values ('escuela','BloqueA','SALA_DE_ESTUDIO',5,'Disponible','00:00','23:59');
 insert into reserva(tipo,estado,fecha_solicitud,usuario,recurso) values ('Simple','Activa','2019-11-07 13:00:00','a@gmail.com',1);
+insert into reserva(tipo,estado,fecha_solicitud,usuario,recurso) values ('Simple','Activa','2019-11-27 13:00:00','a@gmail.com',2);
 insert into evento(reserva,hora_inicio,hora_fin,estado) values (1,'2019-11-07 07:00:00','2019-11-07 08:00:00','Activa');
+insert into evento(reserva,hora_inicio,hora_fin,estado) values (2,'2019-11-27 07:00:00','2020-11-27 08:00:00','Activa');

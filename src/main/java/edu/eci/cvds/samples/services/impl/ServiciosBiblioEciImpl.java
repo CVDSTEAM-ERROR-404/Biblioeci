@@ -410,13 +410,15 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     @Transactional
     public void cancelarReserva(Reserva reserva,Usuario usuario) throws ExcepcionServiciosBiblioEci {
         try {
+            if(reserva==null){throw new ExcepcionServiciosBiblioEci("La reserva a cancelar no puede ser nula");}
+            if(usuario==null){throw new ExcepcionServiciosBiblioEci("El usuario de la reserva no puede ser nulo");}
             if(!usuario.equals(reserva.getUsuario()))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar las reservas de otro usuario");
             if(reservaDAO.reservaEnCurso(reserva.getId())!=null)throw new ExcepcionServiciosBiblioEci("La reserva esta en curso");
             if(reservaDAO.consultarFechaFinalizacion(reserva.getId()).before(new Date()))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar reservas que ya finalizaron");
             reservaDAO.cambiarEstadoReserva(reserva.getId(), EstadoReserva.Cancelada);
             eventoDAO.cancelarEventosReserva(reserva.getId());
         } catch (PersistenceException e) {
-            throw new ExcepcionServiciosBiblioEci(e.getMessage());
+            throw new ExcepcionServiciosBiblioEci("Error al cancelar la reserva",e);
         }
     }
 

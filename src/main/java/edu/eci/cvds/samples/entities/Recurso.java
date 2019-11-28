@@ -207,8 +207,7 @@ public class Recurso implements Serializable{
      */
     private LocalTime fromStringToLocalTime(String tiempo){
         String[] time = tiempo.split(":");
-        LocalTime hora = LocalTime.of(Integer.parseInt(time[0]),Integer.parseInt(time[1]));
-        return hora;
+        return LocalTime.of(Integer.parseInt(time[0]),Integer.parseInt(time[1]));
     }
 
     /**

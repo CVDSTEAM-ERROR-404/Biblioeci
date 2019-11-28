@@ -158,13 +158,35 @@ public class Reserva implements Serializable{
 	 */
 	public Date nextEvent(){
 		Date nextEvent=null;
+		Date today=new Date();
 		for (Evento evento:eventosAsignados){
-			if (nextEvent==null||evento.getHoraInicio().before(nextEvent)){
+			if ((nextEvent==null||evento.getHoraInicio().before(nextEvent))&&evento.getHoraInicio().after(today)){
 				nextEvent=evento.getHoraInicio();
 			}
 		}
 		return nextEvent;
 	}
+
+	public Date getFechaInicioReserva(){
+		Date fechaInicio=null;
+		for (Evento evento:eventosAsignados){
+			if (fechaInicio==null||evento.getHoraInicio().before(fechaInicio)){
+				fechaInicio=evento.getHoraInicio();
+			}
+		}
+		return fechaInicio;
+	}
+	public Date getFechaFin(){
+		Date fechaFin=null;
+		for (Evento evento:eventosAsignados){
+			if (fechaFin==null||evento.getHoraFin().after(fechaFin)){
+				fechaFin=evento.getHoraFin();
+			}
+		}
+		return fechaFin;
+	}
+
+
 
 	/**
 	 * Muestra La informacion de la reserva

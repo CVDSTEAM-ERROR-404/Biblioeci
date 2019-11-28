@@ -35,7 +35,7 @@
 			<p:panel class="panelCenter" id="panelhorario"   style="width: 900px;">
 				<h:panelGrid columnClasses="value">
 
-					<p:schedule id="schedule" value="#{ReservasBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm" axisFormat="H:mm"  >
+					<p:schedule id="schedule" value="#{ReservasBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm"  >
 
 						<p:ajax event="dateSelect" listener="#{ReservasBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
 						<p:ajax event="eventSelect" listener="#{ReservasBean.onEventSelect}" update="reservaDetails" oncomplete="PF('reservaDialog').show();" />
@@ -62,13 +62,13 @@
 						</p:selectOneMenu>
 
 						<p:outputLabel for="datetime1" value="Hora inicio:" />
-						<p:calendar id="datetime1" value="#{ReservasBean.event.startDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date1}" minHour="#{ReservasBean.selectedRecurso.intInicioDisponibilidad()}" maxHour="#{ReservasBean.selectedRecurso.intFinDisponibilidad()}" required="true" />
+						<p:calendar id="datetime1" value="#{ReservasBean.event.startDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date1}" minHour="#{ReservasBean.selectedRecurso.intInicioDisponibilidad()}" maxHour="#{ReservasBean.selectedRecurso.intFinDisponibilidad()}"   required="true" />
 
 						<p:outputLabel for="datetime2" value="Hora fin:" />
 						<p:calendar id="datetime2" value="#{ReservasBean.event.endDate}" pattern="MM/dd/yyyy HH:mm" binding="#{date2}" maxHour="#{ReservasBean.selectedRecurso.intFinDisponibilidad()}" minHour="#{ReservasBean.selectedRecurso.intInicioDisponibilidad()}" required="true"  />
 
 						<p:outputLabel for="datetime3" rendered="#{ReservasBean.getRecurrente()}" value="Hora fin reservacion:" />
-						<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}"  maxHour="#{ReservasBean.selectedRecurso.intFinDisponibilidad()}" minHour="#{ReservasBean.selectedRecurso.intInicioDisponibilidad()}" required="true"  />
+						<p:calendar id="datetime3" rendered="#{ReservasBean.getRecurrente()}"  pattern="MM/dd/yyyy HH:mm" binding="#{date3}"  maxHour="#{ReservasBean.selectedRecurso.intFinDisponibilidad()}" minHour="#{ReservasBean.selectedRecurso.intInicioDisponibilidad()}"  required="true"  />
 
 
 					</h:panelGrid>
@@ -88,10 +88,12 @@
 						<p:outputLabel class="intlabel" value="#{ReservasBean.getSelectedReserva().getTipo().name()}"/>
 
 						<p:outputLabel for="datei" value="Hora inicio:" />
-						<p:outputLabel id="datei" class="intlabel" value="#{ReservasBean.event.startDate}" />
+						<p:outputLabel id="datei" class="intlabel" value="#{ReservasBean.event.startDate}"  />
+
 
 						<p:outputLabel for="datef" value="Hora fin:" />
 						<p:outputLabel id="datef" class="intlabel" value="#{ReservasBean.event.endDate}" />
+
 
 						<p:outputLabel for="recurso" value="Recurso:" />
 						<p:outputLabel id="recurso" class="intlabel" value="#{ReservasBean.getSelectedReserva().getRecurso().getNombre()}" />

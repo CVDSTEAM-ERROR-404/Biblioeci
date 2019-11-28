@@ -47,6 +47,7 @@
                     <p:outputLabel for="reservafecha" class="intlabel"  value="Fecha solicitud: " />
                     <p:outputLabel id="reservafecha" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getFechaSolicitud()}" />
 
+
                     <p:outputLabel for="recursoid" class="intlabel"  value="Id recurso: " rendered="#{LoginBean.isAdmin()}" />
                     <p:outputLabel id="recursoid" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getId()}" rendered="#{LoginBean.isAdmin()}" />
 

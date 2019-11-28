@@ -49,6 +49,7 @@ public class ReservasBean extends BasePageBean{
     }
 
     public void setSelectedReserva(Reserva selectedReserva) {
+        setRecurrente(selectedReserva.getTipo()!=TipoReserva.Simple);
         this.selectedReserva = selectedReserva;
     }
 
@@ -80,9 +81,7 @@ public class ReservasBean extends BasePageBean{
      * Determina si el recurso sobre el cual se hara la reserva
      * @param selectedRecurso El recurso sobre el cual se hara la reserva
      */
-    public void setSelectedRecurso(Recurso selectedRecurso) {
-        this.selectedRecurso = selectedRecurso;
-    }
+    public void setSelectedRecurso(Recurso selectedRecurso) { this.selectedRecurso = selectedRecurso; }
 
     /**
      * Muestra el tipo de la reserva utilizada

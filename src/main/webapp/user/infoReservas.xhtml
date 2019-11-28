@@ -47,6 +47,15 @@
                     <p:outputLabel for="reservafecha" class="intlabel"  value="Fecha solicitud: " />
                     <p:outputLabel id="reservafecha" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getFechaSolicitud()}" />
 
+                    <p:outputLabel for="reservafechai" class="intlabel"  value="Fecha inicial: " />
+                    <p:outputLabel id="reservafechai" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getFechaInicioReserva()}" />
+
+                    <p:outputLabel for="reservafechaf" class="intlabel"  value="Fecha final: " />
+                    <p:outputLabel id="reservafechaf" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getFechaFin()}" />
+
+                    <p:outputLabel for="reservafechar" class="intlabel"  value="Proxima ocurrencia: " rendered="#{ReservasBean.getRecurrente()}" />
+                    <p:outputLabel id="reservafechar" class="intlabel"  value="#{ReservasBean.getSelectedReserva().nextEvent()}" rendered="#{ReservasBean.getRecurrente()}" />
+
 
                     <p:outputLabel for="recursoid" class="intlabel"  value="Id recurso: " rendered="#{LoginBean.isAdmin()}" />
                     <p:outputLabel id="recursoid" class="intlabel"  value="#{ReservasBean.getSelectedReserva().getRecurso().getId()}" rendered="#{LoginBean.isAdmin()}" />

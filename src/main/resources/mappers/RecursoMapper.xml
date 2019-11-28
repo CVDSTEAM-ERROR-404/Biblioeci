@@ -15,8 +15,9 @@
         <result property='finDisponibilidad' column='fin_disponibilidad'/>
 	</resultMap>
 
-  <select parameterType='map' id='consultarRecurso' resultMap='RecursoResult'>
-    SELECT 
+
+  <sql id="getAllRecursos">
+		SELECT 
       id, 
       nombre,
       ubicacion,
@@ -26,48 +27,32 @@
       inicio_disponibilidad,
       fin_disponibilidad
      FROM
-      recurso
-     WHERE
-      id=#{id};
+      recurso as rec
+	</sql>
+
+  <select parameterType='map' id='consultarRecurso' resultMap='RecursoResult'>
+    <include refid="getAllRecursos"/>
+    WHERE
+      rec.id=#{id};
   </select>
 
   <select parameterType='map' id='consultarRecursos' resultMap='RecursoResult'>
-    SELECT 
-      id, 
-      nombre,
-      ubicacion,
-      tipo,
-      capacidad,
-      estado,
-      inicio_disponibilidad,
-      fin_disponibilidad
-    FROM
-      recurso;
+    <include refid="getAllRecursos"/>
   </select>
 
 
   <select parameterType='map' id='consultarRecursosDisponibles' resultMap='RecursoResult'>
-    SELECT 
-      id, 
-      nombre,
-      ubicacion,
-      tipo,
-      capacidad,
-      estado,
-      inicio_disponibilidad,
-      fin_disponibilidad
-    FROM
-      recurso
-	WHERE estado='Disponible' 
-	<if test="tipo != null">
-		AND tipo = #{tipo}
-	</if>
-	<if test="capacidad > 0">
-		AND capacidad=#{capacidad}
-	</if>
-	<if test="ubicacion != null">
-		AND ubicacion=#{ubicacion}
-	</if>	
+    <include refid="getAllRecursos"/>
+    WHERE estado='Disponible' 
+    <if test="tipo != null">
+      AND tipo = #{tipo}
+    </if>
+    <if test="capacidad > 0">
+      AND capacidad=#{capacidad}
+    </if>
+    <if test="ubicacion != null">
+      AND ubicacion=#{ubicacion}
+    </if>	
   </select>
 
   <update id="cambiarEstado" parameterType="map">
@@ -78,4 +63,52 @@
   <insert parameterType="Recurso" id="agregarRecurso" useGeneratedKeys="true" keyProperty="rec.id" keyColumn="id">
     INSERT INTO recurso(nombre, ubicacion, tipo, capacidad, estado,inicio_disponibilidad ,fin_disponibilidad) values (#{rec.nombre}, #{rec.ubicacion}, #{rec.tipo}, #{rec.capacidad}, #{rec.estado},#{rec.inicioDisponibilidad},#{rec.finDisponibilidad});
   </insert>
+
+
+  
+  <select parameterType='map' id='consultarRecursosMasUsados' resultMap='RecursoResult'>
+    <include refid="getAllRecursos"/>
+    <where>
+      <if test="ubicacion != null">
+        rec.tipo=#{tipo}
+      </if>
+    </where>
+    ORDER BY (SELECT COUNT(*) FROM reserva WHERE reserva.recurso=rec.id AND reserva.estado='Activa') DESC, 
+    (SELECT COUNT(*) FROM reserva as res, evento as eve WHERE res.recurso=rec.id AND res.estado='Activa' and eve.reserva=res.id) DESC
+    LIMIT 10;
+  </select>
+
+  <select parameterType='map' id='consultarRecursosMenosUsados' resultMap='RecursoResult'>
+    <include refid="getAllRecursos"/>
+    <where>
+      <if test="ubicacion != null">
+        rec.tipo=#{tipo}
+      </if>
+    </where>
+    ORDER BY (SELECT COUNT(*) FROM reserva WHERE reserva.recurso=rec.id AND reserva.estado='Activa'), 
+    (SELECT COUNT(*) FROM reserva as res, evento as eve WHERE res.recurso=rec.id AND res.estado='Activa' and eve.reserva=res.id)
+    LIMIT 10;
+  </select>
+  
+
+  
+  <select parameterType='map' id='consultarHorariosMayorOcupacion' resultMap='RecursoResult'>
+    <include refid="getAllRecursos"/>
+    <where>
+      <if test="tipo != null">
+        rec.tipo=#{tipo}
+      </if>
+    </where>
+    ORDER BY 
+      (SELECT 
+        COUNT(*) 
+      FROM 
+        reserva as res, evento as eve 
+      WHERE 
+        res.id = eve.reserva
+        <if test="inicio != null and fin != null">
+          AND #{inicio} &lt;= eve.hora_inicio AND eve.hora_fin &lt;= #{fin} 
+        </if>
+        ) DESC;
+  </select>
 </mapper>

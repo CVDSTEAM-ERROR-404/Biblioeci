@@ -1,9 +1,13 @@
 package edu.eci.cvds.sampleprj.dao.mybatis.mappers;
 
+import java.util.Date;
 import java.util.List;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
+
+
+import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.ibatis.annotations.Param;
 import edu.eci.cvds.samples.entities.Recurso;
 
@@ -49,5 +53,27 @@ public interface RecursoMapper {
      * @param estado El nuevo estado del recurso
      * @return La cantidad de recursos actualizados
      */
-	public int cambiarEstado(@Param("id") long id, @Param("estado") EstadoRecurso estado);
+    public int cambiarEstado(@Param("id") long id, @Param("estado") EstadoRecurso estado);
+    
+    /**
+     * Retorna una lista con los recursos más usados, de más usado a menos usado que cumplen el tipo(opcional)
+     * @return Lista de recursos más usados
+     */
+    public List<Recurso> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo);
+
+    /**
+     * Retorna una lista con los recursos menos usados, de más usado a menos usado que cumplen el tipo(opcional)
+     * @return Lista de recursos más usados
+     */
+    public List<Recurso> consultarRecursosMenosUsados(@Param("tipo") TipoRecurso tipo);
+
+
+    /**
+     * Consulta una lista con los recursos más usados, filtrados opcionalmente por el tipo de recurso y la franja horaria
+     * @param tipo Tipo de los recursos a consultar
+     * @param inicio Inicio de la franja horaria
+     * @param fin Fin de la franja horario
+     * @return Lista de horarios de mayor ocupación
+     */
+    public List<Recurso> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo, @Param("inicio") Date inicio, @Param("fin") Date fin);
 }

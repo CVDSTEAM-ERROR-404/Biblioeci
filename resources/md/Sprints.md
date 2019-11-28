@@ -29,3 +29,8 @@ Retrospectiva sprint 1
 
 Retrospectiva sprint 2
 
+* Las estimaciones de la mayoría de las tareas fueron realizadas satisfactoriamente.
+* La mayoría del tiempo que estuvimos atrasados fue por el detalle de las reservas recurrentes entonces en el siguiente sprint deberíamos tratar de separar las actividades de las reservas recurrentes.
+* El ritmo de trabajo fue eficiente.
+
+

@@ -615,7 +615,7 @@ public class ReservaTest extends ServicioBiblioEciTest{
         serviciosBiblioEci.registrarRecurso(recurso);
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
-        serviciosBiblioEci.cancelarReserva(reserva,usuario);
+        serviciosBiblioEci.cancelarReserva(serviciosBiblioEci.consultarReserva(reserva.getId()),usuario);
         List<Reserva> reservas = serviciosBiblioEci.consultarReservasCanceladasUsuario(usuario.getCorreo());
         boolean found = false;
         for(Reserva res : reservas){
@@ -626,4 +626,5 @@ public class ReservaTest extends ServicioBiblioEciTest{
         }
         assertTrue(found);
     }
+
 }

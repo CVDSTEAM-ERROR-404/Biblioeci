@@ -11,6 +11,7 @@ import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.Evento;
 import edu.eci.cvds.samples.entities.Usuario;
+import org.mybatis.guice.transactional.Transactional;
 
 /**
  * Esta interfaz describe los servicios utilizados dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
@@ -145,6 +146,10 @@ public interface ServiciosBiblioEci {
     public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci;
 
     public abstract void cancelarReserva(Reserva reserva,Usuario usuario) throws ExcepcionServiciosBiblioEci;
+
+    public abstract void cancelarEventoReserva(Reserva reserva, Usuario usuario, Evento evento)throws  ExcepcionServiciosBiblioEci;
+
+    public abstract void cancelarEventosDespues(Reserva reserva, Usuario usuario, Date fecha) throws ExcepcionServiciosBiblioEci;
 
     public abstract List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci;
 

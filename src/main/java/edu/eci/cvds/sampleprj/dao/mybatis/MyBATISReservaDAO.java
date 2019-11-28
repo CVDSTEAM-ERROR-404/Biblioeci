@@ -175,27 +175,6 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		return reservas;
 	}
 
-	@Override
-	public Date consultarFechaFinalizacion(long reserva) throws PersistenceException {
-		Date fechaFinal = null;
-		try {
-			fechaFinal = reservaMapper.consultarFechaFinalizacion(reserva);
-		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al consultar fecha finalización de reserva " + reserva, e);
-		}
-		return fechaFinal;
-	}
-
-	@Override
-	public Date consultarProximaOcurrencia(long reserva) throws PersistenceException {
-		Date proximaFecha = null;
-		try {
-			proximaFecha = reservaMapper.consultarProximaOcurrencia(reserva);
-		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al consultar la proxima ocurrencia de la reserva " + reserva, e);
-		}
-		return proximaFecha;
-	}
 
 	@Override
 	public void cambiarEstadoReserva(long reserva, EstadoReserva estado) throws PersistenceException {

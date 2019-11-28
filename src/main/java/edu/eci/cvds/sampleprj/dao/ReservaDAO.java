@@ -97,21 +97,6 @@ public interface ReservaDAO{
 	 */
 	public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws PersistenceException;
 
-	/**
-	 * Retorna la fecha de finalización de la reserva indicada
-	 * @param reserva Id de la reserva
-	 * @return Fecha de finalización de la reserva(último evento)
-	 * @throws PersistenceException
-	 */
-	public Date consultarFechaFinalizacion(long reserva) throws PersistenceException;
-
-	/**
-	 * Retorna la fecha de la próxima ocurrencia de la reserva
-	 * @param reserva Id de la reserva
-	 * @return Fecha del próximo evento de la reserva
-	 * @throws PersistenceException
-	 */
-	public Date consultarProximaOcurrencia(long reserva) throws PersistenceException;
 
 	/**
 	 * Cambia el estado de la reserva

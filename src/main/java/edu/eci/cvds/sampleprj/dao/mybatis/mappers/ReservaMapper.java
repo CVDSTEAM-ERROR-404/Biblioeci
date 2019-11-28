@@ -92,20 +92,7 @@ public interface ReservaMapper {
 	 */
 	public List<Reserva> consultarReservasCanceladasUsuario(@Param("usuario") String usuario);
 
-	/**
-	 * Retorna la fecha de finalización de la reserva
-	 * @param reserva Id de la reserva
-	 * @return Fecha en que termina la reserva indicada
-	 */
-	public Date consultarFechaFinalizacion(@Param("reserva") long reserva);
 
-	/**
-	 * Retorna la fecha de inicio del próximo evento de la reserva
-	 * @param reserva Id de la reserva
-	 * @return Fecha de inicio del próximo evento de la reserva
-	 */
-	public Date consultarProximaOcurrencia(@Param("reserva")  long reserva);
-	
 	/**
 	 * Cambia el estado de la reserva
 	 * @param reserva Id de la reserva

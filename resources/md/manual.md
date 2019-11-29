@@ -12,6 +12,7 @@ La página cuenta con el los siguientes servicios:
    
 + **Consultar**
    + [Consultar los recursos disponibles](#consultar-los-recursos-disponibles)
+   + [Consultar mis reservas](#consultar-mis-reservas)
 
 ## Registrar
 
@@ -64,4 +65,12 @@ Al terminar el proceso de actualización un mensaje de error o de exito es mostr
 Al seleccionar esta opción el usuario irá a un página donde puede consultar los recursos disponibles según un filtro.
 
 ![](/resources/md/consultar.png)
+
+### Consultar mis reservas
+
+Al seleccionar esta opción el usuario irá a una página donde puede consultar sus revervas activas, pasadas y canceladas. Además podrá ampliar la información sobre una reserva especifica.
+
+![](/resources/md/misreservas.png)
+![](/resources/md/opc.png)
+![](/resources/md/info.png)
 

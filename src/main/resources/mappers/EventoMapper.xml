@@ -73,7 +73,7 @@
     UPDATE evento
       set estado = 'Cancelada'
     WHERE
-      evento.reserva=#{reserva} AND #{fecha} &lt;= evento.hora_inicio;
+      evento.reserva=#{reserva} AND #{fecha} &lt; evento.hora_inicio;
   </update>
 
 

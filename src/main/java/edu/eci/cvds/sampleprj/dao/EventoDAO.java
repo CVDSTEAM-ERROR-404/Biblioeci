@@ -74,7 +74,7 @@ public interface EventoDAO {
      * @param reserva Id de la reserva
      * @param fecha Fecha focal de cancelación
      */
-    public void cancelarEventosDespues(long reserva, Date fecha) throws PersistenceException;
+    public int cancelarEventosDespues(long reserva, Date fecha) throws PersistenceException;
 
     public void cancelarEventosReserva(int idReserva)throws PersistenceException;
 }

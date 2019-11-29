@@ -439,11 +439,13 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
     public void cancelarEventosDespues(Reserva reserva, Usuario usuario, Date fecha) throws ExcepcionServiciosBiblioEci {
         try{
             validacionesCancelacion(reserva,usuario);
-            //Date today =new Date();
-            //if(reservaDAO.reservaEnCursoFecha(fecha))throw new ExcepcionServiciosBiblioEci("El evento esta en curso");
-            //if(reserva.getFechaFin().before(today))throw new ExcepcionServiciosBiblioEci("La reserva ya finalizo");
-            eventoDAO.cancelarEventosDespues(reserva.getId(),fecha);
-
+            Date today =new Date();
+            if(!fecha.after(today))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar eventos pasados");
+            if(reserva.getFechaFin().before(fecha))throw new ExcepcionServiciosBiblioEci("La reserva ya finalizo");
+            int nRows=eventoDAO.cancelarEventosDespues(reserva.getId(),fecha);
+            if(nRows==reserva.getEventosAsignados().size()){
+                reservaDAO.cambiarEstadoReserva(reserva.getId(), EstadoReserva.Cancelada);
+            }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al cancelar el evento",e);
         }

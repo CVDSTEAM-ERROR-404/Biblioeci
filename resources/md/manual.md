@@ -13,6 +13,7 @@ La página cuenta con el los siguientes servicios:
 + **Consultar**
    + [Consultar los recursos disponibles](#consultar-los-recursos-disponibles)
    + [Consultar mis reservas](#consultar-mis-reservas)
+   + [Consultar detalle reservas](#consultar-detalle-reservas)
 
 ## Registrar
 
@@ -73,4 +74,10 @@ Al seleccionar esta opción el usuario irá a una página donde puede consultar 
 ![](/resources/md/misreservas.png)
 ![](/resources/md/opc.png)
 ![](/resources/md/info.png)
+
+### Consultar detalle reservas
+
+El usuario al seleccionar una reserva desde el horario puede consultar el detalle de esta misma, la información mostrada varia según el rol del usuario.
+
+![](/resources/md/info2.png)
 

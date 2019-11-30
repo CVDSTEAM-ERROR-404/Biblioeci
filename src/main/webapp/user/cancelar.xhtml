@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/images/icons/eci.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/util.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet" />
+</h:head>
+
+<h:body>
+    <h:form id="cancelreserva_form" autocomplete="off" >
+        <p:growl id="growl" showDetail="false" sticky="true" />
+
+        <p:panel class="panelCenter" id="cancelreserva1"   style="width: 500px;"  rendered="#{!(ReservasBean.getRecurrente())}">
+
+            <center>
+
+                estas seguro de cancelar la reserva?
+
+            </center>
+
+
+            <f:facet name="footer">
+
+                <h:commandButton class="button1"   value="Si" style="font-size:12px;" />
+
+
+                    <h:outputLink value="misReservas.xhtml"
+                                  styleClass="ui-button  ui-button-text-only " style="font-size:12px; color:FFF;  border-radius: 3px;">
+                        <span class="ui-button-text" style="padding: 15px 25px;" >No</span>
+                    </h:outputLink>
+
+
+            </f:facet>
+
+
+        </p:panel>
+
+        <p:panel class="panelCenter" id="cancelreserva2"   style="width: 700px;"  rendered="#{ReservasBean.getRecurrente()}">
+            <p:tabView  >
+
+            <p:tab title="Cancelar toda la reserva"  >
+
+                <center>
+
+                    se va a cancelar la totalidad de la reserva
+
+                    <br/>
+                    <br/>
+
+                    <p:commandButton class="button1"  value="Cancelar" oncomplete="PF('cancelDialog').show();"  style="font-size:12px;" />
+
+
+
+
+                </center>
+
+
+            </p:tab>
+
+            <p:tab title="Cancelar por evento"  >
+
+            </p:tab>
+
+            <p:tab title="Cancelar por fecha"  >
+
+            </p:tab>
+
+            </p:tabView>
+
+            <f:facet name="footer">
+
+
+
+<center>
+                <h:outputLink value="misReservas.xhtml"
+                              styleClass="ui-button  ui-button-text-only " style="font-size:12px; color:FFF;  border-radius: 3px;">
+                    <span class="ui-button-text" style="padding: 15px 25px;" >Volver</span>
+                </h:outputLink>
+</center>
+
+            </f:facet>
+
+            <p:dialog widgetVar="cancelDialog"  showEffect="clip" hideEffect="clip">
+                <p:panel id="panel_cancel_reserva" >
+                    <center>
+
+                        estas seguro de cancelar la reserva?
+
+                    </center>
+
+                    <f:facet name="footer">
+                        <center>
+                            <h:commandButton class="button1"   value="Si" style="font-size:12px;" />
+                        </center>
+
+
+
+
+                    </f:facet>
+
+                </p:panel>
+            </p:dialog>
+
+
+        </p:panel>
+
+
+
+    </h:form>
+</h:body>
+</html>

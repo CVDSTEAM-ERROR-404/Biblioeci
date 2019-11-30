@@ -165,7 +165,7 @@
 
                 <p:outputPanel id="outgrid" style="text-align:center; width:450px;"  >
 
-                        <h:commandButton class="buttonp" value="Cancelar" style="font-size:12px; "  update="misreservas_form"/>
+                        <h:commandButton class="buttonp" value="Cancelar" style="font-size:12px; " actionListener="#{ReservasBean.redirectCancel}" update="misreservas_form"/>
 
                     <h:outputLink value="infoReservas.xhtml"
                                   styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">

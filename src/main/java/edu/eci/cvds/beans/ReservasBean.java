@@ -158,6 +158,18 @@ public class ReservasBean extends BasePageBean{
         }
     }
 
+    public void redirectCancel() throws ExcepcionServiciosBiblioEci {
+        try{
+            FacesContext.getCurrentInstance().getExternalContext().redirect("cancelar.xhtml");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+ public  void prueba(){
+
+        System.out.println("hhh");
+ }
 	/**
      * Obtiene el evento seleccionado en el calendario de reservas
      * @return El evento seleccionado en el calendario de reservas

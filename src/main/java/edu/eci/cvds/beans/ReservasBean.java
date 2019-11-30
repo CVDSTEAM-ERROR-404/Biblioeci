@@ -247,5 +247,29 @@ public class ReservasBean extends BasePageBean{
         return reservas;
     }
 
+    public void cancelarReservaCompleta(Reserva reserva){
+        try {
+            serviciosBiblioEci.cancelarReserva(reserva,serviciosBiblioEci.consultarUsuario(logger.getUser()));
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+    }
+    public void cancelarEventoReserva (Reserva reserva,Evento evento){
+        try {
+            Usuario usuario =serviciosBiblioEci.consultarUsuario(logger.getUser());
+            serviciosBiblioEci.cancelarEventoReserva(reserva, usuario, evento);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+    }
+    public void cancelarEventosDespues(Reserva reserva,Date date){
+        try {
+            Usuario usuario =serviciosBiblioEci.consultarUsuario(logger.getUser());
+            serviciosBiblioEci.cancelarEventosDespues(reserva, usuario, date);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+    }
+
 
 }

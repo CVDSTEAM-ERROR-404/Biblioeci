@@ -146,7 +146,6 @@ public class ReservasBean extends BasePageBean{
                 for (Reserva reserva : reservas) {
                     for (Evento evento : reserva.getEventosAsignados()) {
                         event = new CustomScheduleEvent("Reserva de " + reserva.getRecurso().getNombre(), evento.getHoraInicio(), evento.getHoraFin(), reserva.getTipo().name(),reserva);
-
                         eventModel.addEvent(event);
                     }
                 }
@@ -270,6 +269,22 @@ public class ReservasBean extends BasePageBean{
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
-
+    public void cargarEventosReserva(){
+        eventModel = new DefaultScheduleModel();
+        try {
+            if (selectedReserva==null){
+                setErrorMessage("Para escoger el horario de cancelacion primero se debe escoger una reserva");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("misReservas.xhtml");
+            }
+            else {
+                for (Evento evento : selectedReserva.getEventosAsignados()) {
+                    event = new CustomScheduleEvent("Reserva de " + selectedReserva.getRecurso().getNombre(), evento.getHoraInicio(), evento.getHoraFin(), selectedReserva.getTipo().name(),selectedReserva);
+                    eventModel.addEvent(event);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

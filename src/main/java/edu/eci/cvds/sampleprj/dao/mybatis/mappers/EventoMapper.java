@@ -38,6 +38,8 @@ public interface EventoMapper {
      */
     public List<Evento> consultarEventos(@Param("reserva") long id);
 
+    public List<Evento> consultarEventosActivos(@Param("reserva") long reserva);
+
     /**
      * Registra un evento por medio del estado de este
      * @param estado Estado del evento
@@ -69,7 +71,7 @@ public interface EventoMapper {
      * @param reserva Id de la reserva
      * @param fecha Fecha focal de cancelación
      */
-    public int cancelarEventosDespues(@Param("reserva") long reserva, @Param("fecha") Date fecha);
+    public void cancelarEventosDespues(@Param("reserva") long reserva, @Param("fecha") Date fecha);
 
     /**
      * Cancela todos los eventos de la reserva que aún no han ocurrido

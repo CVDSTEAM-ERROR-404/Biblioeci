@@ -14,6 +14,7 @@ public interface EventoDAO {
 
     /**
      * Cancela todos los eventos pendientes de una recurso específico
+     *
      * @param idRecurso ID del recurso
      * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
      */
@@ -21,7 +22,8 @@ public interface EventoDAO {
 
     /**
      * Registra un nuevo evento de una reserva
-     * @param evento Evento a registrar
+     *
+     * @param evento    Evento a registrar
      * @param idReserva id de la Reserva del evento
      * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
      */
@@ -29,6 +31,7 @@ public interface EventoDAO {
 
     /**
      * Consulta todos los eventos
+     *
      * @return Una lista con todos los eventos
      * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
      */
@@ -36,6 +39,7 @@ public interface EventoDAO {
 
     /**
      * Consulta todos los eventos de una reserva
+     *
      * @param id El identificador de la reserva
      * @return Una lista con todos los eventos de una reserva
      * @throws PersistenceException - Cuando hay errores en la consulta de la base datos
@@ -50,20 +54,22 @@ public interface EventoDAO {
      * @param reserva Reserva del evento
 
     public void registrarEventoEstado( String estado, Date fechaInicio , Date fechaFin, Reserva reserva);
-    */
+     */
 
     /**
-	 * Retorna todos los eventos que interfieran con el horario pasado en los eventos del recurso
-	 * @param recurso Id del recurso a consultar
-	 * @param fechaInicio Fecha de inicio de la reserva
-	 * @param fechaFinal Fecha de fin de la reserva
-	 * @return Lista de eventos que interfieran con el horario indicado
-	 */
+     * Retorna todos los eventos que interfieran con el horario pasado en los eventos del recurso
+     *
+     * @param recurso     Id del recurso a consultar
+     * @param fechaInicio Fecha de inicio de la reserva
+     * @param fechaFinal  Fecha de fin de la reserva
+     * @return Lista de eventos que interfieran con el horario indicado
+     */
     public List<Evento> consultarEventosRecurso(long recurso, Date fechaInicio, Date fechaFinal) throws PersistenceException;
-    
+
 
     /**
      * Cambia el estado del evento indicado
+     *
      * @param evento Id del evento
      * @param estado Estado a actualizar
      */
@@ -71,10 +77,15 @@ public interface EventoDAO {
 
     /**
      * Cancela todos los eventos de la reserva que inician luego de la fecha dada
+     *
      * @param reserva Id de la reserva
-     * @param fecha Fecha focal de cancelación
+     * @param fecha   Fecha focal de cancelación
      */
-    public int cancelarEventosDespues(long reserva, Date fecha) throws PersistenceException;
+    public void cancelarEventosDespues(long reserva, Date fecha) throws PersistenceException;
 
-    public void cancelarEventosReserva(int idReserva)throws PersistenceException;
+    public void cancelarEventosReserva(int idReserva) throws PersistenceException;
+
+    public List<Evento> consultarEventosActivos(int reserva) throws PersistenceException;
+
+
 }

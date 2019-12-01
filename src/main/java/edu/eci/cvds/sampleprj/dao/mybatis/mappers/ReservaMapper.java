@@ -107,4 +107,6 @@ public interface ReservaMapper {
 	 * @return Evento de la reserva en curso
 	 */
 	public Evento reservaEnCurso(@Param("idReserva") long reserva);
+
+
 }

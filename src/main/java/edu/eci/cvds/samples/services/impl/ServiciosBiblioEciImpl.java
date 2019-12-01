@@ -430,6 +430,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             if(evento.getHoraFin().after(today)&&evento.getHoraInicio().before(today))throw new ExcepcionServiciosBiblioEci("El evento esta en curso");
             if(evento.getHoraFin().before(today))throw new ExcepcionServiciosBiblioEci("El evento ya finalizo");
             eventoDAO.cambiarEstadoEvento(evento.getId(),EstadoReserva.Cancelada);
+            if (eventoDAO.consultarEventosActivos(reserva.getId()).size()==0){
+                reservaDAO.cambiarEstadoReserva(reserva.getId(),EstadoReserva.Cancelada);
+            }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al cancelar el evento",e);
         }
@@ -442,9 +445,9 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
             Date today =new Date();
             if(!fecha.after(today))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar eventos pasados");
             if(reserva.getFechaFin().before(fecha))throw new ExcepcionServiciosBiblioEci("La reserva ya finalizo");
-            int nRows=eventoDAO.cancelarEventosDespues(reserva.getId(),fecha);
-            if(nRows==reserva.getEventosAsignados().size()){
-                reservaDAO.cambiarEstadoReserva(reserva.getId(), EstadoReserva.Cancelada);
+            eventoDAO.cancelarEventosDespues(reserva.getId(),fecha);
+            if (eventoDAO.consultarEventosActivos(reserva.getId()).size()==0){
+                reservaDAO.cambiarEstadoReserva(reserva.getId(),EstadoReserva.Cancelada);
             }
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosBiblioEci("Error al cancelar el evento",e);
@@ -500,6 +503,19 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         }
         return  reservas;
     }
+
+    @Override
+    public List<Evento> consultarEventosActivos(int reserva) throws ExcepcionServiciosBiblioEci {
+        List<Evento> eventos;
+        try {
+            eventos=eventoDAO.consultarEventosActivos(reserva);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los eventos activos de la reserva");
+        }
+        return  eventos;
+    }
+
+
     private void validacionesCancelacion(Reserva reserva,Usuario usuario)throws  ExcepcionServiciosBiblioEci{
         if(reserva==null){throw new ExcepcionServiciosBiblioEci("La reserva a cancelar no puede ser nula");}
         if(usuario==null){throw new ExcepcionServiciosBiblioEci("El usuario de la reserva no puede ser nulo");}

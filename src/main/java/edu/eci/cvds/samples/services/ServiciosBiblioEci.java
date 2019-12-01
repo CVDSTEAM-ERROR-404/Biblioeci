@@ -153,12 +153,14 @@ public interface ServiciosBiblioEci {
 
     public abstract List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci;
 
-    public List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
+    public abstract List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
 
-    public List<Reserva> consultarReservasPasadasUsuario(String usuario) throws  ExcepcionServiciosBiblioEci;
+    public abstract List<Reserva> consultarReservasPasadasUsuario(String usuario) throws  ExcepcionServiciosBiblioEci;
 
-    public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
+    public abstract List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
+
+    public abstract List<Evento> consultarEventosActivos(int reserva)throws  ExcepcionServiciosBiblioEci;
 
 
 
-}
+    }

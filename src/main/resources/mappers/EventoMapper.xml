@@ -45,6 +45,23 @@
     </where>
   </select>
 
+  <select parameterType='map' id='consultarEventosActivos' resultMap='EventoResult'>
+    SELECT
+    id,
+    reserva,
+    hora_inicio,
+    hora_fin,
+    estado
+    FROM
+    evento
+    <where>
+      estado='Activa'
+      <if test="reserva != null">
+        And reserva = #{reserva}
+      </if>
+    </where>
+  </select>
+
     
 
   <select parameterType='map' id='consultarEventosRecurso' resultMap='EventoResult'>

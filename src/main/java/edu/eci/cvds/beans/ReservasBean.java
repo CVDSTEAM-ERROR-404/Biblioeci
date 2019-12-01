@@ -293,13 +293,15 @@ public class ReservasBean extends BasePageBean{
                 FacesContext.getCurrentInstance().getExternalContext().redirect("misReservas.xhtml");
             }
             else {
-                for (Evento evento : selectedReserva.getEventosAsignados()) {
+                for (Evento evento : serviciosBiblioEci.consultarEventosActivos(selectedReserva.getId())) {
                     event = new CustomScheduleEvent("Reserva de " + selectedReserva.getRecurso().getNombre(), evento.getHoraInicio(), evento.getHoraFin(), selectedReserva.getTipo().name(),evento);
                     eventModel.addEvent(event);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
 

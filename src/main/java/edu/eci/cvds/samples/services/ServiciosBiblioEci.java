@@ -161,6 +161,6 @@ public interface ServiciosBiblioEci {
 
     public abstract List<Evento> consultarEventosActivos(int reserva)throws  ExcepcionServiciosBiblioEci;
 
-
+    
 
     }

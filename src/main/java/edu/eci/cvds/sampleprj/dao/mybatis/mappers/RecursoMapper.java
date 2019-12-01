@@ -56,24 +56,51 @@ public interface RecursoMapper {
     public int cambiarEstado(@Param("id") long id, @Param("estado") EstadoRecurso estado);
     
     /**
-     * Retorna una lista con los recursos más usados, de más usado a menos usado que cumplen el tipo(opcional)
-     * @return Lista de recursos más usados
+     * Retorna una lista con los recursos más usados. Si no se especifica franja horaria ni rango de fechas,
+     * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+     * que cumplen las especificaciones
+     * @param tipo Tipo del  recurso
+     * @param franjaHoraria Franja de horas de los eventos
+     * @param rangoFechas Rango de fechas de los eventos
+     * @param programa Programa de los usuarios solicitantes de los recursos
+     * @return Lista de los recursos más usados
      */
-    public List<Recurso> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo);
+    public List<Recurso> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
+
+    
+    /**
+     * Retorna una lista con los recursos menos usados. Si no se especifica franja horaria ni rango de fechas,
+     * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+     * que cumplen las especificaciones
+     * @param tipo Tipo del  recurso
+     * @param franjaHoraria Franja de horas de los eventos
+     * @param rangoFechas Rango de fechas de los eventos
+     * @param programa Programa de los usuarios solicitantes de los recursos
+     * @return Lista de los recursos menos usados
+     */
+    public List<Recurso> consultarRecursosMenosUsados(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
+
 
     /**
-     * Retorna una lista con los recursos menos usados, de más usado a menos usado que cumplen el tipo(opcional)
-     * @return Lista de recursos más usados
+     * Retorna el rango de horarios de mayor ocupación de los recursos y el número de 
+     * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+     * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+     * @return Lista de los horarios de mayor ocupación
      */
-    public List<Recurso> consultarRecursosMenosUsados(@Param("tipo") TipoRecurso tipo);
-
+    public List<MutablePair<String, Long>> consultarHorariosMayorOcupacion(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
 
     /**
-     * Consulta una lista con los recursos más usados, filtrados opcionalmente por el tipo de recurso y la franja horaria
-     * @param tipo Tipo de los recursos a consultar
-     * @param inicio Inicio de la franja horaria
-     * @param fin Fin de la franja horario
-     * @return Lista de horarios de mayor ocupación
+     * Retorna el rango de horarios de menor ocupación de los recursos y el número de 
+     * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+     * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+     * @return Lista de los horarios de menor ocupación
      */
-    public List<Recurso> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo, @Param("inicio") Date inicio, @Param("fin") Date fin);
+    public List<MutablePair<String, Long>> consultarHorariosMenorOcupacion(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
+
 }

@@ -1,6 +1,10 @@
 package edu.eci.cvds.sampleprj.dao;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang3.tuple.MutablePair;
+
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
@@ -54,5 +58,53 @@ public interface RecursoDAO{
      */
     public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo) throws PersistenceException;
 
+
+    /**
+     * Retorna una lista con los recursos más usados. Si no se especifica franja horaria ni rango de fechas,
+     * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+     * que cumplen las especificaciones
+     * @param tipo Tipo del  recurso
+     * @param franjaHoraria Franja de horas de los eventos
+     * @param rangoFechas Rango de fechas de los eventos
+     * @param programa Programa de los usuarios solicitantes de los recursos
+     * @return Lista de los recursos más usados
+     */
+    public List<Recurso> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException;
+
     
+    /**
+     * Retorna una lista con los recursos menos usados. Si no se especifica franja horaria ni rango de fechas,
+     * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+     * que cumplen las especificaciones
+     * @param tipo Tipo del  recurso
+     * @param franjaHoraria Franja de horas de los eventos
+     * @param rangoFechas Rango de fechas de los eventos
+     * @param programa Programa de los usuarios solicitantes de los recursos
+     * @return Lista de los recursos menos usados
+     */
+    public List<Recurso> consultarRecursosMenosUsados(TipoRecurso tipo,MutablePair<Date, Date> franjaHoraria,MutablePair<Date, Date> rangoFechas,String programa) throws PersistenceException;
+
+
+    /**
+     * Retorna el rango de horarios de mayor ocupación de los recursos y el número de 
+     * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+     * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+     * @return Lista de los horarios de mayor ocupación
+     */
+    public List<MutablePair<String, Long>> consultarHorariosMayorOcupacion(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException;
+
+    /**
+     * Retorna el rango de horarios de menor ocupación de los recursos y el número de 
+     * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+     * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+     * @return Lista de los horarios de menor ocupación
+     */
+    public List<MutablePair<String, Long>> consultarHorariosMenorOcupacion( TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria,MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException;
+
 }

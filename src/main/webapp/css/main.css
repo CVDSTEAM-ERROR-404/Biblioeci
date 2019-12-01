@@ -573,7 +573,7 @@ iframe {
 }
 
 .button1:hover {
-  background: #333333;
+  background: #333333 !important;
 } 
 
 .button2:hover {
@@ -951,7 +951,7 @@ iframe {
 
 .panelCenter{
 	margin: 0 auto;
-	width:250px;
+	#width:250px;
 	padding: 1px 1px !important;
 	position: absolute;
 	left: 50%;

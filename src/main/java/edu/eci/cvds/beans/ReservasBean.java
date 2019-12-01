@@ -38,11 +38,21 @@ public class ReservasBean extends BasePageBean{
     @Inject
     private ShiroLogger logger;
     private Reserva selectedReserva;
+    private Evento selectedEvento;
     private Recurso selectedRecurso;
     private TipoReserva tipoReserva;
     private boolean isRecurrente;
     private ScheduleModel eventModel=new DefaultScheduleModel();;
     private ScheduleEvent event = new DefaultScheduleEvent();
+
+    public Evento getSelectedEvento() {
+        return selectedEvento;
+    }
+
+    public void setSelectedEvento(Evento selectedEvento) {
+        this.selectedEvento = selectedEvento;
+    }
+
 
     public Reserva getSelectedReserva() {
         return selectedReserva;
@@ -206,6 +216,11 @@ public class ReservasBean extends BasePageBean{
         selectedReserva = (Reserva) event.getData();
     }
 
+    public void onEventSelectEvento(SelectEvent selectEvent) {
+        event = (CustomScheduleEvent) selectEvent.getObject();
+        selectedEvento = (Evento) event.getData();
+    }
+
 	/**
      * Redirige a la pagina web del calendario de reservas
      */
@@ -262,6 +277,7 @@ public class ReservasBean extends BasePageBean{
         }
     }
     public void cancelarEventosDespues(Reserva reserva,Date date){
+        System.out.println("holi");
         try {
             Usuario usuario =serviciosBiblioEci.consultarUsuario(logger.getUser());
             serviciosBiblioEci.cancelarEventosDespues(reserva, usuario, date);
@@ -278,7 +294,7 @@ public class ReservasBean extends BasePageBean{
             }
             else {
                 for (Evento evento : selectedReserva.getEventosAsignados()) {
-                    event = new CustomScheduleEvent("Reserva de " + selectedReserva.getRecurso().getNombre(), evento.getHoraInicio(), evento.getHoraFin(), selectedReserva.getTipo().name(),selectedReserva);
+                    event = new CustomScheduleEvent("Reserva de " + selectedReserva.getRecurso().getNombre(), evento.getHoraInicio(), evento.getHoraFin(), selectedReserva.getTipo().name(),evento);
                     eventModel.addEvent(event);
                 }
             }

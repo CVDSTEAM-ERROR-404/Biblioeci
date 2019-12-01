@@ -29,6 +29,8 @@
 </h:head>
 
 <h:body>
+    "#{ReservasBean.cargarEventosReserva()}"
+
     <h:form id="cancelreserva_form" autocomplete="off" >
         <p:growl id="growl" showDetail="false" sticky="true" />
 
@@ -43,7 +45,7 @@
 
             <f:facet name="footer">
 
-                <h:commandButton class="button1"   value="Si" style="font-size:12px;" />
+                <h:commandButton class="button1"   value="Si"  actionListener="#{ReservasBean.cancelarReservaCompleta(ReservasBean.getSelectedReserva())}" style="font-size:12px;" />
 
 
                     <h:outputLink value="misReservas.xhtml"
@@ -57,7 +59,7 @@
 
         </p:panel>
 
-        <p:panel class="panelCenter" id="cancelreserva2"   style="width: 700px;"  rendered="#{ReservasBean.getRecurrente()}">
+        <p:panel class="panelCenter" id="cancelreserva2"    rendered="#{ReservasBean.getRecurrente()}">
             <p:tabView  >
 
             <p:tab title="Cancelar toda la reserva"  >
@@ -81,9 +83,30 @@
 
             <p:tab title="Cancelar por evento"  >
 
+
+                <p:schedule id="schedule" value="#{ReservasBean.eventModel}" widgetVar="myschedule" timeZone="GMT-5" clientTimeZone="GMT-5"  view="agendaWeek" timeFormat="HH:mm"  >
+
+                    <p:ajax event="eventSelect" listener="#{ReservasBean.onEventSelectEvento}"  oncomplete="PF('cancelDialog3').show();" />
+
+                </p:schedule>
+
+
             </p:tab>
 
             <p:tab title="Cancelar por fecha"  >
+                <center>
+                <p:panelGrid  class="grid" id="grid"  columns="2"  >
+                    <p:outputLabel for="datetime1" value="Fecha inicio cancelacion:" />
+                    <p:calendar id="datetime1"  pattern="MM/dd/yyyy HH:mm" binding="#{horacancel}" maxHour="19" minHour="7"   />
+
+                </p:panelGrid>
+
+                <br/>
+
+                <p:commandButton class="button1"  value="Cancelar" oncomplete="PF('cancelDialog2').show();"  style="font-size:12px;" />
+
+
+                </center>
 
             </p:tab>
 
@@ -102,26 +125,54 @@
 
             </f:facet>
 
-            <p:dialog widgetVar="cancelDialog"  showEffect="clip" hideEffect="clip">
-                <p:panel id="panel_cancel_reserva" >
-                    <center>
+            <p:dialog widgetVar="cancelDialog"  showEffect="clip" header="estas seguro de cancelar la reserva?" hideEffect="clip">
+                <p:panel id="panel_cancel_reserva"  >
 
-                        estas seguro de cancelar la reserva?
 
-                    </center>
+
+
+
 
                     <f:facet name="footer">
-                        <center>
-                            <h:commandButton class="button1"   value="Si" style="font-size:12px;" />
-                        </center>
 
-
+                        <h:commandButton class="button1" actionListener="#{ReservasBean.cancelarReservaCompleta(ReservasBean.getSelectedReserva())}"  value="Si" style="font-size:12px;" />
+                        <h:commandButton class="button2"  value="No" style="font-size:12px;" />
 
 
                     </f:facet>
 
                 </p:panel>
+
             </p:dialog>
+
+            <p:dialog widgetVar="cancelDialog2"  showEffect="clip" header="estas seguro de cancelar la reserva?" hideEffect="clip">
+                <p:panel id="panel_cancel_reserva2"  >
+
+
+                    <f:facet name="footer">
+
+                        <h:commandButton class="button1"   value="Si"  actionListener="#{ReservasBean.cancelarEventosDespues(ReservasBean.getSelectedReserva(),horacancel.value)}" style="font-size:12px;" />
+                        <h:commandButton class="button2"  value="No" style="font-size:12px;" />
+
+                    </f:facet>
+
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog widgetVar="cancelDialog3"  showEffect="clip" header="estas seguro de cancelar la reserva?" hideEffect="clip">
+                <p:panel id="panel_cancel_reserva3"  >
+
+
+                    <f:facet name="footer">
+
+                        <h:commandButton class="button1"   value="Si"  actionListener="#{ReservasBean.cancelarEventoReserva(ReservasBean.getSelectedReserva(),ReservasBean.getSelectedEvento())}" style="font-size:12px;" />
+                        <h:commandButton class="button2"  value="No" style="font-size:12px;" />
+
+                    </f:facet>
+
+                </p:panel>
+            </p:dialog>
+
 
 
         </p:panel>

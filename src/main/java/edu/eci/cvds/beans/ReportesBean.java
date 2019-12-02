@@ -7,8 +7,6 @@ import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.apache.commons.lang3.tuple.MutablePair;
-import org.primefaces.component.sticky.Sticky;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
@@ -22,12 +20,24 @@ public class ReportesBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
 
-    public List<MutablePair<Recurso,Long>>  consultarRecursosMasUsados(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
+    private MutablePair<Date,Date> crearFranjaHoraria(Date inicioFranja,Date finFranja){
         MutablePair<Date,Date> franjaHoraria=null;
+        if(inicioFranja!=null && finFranja!=null){
+            franjaHoraria=new MutablePair<Date, Date>(inicioFranja,finFranja);
+        }
+        return franjaHoraria;
+    }
+    private MutablePair<Date,Date> crearRango(Date inicioRango,Date finRango){
         MutablePair<Date,Date> rangoFechas=null;
+        if(inicioRango!=null && finRango!=null){
+            rangoFechas=new MutablePair<Date, Date>(inicioRango,finRango);
+        }
+        return rangoFechas;
+    }
+    public List<MutablePair<Recurso,Long>>  consultarRecursosMasUsados(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
+        MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
         List<MutablePair<Recurso,Long>> topRecursos=null;
-        if(inicioFranjaHoraria!=null && finFranjaHoraria!=null) franjaHoraria=new MutablePair<Date, Date>(inicioFranjaHoraria,finFranjaHoraria);
-        if(inicioRangoFechas!=null && finRangoFechas!=null) rangoFechas=new MutablePair<Date, Date>(inicioRangoFechas,finRangoFechas);
         try {
             topRecursos=serviciosBiblioEci.consultarRecursosMasUsados(tipo,franjaHoraria,rangoFechas,programa);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
@@ -36,11 +46,9 @@ public class ReportesBean extends BasePageBean {
         return topRecursos;
     }
     public List<MutablePair<Recurso,Long>>  consultarRecursosMenosUsados(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
-        MutablePair<Date,Date> franjaHoraria=null;
-        MutablePair<Date,Date> rangoFechas=null;
+        MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
         List<MutablePair<Recurso,Long>> topRecursos=null;
-        if(inicioFranjaHoraria!=null && finFranjaHoraria!=null) franjaHoraria=new MutablePair<Date, Date>(inicioFranjaHoraria,finFranjaHoraria);
-        if(inicioRangoFechas!=null && finRangoFechas!=null) rangoFechas=new MutablePair<Date, Date>(inicioRangoFechas,finRangoFechas);
         try {
             topRecursos=serviciosBiblioEci.consultarRecursosMenosUsados(tipo,franjaHoraria,rangoFechas,programa);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
@@ -49,11 +57,8 @@ public class ReportesBean extends BasePageBean {
         return topRecursos;
     }
     public List<MutablePair<String,Long>>  consultarHorariosMayorOcupacion(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
-        MutablePair<Date,Date> franjaHoraria=null;
-        MutablePair<Date,Date> rangoFechas=null;
-        List<MutablePair<String,Long>> topHorarios=null;
-        if(inicioFranjaHoraria!=null && finFranjaHoraria!=null) franjaHoraria=new MutablePair<Date, Date>(inicioFranjaHoraria,finFranjaHoraria);
-        if(inicioRangoFechas!=null && finRangoFechas!=null) rangoFechas=new MutablePair<Date, Date>(inicioRangoFechas,finRangoFechas);
+        MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);List<MutablePair<String,Long>> topHorarios=null;
         try {
             topHorarios=serviciosBiblioEci.consultarHorariosMayorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
@@ -62,11 +67,8 @@ public class ReportesBean extends BasePageBean {
         return topHorarios;
     }
     public List<MutablePair<String,Long>>  consultarHorariosMenorOcupacion(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
-        MutablePair<Date,Date> franjaHoraria=null;
-        MutablePair<Date,Date> rangoFechas=null;
-        List<MutablePair<String,Long>> topHorarios=null;
-        if(inicioFranjaHoraria!=null && finFranjaHoraria!=null) franjaHoraria=new MutablePair<Date, Date>(inicioFranjaHoraria,finFranjaHoraria);
-        if(inicioRangoFechas!=null && finRangoFechas!=null) rangoFechas=new MutablePair<Date, Date>(inicioRangoFechas,finRangoFechas);
+        MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);List<MutablePair<String,Long>> topHorarios=null;
         try {
             topHorarios=serviciosBiblioEci.consultarHorariosMenorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {

@@ -161,6 +161,16 @@ public interface ServiciosBiblioEci {
 
     public abstract List<Evento> consultarEventosActivos(int reserva)throws  ExcepcionServiciosBiblioEci;
 
-    
+    public abstract List<MutablePair<Recurso, Long>> consultarRecursosMasUsados( TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws ExcepcionServiciosBiblioEci;
 
-    }
+
+    public abstract List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci;
+
+
+    public abstract List<MutablePair<String, Long>> consultarHorariosMayorOcupacion(TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas,String programa)throws ExcepcionServiciosBiblioEci;
+
+
+    public abstract List<MutablePair<String, Long>> consultarHorariosMenorOcupacion(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci;
+
+
+}

@@ -522,6 +522,50 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return  eventos;
     }
 
+    @Override
+    public List<MutablePair<Recurso, Long>> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws ExcepcionServiciosBiblioEci {
+        List<MutablePair<Recurso,Long>> usoRecursos;
+        try {
+            usoRecursos=recursoDAO.consultarRecursosMasUsados(tipo,franjaHoraria,rangoFechas,programa);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos mas usados");
+        }
+        return usoRecursos;
+    }
+
+    @Override
+    public List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci {
+        List<MutablePair<Recurso,Long>> usoRecursos;
+        try {
+            usoRecursos=recursoDAO.consultarRecursosMenosUsados(tipo,franjaHoraria,rangoFechas,programa);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los recursos menos usados");
+        }
+        return usoRecursos;
+    }
+
+    @Override
+    public List<MutablePair<String, Long>> consultarHorariosMayorOcupacion(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws ExcepcionServiciosBiblioEci {
+        List<MutablePair<String,Long>> topHorarios;
+        try {
+            topHorarios=recursoDAO.consultarHorariosMayorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los horarios con mayor ocupacion");
+        }
+        return topHorarios;
+    }
+
+    @Override
+    public List<MutablePair<String, Long>> consultarHorariosMenorOcupacion(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci {
+        List<MutablePair<String,Long>> topHorarios;
+        try {
+            topHorarios=recursoDAO.consultarHorariosMenorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar los horarios con menor ocupacion");
+        }
+        return topHorarios;
+    }
+
 
     private void validacionesCancelacion(Reserva reserva,Usuario usuario)throws  ExcepcionServiciosBiblioEci{
         if(reserva==null){throw new ExcepcionServiciosBiblioEci("La reserva a cancelar no puede ser nula");}

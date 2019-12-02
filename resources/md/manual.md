@@ -92,8 +92,8 @@ si el usuario presiona la opción "si" se cancelara la reserva simple  si no se 
 ![](/resources/md/cancelarTotal.png)
 si el usuario presiona el boton cancelar cancelara la reserva y todos sus eventos
 #### Cancelar reserva recurrentes desde una fecha
-![](/resources/md/cancelarFechas.png)
+![](/resources/md/cancelarFecha.png)
 el usuario debe seleccionar una fecha y al presionar cancelara todos los eventos despues de esta fecha , si todos los eventos se cancelan tambien se cancelara la reserva
 #### Cancelar un evento de la reserva
-![](/resources/md/canelarEvento.png)
+![](/resources/md/cancelarEvento.png)
 el usuario debe seleccionar el evento que desea borrar en el calendario, si es el ultimo evento activo de la reserva esta sera cancelada

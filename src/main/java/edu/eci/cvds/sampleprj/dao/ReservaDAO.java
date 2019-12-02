@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.MutablePair;
 
 import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.TipoReserva;
 
 /**
  * Esta interfaz conecta los servicios de reservas con su base de datos
@@ -106,4 +108,25 @@ public interface ReservaDAO{
 	public void cambiarEstadoReserva(long reserva,EstadoReserva estado) throws PersistenceException;
 
 	public Evento reservaEnCurso(int id) throws PersistenceException;
+
+	/**
+	 * Retorna las reservas recurrentes con los filtros especificados
+	 * @param tipoReserva Tipo de reserva recurrente
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
+	 * es suficiente con que se crucen
+	 * @param franja Franja de horarios de los eventos
+	 * @return Reservas recurrentes con los filtros dados
+	 */
+	public List<Reserva> consultarReservasRecurrentes(TipoReserva tipoReserva,String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas,MutablePair<Date,Date> franja) throws PersistenceException;
+
+	/**
+	 * Retorna las reservas canceladas con los filtros especificados
+	 * @param tipoReserva Tipo de reserva recurrente
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @return Reservas canceladas con los filtros dados
+	 */
+	public List<Reserva> consultarReservasCanceladas(TipoReserva tipoReserva, String programa,TipoRecurso tipoRecurso) throws PersistenceException;
 }

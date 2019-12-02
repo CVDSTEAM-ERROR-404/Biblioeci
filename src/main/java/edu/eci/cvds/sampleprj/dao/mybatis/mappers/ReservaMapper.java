@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 
 import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.TipoReserva;
 
 
 /**
@@ -108,5 +110,24 @@ public interface ReservaMapper {
 	 */
 	public Evento reservaEnCurso(@Param("idReserva") long reserva);
 
+	/**
+	 * Retorna las reservas recurrentes con los filtros especificados
+	 * @param tipoReserva Tipo de reserva recurrente
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
+	 * es suficiente con que se crucen
+	 * @param franja Franja de horarios de los eventos
+	 * @return Reservas recurrentes con los filtros dados
+	 */
+	public List<Reserva> consultarReservasRecurrentes(@Param("tipoReserva") TipoReserva tipoReserva,@Param("programa") String programa,@Param("tipoRecurso") TipoRecurso tipoRecurso, @Param("rango") MutablePair<Date, Date> rangoFechas,@Param("franja") MutablePair<Date,Date> franja);
 
+	/**
+	 * Retorna las reservas canceladas con los filtros especificados
+	 * @param tipoReserva Tipo de reserva recurrente
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @return Reservas canceladas con los filtros dados
+	 */
+	public List<Reserva> consultarReservasCanceladas(@Param("tipoReserva") TipoReserva tipoReserva,@Param("programa") String programa,@Param("tipoRecurso") TipoRecurso tipoRecurso);
 }

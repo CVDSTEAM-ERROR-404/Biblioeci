@@ -9,6 +9,9 @@ import org.apache.commons.lang3.tuple.MutablePair;
 
 import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.Reserva;
+import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.TipoReserva;
+
 import java.util.Date;
 import java.util.List;
 
@@ -175,23 +178,22 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		return reservas;
 	}
 
-
 	@Override
 	public void cambiarEstadoReserva(long reserva, EstadoReserva estado) throws PersistenceException {
 		try {
 			reservaMapper.cambiarEstadoReserva(reserva, estado);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al cambiar el estado de la reserva "+reserva, e);
+			throw new PersistenceException("Error al cambiar el estado de la reserva " + reserva, e);
 		}
 	}
 
 	@Override
 	public Evento reservaEnCurso(int id) throws PersistenceException {
 		Evento eventoEnCurso;
-		try{
-			eventoEnCurso= reservaMapper.reservaEnCurso(id);
-		}catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al consultar si la reserva a cancelar esta en curso",e);
+		try {
+			eventoEnCurso = reservaMapper.reservaEnCurso(id);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar si la reserva a cancelar esta en curso", e);
 		}
 		return eventoEnCurso;
 
@@ -203,7 +205,7 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		try {
 			reservas = reservaMapper.consultarReservasPasadasUsuario(usuario);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al consultar las reservas pasadas del usuario "+ usuario, e);
+			throw new PersistenceException("Error al consultar las reservas pasadas del usuario " + usuario, e);
 		}
 		return reservas;
 	}
@@ -214,10 +216,37 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		try {
 			reservas = reservaMapper.consultarReservasCanceladasUsuario(usuario);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al consultar las reservas canceladas del usuario "+ usuario, e);
+			throw new PersistenceException("Error al consultar las reservas canceladas del usuario " + usuario, e);
 		}
 		return reservas;
 	}
+
+	@Override
+	public List<Reserva> consultarReservasRecurrentes(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso,
+			MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja) throws PersistenceException {
+		List<Reserva> reservas = null;
+		try {
+			reservas = reservaMapper.consultarReservasRecurrentes(tipoReserva, programa, tipoRecurso, rangoFechas, franja);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar las reservas recurrentes", e);
+		}
+		return reservas;
+	}
+
+	@Override
+	public List<Reserva> consultarReservasCanceladas(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso)
+			throws PersistenceException {
+		List<Reserva> reservas = null;
+		try {
+			reservas = reservaMapper.consultarReservasCanceladas(tipoReserva, programa, tipoRecurso);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar las reservas canceladas", e);
+		}
+		return reservas;
+	}
+
+
+	
 
 	
 }

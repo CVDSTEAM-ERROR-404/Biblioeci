@@ -10,7 +10,6 @@ import edu.eci.cvds.samples.entities.EstadoReserva;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Usuario;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
-import org.apache.commons.lang3.tuple.MutablePair;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

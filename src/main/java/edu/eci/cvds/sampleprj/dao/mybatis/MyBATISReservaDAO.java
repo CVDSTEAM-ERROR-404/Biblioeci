@@ -245,6 +245,29 @@ public class MyBATISReservaDAO implements ReservaDAO {
 		return reservas;
 	}
 
+	@Override
+	public List<Reserva> consultarReservasSimples(String programa, TipoRecurso tipoRecurso,
+			MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja) throws PersistenceException{
+		List<Reserva> reservas = null;
+		try {
+			reservas = reservaMapper.consultarReservasSimples(programa, tipoRecurso, rangoFechas, franja);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar las reservas simples", e);
+		}
+		return reservas;
+	}
+
+	@Override
+	public List<Reserva> consultarReservasActivas(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso) throws PersistenceException{
+		List<Reserva> reservas = null;
+		try {
+			reservas = reservaMapper.consultarReservasActivas(tipoReserva, programa, tipoRecurso);
+		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("Error al consultar las reservas activas", e);
+		}
+		return reservas;
+	}
+
 
 	
 

@@ -121,6 +121,20 @@ public interface ReservaDAO{
 	 */
 	public List<Reserva> consultarReservasRecurrentes(TipoReserva tipoReserva,String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas,MutablePair<Date,Date> franja) throws PersistenceException;
 
+
+	/**
+	 * Retorna las reservas simples con los filtros especificados
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
+	 * es suficiente con que se crucen
+	 * @param franja Franja de horarios de los eventos
+	 * @return Reservas simples con los filtros dados
+	 */
+	public List<Reserva> consultarReservasSimples(String programa,TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date,Date> franja) throws PersistenceException;
+
+
+
 	/**
 	 * Retorna las reservas canceladas con los filtros especificados
 	 * @param tipoReserva Tipo de reserva recurrente
@@ -129,4 +143,14 @@ public interface ReservaDAO{
 	 * @return Reservas canceladas con los filtros dados
 	 */
 	public List<Reserva> consultarReservasCanceladas(TipoReserva tipoReserva, String programa,TipoRecurso tipoRecurso) throws PersistenceException;
+
+	/**
+	 * Retorna las reservas activas con los filtros especificados
+	 * @param tipoReserva Tipo de reserva
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @return Reservas activas con los filtros dados
+	 */
+	public List<Reserva> consultarReservasActivas(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso) throws PersistenceException;
+
 }

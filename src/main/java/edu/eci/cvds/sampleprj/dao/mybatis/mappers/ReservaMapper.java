@@ -122,12 +122,39 @@ public interface ReservaMapper {
 	 */
 	public List<Reserva> consultarReservasRecurrentes(@Param("tipoReserva") TipoReserva tipoReserva,@Param("programa") String programa,@Param("tipoRecurso") TipoRecurso tipoRecurso, @Param("rango") MutablePair<Date, Date> rangoFechas,@Param("franja") MutablePair<Date,Date> franja);
 
+
+	/**
+	 * Retorna las reservas simples con los filtros especificados
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
+	 * es suficiente con que se crucen
+	 * @param franja Franja de horarios de los eventos
+	 * @return Reservas simples con los filtros dados
+	 */
+	public List<Reserva> consultarReservasSimples(@Param("programa") String programa,@Param("tipoRecurso") TipoRecurso tipoRecurso, @Param("rango") MutablePair<Date, Date> rangoFechas,@Param("franja") MutablePair<Date,Date> franja);
+
+
 	/**
 	 * Retorna las reservas canceladas con los filtros especificados
-	 * @param tipoReserva Tipo de reserva recurrente
+	 * @param tipoReserva Tipo de reserva
 	 * @param programa Programa de la universidad
 	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
 	 * @return Reservas canceladas con los filtros dados
 	 */
 	public List<Reserva> consultarReservasCanceladas(@Param("tipoReserva") TipoReserva tipoReserva,@Param("programa") String programa,@Param("tipoRecurso") TipoRecurso tipoRecurso);
+
+
+	/**
+	 * Retorna las reservas activas con los filtros especificados
+	 * @param tipoReserva Tipo de reserva
+	 * @param programa Programa de la universidad
+	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+	 * @return Reservas activas con los filtros dados
+	 */
+	public List<Reserva> consultarReservasActivas(@Param("tipoReserva") TipoReserva tipoReserva,@Param("programa") String programa,@Param("tipoRecurso") TipoRecurso tipoRecurso);
+
+
+	
+
 }

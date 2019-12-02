@@ -184,9 +184,48 @@
 		</if>
 	</select>
 
+
+	<select parameterType='map' id='consultarReservasSimples' resultMap='ReservaResult'>
+		<include refid="getAllReservas"/>
+		AND res.tipo='Simple' AND res.estado='Activa'
+		<if test="programa != null">
+			AND usu.u_area = #{programa}
+		</if>
+		<if test="tipoRecurso != null">
+			AND rec.tipo = #{tipoRecurso}
+		</if>
+		<if test="rango != null">
+			AND 
+			NOT((#{rango.left} &lt;= (SELECT MIN(eve1.hora_inicio) from evento as eve1 where eve1.reserva = res.id AND eve1.estado='Activa') AND 
+				#{rango.right} &lt;= (SELECT MIN(eve1.hora_inicio) from evento as eve1 where eve1.reserva = res.id AND eve1.estado='Activa')) OR 
+				((SELECT MAX(eve1.hora_fin) from evento as eve1 where eve1.reserva = res.id AND eve1.estado='Activa') &lt;=  #{rango.right}  AND
+				(SELECT MAX(eve1.hora_fin) from evento as eve1 where eve1.reserva = res.id AND eve1.estado='Activa') &lt;=  #{rango.left})
+			)
+		</if>
+		<if test="franja != null">
+			substring(to_char(#{eve.hora_fin}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= #{franja.right}
+			AND #{franja.left}  &lt;= substring(to_char(#{eve.hora_inicio}, 'YYYY-MM-DD HH24:MI:SS'), 12) 
+		</if>
+	</select>
+
+
 	<select parameterType='map' id='consultarReservasCanceladas' resultMap='ReservaResult'>
 		<include refid="getAllReservas"/>
 		AND res.tipo!='Simple' AND res.estado='Cancelada'
+		<if test="tipoReserva != null">
+			AND res.tipo = #{tipoReserva}
+		</if>
+		<if test="programa != null">
+			AND usu.u_area = #{programa}
+		</if>
+		<if test="tipoRecurso != null">
+			AND rec.tipo = #{tipoRecurso}
+		</if>
+	</select>
+
+	<select parameterType='map' id='consultarReservasActivas' resultMap='ReservaResult'>
+		<include refid="getAllReservas"/>
+		AND res.tipo!='Simple' AND res.estado='Activa'
 		<if test="tipoReserva != null">
 			AND res.tipo = #{tipoReserva}
 		</if>

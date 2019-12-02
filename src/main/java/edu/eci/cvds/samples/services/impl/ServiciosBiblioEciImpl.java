@@ -443,7 +443,8 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         try{
             validacionesCancelacion(reserva,usuario);
             Date today =new Date();
-            if(!fecha.after(today))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar eventos pasados");
+            if(fecha==null){throw new ExcepcionServiciosBiblioEci("La fecha para cancelar eventos no puede ser nula");}
+            if(fecha.before(today))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar eventos pasados");
             if(reserva.getFechaFin().before(fecha))throw new ExcepcionServiciosBiblioEci("La reserva ya finalizo");
             eventoDAO.cancelarEventosDespues(reserva.getId(),fecha);
             if (eventoDAO.consultarEventosActivos(reserva.getId()).size()==0){
@@ -506,6 +507,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
 
     @Override
     public List<Evento> consultarEventosActivos(int reserva) throws ExcepcionServiciosBiblioEci {
+        if(reserva<1){throw new ExcepcionServiciosBiblioEci("Identificador de reserva invalido");}
         List<Evento> eventos;
         try {
             eventos=eventoDAO.consultarEventosActivos(reserva);

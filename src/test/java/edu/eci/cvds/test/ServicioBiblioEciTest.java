@@ -36,6 +36,16 @@ public class ServicioBiblioEciTest {
         return calendarInicio.getTime();
     }
 
+    protected Date getInitialDateHoras(int horas){
+        Calendar calendarInicio = Calendar.getInstance();
+        int day = calendarInicio.getTime().getDate();
+        int month = calendarInicio.getTime().getMonth();
+        int year = calendarInicio.getTime().getYear();
+        if(calendarInicio.getTime().getDay()==6){calendarInicio.set(year+1900,month,day+2,7+horas,0,0);}
+        else{calendarInicio.set(year+1900,month,day+1,7+horas,0,0);}
+        return calendarInicio.getTime();
+    }
+
     protected Date getInitialDate(){
         Calendar calendarInicio = Calendar.getInstance();
         int day = calendarInicio.getTime().getDate();
@@ -72,13 +82,4 @@ public class ServicioBiblioEciTest {
         calendar.add(Calendar.DAY_OF_YEAR,numDias);
         return calendar.getTime();
     }
-
-    protected String getInitialDateResource(){
-        return "07:00";
-    }
-
-    protected String getFinalDateResource(){
-        return "19:00";
-    }
-
 }

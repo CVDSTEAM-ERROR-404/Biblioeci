@@ -31,10 +31,10 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainCapacity() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 3,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 3,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(3,null,null);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -47,15 +47,15 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainConditions() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 2,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 2,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.EQUIPO_DE_COMPUTO, 2,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 5,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 2,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 2,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.EQUIPO_DE_COMPUTO, 2,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 5,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 2,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 2,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(2,UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -68,10 +68,10 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainType() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 3,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 3,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.EQUIPO_DE_COMPUTO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.EQUIPO_DE_COMPUTO, 5,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,null,TipoRecurso.SALA_DE_ESTUDIO);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -84,11 +84,11 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainTypeAndCapacity() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 6,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 6,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 6,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 6,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(6,null,TipoRecurso.SALA_DE_ESTUDIO);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -101,10 +101,10 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainUbication() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,UbicacionRecurso.BloqueB,null);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -117,11 +117,11 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainUbicationAndCapacity() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 4,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 4,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 4,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 4,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(4,UbicacionRecurso.BloqueB,null);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -134,11 +134,11 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultAvailableResourcesWithCertainUbicationAndType() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueG, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.EQUIPO_DE_COMPUTO, 5,"07:00","19:00"));
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO);
         boolean found = false;
         for(Recurso rec: disponibles){
@@ -151,10 +151,10 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldConsultOnlyAvailableResources() throws ExcepcionServiciosBiblioEci{
-        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("correcto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
-        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource()));
+        serviciosBiblioEci.registrarRecurso(new Recurso("incorrecto", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00"));
         serviciosBiblioEci.cambiarEstadoRecurso(id+1,EstadoRecurso.Daño_Reparable);
         List<Recurso> disponibles = serviciosBiblioEci.consultarRecursosDisponibles(0,null,null);
         boolean found = false;
@@ -174,7 +174,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotConsultAvailabilityIfTheFinalDateIsNull(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),getInitialDate(),null);
@@ -186,7 +186,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotConsultAvailabilityIfTheInitialDateIsNull(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),null,getFinalDate());
@@ -198,7 +198,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldReturnAnEmptyListWhenConsultAvailabilityOfAnUnexistentResource(){
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         try {
             serviciosBiblioEci.registrarRecurso(recurso);
             serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId()+1,getInitialDate(),getFinalDate());
@@ -257,7 +257,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldNotConsultTheSameResource() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         Recurso respuesta = serviciosBiblioEci.consultarRecurso(recurso.getId()-1);
         assertNotEquals(recurso,respuesta);
@@ -277,7 +277,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithANullName(){
         Recurso recurso = null;
         try {
-            recurso = new Recurso(null, UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+            recurso = new Recurso(null, UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por nombre nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -289,7 +289,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithAFinalAvailabilityPreviousThatTheInitialAvailability() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getFinalDateResource(),getInitialDateResource());
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"19:00","07:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por disponibilidad invalida");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -301,7 +301,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithInitialAvailabilityEqualsToFinalAvailability() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getInitialDateResource());
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","07:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por disponibilidad invalida");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -313,7 +313,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithANullInitialAvailability(){
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,null,getFinalDateResource());
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,null,"19:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por inicio de disponibilidad nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -325,7 +325,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithANullFinalAvailability(){
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),null);
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00",null);
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por final de disponibilidad nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -337,7 +337,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithNegativeCapacity(){
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, -1,getInitialDateResource(),getFinalDateResource());
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, -1,"07:00","19:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad negativa");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -349,7 +349,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithNoCapacity() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO, 0,getInitialDateResource(),getFinalDateResource());
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB,TipoRecurso.SALA_DE_ESTUDIO, 0,"07:00","19:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por capacidad cero");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -361,7 +361,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithNullType() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, null, 5,getInitialDateResource(),getFinalDateResource());
+            recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, null, 5,"07:00","19:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por tipo nulo");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -373,7 +373,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
     public void shouldNotRegisterAResourceWithNullUbication() {
         Recurso recurso = null;
         try {
-            recurso = new Recurso("prueba", null, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+            recurso = new Recurso("prueba", null, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
             serviciosBiblioEci.registrarRecurso(recurso);
             fail("Se esperaba la excepcion por ubicacion nula");
         } catch (ExcepcionServiciosBiblioEci e) {
@@ -383,7 +383,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldRegisterAndConsultAResource() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         int id = recurso.getId();
         Recurso resultado = serviciosBiblioEci.consultarRecurso(id);
@@ -393,7 +393,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldReturnFalseIfTheResourceIsNotAvailable() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
         serviciosBiblioEci.registrarRecurso(recurso);
         serviciosBiblioEci.registrarReserva(reserva,getInitialDate(),null,getFinalDate());
@@ -409,7 +409,7 @@ public class RecursoTest extends ServicioBiblioEciTest{
 
     @Test
     public void shouldReturnTrueIfTheResourceIsAvailable() throws ExcepcionServiciosBiblioEci {
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,getInitialDateResource(),getFinalDateResource());
+        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
         serviciosBiblioEci.registrarRecurso(recurso);
         assertTrue(serviciosBiblioEci.consultarDisponibilidadRecurso(recurso.getId(),getInitialDate(),getFinalDate()));
     }

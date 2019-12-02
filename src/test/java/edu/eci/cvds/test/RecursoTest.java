@@ -11,8 +11,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mybatis.guice.transactional.Transactional;
-
-import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;

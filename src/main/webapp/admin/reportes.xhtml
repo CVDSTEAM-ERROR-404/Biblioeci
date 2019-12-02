@@ -30,22 +30,64 @@
 
 <h:body>
 
-    "#{ReportesBean.createBarModel()}"
+    "#{ReportesBean.createModels()}"
 
-    <h:form id="misreservas_form" autocomplete="off" >
+    <h:form id="reportes_form" autocomplete="off" >
         <p:growl id="growl" showDetail="false" sticky="true" />
         <center>
         <p:panel  id="panelreserva"   style="width: 900px; ">
+            <center>
+            <p:panel  id="panelfiltro"   style="width: 800px;">
+                <p:fieldset legend="Filtrar reporte" >
+                <center>
+                <p:panelGrid  class="grid" id="grid" columns="2"  >
 
+                    <p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
+
+                    <p:selectOneMenu binding="#{tipo}" style="width:216px; background:#cc0000;">
+                        <f:selectItem itemLabel="----" itemValue="" />
+                        <f:selectItems value="#{RecursosBean.getTipos()}"  />
+
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel for="datetime2" value="inicio Franja Horaria:" />
+                    <p:calendar id="datetime2"  pattern="MM/dd/yyyy HH:mm" binding="#{franjai}"    />
+
+                    <p:outputLabel for="datetime3" value="fin Franja Horaria:" />
+                    <p:calendar id="datetime3"  pattern="MM/dd/yyyy HH:mm" binding="#{franjaf}"    />
+
+                    <p:outputLabel for="datetime4" value="inicio rango fechas:" />
+                    <p:calendar id="datetime4"  pattern="MM/dd/yyyy HH:mm" binding="#{rangoi}"    />
+
+                    <p:outputLabel for="datetime5" value="fin rango fechas:" />
+                    <p:calendar id="datetime5"  pattern="MM/dd/yyyy HH:mm" binding="#{rangof}"    />
+
+                    <p:outputLabel class="intlabel" for="Nombre" value="Filtrar por programa: " />
+                    <p:inputText class="inttext" id="Nombre" type="String"  binding="#{programa}" />
+
+
+                    <f:facet name="footer">
+                    <center>
+                    <h:commandButton update="reportes_form" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ReportesBean.consultarRecursosMasUsados(tipo.value,franjai.value,franjaf.value,rangoi.value,rangof.value,programa.value)}" />
+                    </center>
+                    </f:facet>
+
+                </p:panelGrid>
+                </center>
+                </p:fieldset>
+            </p:panel>
+            </center>
+                <br/>
             <p:tabView  >
 
                 <p:tab title="Recursos mas usados"  >
 
-                    <p:dataTable    id="tbl" var="rec" value="#{ReportesBean.consultarRecursosMasUsados(null,null,null,null,null,null)}"
+                    <p:dataTable    id="tbl" var="rec" value="#{ReportesBean.consultarRecursosMasUsados(tipo.value,franjai.value,franjaf.value,rangoi.value,rangof.value,programa.value)}"
                                      paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      rowsPerPageTemplate="5,10,15"
                                      currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-                                     paginatorPosition="bottom" rows="10" style="width:750px;"  >
+                                     paginatorPosition="bottom" rows="7" style="width:750px;"  >
 
                         <f:facet name="header" style="color:black;">
                             Recursos mas usados
@@ -74,13 +116,48 @@
 
                     <br/>
 
-                    <p:chart type="bar" model="#{ReportesBean.barModel}" style="height:300px"/>
+                    <p:chart type="bar" model="#{ReportesBean.barModel1}" style="height:300px"/>
 
 
 
                 </p:tab>
 
                 <p:tab title="Recursos menos usados"  >
+
+                    <p:dataTable    id="tbl2" var="rec" value="#{ReportesBean.consultarRecursosMenosUsados(tipo.value,franjai.value,franjaf.value,rangoi.value,rangof.value,programa.value)}"
+                                    paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                    rowsPerPageTemplate="5,10,15"
+                                    currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                                    paginatorPosition="bottom" rows="7" style="width:750px;"  >
+
+                        <f:facet name="header" style="color:black;">
+                            Recursos menos usados
+                        </f:facet>
+
+                        <f:facet name="{Exporters}">
+                            <div style="float:right;padding-top: 5px;">
+                                <h:commandLink>
+                                    <h:graphicImage url="/admin/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="tbl2" fileName="recursosMenosUsados" />
+                                </h:commandLink>
+                            </div>
+                        </f:facet>
+
+                        <p:column headerText="Recurso" >
+                            <h:outputText value="#{rec.getLeft().getNombre()}" />
+                        </p:column>
+
+                        <p:column headerText="Cantidad reservas" >
+                            <h:outputText value="#{rec.getRight()}" />
+                        </p:column>
+
+
+
+                    </p:dataTable>
+
+                    <br/>
+
+                    <p:chart type="bar" model="#{ReportesBean.barmenosModel}" style="height:300px"/>
 
                 </p:tab>
 

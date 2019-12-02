@@ -26,19 +26,28 @@ public class ReportesBean extends BasePageBean {
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
 
-    private BarChartModel barModel;
+    private BarChartModel barModel1;
+
+    private BarChartModel barmenosModel;
 
 
-
-    public BarChartModel getBarModel() {
-        return barModel;
+    public BarChartModel getBarModel1() {
+        return barModel1;
     }
 
-    public void setBarModel(BarChartModel barModel) {
-        this.barModel = barModel;
+    public void setBarModel1(BarChartModel barModel) {
+        this.barModel1 = barModel;
     }
 
-    private BarChartModel initBarModel() {
+    public BarChartModel getBarmenosModel() {
+        return barmenosModel;
+    }
+
+    public void setBarmenosModel(BarChartModel barmenosModel) {
+        this.barmenosModel = barmenosModel;
+    }
+
+    private BarChartModel initmasModel() {
         BarChartModel model = new BarChartModel();
         ChartSeries recursos = new ChartSeries();
         recursos.setLabel("recursos mas ocupados");
@@ -51,16 +60,47 @@ public class ReportesBean extends BasePageBean {
         return model;
     }
 
-    public void createBarModel() {
-        barModel = initBarModel();
+    private BarChartModel initmenosModel() {
+        BarChartModel model = new BarChartModel();
+        ChartSeries recursos = new ChartSeries();
+        recursos.setLabel("recursos mas ocupados");
+        for(MutablePair<Recurso,Long> info : consultarRecursosMenosUsados(null,null,null,null,null,null) ){
+            recursos.set(info.getLeft().getNombre(),info.getRight());
+        }
 
-        barModel.setTitle("Bar Chart");
-        barModel.setLegendPosition("ne");
+        model.addSeries(recursos);
 
-        Axis xAxis = barModel.getAxis(AxisType.X);
+        return model;
+    }
+
+    public void createModels(){
+        createmasModel();
+        createmenosModel();
+    }
+    public void createmasModel() {
+        barModel1 = initmasModel();
+
+        barModel1.setTitle("recursos mas usados");
+        barModel1.setLegendPosition("ne");
+
+        Axis xAxis = barModel1.getAxis(AxisType.X);
         xAxis.setLabel("Recurso");
 
-        Axis yAxis = barModel.getAxis(AxisType.Y);
+        Axis yAxis = barModel1.getAxis(AxisType.Y);
+        yAxis.setLabel("Ocupaciones");
+
+    }
+
+    public void createmenosModel() {
+        barmenosModel = initmenosModel();
+
+        barmenosModel.setTitle("recursos menos usados");
+        barmenosModel.setLegendPosition("ne");
+
+        Axis xAxis = barmenosModel.getAxis(AxisType.X);
+        xAxis.setLabel("Recurso");
+
+        Axis yAxis = barmenosModel.getAxis(AxisType.Y);
         yAxis.setLabel("Ocupaciones");
 
     }

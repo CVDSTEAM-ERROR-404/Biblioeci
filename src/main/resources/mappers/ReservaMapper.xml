@@ -109,7 +109,7 @@
 		<include refid="getAllReservas"/>
 
 			AND res.usuario = #{usuario} AND res.estado='Activa'
-        AND (SELECT MAX(eve1.hora_fin) FROM evento as eve1 WHERE eve1.reserva=res.id) &gt; now()
+        AND (SELECT MAX(eve1.hora_fin) FROM evento as eve1 WHERE eve1.reserva=res.id and eve1.estado='Activa') &gt; now()
 
 
         ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;

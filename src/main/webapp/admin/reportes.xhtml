@@ -32,62 +32,65 @@
 
     "#{ReportesBean.createModels()}"
 
-    <h:form id="reportes_form" autocomplete="off" >
+    <h:form id="reportes_form"  >
         <p:growl id="growl" showDetail="false" sticky="true" />
         <center>
-        <p:panel  id="panelreserva"   style="width: 900px; ">
-            <center>
-            <p:panel  id="panelfiltro"   style="width: 800px;">
-                <p:fieldset legend="Filtrar reporte" >
-                <center>
-                <p:panelGrid  class="grid" id="grid" columns="2"  >
-
-                    <p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
-
-                    <p:selectOneMenu binding="#{tipo}" style="width:216px; background:#cc0000;">
-                        <f:selectItem itemLabel="----" itemValue="" />
-                        <f:selectItems value="#{RecursosBean.getTipos()}"  />
-
-                    </p:selectOneMenu>
+        <p:panel  id="panelreportes"   style="width: 900px; ">
 
 
-                    <p:outputLabel for="datetime2" value="inicio Franja Horaria:" />
-                    <p:calendar id="datetime2"  pattern="MM/dd/yyyy HH:mm" binding="#{franjai}"    />
-
-                    <p:outputLabel for="datetime3" value="fin Franja Horaria:" />
-                    <p:calendar id="datetime3"  pattern="MM/dd/yyyy HH:mm" binding="#{franjaf}"    />
-
-                    <p:outputLabel for="datetime4" value="inicio rango fechas:" />
-                    <p:calendar id="datetime4"  pattern="MM/dd/yyyy HH:mm" binding="#{rangoi}"    />
-
-                    <p:outputLabel for="datetime5" value="fin rango fechas:" />
-                    <p:calendar id="datetime5"  pattern="MM/dd/yyyy HH:mm" binding="#{rangof}"    />
-
-                    <p:outputLabel class="intlabel" for="Nombre" value="Filtrar por programa: " />
-                    <p:inputText class="inttext" id="Nombre" type="String"  binding="#{programa}" />
-
-
-                    <f:facet name="footer">
-                    <center>
-                    <h:commandButton update="reportes_form" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ReportesBean.consultarRecursosMasUsados(tipo.value,franjai.value,franjaf.value,rangoi.value,rangof.value,programa.value)}" />
-                    </center>
-                    </f:facet>
-
-                </p:panelGrid>
-                </center>
-                </p:fieldset>
-            </p:panel>
-            </center>
-                <br/>
             <p:tabView  >
 
-                <p:tab title="Recursos mas usados"  >
+                <p:tab  id="tab1" title="Recursos mas usados"  >
 
-                    <p:dataTable    id="tbl" var="rec" value="#{ReportesBean.consultarRecursosMasUsados(tipo.value,franjai.value,franjaf.value,rangoi.value,rangof.value,programa.value)}"
+
+<center>
+                    <p:panelGrid  class="grid" id="grid" columns="2"  >
+
+                        <p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
+
+                        <p:selectOneMenu value="#{ReportesBean.tipo}" style="width:216px; background:#cc0000;">
+                            <f:selectItem itemLabel="----" itemValue="" />
+                            <f:selectItems value="#{RecursosBean.getTipos()}"  />
+
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="datetime2" value="inicio Franja Horaria:" />
+                        <p:calendar id="datetime2"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioFranjaHoraria}"    />
+
+                        <p:outputLabel for="datetime3" value="fin Franja Horaria:" />
+                        <p:calendar id="datetime3"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finFranjaHoraria}"   />
+
+                        <p:outputLabel for="datetime4" value="inicio rango fechas:" />
+                        <p:calendar id="datetime4"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioRangoFechas}"    />
+
+                        <p:outputLabel for="datetime5" value="fin rango fechas:" />
+                        <p:calendar id="datetime5"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finRangoFechas}"   />
+
+                        <p:outputLabel class="intlabel" for="Nombre" value="Filtrar por programa: " />
+                        <p:inputText class="inttext" id="Nombre" type="String"  value="#{ReportesBean.programa}" />
+
+
+                        <f:facet name="footer">
+                            <center>
+                                <h:commandButton update="reportes_form:panelreportes:tab1" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ReportesBean.consultarRecursosMasUsados()}" />
+                            </center>
+                        </f:facet>
+
+                    </p:panelGrid>
+
+</center>
+
+
+
+
+<br/>
+<center>
+                    <p:dataTable    id="tbl" var="rec" value="#{ReportesBean.consultarRecursosMasUsados()}"
                                      paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      rowsPerPageTemplate="5,10,15"
                                      currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-                                     paginatorPosition="bottom" rows="7" style="width:750px;"  >
+                                     paginatorPosition="bottom" rows="10" style="width:750px;"  >
 
                         <f:facet name="header" style="color:black;">
                             Recursos mas usados
@@ -110,25 +113,76 @@
                             <h:outputText value="#{rec.getRight()}" />
                         </p:column>
 
-
+                        <f:facet name="footer">
+                            <center>
+                                <p:commandButton class="button1"  value="Ver grafico" oncomplete="PF('graficoDialog').show();"  style="font-size:12px;" />
+                            </center>
+                        </f:facet>
 
                     </p:dataTable>
 
-                    <br/>
+</center>
 
-                    <p:chart type="bar" model="#{ReportesBean.barModel1}" style="height:300px"/>
+
+
+
+
+
+
 
 
 
                 </p:tab>
 
-                <p:tab title="Recursos menos usados"  >
+                <p:tab id="tab2" title="Recursos menos usados"  >
 
-                    <p:dataTable    id="tbl2" var="rec" value="#{ReportesBean.consultarRecursosMenosUsados(tipo.value,franjai.value,franjaf.value,rangoi.value,rangof.value,programa.value)}"
+                    <center>
+                        <p:panelGrid  class="grid" id="grid2" columns="2"  >
+
+                            <p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
+
+                            <p:selectOneMenu value="#{ReportesBean.tipo}" style="width:216px; background:#cc0000;">
+                                <f:selectItem itemLabel="----" itemValue="" />
+                                <f:selectItems value="#{RecursosBean.getTipos()}"  />
+
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel for="datetime21" value="inicio Franja Horaria:" />
+                            <p:calendar id="datetime21"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioFranjaHoraria}"    />
+
+                            <p:outputLabel for="datetime31" value="fin Franja Horaria:" />
+                            <p:calendar id="datetime31"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finFranjaHoraria}"   />
+
+                            <p:outputLabel for="datetime41" value="inicio rango fechas:" />
+                            <p:calendar id="datetime41"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioRangoFechas}"    />
+
+                            <p:outputLabel for="datetime51" value="fin rango fechas:" />
+                            <p:calendar id="datetime51"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finRangoFechas}"   />
+
+                            <p:outputLabel class="intlabel" for="Nombre1" value="Filtrar por programa: " />
+                            <p:inputText class="inttext" id="Nombre1" type="String"  value="#{ReportesBean.programa}" />
+
+
+                            <f:facet name="footer">
+                                <center>
+                                    <h:commandButton update="reportes_form:panelreportes:tab2" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ReportesBean.consultarRecursosMenosUsados()}" />
+                                </center>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </center>
+
+                    <br/>
+
+                    <center>
+
+                    <p:dataTable    id="tbl2" var="rec" value="#{ReportesBean.consultarRecursosMenosUsados()}"
                                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                     rowsPerPageTemplate="5,10,15"
                                     currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
-                                    paginatorPosition="bottom" rows="7" style="width:750px;"  >
+                                    paginatorPosition="bottom" rows="10" style="width:750px;"  >
 
                         <f:facet name="header" style="color:black;">
                             Recursos menos usados
@@ -151,13 +205,17 @@
                             <h:outputText value="#{rec.getRight()}" />
                         </p:column>
 
-
+                        <f:facet name="footer">
+                            <center>
+                                <p:commandButton class="button1"  value="Ver grafico" oncomplete="PF('graficoDialog1').show();"  style="font-size:12px;" />
+                            </center>
+                        </f:facet>
 
                     </p:dataTable>
 
-                    <br/>
+                    </center>
 
-                    <p:chart type="bar" model="#{ReportesBean.barmenosModel}" style="height:300px"/>
+
 
                 </p:tab>
 
@@ -175,6 +233,27 @@
                 </center>
 
             </f:facet>
+
+
+            <p:dialog widgetVar="graficoDialog"  showEffect="clip"  hideEffect="clip">
+                <p:panel id="gra" style="height:400px" >
+
+                    <p:chart type="bar" model="#{ReportesBean.barModel1}" style="height:300px; width:700px;" />
+
+
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog widgetVar="graficoDialog1"  showEffect="clip"  hideEffect="clip">
+                <p:panel id="gra1"   style="height:400px"  >
+
+                    <p:chart type="bar" model="#{ReportesBean.barmenosModel}" style="height:300px; width:700px;" />
+
+
+                </p:panel>
+            </p:dialog>
+
+
 
         </p:panel>
         </center>

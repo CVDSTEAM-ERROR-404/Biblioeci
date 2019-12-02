@@ -30,6 +30,61 @@ public class ReportesBean extends BasePageBean {
 
     private BarChartModel barmenosModel;
 
+    private TipoRecurso tipo;
+    private Date inicioFranjaHoraria;
+    private Date finFranjaHoraria;
+    private Date inicioRangoFechas;
+    private Date finRangoFechas;
+    private String programa;
+
+    public TipoRecurso getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoRecurso tipo) {
+        this.tipo = tipo;
+    }
+
+    public Date getInicioFranjaHoraria() {
+        return inicioFranjaHoraria;
+    }
+
+    public void setInicioFranjaHoraria(Date inicioFranjaHoraria) {
+        this.inicioFranjaHoraria = inicioFranjaHoraria;
+    }
+
+    public Date getFinFranjaHoraria() {
+        return finFranjaHoraria;
+    }
+
+    public void setFinFranjaHoraria(Date finFranjaHoraria) {
+        this.finFranjaHoraria = finFranjaHoraria;
+    }
+
+    public Date getInicioRangoFechas() {
+        return inicioRangoFechas;
+    }
+
+    public void setInicioRangoFechas(Date inicioRangoFechas) {
+        this.inicioRangoFechas = inicioRangoFechas;
+    }
+
+    public Date getFinRangoFechas() {
+        return finRangoFechas;
+    }
+
+    public void setFinRangoFechas(Date finRangoFechas) {
+        this.finRangoFechas = finRangoFechas;
+    }
+
+    public String getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(String programa) {
+        this.programa = programa;
+        if(programa.equals("")){ this.programa = null; }
+    }
 
     public BarChartModel getBarModel1() {
         return barModel1;
@@ -51,7 +106,7 @@ public class ReportesBean extends BasePageBean {
         BarChartModel model = new BarChartModel();
         ChartSeries recursos = new ChartSeries();
         recursos.setLabel("recursos mas ocupados");
-        for(MutablePair<Recurso,Long> info : consultarRecursosMasUsados(null,null,null,null,null,null) ){
+        for(MutablePair<Recurso,Long> info : consultarRecursosMasUsados() ){
             recursos.set(info.getLeft().getNombre(),info.getRight());
         }
 
@@ -63,8 +118,8 @@ public class ReportesBean extends BasePageBean {
     private BarChartModel initmenosModel() {
         BarChartModel model = new BarChartModel();
         ChartSeries recursos = new ChartSeries();
-        recursos.setLabel("recursos mas ocupados");
-        for(MutablePair<Recurso,Long> info : consultarRecursosMenosUsados(null,null,null,null,null,null) ){
+        recursos.setLabel("recursos menos ocupados");
+        for(MutablePair<Recurso,Long> info : consultarRecursosMenosUsados() ){
             recursos.set(info.getLeft().getNombre(),info.getRight());
         }
 
@@ -119,7 +174,7 @@ public class ReportesBean extends BasePageBean {
         }
         return rangoFechas;
     }
-    public List<MutablePair<Recurso,Long>>  consultarRecursosMasUsados(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
+    public List<MutablePair<Recurso,Long>>  consultarRecursosMasUsados(){
         MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
         MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
         List<MutablePair<Recurso,Long>> topRecursos=null;
@@ -130,28 +185,30 @@ public class ReportesBean extends BasePageBean {
         }
         return topRecursos;
     }
-    public List<MutablePair<Recurso,Long>>  consultarRecursosMenosUsados(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
+    public List<MutablePair<Recurso,Long>>  consultarRecursosMenosUsados(){
         MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
         MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
         List<MutablePair<Recurso,Long>> topRecursos=null;
         try {
             topRecursos=serviciosBiblioEci.consultarRecursosMenosUsados(tipo,franjaHoraria,rangoFechas,programa);
+
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
         return topRecursos;
     }
-    public List<MutablePair<String,Long>>  consultarHorariosMayorOcupacion(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
+    public List<MutablePair<String,Long>>  consultarHorariosMayorOcupacion(){
         MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
         MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);List<MutablePair<String,Long>> topHorarios=null;
         try {
             topHorarios=serviciosBiblioEci.consultarHorariosMayorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
+
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
         return topHorarios;
     }
-    public List<MutablePair<String,Long>>  consultarHorariosMenorOcupacion(TipoRecurso tipo, Date inicioFranjaHoraria, Date finFranjaHoraria, Date inicioRangoFechas, Date finRangoFechas, String programa){
+    public List<MutablePair<String,Long>>  consultarHorariosMenorOcupacion(){
         MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
         MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);List<MutablePair<String,Long>> topHorarios=null;
         try {
@@ -161,4 +218,5 @@ public class ReportesBean extends BasePageBean {
         }
         return topHorarios;
     }
+
 }

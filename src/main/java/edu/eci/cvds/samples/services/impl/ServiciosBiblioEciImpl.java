@@ -575,5 +575,31 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         if(!usuario.equals(reserva.getUsuario()))throw new ExcepcionServiciosBiblioEci("No se pueden cancelar las reservas de otro usuario");
     }
 
-    
+    @Override
+    public MutablePair<Integer, Integer> consultarReservasRecurrentes(TipoReserva tipoReserva, String programa,
+            TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja)
+            throws ExcepcionServiciosBiblioEci {
+        MutablePair<Integer, Integer> reservas = new MutablePair<Integer, Integer>(2,3);
+        try {
+            reservas.setLeft(reservaDAO.consultarReservasRecurrentes(tipoReserva, programa, tipoRecurso, rangoFechas, franja).size());
+            reservas.setRight(reservaDAO.consultarReservasSimples(programa, tipoRecurso, rangoFechas, franja).size());
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar datos de las reservas recurrentes y simples");
+        }
+        return reservas;
+    }
+
+    @Override
+    public MutablePair<Integer, Integer> consultarReservasCanceladas(TipoReserva tipoReserva, String programa,
+            TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja)
+            throws ExcepcionServiciosBiblioEci {
+        MutablePair<Integer, Integer> reservas = new MutablePair<Integer, Integer>(2,3);
+        try {
+            reservas.setLeft(reservaDAO.consultarReservasCanceladas(tipoReserva, programa, tipoRecurso).size());
+            reservas.setRight(reservaDAO.consultarReservasActivas(tipoReserva, programa, tipoRecurso).size());
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosBiblioEci("Error al consultar datos de las reservas recurrentes y simples");
+        }
+        return reservas;
+    }
 }

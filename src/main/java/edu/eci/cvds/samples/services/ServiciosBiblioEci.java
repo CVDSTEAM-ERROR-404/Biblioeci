@@ -9,6 +9,7 @@ import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.entities.Evento;
 import edu.eci.cvds.samples.entities.Usuario;
 import org.mybatis.guice.transactional.Transactional;
@@ -172,5 +173,7 @@ public interface ServiciosBiblioEci {
 
     public abstract List<MutablePair<String, Long>> consultarHorariosMenorOcupacion(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci;
 
+    public abstract MutablePair<Integer, Integer> consultarReservasRecurrentes(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja) throws ExcepcionServiciosBiblioEci;
 
+    public MutablePair<Integer, Integer> consultarReservasCanceladas(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja) throws ExcepcionServiciosBiblioEci ;
 }

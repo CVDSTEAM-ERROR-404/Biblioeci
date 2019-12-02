@@ -40,9 +40,10 @@ Ver [funcionalidades](resources/md/manual.md)
 ## Arquitectura y Diseño
 
 #### Modelo E-R
-![](resources/modelos/er1.png)
+![](resources/modelos/er.jpg)
 #### Diagrama de Clases
-![](resources/modelos/class.png)
+![](resources/modelos/clases.png)
+![](resources/modelos/enti.png)
 
 #### Stack de Tecnología Utilizado
 
@@ -50,6 +51,7 @@ Ver [funcionalidades](resources/md/manual.md)
    * [JUnit (Property Based Testing)](https://junit.org/junit5/)
    * [Guice (Inyección de Dependencias)](https://github.com/google/guice)
    * [PostgreSQL (DataBase Management)](https://www.postgresql.org)
+   * [Jacoco (cobertura de pruebas)](https://www.jacoco.org/)
 
 #### Enlaces
 

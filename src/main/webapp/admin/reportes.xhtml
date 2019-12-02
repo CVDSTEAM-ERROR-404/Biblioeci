@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/images/icons/eci.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/util.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet" />
+</h:head>
+
+<h:body>
+
+    "#{ReportesBean.createBarModel()}"
+
+    <h:form id="misreservas_form" autocomplete="off" >
+        <p:growl id="growl" showDetail="false" sticky="true" />
+        <center>
+        <p:panel  id="panelreserva"   style="width: 900px; ">
+
+            <p:tabView  >
+
+                <p:tab title="Recursos mas usados"  >
+
+                    <p:dataTable    id="tbl" var="rec" value="#{ReportesBean.consultarRecursosMasUsados(null,null,null,null,null,null)}"
+                                     paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                                     paginatorPosition="bottom" rows="10" style="width:750px;"  >
+
+                        <f:facet name="header" style="color:black;">
+                            Recursos mas usados
+                        </f:facet>
+
+                        <f:facet name="{Exporters}">
+                        <div style="float:right;padding-top: 5px;">
+                        <h:commandLink>
+                            <h:graphicImage url="/admin/excel.png" width="24"/>
+                            <p:dataExporter type="xls" target="tbl" fileName="recursosMasUsados" />
+                        </h:commandLink>
+                        </div>
+                        </f:facet>
+
+                        <p:column headerText="Recurso" >
+                            <h:outputText value="#{rec.getLeft().getNombre()}" />
+                        </p:column>
+
+                        <p:column headerText="Cantidad reservas" >
+                            <h:outputText value="#{rec.getRight()}" />
+                        </p:column>
+
+
+
+                    </p:dataTable>
+
+                    <br/>
+
+                    <p:chart type="bar" model="#{ReportesBean.barModel}" style="height:300px"/>
+
+
+
+                </p:tab>
+
+                <p:tab title="Recursos menos usados"  >
+
+                </p:tab>
+
+
+
+
+            </p:tabView>
+
+            <f:facet name="footer">
+                <center>
+                <h:outputLink value="login1.xhtml"
+                              styleClass="ui-button  ui-button-text-only" style="font-size:12px; color:FFF;  border-radius: 3px;">
+                    <span class="ui-button-text" style="padding: 15px 25px;" >VOLVER</span>
+                </h:outputLink>
+                </center>
+
+            </f:facet>
+
+        </p:panel>
+        </center>
+    </h:form>
+</h:body>
+</html>

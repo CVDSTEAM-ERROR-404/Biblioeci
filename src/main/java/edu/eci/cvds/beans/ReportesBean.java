@@ -7,6 +7,10 @@ import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.apache.commons.lang3.tuple.MutablePair;
+
+import org.primefaces.model.chart.*;
+
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
@@ -17,8 +21,49 @@ import java.util.List;
 @SessionScoped
 public class ReportesBean extends BasePageBean {
 
+
+
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;
+
+    private BarChartModel barModel;
+
+
+
+    public BarChartModel getBarModel() {
+        return barModel;
+    }
+
+    public void setBarModel(BarChartModel barModel) {
+        this.barModel = barModel;
+    }
+
+    private BarChartModel initBarModel() {
+        BarChartModel model = new BarChartModel();
+        ChartSeries recursos = new ChartSeries();
+        recursos.setLabel("recursos mas ocupados");
+        for(MutablePair<Recurso,Long> info : consultarRecursosMasUsados(null,null,null,null,null,null) ){
+            recursos.set(info.getLeft().getNombre(),info.getRight());
+        }
+
+        model.addSeries(recursos);
+
+        return model;
+    }
+
+    public void createBarModel() {
+        barModel = initBarModel();
+
+        barModel.setTitle("Bar Chart");
+        barModel.setLegendPosition("ne");
+
+        Axis xAxis = barModel.getAxis(AxisType.X);
+        xAxis.setLabel("Recurso");
+
+        Axis yAxis = barModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Ocupaciones");
+
+    }
 
     private MutablePair<Date,Date> crearFranjaHoraria(Date inicioFranja,Date finFranja){
         MutablePair<Date,Date> franjaHoraria=null;

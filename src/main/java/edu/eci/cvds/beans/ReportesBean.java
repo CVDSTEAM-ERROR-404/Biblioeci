@@ -30,12 +30,36 @@ public class ReportesBean extends BasePageBean {
 
     private BarChartModel barmenosModel;
 
+    private PieChartModel barocupacionModel;
+
+
+
+    private PieChartModel barMenorOcupacionModel;
+
     private TipoRecurso tipo;
     private Date inicioFranjaHoraria;
     private Date finFranjaHoraria;
     private Date inicioRangoFechas;
     private Date finRangoFechas;
     private String programa;
+
+    public PieChartModel getBarMenorOcupacionModel() {
+        return barMenorOcupacionModel;
+    }
+
+    public void setBarMenorOcupacionModel(PieChartModel barMenorOcupacionModel) {
+        this.barMenorOcupacionModel = barMenorOcupacionModel;
+    }
+
+    public PieChartModel getBarocupacionModel() {
+        return barocupacionModel;
+    }
+
+    public void setBarocupacionModel(PieChartModel barocupacionModel) {
+        this.barocupacionModel = barocupacionModel;
+    }
+
+
 
     public TipoRecurso getTipo() {
         return tipo;
@@ -128,10 +152,16 @@ public class ReportesBean extends BasePageBean {
         return model;
     }
 
+
+
     public void createModels(){
         createmasModel();
         createmenosModel();
+        createOcupacionModel();
+        createMenorOcupacionModel();
+
     }
+
     public void createmasModel() {
         barModel1 = initmasModel();
 
@@ -157,6 +187,36 @@ public class ReportesBean extends BasePageBean {
 
         Axis yAxis = barmenosModel.getAxis(AxisType.Y);
         yAxis.setLabel("Ocupaciones");
+
+    }
+
+    public  void createOcupacionModel() {
+
+        barocupacionModel = new PieChartModel();
+        for(MutablePair<String,Long> info : consultarHorariosMayorOcupacion()){
+            barocupacionModel.set(info.getLeft(),info.getRight());
+        }
+
+
+
+        barocupacionModel.setTitle("Horarios mayor ocupacion");
+        barocupacionModel.setLegendPosition("w");
+        barocupacionModel.setShadow(false);
+
+    }
+
+    public  void createMenorOcupacionModel() {
+
+        barMenorOcupacionModel = new PieChartModel();
+        for(MutablePair<String,Long> info : consultarHorariosMenorOcupacion()){
+            barocupacionModel.set(info.getLeft(),info.getRight());
+        }
+
+
+
+        barMenorOcupacionModel.setTitle("Horarios menor ocupacion");
+        barMenorOcupacionModel.setLegendPosition("w");
+        barMenorOcupacionModel.setShadow(false);
 
     }
 

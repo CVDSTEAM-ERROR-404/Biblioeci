@@ -220,6 +220,181 @@
                 </p:tab>
 
 
+                <p:tab id="tab3" title="Horarios de mayor ocupacion"  >
+
+                    <center>
+                        <p:panelGrid  class="grid" id="grid3" columns="2"  >
+
+                            <p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
+
+                            <p:selectOneMenu value="#{ReportesBean.tipo}" style="width:216px; background:#cc0000;">
+                                <f:selectItem itemLabel="----" itemValue="" />
+                                <f:selectItems value="#{RecursosBean.getTipos()}"  />
+
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel for="datetime22" value="inicio Franja Horaria:" />
+                            <p:calendar id="datetime22"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioFranjaHoraria}"    />
+
+                            <p:outputLabel for="datetime32" value="fin Franja Horaria:" />
+                            <p:calendar id="datetime32"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finFranjaHoraria}"   />
+
+                            <p:outputLabel for="datetime42" value="inicio rango fechas:" />
+                            <p:calendar id="datetime42"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioRangoFechas}"    />
+
+                            <p:outputLabel for="datetime52" value="fin rango fechas:" />
+                            <p:calendar id="datetime52"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finRangoFechas}"   />
+
+                            <p:outputLabel class="intlabel" for="Nombre2" value="Filtrar por programa: " />
+                            <p:inputText class="inttext" id="Nombre2" type="String"  value="#{ReportesBean.programa}" />
+
+
+                            <f:facet name="footer">
+                                <center>
+                                    <h:commandButton update="reportes_form:panelreportes:tab3" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ReportesBean.consultarHorariosMayorOcupacion()}" />
+                                </center>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </center>
+
+                    <br/>
+
+                    <center>
+
+                        <p:dataTable    id="tbl3" var="rec" value="#{ReportesBean.consultarHorariosMayorOcupacion()}"
+                                        paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                        rowsPerPageTemplate="5,10,15"
+                                        currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                                        paginatorPosition="bottom" rows="10" style="width:750px;"  >
+
+                            <f:facet name="header" style="color:black;">
+                                Horarios mayor ocupacion
+                            </f:facet>
+
+                            <f:facet name="{Exporters}">
+                                <div style="float:right;padding-top: 5px;">
+                                    <h:commandLink>
+                                        <h:graphicImage url="/admin/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tbl3" fileName="horariosMayorOcupacion" />
+                                    </h:commandLink>
+                                </div>
+                            </f:facet>
+
+                            <p:column headerText="Franja" >
+                                <h:outputText value="#{rec.getLeft()}" />
+                            </p:column>
+
+                            <p:column headerText="Cantidad reservas" >
+                                <h:outputText value="#{rec.getRight()}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton class="button1"  value="Ver grafico" oncomplete="PF('graficoDialog2').show();"  style="font-size:12px;" />
+                                </center>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                    </center>
+
+
+
+                </p:tab>
+
+
+
+
+
+                <p:tab id="tab4" title="Horarios de menor ocupacion"  >
+
+                    <center>
+                        <p:panelGrid  class="grid" id="grid4" columns="2"  >
+
+                            <p:outputLabel class="intlabel"  value="Filtrar por tipo:" />
+
+                            <p:selectOneMenu value="#{ReportesBean.tipo}" style="width:216px; background:#cc0000;">
+                                <f:selectItem itemLabel="----" itemValue="" />
+                                <f:selectItems value="#{RecursosBean.getTipos()}"  />
+
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel for="datetime23" value="inicio Franja Horaria:" />
+                            <p:calendar id="datetime23"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioFranjaHoraria}"    />
+
+                            <p:outputLabel for="datetime33" value="fin Franja Horaria:" />
+                            <p:calendar id="datetime33"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finFranjaHoraria}"   />
+
+                            <p:outputLabel for="datetime43" value="inicio rango fechas:" />
+                            <p:calendar id="datetime43"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.inicioRangoFechas}"    />
+
+                            <p:outputLabel for="datetime53" value="fin rango fechas:" />
+                            <p:calendar id="datetime53"  pattern="MM/dd/yyyy HH:mm" value="#{ReportesBean.finRangoFechas}"   />
+
+                            <p:outputLabel class="intlabel" for="Nombre3" value="Filtrar por programa: " />
+                            <p:inputText class="inttext" id="Nombre3" type="String"  value="#{ReportesBean.programa}" />
+
+
+                            <f:facet name="footer">
+                                <center>
+                                    <h:commandButton update="reportes_form:panelreportes:tab4" class="button1"   value="Consultar" style="font-size:12px;" actionListener="#{ReportesBean.consultarHorariosMemorOcupacion()}" />
+                                </center>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </center>
+
+                    <br/>
+
+                    <center>
+
+                        <p:dataTable    id="tbl4" var="rec" value="#{ReportesBean.consultarHorariosMenorOcupacion()}"
+                                        paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                        rowsPerPageTemplate="5,10,15"
+                                        currentPageReportTemplate="Página: ({currentPage} de {totalPages})"
+                                        paginatorPosition="bottom" rows="10" style="width:750px;"  >
+
+                            <f:facet name="header" style="color:black;">
+                                Horarios menor ocupacion
+                            </f:facet>
+
+                            <f:facet name="{Exporters}">
+                                <div style="float:right;padding-top: 5px;">
+                                    <h:commandLink>
+                                        <h:graphicImage url="/admin/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tbl3" fileName="horariosMenorOcupacion" />
+                                    </h:commandLink>
+                                </div>
+                            </f:facet>
+
+                            <p:column headerText="Franja" >
+                                <h:outputText value="#{rec.getLeft()}" />
+                            </p:column>
+
+                            <p:column headerText="Cantidad reservas" >
+                                <h:outputText value="#{rec.getRight()}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <center>
+                                    <p:commandButton class="button1"  value="Ver grafico" oncomplete="PF('graficoDialog3').show();"  style="font-size:12px;" />
+                                </center>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                    </center>
+
+
+
+                </p:tab>
+
+
 
 
             </p:tabView>
@@ -248,6 +423,24 @@
                 <p:panel id="gra1"   style="height:400px"  >
 
                     <p:chart type="bar" model="#{ReportesBean.barmenosModel}" style="height:300px; width:700px;" />
+
+
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog widgetVar="graficoDialog2"  showEffect="clip"  hideEffect="clip">
+                <p:panel id="gra2"   style="height:600px"  >
+
+                    <p:chart type="pie" model="#{ReportesBean.barocupacionModel}" style="height:550px; width:500px;" />
+
+
+                </p:panel>
+            </p:dialog>
+
+            <p:dialog widgetVar="graficoDialog3"  showEffect="clip"  hideEffect="clip">
+                <p:panel id="gra3"   style="height:600px"  >
+
+                    <p:chart type="pie" model="#{ReportesBean.barMenorOcupacionModel}" style="height:550px; width:500px;" />
 
 
                 </p:panel>

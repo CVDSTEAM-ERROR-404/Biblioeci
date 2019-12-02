@@ -109,28 +109,12 @@
 		<include refid="getAllReservas"/>
 
 			AND res.usuario = #{usuario} AND res.estado='Activa'
+        AND (SELECT MAX(eve1.hora_fin) FROM evento as eve1 WHERE eve1.reserva=res.id) &gt; now()
 
-		ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;
+
+        ORDER BY (SELECT MIN(eve1.hora_inicio) FROM evento as eve1 WHERE eve1.reserva=res.id) DESC;
 	</select>
 
-	<select parameterType="map" id="consultarFechaFinalizacion" resultType="java.util.Date">
-		SELECT 
-			MAX(hora_fin)
-		FROM 
-			evento as eve
-		WHERE 
-			eve.reserva = #{reserva} AND eve.estado='Activa';
-	</select>
-
-
-	<select parameterType="map" id="consultarProximaOcurrencia" resultType="java.util.Date">
-		SELECT
-			MIN(hora_inicio)
-		FROM
-			evento as eve
-		WHERE
-			eve.reserva=#{reserva} AND eve.estado='Activa'AND now() &lt;= eve.hora_inicio;
-	</select>
 
 	
 	<update parameterType="map" id="cambiarEstadoReserva">

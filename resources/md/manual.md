@@ -81,19 +81,35 @@ El usuario al seleccionar una reserva desde el horario puede consultar el detall
 
 ![](/resources/md/info2.png)
 
+## Cancelar
+
 ### Cancelar Reservas 
+
 Desde la página de consultar mis reservas el usuario debe seleccionar el boton (+) para luego escoger la opción cancelar, esto lo redirigirá a otra página dónde deberá confirmar la cancelación si la reserva es simple o completar los datos si es recurrente
 
 ![](/resources/md/general.png)
+
 #### Mensaje de confirmación en reserva simple
+
+Si el usuario presiona la opción "si" se cancelara la reserva simple  si no se cerrara el diálogo
+
 ![](/resources/md/confirmacion.png)
-si el usuario presiona la opción "si" se cancelara la reserva simple  si no se cerrara el diálogo
+
 #### Cancelar toda la reserva recurrente
+
+Si el usuario presiona el boton cancelar cancelara la reserva y todos sus eventos
+
 ![](/resources/md/cancelarTotal.png)
-si el usuario presiona el boton cancelar cancelara la reserva y todos sus eventos
+
 #### Cancelar reserva recurrentes desde una fecha
+
+El usuario debe seleccionar una fecha y al presionar cancelara todos los eventos despues de esta fecha , si todos los eventos se cancelan tambien se cancelara la reserva
+
 ![](/resources/md/cancelarFecha.png)
-el usuario debe seleccionar una fecha y al presionar cancelara todos los eventos despues de esta fecha , si todos los eventos se cancelan tambien se cancelara la reserva
+
+
 #### Cancelar un evento de la reserva
+
+El usuario debe seleccionar el evento que desea borrar en el calendario, si es el ultimo evento activo de la reserva esta sera cancelada
+
 ![](/resources/md/cancelarEvento.png)
-el usuario debe seleccionar el evento que desea borrar en el calendario, si es el ultimo evento activo de la reserva esta sera cancelada

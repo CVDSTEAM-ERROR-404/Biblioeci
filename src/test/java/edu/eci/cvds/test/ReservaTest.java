@@ -896,25 +896,4 @@ public class ReservaTest extends ServicioBiblioEciTest{
         assertEquals(numDias-cantidadCanceladas,numCanceladas,1);
     }
 
-    @Test
-    public void shouldConsultTheMostUsedResources() throws ExcepcionServiciosBiblioEci {
-        int numReservas = 5;
-        Recurso recurso = new Recurso("prueba", UbicacionRecurso.BloqueB, TipoRecurso.SALA_DE_ESTUDIO, 5,"07:00","19:00");
-        serviciosBiblioEci.registrarRecurso(recurso);
-        Reserva reserva = new Reserva(TipoReserva.Simple,recurso,usuario);
-        for(int i=0;i<numReservas;i++){
-            serviciosBiblioEci.registrarReserva(reserva,getInitialDate(i),null,getFinalDateDays(i));
-        }
-        List<MutablePair<Recurso, Long>> resultados = serviciosBiblioEci.consultarRecursosMasUsados(null,null,null,null);
-        long cantidad = 1000;
-        for(MutablePair<Recurso, Long> res : resultados){
-            assertTrue(res.getRight()<=cantidad);
-            cantidad = res.getRight();
-        }
-    }
-
-    @Test
-    public void should() throws ExcepcionServiciosBiblioEci {
-        System.out.println(serviciosBiblioEci.consultarHorariosMayorOcupacion(null,null,null,null));
-    }
 }

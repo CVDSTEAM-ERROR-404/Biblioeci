@@ -65,7 +65,7 @@ public interface RecursoMapper {
      * @param programa Programa de los usuarios solicitantes de los recursos
      * @return Lista de los recursos más usados
      */
-    public List<Recurso> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
+    public List<MutablePair<Recurso, Long>> consultarRecursosMasUsados(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
 
     
     /**
@@ -78,7 +78,7 @@ public interface RecursoMapper {
      * @param programa Programa de los usuarios solicitantes de los recursos
      * @return Lista de los recursos menos usados
      */
-    public List<Recurso> consultarRecursosMenosUsados(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
+    public List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(@Param("tipo") TipoRecurso tipo, @Param("franja") MutablePair<Date, Date> franjaHoraria,@Param("rango") MutablePair<Date, Date> rangoFechas,@Param("programa") String programa);
 
 
     /**

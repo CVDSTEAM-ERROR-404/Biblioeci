@@ -16,9 +16,15 @@
 	</resultMap>
 
   <resultMap id="pairHorarioResultMap" type="Pair">
-    	<result property="left"  javaType="java.lang.String" column='rango'/>
+    	<id property="left"  javaType="java.lang.String" column='rango'/>
     	<result property="right"  javaType="java.lang.Long" column='numero'/>
 	</resultMap>
+
+  <resultMap id="pairUsoRecursoResult" type="Pair">
+    <id column='id'/>
+    <result property="right"  javaType="java.lang.Long" column='numero'/>
+    <association property="left" javaType="Recurso"  resultMap="RecursoResult"></association>
+  </resultMap>
 
   <sql id="getAllRecursos">
 		SELECT 
@@ -37,7 +43,7 @@
 
   <sql id="getAllUsos">
       SELECT
-      CONCAT(k,' - ',t) as rango, 
+      k || t as rango,
       (SELECT COUNT(*) from evento as eve1 where 
       t1.k  &lt;= substring(to_char(eve1.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) and
       substring(to_char(eve1.hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= t
@@ -105,25 +111,36 @@
   </insert>
 
 
-  <select parameterType='map' id='consultarRecursosMasUsados' resultMap='RecursoResult'>
-    <include refid="getAllRecursos"/>
+  <select parameterType='map' id='consultarRecursosMasUsados' resultMap='pairUsoRecursoResult'>
+    SELECT
+      id,
+      nombre,
+      ubicacion,
+      tipo,
+      capacidad,
+      estado,
+      inicio_disponibilidad,
+      fin_disponibilidad,
+      (SELECT
+      COUNT(*)
+      FROM
+      reserva, usuario
+      WHERE
+      reserva.recurso=rec.id AND reserva.estado='Activa' AND reserva.usuario = usuario.correo
+      <if test="programa != null">
+        AND usuario.u_area = #{programa}
+      </if>
+      ) AS numero
+    FROM
+    recurso as rec
     <where>
-      <if test="ubicacion != null">
+      <if test="tipo != null">
         rec.tipo=#{tipo}
       </if>
     </where>
     ORDER BY
     <if test="franja == null and rango == null">
-      (SELECT 
-        COUNT(*) 
-      FROM 
-        reserva, usuario 
-      WHERE 
-        reserva.recurso=rec.id AND reserva.estado='Activa' AND reserva.usuario = usario.correo
-        <if test="programa != null">
-          AND usuario.u_area = #{programa}
-        </if>
-      ) DESC,
+      numero DESC,
     </if>
     (SELECT 
       COUNT(*) 
@@ -147,43 +164,54 @@
 
 
 
-  <select parameterType='map' id='consultarRecursosMenosUsados' resultMap='RecursoResult'>
-    <include refid="getAllRecursos"/>
+  <select parameterType='map' id='consultarRecursosMenosUsados' resultMap='pairUsoRecursoResult'>
+    SELECT
+    id,
+    nombre,
+    ubicacion,
+    tipo,
+    capacidad,
+    estado,
+    inicio_disponibilidad,
+    fin_disponibilidad,
+    (SELECT
+    COUNT(*)
+    FROM
+    reserva, usuario
+    WHERE
+    reserva.recurso=rec.id AND reserva.estado='Activa' AND reserva.usuario = usuario.correo
+    <if test="programa != null">
+      AND usuario.u_area = #{programa}
+    </if>
+    ) AS numero
+    FROM
+    recurso as rec
     <where>
-      <if test="ubicacion != null">
+      <if test="tipo != null">
         rec.tipo=#{tipo}
       </if>
     </where>
     ORDER BY
     <if test="franja == null and rango == null">
-      (SELECT 
-        COUNT(*) 
-      FROM 
-        reserva, usuario 
-      WHERE 
-        reserva.recurso=rec.id AND reserva.estado='Activa' AND reserva.usuario = usario.correo
-        <if test="programa != null">
-          AND usuario.u_area = #{programa}
-        </if>
-      ),
+      numero ASC,
     </if>
-    (SELECT 
-      COUNT(*) 
-    FROM 
-      reserva as res, evento as eve, usuario
-    WHERE 
-      res.recurso=rec.id AND res.estado='Activa' and eve.reserva=res.id AND eve.estado='Activa' AND usuario.correo=res.usuario
-      <if test="programa != null">
-        AND usuario.u_area = #{programa}
-      </if>
-      <if test="franja != null">
-        AND substring(to_char(#{franja.left}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12)
-        AND substring(to_char(hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char({franja.right}, 'YYYY-MM-DD HH24:MI:SS'), 12)
-      </if>
-      <if test="rango != null">
-        AND #{rango.left} &lt;= eve.hora_inicio AND eve.hora_fin &lt;= #{rango.right}
-      </if>
-    )
+    (SELECT
+    COUNT(*)
+    FROM
+    reserva as res, evento as eve, usuario
+    WHERE
+    res.recurso=rec.id AND res.estado='Activa' and eve.reserva=res.id AND eve.estado='Activa' AND usuario.correo=res.usuario
+    <if test="programa != null">
+      AND usuario.u_area = #{programa}
+    </if>
+    <if test="franja != null">
+      AND substring(to_char(#{franja.left}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12)
+      AND substring(to_char(hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char({franja.right}, 'YYYY-MM-DD HH24:MI:SS'), 12)
+    </if>
+    <if test="rango != null">
+      AND #{rango.left} &lt;= eve.hora_inicio AND eve.hora_fin &lt;= #{rango.right}
+    </if>
+    ) ASC
     LIMIT 10;
   </select>
   
@@ -191,7 +219,7 @@
   
   <select parameterType='map' id='consultarHorariosMayorOcupacion' resultMap='pairHorarioResultMap'>
       SELECT
-        CONCAT(k,' - ',t) as rango, 
+        k || ' - ' || t as rango,
         (SELECT COUNT(*) from evento as eve1 where 
         t1.k  &lt;= substring(to_char(eve1.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) and
         substring(to_char(eve1.hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= t
@@ -225,7 +253,7 @@
 
   <select parameterType='map' id='consultarHorariosMenorOcupacion' resultMap='pairHorarioResultMap'>
       SELECT
-        CONCAT(k,' - ',t) as rango, 
+        k || ' - ' || t as rango,
         (SELECT COUNT(*) from evento as eve1 where 
         t1.k  &lt;= substring(to_char(eve1.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) and
         substring(to_char(eve1.hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= t

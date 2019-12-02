@@ -473,8 +473,13 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         if(usuario==null){throw new ExcepcionServiciosBiblioEci("No se pueden consultar reservas de un usuario nulo");}
         List<Reserva> reservas;
         try {
+
+            System.out.println(reservaDAO.consultarReservasCanceladas(null, null, null));
+            //System.out.println(reservaDAO.consultarReservasRecurrentes(null, null, null, null, null ));
+
             reservas=reservaDAO.consultarReservasActivasUsuario(usuario);
         } catch (PersistenceException e) {
+            e.printStackTrace();
             throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del usuario",e);
         }
         return  reservas;

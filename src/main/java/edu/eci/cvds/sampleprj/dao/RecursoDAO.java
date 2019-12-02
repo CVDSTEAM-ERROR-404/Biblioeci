@@ -69,7 +69,7 @@ public interface RecursoDAO{
      * @param programa Programa de los usuarios solicitantes de los recursos
      * @return Lista de los recursos más usados
      */
-    public List<Recurso> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException;
+    public List<MutablePair<Recurso, Long>> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException;
 
     
     /**
@@ -82,7 +82,7 @@ public interface RecursoDAO{
      * @param programa Programa de los usuarios solicitantes de los recursos
      * @return Lista de los recursos menos usados
      */
-    public List<Recurso> consultarRecursosMenosUsados(TipoRecurso tipo,MutablePair<Date, Date> franjaHoraria,MutablePair<Date, Date> rangoFechas,String programa) throws PersistenceException;
+    public List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(TipoRecurso tipo,MutablePair<Date, Date> franjaHoraria,MutablePair<Date, Date> rangoFechas,String programa) throws PersistenceException;
 
 
     /**

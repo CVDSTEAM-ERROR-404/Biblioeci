@@ -130,9 +130,9 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	}
 
 	@Override
-	public List<Recurso> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,
+	public List<MutablePair<Recurso, Long>> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,
 			MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException {
-		List<Recurso> recursos;
+		List<MutablePair<Recurso, Long>> recursos;
 		try {
 			recursos = recursoMapper.consultarRecursosMasUsados(tipo, franjaHoraria, rangoFechas, programa);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -142,9 +142,9 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	}
 
 	@Override
-	public List<Recurso> consultarRecursosMenosUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,
+	public List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,
 			MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException {
-		List<Recurso> recursos;
+		List<MutablePair<Recurso, Long>> recursos;
 		try {
 			recursos = recursoMapper.consultarRecursosMenosUsados(tipo, franjaHoraria, rangoFechas, programa);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {

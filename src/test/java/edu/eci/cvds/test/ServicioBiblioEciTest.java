@@ -31,8 +31,7 @@ public class ServicioBiblioEciTest {
         int day = calendarInicio.getTime().getDate();
         int month = calendarInicio.getTime().getMonth();
         int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==(6+dias)%7){calendarInicio.set(year+1900,month,day+2+dias,7,0,0);}
-        else{calendarInicio.set(year+1900,month,day+1+dias,7,0,0);}
+        calendarInicio.set(year+1900,month,day+1+dias,7,0,0);
         return calendarInicio.getTime();
     }
 
@@ -41,8 +40,7 @@ public class ServicioBiblioEciTest {
         int day = calendarInicio.getTime().getDate();
         int month = calendarInicio.getTime().getMonth();
         int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){calendarInicio.set(year+1900,month,day+2,7+horas,0,0);}
-        else{calendarInicio.set(year+1900,month,day+1,7+horas,0,0);}
+        calendarInicio.set(year+1900,month,day+1,7+horas,0,0);
         return calendarInicio.getTime();
     }
 
@@ -51,8 +49,7 @@ public class ServicioBiblioEciTest {
         int day = calendarInicio.getTime().getDate();
         int month = calendarInicio.getTime().getMonth();
         int year = calendarInicio.getTime().getYear();
-        if(calendarInicio.getTime().getDay()==6){calendarInicio.set(year+1900,month,day+2,7,0,0);}
-        else{calendarInicio.set(year+1900,month,day+1,7,0,0);}
+        calendarInicio.set(year+1900,month,day+1,7,0,0);
         return calendarInicio.getTime();
     }
 
@@ -61,8 +58,16 @@ public class ServicioBiblioEciTest {
         int day = calendarFinal.getTime().getDate();
         int month = calendarFinal.getTime().getMonth();
         int year = calendarFinal.getTime().getYear();
-        if(calendarFinal.getTime().getDay()==6){calendarFinal.set(year+1900,month,day+2,8,0,0);}
-        else{calendarFinal.set(year+1900,month,day+1,8,0,0);}
+        calendarFinal.set(year+1900,month,day+1,8,0,0);
+        return calendarFinal.getTime();
+    }
+
+    protected Date getFinalDateDays(int dias){
+        Calendar calendarFinal = Calendar.getInstance();
+        int day = calendarFinal.getTime().getDate();
+        int month = calendarFinal.getTime().getMonth();
+        int year = calendarFinal.getTime().getYear();
+        calendarFinal.set(year+1900,month,day+1+dias,8,0,0);
         return calendarFinal.getTime();
     }
 
@@ -71,9 +76,9 @@ public class ServicioBiblioEciTest {
         int day = calendarFinal.getTime().getDate();
         int month = calendarFinal.getTime().getMonth();
         int year = calendarFinal.getTime().getYear();
-        if(calendarFinal.getTime().getDay()==6){calendarFinal.set(year+1900,month,day+2,8+horas,0,0);}
-        else{calendarFinal.set(year+1900,month,day+1,8+horas,0,0);}
+        calendarFinal.set(year+1900,month,day+1,8+horas,0,0);
         return calendarFinal.getTime();
+
     }
 
     protected Date getConcurrentDate(int numDias){

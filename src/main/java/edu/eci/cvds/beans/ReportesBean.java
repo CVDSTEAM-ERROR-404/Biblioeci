@@ -209,7 +209,7 @@ public class ReportesBean extends BasePageBean {
 
         barMenorOcupacionModel = new PieChartModel();
         for(MutablePair<String,Long> info : consultarHorariosMenorOcupacion()){
-            barocupacionModel.set(info.getLeft(),info.getRight());
+            barMenorOcupacionModel.set(info.getLeft(),info.getRight());
         }
 
 

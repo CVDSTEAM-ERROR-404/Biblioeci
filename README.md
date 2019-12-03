@@ -55,6 +55,10 @@ Ver [funcionalidades](resources/md/manual.md)
 
 ![](resources/md/arq.png)
 
+Se tiene la capa de presentación la cual usa PrimeFaces y los Managed Beans.
+
+En la capa de negocios utilizamos MyBatis, la cual provee los servicios que se comunican con la capa de Persistencia, la cual tiene acceso a la base de datos Postgresql.
+
 #### Stack de Tecnología Utilizado
 
    * [PrimeFaces (Framework)](https://www.primefaces.org/)
@@ -62,6 +66,7 @@ Ver [funcionalidades](resources/md/manual.md)
    * [Guice (Inyección de Dependencias)](https://github.com/google/guice)
    * [PostgreSQL (DataBase Management)](https://www.postgresql.org)
    * [Jacoco (cobertura de pruebas)](https://www.jacoco.org/)
+   * [Apache Shiro (Autenticación de usuarios)](https://shiro.apache.org/)
 
 #### Enlaces
 

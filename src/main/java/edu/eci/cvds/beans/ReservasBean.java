@@ -141,6 +141,7 @@ public class ReservasBean extends BasePageBean{
      */
     public void registrarReserva(Date fechaInicio, Date fechaFin, Date fechaFinRecurrencia ){
         try{
+            if(!isRecurrente)fechaFinRecurrencia=null;
             Usuario  usuario=serviciosBiblioEci.consultarUsuario(logger.getUser());
             ArrayList<Evento>eventosNoRegistrados= serviciosBiblioEci.registrarReserva(new Reserva(tipoReserva,selectedRecurso,usuario),fechaInicio,fechaFinRecurrencia,fechaFin);
             String mensaje="\n";

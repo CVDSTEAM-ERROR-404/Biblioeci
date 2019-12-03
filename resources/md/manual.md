@@ -163,5 +163,5 @@ El usuario verá una tabla con la información de las reservas canceladas y tend
 
 #### Ejemplo reporte excel
 El usuario tendrá la posibilidad de exportar el reporte en formato excel
-
+![](/resources/md/repo.png)
 

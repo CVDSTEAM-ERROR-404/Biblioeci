@@ -34,3 +34,18 @@ Retrospectiva sprint 2
 * El ritmo de trabajo fue eficiente.
 
 
+## Sprint 3
+
+**Sprint-backlog**\
+![](/resources/md/back3.png)
+
+**Sprint-burndown chart**\
+![](/resources/md/burn3.png)
+
+##### Resumen del sprint
+
+Retrospectiva sprint 3
+
+
+
+

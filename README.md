@@ -47,6 +47,10 @@ Ver [funcionalidades](resources/md/manual.md)
 #### Cobertura de pruebas
 ![](resources/md/jacoco.png)
 
+![](resources/md/jacoco1.PNG)
+
+![](resources/md/jacoco2.PNG)
+
 #### Stack de Tecnología Utilizado
 
    * [PrimeFaces (Framework)](https://www.primefaces.org/)

@@ -30,10 +30,15 @@ Biblioeci es una herramienta donde el personal de la biblioteca pertenecientes a
 
 Para poder utilizar los servicios que ofrece Biblioeci es necesario iniciar sesión.
 
-Las credenciales para ingresar son las siguientes:
+Las credenciales para ingresar como administrador son las siguientes:
 
 + **Usuario:** *adm@adm.com*
 + **Contraseña:** *213*
+
+Las credenciales para ingresar como usuario son las siguientes:
+
++ **Usuario:** *prueba*
++ **Contraseña:** *prueba*
 
 Ver [funcionalidades](resources/md/manual.md)
 

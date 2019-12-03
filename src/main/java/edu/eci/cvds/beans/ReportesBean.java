@@ -16,11 +16,14 @@ import javax.faces.bean.SessionScoped;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Esta clase conecta la pagina web con los diferentes servicios de reportes de la aplicacion de la biblioteca
+ * @author: CVDSTEAM-ERROR-404
+ * @version: 2/12/2019
+ */
 @ManagedBean(name="ReportesBean")
 @SessionScoped
 public class ReportesBean extends BasePageBean {
-
-
 
     @Inject
     private ServiciosBiblioEci serviciosBiblioEci;

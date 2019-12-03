@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
- * Esta clase conecta la pagina web con los diferentes servicios de la aplicacion de la biblioteca
+ * Esta clase conecta la pagina web con los diferentes servicios de recursos de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
  * @version: 2/12/2019
  */

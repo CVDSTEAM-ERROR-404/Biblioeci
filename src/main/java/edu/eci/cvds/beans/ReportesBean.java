@@ -3,6 +3,7 @@ package edu.eci.cvds.beans;
 import com.google.inject.Inject;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
+import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -258,7 +259,8 @@ public class ReportesBean extends BasePageBean {
     }
     public List<MutablePair<String,Long>>  consultarHorariosMayorOcupacion(){
         MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
-        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);List<MutablePair<String,Long>> topHorarios=null;
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
+        List<MutablePair<String,Long>> topHorarios=null;
         try {
             topHorarios=serviciosBiblioEci.consultarHorariosMayorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
 
@@ -269,7 +271,8 @@ public class ReportesBean extends BasePageBean {
     }
     public List<MutablePair<String,Long>>  consultarHorariosMenorOcupacion(){
         MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
-        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);List<MutablePair<String,Long>> topHorarios=null;
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
+        List<MutablePair<String,Long>> topHorarios=null;
         try {
             topHorarios=serviciosBiblioEci.consultarHorariosMenorOcupacion(tipo,franjaHoraria,rangoFechas,programa);
         } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
@@ -278,4 +281,31 @@ public class ReportesBean extends BasePageBean {
         return topHorarios;
     }
 
-}
+    public MutablePair<Integer, Integer> consultarReservasRecurrentes(){
+        MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
+        MutablePair<Integer,Integer> reservasTipo=null;
+        try {
+            reservasTipo = serviciosBiblioEci.consultarReservasRecurrentes(null, programa, tipo,franjaHoraria,rangoFechas);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+        return reservasTipo;
+
+    }
+
+    public MutablePair<Integer, Integer> consultarReservasCanceladas(){
+
+        MutablePair<Date,Date> franjaHoraria=crearFranjaHoraria(inicioFranjaHoraria,finFranjaHoraria);
+        MutablePair<Date,Date> rangoFechas=crearRango(inicioRangoFechas,finRangoFechas);
+        MutablePair<Integer,Integer> reservasEstado=null;
+        try {
+            reservasEstado = serviciosBiblioEci.consultarReservasCanceladas(null, programa, tipo,franjaHoraria,rangoFechas);
+        } catch (ExcepcionServiciosBiblioEci excepcionServiciosBiblioEci) {
+            setErrorMessage(excepcionServiciosBiblioEci.getMessage());
+        }
+        return reservasEstado;
+
+    }
+
+    }

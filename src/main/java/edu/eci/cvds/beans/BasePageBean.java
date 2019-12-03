@@ -12,7 +12,7 @@ import com.google.inject.Injector;
 /**
  * Esta clase conecta una pagina web con el servicio de bibliotecas de la escuela
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 2/12/2019
  */
 @SessionScoped
 public abstract class BasePageBean implements Serializable {

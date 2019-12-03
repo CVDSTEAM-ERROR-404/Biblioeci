@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Esta clase conecta la pagina web del login con el servicio de login de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 
 @ManagedBean(name="LoginBean")
@@ -50,6 +50,11 @@ public class LoginBean extends BasePageBean{
     public boolean isAdmin() {
         return logger.isAdmin();
     }
+
+    /**
+     * Muestra si el usuario logueado es un usuario comun
+     * @return El valor booleano que determina si el usuario logueado es un usuario comun
+     */
     public boolean isUser() {
         return logger.isUser();
     }

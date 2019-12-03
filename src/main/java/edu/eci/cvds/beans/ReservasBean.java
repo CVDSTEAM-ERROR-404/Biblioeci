@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Esta clase conecta la pagina web con los servicios de reserva de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 @ManagedBean(name="ReservasBean")
 @SessionScoped
@@ -45,19 +45,34 @@ public class ReservasBean extends BasePageBean{
     private ScheduleModel eventModel=new DefaultScheduleModel();;
     private ScheduleEvent event = new DefaultScheduleEvent();
 
+    /**
+     * Muestra el evento que se va a cambiar
+     * @return El evento que se va a cambiar
+     */
     public Evento getSelectedEvento() {
         return selectedEvento;
     }
 
+    /**
+     * Cambia el evento que se va a cambiar
+     * @param selectedEvento El nuevo evento que se va a cambiar
+     */
     public void setSelectedEvento(Evento selectedEvento) {
         this.selectedEvento = selectedEvento;
     }
 
-
+    /**
+     * Muestra la reserva que se va a cambiar
+     * @return La reserva que se va a cambiar
+     */
     public Reserva getSelectedReserva() {
         return selectedReserva;
     }
 
+    /**
+     * Cambia la reserva que se va a cambiar
+     * @param selectedReserva La nueva reserva que se va a cambiar
+     */
     public void setSelectedReserva(Reserva selectedReserva) {
         setRecurrente(selectedReserva.getTipo()!=TipoReserva.Simple);
         this.selectedReserva = selectedReserva;
@@ -167,7 +182,10 @@ public class ReservasBean extends BasePageBean{
         }
     }
 
-    public void redirectCancel() throws ExcepcionServiciosBiblioEci {
+    /**
+     * Redirige a la pagina donde se cancelan las reservas
+     */
+    public void redirectCancel(){
         try{
             FacesContext.getCurrentInstance().getExternalContext().redirect("cancelar.xhtml");
         }
@@ -175,6 +193,8 @@ public class ReservasBean extends BasePageBean{
             e.printStackTrace();
         }
     }
+
+
  public  void prueba(){
 
         System.out.println("hhh");
@@ -211,11 +231,19 @@ public class ReservasBean extends BasePageBean{
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
+    /**
+     * Obtiene la reserva del evento sellecionado del calendario
+     * @param selectEvent El evento seleccionado en el calendario de reservas
+     */
     public void onEventSelect(SelectEvent selectEvent) {
         event = (CustomScheduleEvent) selectEvent.getObject();
         selectedReserva = (Reserva) event.getData();
     }
 
+    /**
+     * Obtiene el evento seleccionado en el calendario
+     * @param selectEvent El evento seleccionado en el calendario de reservas
+     */
     public void onEventSelectEvento(SelectEvent selectEvent) {
         event = (CustomScheduleEvent) selectEvent.getObject();
         selectedEvento = (Evento) event.getData();
@@ -233,6 +261,10 @@ public class ReservasBean extends BasePageBean{
         }
     }
 
+    /**
+     * Consulta las reservas activas del usuario
+     * @return Una lista con las reservas activas del usuario
+     */
     public List<Reserva> consultarReservasActivasUsuario(){
         List<Reserva> reservas = null;
         try {
@@ -242,6 +274,11 @@ public class ReservasBean extends BasePageBean{
         }
         return reservas;
     }
+
+    /**
+     * Consulta las reservas pasadas del usuario
+     * @return Una lista con las reservas pasadas del usuario
+     */
     public List<Reserva> consultarReservasPasadasUsuario(){
         List<Reserva> reservas = null;
         try {
@@ -251,6 +288,11 @@ public class ReservasBean extends BasePageBean{
         }
         return reservas;
     }
+
+    /**
+     * Consulta las reservas canceladas del usuario
+     * @return Una lista con las reservas canceladas del usuario
+     */
     public List<Reserva> consultarReservasCanceladasUsuario(){
         List<Reserva> reservas = null;
         try {
@@ -261,6 +303,10 @@ public class ReservasBean extends BasePageBean{
         return reservas;
     }
 
+    /**
+     * Cancela la reserva del usuario logueado
+     * @param reserva La reserva que se va a cancelar
+     */
     public void cancelarReservaCompleta(Reserva reserva){
         try {
             serviciosBiblioEci.cancelarReserva(reserva,serviciosBiblioEci.consultarUsuario(logger.getUser()));
@@ -268,6 +314,12 @@ public class ReservasBean extends BasePageBean{
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
+
+    /**
+     * Cancela un evento de la reserva del usuario logueado
+     * @param reserva La reserva que se va a cancelar
+     * @param evento El evento de la reserva
+     */
     public void cancelarEventoReserva (Reserva reserva,Evento evento){
         try {
             Usuario usuario =serviciosBiblioEci.consultarUsuario(logger.getUser());
@@ -276,8 +328,13 @@ public class ReservasBean extends BasePageBean{
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
+
+    /**
+     * Cancela los eventos de la reserva del usuario logueado despues de una fecha dada
+     * @param reserva La reserva que se va a cancelar
+     * @param date La fecha desde la cual se cancelan los eventos
+     */
     public void cancelarEventosDespues(Reserva reserva,Date date){
-        System.out.println("holi");
         try {
             Usuario usuario =serviciosBiblioEci.consultarUsuario(logger.getUser());
             serviciosBiblioEci.cancelarEventosDespues(reserva, usuario, date);
@@ -285,6 +342,10 @@ public class ReservasBean extends BasePageBean{
             setErrorMessage(excepcionServiciosBiblioEci.getMessage());
         }
     }
+
+    /**
+     * Carga los eventos activos de la reserva en el calendario
+     */
     public void cargarEventosReserva(){
         eventModel = new DefaultScheduleModel();
         try {

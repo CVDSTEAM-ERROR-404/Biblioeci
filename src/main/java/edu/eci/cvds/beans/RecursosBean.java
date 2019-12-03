@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Esta clase conecta la pagina web con los diferentes servicios de la aplicacion de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 @ManagedBean(name="RecursosBean")
 @SessionScoped
@@ -131,7 +131,6 @@ public class RecursosBean extends BasePageBean {
      */
     public void setReservasFuturas(List<Reserva> reservasFuturas) { this.reservasFuturas = reservasFuturas; }
 
-
     /**
      * Determina si se está mostrando el boton
      * @return El valor booleano que determina si se está mostrando el boton
@@ -166,7 +165,6 @@ public class RecursosBean extends BasePageBean {
      * @param capacidad La capacidad del recurso que se va a registrar
      */
     public void registrarRecurso(String nombre, int capacidad, Date inicioDisponibilidad, Date finDisponibilidad){
-
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             serviciosBiblioEci.registrarRecurso(new Recurso(nombre, ubicacionRecurso, tipoRecurso, capacidad,sdf.format(inicioDisponibilidad),sdf.format(finDisponibilidad)));
@@ -233,8 +231,6 @@ public class RecursosBean extends BasePageBean {
             setUbicacionRecurso(null);
         }
 	}
-
-
 
     /**
      * Cancela las reservas pendientes de un recurso de la base de datos

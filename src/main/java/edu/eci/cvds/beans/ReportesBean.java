@@ -1,21 +1,20 @@
 package edu.eci.cvds.beans;
 
-
 import com.google.inject.Inject;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.apache.commons.lang3.tuple.MutablePair;
-
-import org.primefaces.model.chart.*;
-
-
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.PieChartModel;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
 import java.util.List;
-
 
 @ManagedBean(name="ReportesBean")
 @SessionScoped
@@ -107,7 +106,7 @@ public class ReportesBean extends BasePageBean {
 
     public void setPrograma(String programa) {
         this.programa = programa;
-        if(programa.equals("")){ this.programa = null; }
+        if("".equals(programa)){ this.programa = null; }
     }
 
     public BarChartModel getBarModel1() {

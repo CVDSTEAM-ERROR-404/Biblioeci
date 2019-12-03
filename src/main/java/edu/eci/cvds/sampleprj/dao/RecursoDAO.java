@@ -13,7 +13,7 @@ import edu.eci.cvds.samples.entities.UbicacionRecurso;
 /**
  * Esta interfaz conecta los servicios de recursos con su base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 2/12/2019
  */
 
 public interface RecursoDAO{

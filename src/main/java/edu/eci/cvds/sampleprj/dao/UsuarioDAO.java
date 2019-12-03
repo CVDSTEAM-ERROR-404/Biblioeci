@@ -5,7 +5,7 @@ import edu.eci.cvds.samples.entities.Usuario;
 /**
  * Esta interfaz conecta los servicios de usuarios con su base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 20/11/2019
+ * @version: 2/12/2019
  */
 public interface UsuarioDAO{
 

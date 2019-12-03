@@ -9,9 +9,8 @@ import com.google.inject.Inject;
 /**
  * Esta clase conecta los servicios de usuarios por medio de la configuracion de MyBATIS
  * @author: CVDSTEAM-ERROR-404
- * @version: 20/11/2019
+ * @version: 2/12/2019
  */
-
 public class MyBATISUsuarioDAO implements UsuarioDAO {
 
 	@Inject

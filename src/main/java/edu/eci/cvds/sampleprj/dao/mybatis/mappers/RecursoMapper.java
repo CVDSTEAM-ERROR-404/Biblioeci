@@ -14,9 +14,8 @@ import edu.eci.cvds.samples.entities.Recurso;
 /**
  * Esta interfaz conecta los servicios relacionados con los recursos a la base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 2/12/2019
  */
-
 public interface RecursoMapper {
 
     /**

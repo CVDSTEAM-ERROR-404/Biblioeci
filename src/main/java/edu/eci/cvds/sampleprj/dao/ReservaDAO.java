@@ -14,7 +14,7 @@ import edu.eci.cvds.samples.entities.TipoReserva;
 /**
  * Esta interfaz conecta los servicios de reservas con su base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 public interface ReservaDAO{
 
@@ -78,24 +78,26 @@ public interface ReservaDAO{
 	public MutablePair<Date, Date> consultarSemestre() throws PersistenceException;
 
 	/**
-	 * Retorna todas las reservas activas del usuario
+	 * Consulta todas las reservas activas del usuario
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
-	 * @throws PersistenceException
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas activas del usuario
 	 */
 	public List<Reserva> consultarReservasActivasUsuario(String usuario) throws PersistenceException;
 
 	/**
-	 * Consulta todas las reservas pasadas del usuario 
+	 * Consulta todas las reservas pasadas del usuario
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas pasadas del usuario
 	 */
 	public List<Reserva> consultarReservasPasadasUsuario(String usuario)throws PersistenceException;
 
 	/**
-	 * Consulta todas las reservas canceladas del usuario 
+	 * Consulta todas las reservas canceladas del usuario
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas canceladas del usuario
 	 */
 	public List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws PersistenceException;
 
@@ -104,9 +106,16 @@ public interface ReservaDAO{
 	 * Cambia el estado de la reserva
 	 * @param reserva Id de la reserva
 	 * @param estado nuevo estado de la reserva
+	 * @throws PersistenceException Cuando ocurre algun error al cambiar el estado de la reserva
 	 */
 	public void cambiarEstadoReserva(long reserva,EstadoReserva estado) throws PersistenceException;
 
+	/**
+	 * Retorna el evento de la reserva que está en curso
+	 * @param id Id de la reserva
+	 * @return Evento de la reserva en curso
+	 * @throws PersistenceException Cuando ocurre algun error al verificar si la reserva esta en curso
+	 */
 	public Evento reservaEnCurso(int id) throws PersistenceException;
 
 	/**
@@ -114,10 +123,10 @@ public interface ReservaDAO{
 	 * @param tipoReserva Tipo de reserva recurrente
 	 * @param programa Programa de la universidad
 	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
-	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
-	 * es suficiente con que se crucen
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), es suficiente con que se crucen
 	 * @param franja Franja de horarios de los eventos
 	 * @return Reservas recurrentes con los filtros dados
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas recurrentes
 	 */
 	public List<Reserva> consultarReservasRecurrentes(TipoReserva tipoReserva,String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas,MutablePair<Date,Date> franja) throws PersistenceException;
 
@@ -126,21 +135,21 @@ public interface ReservaDAO{
 	 * Retorna las reservas simples con los filtros especificados
 	 * @param programa Programa de la universidad
 	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
-	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha),
 	 * es suficiente con que se crucen
 	 * @param franja Franja de horarios de los eventos
 	 * @return Reservas simples con los filtros dados
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas simples
 	 */
 	public List<Reserva> consultarReservasSimples(String programa,TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date,Date> franja) throws PersistenceException;
 
-
-
 	/**
 	 * Retorna las reservas canceladas con los filtros especificados
-	 * @param tipoReserva Tipo de reserva recurrente
+	 * @param tipoReserva Tipo de reserva
 	 * @param programa Programa de la universidad
 	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
 	 * @return Reservas canceladas con los filtros dados
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas canceladas
 	 */
 	public List<Reserva> consultarReservasCanceladas(TipoReserva tipoReserva, String programa,TipoRecurso tipoRecurso) throws PersistenceException;
 
@@ -150,7 +159,7 @@ public interface ReservaDAO{
 	 * @param programa Programa de la universidad
 	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
 	 * @return Reservas activas con los filtros dados
+	 * @throws PersistenceException Cuando ocurre algun error al consultar las reservas activas
 	 */
 	public List<Reserva> consultarReservasActivas(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso) throws PersistenceException;
-
 }

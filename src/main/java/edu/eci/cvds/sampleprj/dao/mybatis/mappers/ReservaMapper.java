@@ -12,13 +12,11 @@ import edu.eci.cvds.samples.entities.Reserva;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.TipoReserva;
 
-
 /**
  * Esta interfaz conecta los servicios relacionados con las reservas a la base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
-
 public interface ReservaMapper {
 
 	/**
@@ -88,7 +86,7 @@ public interface ReservaMapper {
 	public List<Reserva> consultarReservasPasadasUsuario(@Param("usuario") String usuario);
 
 	/**
-	 * Consulta todas las reservas canceladas del usuario 
+	 * Consulta todas las reservas canceladas del usuario
 	 * @param usuario Id del usuario
 	 * @return Todas las reservas del usuario
 	 */
@@ -115,8 +113,7 @@ public interface ReservaMapper {
 	 * @param tipoReserva Tipo de reserva recurrente
 	 * @param programa Programa de la universidad
 	 * @param tipoRecurso Tipo de recursos de las reservas a filtrar
-	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), 
-	 * es suficiente con que se crucen
+	 * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), es suficiente con que se crucen
 	 * @param franja Franja de horarios de los eventos
 	 * @return Reservas recurrentes con los filtros dados
 	 */

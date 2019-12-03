@@ -9,7 +9,7 @@ import edu.eci.cvds.samples.entities.Evento;
 /**
  * Esta interfaz conecta los servicios relacionados con el evento a la base de datos
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 public interface EventoMapper {
     /**
@@ -38,6 +38,11 @@ public interface EventoMapper {
      */
     public List<Evento> consultarEventos(@Param("reserva") long id);
 
+    /**
+     * Consulta todos los eventos activos de una reserva
+     * @param reserva El identificador de la reserva
+     * @return Una lista con todos los eventos activos de una reserva
+     */
     public List<Evento> consultarEventosActivos(@Param("reserva") long reserva);
 
     /**

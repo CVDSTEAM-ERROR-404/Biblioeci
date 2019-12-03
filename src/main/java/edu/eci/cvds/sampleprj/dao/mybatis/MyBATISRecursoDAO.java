@@ -5,25 +5,19 @@ import edu.eci.cvds.sampleprj.dao.mybatis.mappers.RecursoMapper;
 import edu.eci.cvds.samples.entities.EstadoRecurso;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
-
 import java.util.Date;
 import java.util.List;
-
 import com.google.inject.Inject;
 import edu.eci.cvds.samples.entities.TipoRecurso;
 import edu.eci.cvds.samples.entities.UbicacionRecurso;
-
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.mybatis.guice.transactional.Transactional;
 
 /**
- * Esta clase conecta los servicios de recursos por medio de la configuracion de
- * MyBATIS
- * 
+ * Esta clase conecta los servicios de recursos por medio de la configuracion de MyBATIS
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 2/12/2019
  */
-
 public class MyBATISRecursoDAO implements RecursoDAO {
 
 	@Inject
@@ -31,7 +25,6 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 
 	/**
 	 * Carga el recurso a utilizar de la base de datos
-	 * 
 	 * @param id El identificador del recurso
 	 * @return El recurso a utilizar
 	 * @throws PersistenceException Cuando ocurre algun error al cargar el Recurso
@@ -49,7 +42,6 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 
 	/**
 	 * Guarda un recurso dentro de la base de datos
-	 * 
 	 * @param rec El recurso a guardar
 	 * @throws PersistenceException Cuando ocurre algun error al guardar el Recurso
 	 */
@@ -66,10 +58,8 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 
 	/**
 	 * Carga todos los recursos de la base de datos
-	 * 
 	 * @return Una lista con todos los recursos de la base de datos
-	 * @throws PersistenceException Cuando ocurre algun error al consultar los
-	 *                              recursos
+	 * @throws PersistenceException Cuando ocurre algun error al consultar los recursos
 	 */
 	@Override
 	public List<Recurso> consultarRecursos() throws PersistenceException {
@@ -84,12 +74,9 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 
 	/**
 	 * Cambia el estado de un recurso dentro de la base de datos
-	 * 
 	 * @param id     El identificador del recurso
 	 * @param estado El nuevo estado del recurso
-	 * @throws PersistenceException Cuando ocurre algun error al cambiar el estado o
-	 *                              cuando no existe el recurso dentro de la base de
-	 *                              datos
+	 * @throws PersistenceException Cuando ocurre algun error al cambiar el estado o cuando no existe el recurso dentro de la base de datos
 	 */
 	@Override
 	public void cambiarEstadoRecurso(int id, EstadoRecurso estado) throws PersistenceException {
@@ -105,17 +92,12 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 	}
 
 	/**
-	 * Consulta los recursos dentro de la base de datos de la biblioteca que están
-	 * disponibles
-	 * 
+	 * Consulta los recursos dentro de la base de datos de la biblioteca que están disponibles
 	 * @param capacidad Filtra por la capacidad de los recursos (Si es 0 no filtra)
-	 * @param ubicacion Filtra por la ubicacion de los recursos (Si es null no
-	 *                  filtra)
+	 * @param ubicacion Filtra por la ubicacion de los recursos (Si es null no filtra)
 	 * @param tipo      Filtra por el tipo de los recursos (Si es null no filtra)
-	 * @return Una lista con los recursos dentro de la base de datos de la
-	 *         biblioteca
-	 * @throws PersistenceException si se presenta un error en la base de datos al
-	 *                              consultar los recursos
+	 * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+	 * @throws PersistenceException si se presenta un error en la base de datos al consultar los recursos
 	 */
 	@Override
 	public List<Recurso> consultarRecursosDisponibles(int capacidad, UbicacionRecurso ubicacion, TipoRecurso tipo)
@@ -129,6 +111,17 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 		return recursos;
 	}
 
+	/**
+	 * Retorna una lista con los recursos más usados. Si no se especifica franja horaria ni rango de fechas,
+	 * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+	 * que cumplen las especificaciones
+	 * @param tipo Tipo del  recurso
+	 * @param franjaHoraria Franja de horas de los eventos
+	 * @param rangoFechas Rango de fechas de los eventos
+	 * @param programa Programa de los usuarios solicitantes de los recursos
+	 * @return Lista de los recursos más usados
+	 * @throws PersistenceException Cuando ocurre un error al consultar los recursos mas usados
+	 */
 	@Override
 	public List<MutablePair<Recurso, Long>> consultarRecursosMasUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,
 			MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException {
@@ -141,6 +134,17 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 		return recursos;
 	}
 
+	/**
+	 * Retorna una lista con los recursos menos usados. Si no se especifica franja horaria ni rango de fechas,
+	 * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+	 * que cumplen las especificaciones
+	 * @param tipo Tipo del  recurso
+	 * @param franjaHoraria Franja de horas de los eventos
+	 * @param rangoFechas Rango de fechas de los eventos
+	 * @param programa Programa de los usuarios solicitantes de los recursos
+	 * @return Lista de los recursos menos usados
+	 * @throws PersistenceException Cuando ocurre un error al consultar los recursos menos usados
+	 */
 	@Override
 	public List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria,
 			MutablePair<Date, Date> rangoFechas, String programa) throws PersistenceException {
@@ -153,11 +157,21 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 		return recursos;
 	}
 
+	/**
+	 * Retorna el rango de horarios de mayor ocupación de los recursos y el número de
+	 * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+	 * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+	 * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+	 * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+	 * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+	 * @return Lista de los horarios de mayor ocupación
+	 * @throws PersistenceException Cuando ocurre un error al consultar los horarios de mayor ocupacion
+	 */
 	@Override
 	public List<MutablePair<String, Long>> consultarHorariosMayorOcupacion(TipoRecurso tipo,
 			MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)
 			throws PersistenceException {
-		List<MutablePair<String, Long>> horarios = null;
+		List<MutablePair<String, Long>> horarios;
 		try {
 			horarios = recursoMapper.consultarHorariosMayorOcupacion(tipo, franjaHoraria, rangoFechas, programa);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -166,11 +180,21 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 		return horarios;
 	}
 
+	/**
+	 * Retorna el rango de horarios de menor ocupación de los recursos y el número de
+	 * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+	 * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+	 * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+	 * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+	 * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+	 * @return Lista de los horarios de menor ocupación
+	 * @throws PersistenceException Cuando ocurre un error al consultar los horarios de menor ocupacion
+	 */
 	@Override
 	public List<MutablePair<String, Long>> consultarHorariosMenorOcupacion(TipoRecurso tipo,
 			MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)
 			throws PersistenceException {
-		List<MutablePair<String, Long>> horarios = null;
+		List<MutablePair<String, Long>> horarios;
 		try {
 			horarios = recursoMapper.consultarHorariosMenorOcupacion(tipo, franjaHoraria, rangoFechas, programa);
 		} catch (org.apache.ibatis.exceptions.PersistenceException e) {
@@ -178,7 +202,4 @@ public class MyBATISRecursoDAO implements RecursoDAO {
 		}
 		return horarios;
 	}
-
-	
-
 }

@@ -14,7 +14,9 @@ La página cuenta con el los siguientes servicios:
    + [Consultar los recursos disponibles](#consultar-los-recursos-disponibles)
    + [Consultar mis reservas](#consultar-mis-reservas)
    + [Consultar detalle reservas](#consultar-detalle-reservas)
-
++ **Cancelar**
+   + [Cancelar reservas simples](#cancelar-reservas)
+   + [Cancelar reservas recurrentes](#cancelar-toda-la-reserva-recurrente)
 ## Registrar
 
 ### Registrar Recurso

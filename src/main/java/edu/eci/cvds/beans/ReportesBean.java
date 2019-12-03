@@ -26,21 +26,42 @@ public class ReportesBean extends BasePageBean {
     private ServiciosBiblioEci serviciosBiblioEci;
 
     private BarChartModel barModel1;
-
     private BarChartModel barmenosModel;
-
     private PieChartModel barocupacionModel;
-
-
-
     private PieChartModel barMenorOcupacionModel;
-
+    private PieChartModel recurrentesModel;
+    private PieChartModel canceladasModel;
     private TipoRecurso tipo;
     private Date inicioFranjaHoraria;
     private Date finFranjaHoraria;
     private Date inicioRangoFechas;
     private Date finRangoFechas;
     private String programa;
+
+
+    public PieChartModel getCanceladasModel() {
+        return canceladasModel;
+    }
+
+    public void setCanceladasModel(PieChartModel canceladasModel) {
+        this.canceladasModel = canceladasModel;
+    }
+
+    public ServiciosBiblioEci getServiciosBiblioEci() {
+        return serviciosBiblioEci;
+    }
+
+    public void setServiciosBiblioEci(ServiciosBiblioEci serviciosBiblioEci) {
+        this.serviciosBiblioEci = serviciosBiblioEci;
+    }
+
+    public PieChartModel getRecurrentesModel() {
+        return recurrentesModel;
+    }
+
+    public void setRecurrentesModel(PieChartModel recurrentesModel) {
+        this.recurrentesModel = recurrentesModel;
+    }
 
     public PieChartModel getBarMenorOcupacionModel() {
         return barMenorOcupacionModel;
@@ -158,7 +179,8 @@ public class ReportesBean extends BasePageBean {
         createmenosModel();
         createOcupacionModel();
         createMenorOcupacionModel();
-
+        createRecurrentesModel();
+        createCanceladasModel();
     }
 
     public void createmasModel() {
@@ -210,12 +232,33 @@ public class ReportesBean extends BasePageBean {
         for(MutablePair<String,Long> info : consultarHorariosMenorOcupacion()){
             barMenorOcupacionModel.set(info.getLeft(),info.getRight());
         }
-
-
-
         barMenorOcupacionModel.setTitle("Horarios menor ocupacion");
         barMenorOcupacionModel.setLegendPosition("w");
         barMenorOcupacionModel.setShadow(false);
+
+    }
+
+    public  void createRecurrentesModel() {
+
+        recurrentesModel = new PieChartModel();
+        MutablePair<Integer, Integer> info = consultarReservasRecurrentes();
+        recurrentesModel.set("Recurrentes",info.getLeft());
+        recurrentesModel.set("Simples",info.getRight());
+        recurrentesModel.setTitle("Reservas Recurrentes vs Simples");
+        recurrentesModel.setLegendPosition("w");
+        recurrentesModel.setShadow(false);
+
+    }
+
+    public  void createCanceladasModel() {
+
+        canceladasModel = new PieChartModel();
+        MutablePair<Integer, Integer> info = consultarReservasCanceladas();
+        canceladasModel.set("Canceladas",info.getLeft());
+        canceladasModel.set("Atcivas",info.getRight());
+        canceladasModel.setTitle("Reservas Canceladas vs Activas");
+        canceladasModel.setLegendPosition("w");
+        canceladasModel.setShadow(false);
 
     }
 

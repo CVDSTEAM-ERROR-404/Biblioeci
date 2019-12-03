@@ -659,10 +659,23 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         return topHorarios;
     }
 
+    /**
+     * Valida si los rengos de fechas y la franja horaria tienen sentido
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al validar los rangos de fechas o la franja horaria
+     */
     private void validarRangos(MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas)throws  ExcepcionServiciosBiblioEci{
         if(franjaHoraria!=null && franjaHoraria.getLeft().after(franjaHoraria.getRight())){throw new ExcepcionServiciosBiblioEci("Franja Horaria Invalida");}
         if(rangoFechas!=null && rangoFechas.getLeft().after(rangoFechas.getRight())){throw new ExcepcionServiciosBiblioEci("Rango de Fechas Invalida");}
     }
+
+    /**
+     * Valida si con el usuario y la reserva, la reserva si se pueden cancelar
+     * @param reserva La reserva a cancelar
+     * @param usuario El usario que va a cancelar la reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al validar la cancelacion de la reserva
+     */
     private void validacionesCancelacion(Reserva reserva,Usuario usuario)throws  ExcepcionServiciosBiblioEci{
         if(reserva==null){throw new ExcepcionServiciosBiblioEci("La reserva a cancelar no puede ser nula");}
         if(usuario==null){throw new ExcepcionServiciosBiblioEci("El usuario de la reserva no puede ser nulo");}

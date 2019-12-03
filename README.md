@@ -44,6 +44,8 @@ Ver [funcionalidades](resources/md/manual.md)
 #### Diagrama de Clases
 ![](resources/modelos/clases.png)
 ![](resources/modelos/enti.png)
+#### Cobertura de pruebas
+![](resources/md/jacoco.png)
 
 #### Stack de Tecnología Utilizado
 

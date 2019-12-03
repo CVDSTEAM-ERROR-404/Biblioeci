@@ -17,6 +17,9 @@ La página cuenta con el los siguientes servicios:
 + **Cancelar**
    + [Cancelar reservas simples](#cancelar-reservas)
    + [Cancelar reservas recurrentes](#cancelar-toda-la-reserva-recurrente)
++ **Reportes**
+   + [Ver reportes](#ver-reportes)
+   
 ## Registrar
 
 ### Registrar Recurso
@@ -115,3 +118,50 @@ El usuario debe seleccionar una fecha y al presionar cancelara todos los eventos
 El usuario debe seleccionar el evento que desea borrar en el calendario, si es el ultimo evento activo de la reserva esta sera cancelada
 
 ![](/resources/md/cancelarEvento.png)
+
+## Reportes
+
+#### Ver reportes
+
+El usuario al seleccionar esta opción verá una serie de diferentes reportes que puede generar
+
+#### Reporte de recursos mas usados
+El usuario verá una tabla con la información de los recursos mas ocupados y tendrá la opción de generar un grafico
+![](/resources/md/masusados.png)
+#### Grafico del reporte de los recursos mas ocupados
+![](/resources/md/gra1.png)
+
+#### Reporte de recursos menos usados
+El usuario verá una tabla con la información de los recursos menos usados y tendrá la opción de generar un grafico
+![](/resources/md/menosusados.png)
+#### Grafico del reporte de los recursos menos usados
+![](/resources/md/gra2.png)
+
+#### Reporte de horarios con mayor ocupación
+El usuario verá una tabla con la información de los horarios con mayor ocupación y tendrá la opción de generar un grafico
+![](/resources/md/maocu.png)
+#### Grafico del reporte de los de horarios con mayor ocupación
+![](/resources/md/gra3.png)
+
+#### Reporte de horarios con menor ocupación
+El usuario verá una tabla con la información de los horarios con menor ocupación y tendrá la opción de generar un grafico
+![](/resources/md/menocu.png)
+#### Grafico del reporte de los de horarios con menor ocupación
+![](/resources/md/gra4.png)
+
+#### Reporte de reservas recurrentes vs simples
+El usuario verá una tabla con la información de las reservas recurrentes y tendrá la opción de generar un grafico
+![](/resources/md/conrecu.png)
+#### Grafico del reporte de las reservas recurrentes vs simples
+![](/resources/md/gra5.png)
+
+#### Reporte de reservas canceladas vs activas
+El usuario verá una tabla con la información de las reservas canceladas y tendrá la opción de generar un grafico
+![](/resources/md/concan.png)
+#### Grafico del reporte de las reservas canceladas vs activas
+![](/resources/md/gra6.png)
+
+#### Ejemplo reporte excel
+El usuario tendrá la posibilidad de exportar el reporte en formato excel
+
+

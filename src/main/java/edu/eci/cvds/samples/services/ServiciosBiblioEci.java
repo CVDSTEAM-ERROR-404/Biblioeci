@@ -53,6 +53,7 @@ public interface ServiciosBiblioEci {
 
     /**
      * Consulta las reservas pendientes de un recurso en la base de datos de la biblioteca
+     * @param id El identificador del recurso
      * @return Una lista con todas las reservas pendientes de un recurso en la base de datos de la biblioteca
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas pendientes de un recurso
      */
@@ -69,6 +70,9 @@ public interface ServiciosBiblioEci {
     /**
      * Consulta los recursos dentro de la base de datos de la biblioteca y que están disponibles
      * @return Una lista con los recursos dentro de la base de datos de la biblioteca
+     * @param capacidad Filtra por la capacidad de los recursos (Si es 0 no filtra)
+     * @param ubicacionRecurso Filtra por la ubicacion de los recursos (Si es null no filtra)
+     * @param tipo  Filtra por el tipo de los recursos (Si es null no filtra)
      * @throws ExcepcionServiciosBiblioEci si se presenta un error en la base de datos al consultar los recursos
      */
     public abstract List<Recurso> consultarRecursosDisponibles(int capacidad , UbicacionRecurso ubicacionRecurso,TipoRecurso tipo)throws  ExcepcionServiciosBiblioEci;
@@ -108,7 +112,8 @@ public interface ServiciosBiblioEci {
 
     /**
      * Consulta una reserva de la base de datos
-     * @return Una lista con la reserva de la base de datos de la biblioteca
+     * @param id El identificador de la reserva
+     * @return La reserva de la base de datos de la biblioteca
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar la reserva
      */
     public Reserva consultarReserva(long id) throws ExcepcionServiciosBiblioEci;
@@ -145,35 +150,142 @@ public interface ServiciosBiblioEci {
      * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar el semestre actual
      */
     public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci;
-    
+
+    /**
+     * Cancela toda la reserva de un usuario
+     * @param reserva La reserva a cancelar
+     * @param usuario El usuario de la reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar toda la reserva de un usuario
+     */
     public abstract void cancelarReserva(Reserva reserva,Usuario usuario) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Cancela un evento de la reserva de un usuario
+     * @param reserva La reserva a cancelar
+     * @param usuario El usuario de la reserva
+     * @param evento El evento de la reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar un evento de la reserva de un usuario
+     */
     public abstract void cancelarEventoReserva(Reserva reserva, Usuario usuario, Evento evento)throws  ExcepcionServiciosBiblioEci;
 
+    /**
+     * Cancela toda la reserva de un usuario
+     * @param reserva La reserva a cancelar
+     * @param usuario El usuario de la reserva
+     * @param fecha La fecha desde la cual se van a cancelar los eventos
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al cancelar la reserva de un usuario desde una fecha
+     */
     public abstract void cancelarEventosDespues(Reserva reserva, Usuario usuario, Date fecha) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Consulta las reservas de un recurso dado
+     * @param idRecurso El identificador del recurso
+     * @return Una lista con las reservas de un recurso dado
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas de un recurso dado
+     */
     public abstract List<Reserva> consultarReservasRecurso(int idRecurso) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Consulta las reservas activas de un usuario
+     * @param usuario El correo del usuario
+     * @return Una lista con las reservas activas de un usuario
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas activas de un usuario
+     */
     public abstract List<Reserva> consultarReservasActivasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Consulta las reservas pasadas de un usuario
+     * @param usuario El correo del usuario
+     * @return Una lista con las reservas pasadas de un usuario
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas pasadas de un usuario
+     */
     public abstract List<Reserva> consultarReservasPasadasUsuario(String usuario) throws  ExcepcionServiciosBiblioEci;
 
+    /**
+     * Consulta las reservas canceladas de un usuario
+     * @param usuario El correo del usuario
+     * @return Una lista con las reservas canceladas de un usuario
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar las reservas canceladas de un usuario
+     */
     public abstract List<Reserva> consultarReservasCanceladasUsuario(String usuario) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Consulta los eventos activos de una reserva
+     * @param reserva El identificador de la reserva
+     * @return Una lista con los eventos activos de una reserva
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar los eventos activos de una reserva
+     */
     public abstract List<Evento> consultarEventosActivos(int reserva)throws  ExcepcionServiciosBiblioEci;
 
+    /**
+     * Retorna una lista con los recursos más usados. Si no se especifica franja horaria ni rango de fechas,
+     * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+     * que cumplen las especificaciones
+     * @param tipo Tipo del  recurso
+     * @param franjaHoraria Franja de horas de los eventos
+     * @param rangoFechas Rango de fechas de los eventos
+     * @param programa Programa de los usuarios solicitantes de los recursos
+     * @return Lista de los recursos más usados
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar los recursos mas usados
+     */
     public abstract List<MutablePair<Recurso, Long>> consultarRecursosMasUsados( TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa) throws ExcepcionServiciosBiblioEci;
 
-
+    /**
+     * Retorna una lista con los recursos menos usados. Si no se especifica franja horaria ni rango de fechas,
+     * se discriminará por la cantidad de reservas activas, de lo contrario por la cantidad de eventos activos
+     * que cumplen las especificaciones
+     * @param tipo Tipo del  recurso
+     * @param franjaHoraria Franja de horas de los eventos
+     * @param rangoFechas Rango de fechas de los eventos
+     * @param programa Programa de los usuarios solicitantes de los recursos
+     * @return Lista de los recursos menos usados
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar los recursos menos usados
+     */
     public abstract List<MutablePair<Recurso, Long>> consultarRecursosMenosUsados(TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci;
 
-
+    /**
+     * Retorna el rango de horarios de mayor ocupación de los recursos y el número de
+     * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+     * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+     * @return Lista de los horarios de mayor ocupación
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar los horarios de mayor ocupacion
+     */
     public abstract List<MutablePair<String, Long>> consultarHorariosMayorOcupacion(TipoRecurso tipo,  MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas,String programa)throws ExcepcionServiciosBiblioEci;
 
-
+    /**
+     * Retorna el rango de horarios de menor ocupación de los recursos y el número de
+     * ocupaciones en ese rango(se tiene en cuenta los eventos para ello)
+     * @param tipo Tipo de recurso en los cuales se filtrarán los eventos
+     * @param franjaHoraria Horas que serán tenidas en cuenta para el resultado
+     * @param rangoFechas Rango de fechas en el cual se filtrarán los eventos
+     * @param programa Programa de los usuarios de los cuales se tendrán en cuenta los eventos
+     * @return Lista de los horarios de menor ocupación
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar los horarios de menor ocupacion
+     */
     public abstract List<MutablePair<String, Long>> consultarHorariosMenorOcupacion(TipoRecurso tipo, MutablePair<Date, Date> franjaHoraria, MutablePair<Date, Date> rangoFechas, String programa)throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Retorna las reservas recurrentes con los filtros especificados
+     * @param tipoReserva Tipo de reserva recurrente
+     * @param programa Programa de la universidad
+     * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+     * @param rangoFechas Rango de de fechas en que la reserva puede estar(maxima y minima fecha), es suficiente con que se crucen
+     * @param franja Franja de horarios de los eventos
+     * @return Reservas recurrentes con los filtros dados
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar las reservas recurrentes
+     */
     public abstract MutablePair<Integer, Integer> consultarReservasRecurrentes(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja) throws ExcepcionServiciosBiblioEci;
 
+    /**
+     * Retorna las reservas canceladas con los filtros especificados
+     * @param tipoReserva Tipo de reserva
+     * @param programa Programa de la universidad
+     * @param tipoRecurso Tipo de recursos de las reservas a filtrar
+     * @return Reservas canceladas con los filtros dados
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre algun error al consultar las reservas canceladas
+     */
     public MutablePair<Integer, Integer> consultarReservasCanceladas(TipoReserva tipoReserva, String programa, TipoRecurso tipoRecurso, MutablePair<Date, Date> rangoFechas, MutablePair<Date, Date> franja) throws ExcepcionServiciosBiblioEci ;
 }

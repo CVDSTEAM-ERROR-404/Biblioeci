@@ -56,6 +56,8 @@ Ver [funcionalidades](resources/md/manual.md)
 
 ![](resources/md/jacoco2.PNG)
 
+En total se realizaron 144 pruebas unitarias y de aceptación
+
 ### Descripción de la arquitectura (Capas)
 
 ![](resources/md/arq.png)

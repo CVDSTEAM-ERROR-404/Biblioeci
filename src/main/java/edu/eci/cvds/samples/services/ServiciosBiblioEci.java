@@ -17,7 +17,7 @@ import org.mybatis.guice.transactional.Transactional;
 /**
  * Esta interfaz describe los servicios utilizados dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 public interface ServiciosBiblioEci {
 
@@ -135,17 +135,17 @@ public interface ServiciosBiblioEci {
      * Registra un semestre con las fechas dadas
      * @param fechaInicio Fecha inicial del semestre
      * @param fechaFin Fecha final del semestre
-     * @throws ExcepcionServiciosBiblioEci
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al registrar un semestre nuevo
      */
     public abstract void registrarSemestre(Date fechaInicio, Date fechaFin) throws ExcepcionServiciosBiblioEci;
 
     /**
      * Retorna un par de fechas(fecha inicial, fecha final) del semestre
      * @return Fechas del semestre
-     * @throws ExcepcionServiciosBiblioEci
+     * @throws ExcepcionServiciosBiblioEci Cuando ocurre un error al consultar el semestre actual
      */
     public MutablePair<Date, Date> consultarSemestreActual() throws ExcepcionServiciosBiblioEci;
-
+    
     public abstract void cancelarReserva(Reserva reserva,Usuario usuario) throws ExcepcionServiciosBiblioEci;
 
     public abstract void cancelarEventoReserva(Reserva reserva, Usuario usuario, Evento evento)throws  ExcepcionServiciosBiblioEci;

@@ -4,7 +4,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
 
 /**
  * Esta clase filtra los roles dentro de la aplicacion de la base de datos de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito

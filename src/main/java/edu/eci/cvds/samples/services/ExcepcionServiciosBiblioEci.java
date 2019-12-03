@@ -3,7 +3,7 @@ package edu.eci.cvds.samples.services;
 /**
  * Esta clase genera las excepciones relacionadas con la capa de aplicacion de los servicios de la biblioteca
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 2/12/2019
  */
 
 public class ExcepcionServiciosBiblioEci extends Exception{

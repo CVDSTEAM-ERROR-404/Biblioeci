@@ -3,7 +3,6 @@ package edu.eci.cvds.beans;
 import com.google.inject.Inject;
 import edu.eci.cvds.samples.entities.Recurso;
 import edu.eci.cvds.samples.entities.TipoRecurso;
-import edu.eci.cvds.samples.entities.TipoReserva;
 import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 import edu.eci.cvds.samples.services.ServiciosBiblioEci;
 import org.apache.commons.lang3.tuple.MutablePair;

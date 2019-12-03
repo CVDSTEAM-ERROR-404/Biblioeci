@@ -217,9 +217,16 @@ public class ReportesBean extends BasePageBean {
     public  void createOcupacionModel() {
 
         barocupacionModel = new PieChartModel();
+        int i=0;
+        int valorOtros=0;
         for(MutablePair<String,Long> info : consultarHorariosMayorOcupacion()){
-            barocupacionModel.set(info.getLeft(),info.getRight());
+            if(i<=9){
+                barocupacionModel.set(info.getLeft(),info.getRight());
+            }
+            else valorOtros+=info.getRight();
+            i++;
         }
+        barocupacionModel.set("Otros",valorOtros);
 
 
 
@@ -232,9 +239,16 @@ public class ReportesBean extends BasePageBean {
     public  void createMenorOcupacionModel() {
 
         barMenorOcupacionModel = new PieChartModel();
+        int i=0;
+        int valorOtros=0;
         for(MutablePair<String,Long> info : consultarHorariosMenorOcupacion()){
-            barMenorOcupacionModel.set(info.getLeft(),info.getRight());
+            if(i<=9){
+                barMenorOcupacionModel.set(info.getLeft(),info.getRight());
+            }
+            else valorOtros+=info.getRight();
+            i++;
         }
+        barMenorOcupacionModel.set("Otros",valorOtros);
         barMenorOcupacionModel.setTitle("Horarios menor ocupacion");
         barMenorOcupacionModel.setLegendPosition("w");
         barMenorOcupacionModel.setShadow(false);

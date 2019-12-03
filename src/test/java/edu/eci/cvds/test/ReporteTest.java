@@ -14,8 +14,7 @@ import org.mybatis.guice.transactional.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -146,6 +145,54 @@ public class ReporteTest extends ServicioBiblioEciTest {
     public void shouldNotConsultTheLessOcupiedScheduleWithInvalidDates() {
         try {
             serviciosBiblioEci.consultarHorariosMenorOcupacion(null,null,new MutablePair(getFinalDate(),getInitialDate()),null);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Rango de Fechas Invalida",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldConsultTheNumberOfRecurrentReservations() throws ExcepcionServiciosBiblioEci {
+        MutablePair<Integer,Integer> resultados = serviciosBiblioEci.consultarReservasRecurrentes(null,null,null,null,null);
+        assertNotNull(resultados);
+    }
+
+    @Test
+    public void shouldNotConsultTheNumberOfRecurrentReservationsWithInvalidHours() {
+        try {
+            serviciosBiblioEci.consultarReservasRecurrentes(null,null,null,null,new MutablePair(getFinalDate(),getInitialDate()));
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Franja Horaria Invalida",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotConsultTheNumberOfRecurrentReservationsWithInvalidDates() {
+        try {
+            serviciosBiblioEci.consultarReservasRecurrentes(null,null,null,new MutablePair(getFinalDate(),getInitialDate()),null);
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Rango de Fechas Invalida",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldConsultTheNumberOfCancelledReservations() throws ExcepcionServiciosBiblioEci {
+        MutablePair<Integer,Integer> resultados = serviciosBiblioEci.consultarReservasCanceladas(null,null,null,null,null);
+        assertNotNull(resultados);
+    }
+
+    @Test
+    public void shouldNotConsultTheNumberOfCancelledReservationsWithInvalidHours() {
+        try {
+            serviciosBiblioEci.consultarReservasCanceladas(null,null,null,null,new MutablePair(getFinalDate(),getInitialDate()));
+        } catch (ExcepcionServiciosBiblioEci e) {
+            assertEquals("Franja Horaria Invalida",e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotConsultTheNumberOfCancelledReservationsWithInvalidDates() {
+        try {
+            serviciosBiblioEci.consultarReservasCanceladas(null,null,null,new MutablePair(getFinalDate(),getInitialDate()),null);
         } catch (ExcepcionServiciosBiblioEci e) {
             assertEquals("Rango de Fechas Invalida",e.getMessage());
         }

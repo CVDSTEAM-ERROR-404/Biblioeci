@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Reserva realizada dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 public class Reserva implements Serializable{
 	
@@ -167,6 +167,10 @@ public class Reserva implements Serializable{
 		return nextEvent;
 	}
 
+	/**
+	 * Determina la fecha inicial de la reserva
+	 * @return La fecha inicial de la reserva
+	 */
 	public Date getFechaInicioReserva(){
 		Date fechaInicio=null;
 		for (Evento evento:eventosAsignados){
@@ -176,6 +180,11 @@ public class Reserva implements Serializable{
 		}
 		return fechaInicio;
 	}
+
+	/**
+	 * Determina la fecha final de la reserva
+	 * @return La fecha final de la reserva
+	 */
 	public Date getFechaFin(){
 		Date fechaFin=null;
 		for (Evento evento:eventosAsignados){
@@ -185,8 +194,6 @@ public class Reserva implements Serializable{
 		}
 		return fechaFin;
 	}
-
-
 
 	/**
 	 * Muestra La informacion de la reserva

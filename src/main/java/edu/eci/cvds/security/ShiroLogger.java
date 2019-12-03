@@ -11,7 +11,7 @@ import org.apache.shiro.subject.Subject;
 /**
  * Esta clase conecta el login de un recurso web con la base de datos de la biblioteca por medio de la libreria apache shiro
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 
 public class ShiroLogger implements SesionLogger {

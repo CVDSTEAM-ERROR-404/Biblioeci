@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Usuario que realiza reservas dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 
 public class Usuario implements Serializable{
@@ -15,7 +15,6 @@ public class Usuario implements Serializable{
 	private String nombre;
 	private String correo;
 	private ArrayList<Reserva> reservas;
-
 
 	/**
 	 * Muestra el area del usuario

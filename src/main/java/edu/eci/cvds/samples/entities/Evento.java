@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Evento de reserva utilizado dentro de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 18/11/2019
+ * @version: 2/12/2019
  */
 public class Evento implements Serializable {
     private int id;

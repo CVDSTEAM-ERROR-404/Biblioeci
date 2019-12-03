@@ -5,7 +5,7 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosBiblioEci;
 /**
  * Esta interfaz conecta el login de un recurso web con la base de datos de la biblioteca de la Escuela Colombiana de Ingenieria Julio Garavito
  * @author: CVDSTEAM-ERROR-404
- * @version: 5/11/2019
+ * @version: 2/12/2019
  */
 public interface SesionLogger {
 

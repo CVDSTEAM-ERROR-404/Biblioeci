@@ -88,4 +88,6 @@ Se utilizó la metodoloía Scrum en la cual el equipo se reune y planea lo que s
  [Taiga backlog](https://tree.taiga.io/project/jcro15-gestion-de-recursos-biblioteca/backlog)
  #### Información sprints
  
+ Por circunstancias de tiempo nos faltaron los filtros de los reportes relacionados con atributos de tipo Date.
+ 
  Ver [Sprints](resources/md/Sprints.md)

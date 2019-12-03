@@ -152,8 +152,8 @@
         AND usuario.u_area = #{programa}
       </if>
       <if test="franja != null">
-        AND substring(to_char(#{franja.left}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12)
-        AND substring(to_char(hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char({franja.right}, 'YYYY-MM-DD HH24:MI:SS'), 12)
+        AND substring(to_char(#{franja.left}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12)
+        AND substring(to_char(hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(#{franja.right}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12)
       </if>
       <if test="rango != null">
         AND #{rango.left} &lt;= eve.hora_inicio AND eve.hora_fin &lt;= #{rango.right}
@@ -205,8 +205,8 @@
       AND usuario.u_area = #{programa}
     </if>
     <if test="franja != null">
-      AND substring(to_char(#{franja.left}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12)
-      AND substring(to_char(hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char({franja.right}, 'YYYY-MM-DD HH24:MI:SS'), 12)
+      AND substring(to_char(#{franja.left}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12)
+      AND substring(to_char(hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(#{franja.right}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12)
     </if>
     <if test="rango != null">
       AND #{rango.left} &lt;= eve.hora_inicio AND eve.hora_fin &lt;= #{rango.right}
@@ -240,8 +240,8 @@
         FROM evento as eve
         <where>
           <if test="franja != null">
-            substring(to_char(#{franja.left}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(eve.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) AND
-            substring(to_char(#{eve.hora_fin}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(#{franja.right}, 'YYYY-MM-DD HH24:MI:SS'), 12)
+            substring(to_char(#{franja.left}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(eve.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) AND
+            substring(to_char(eve.hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(#{franja.right}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12)
           </if>
         </where>
         GROUP BY 
@@ -274,8 +274,8 @@
         FROM evento as eve
         <where>
           <if test="franja != null">
-            substring(to_char(#{franja.left}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(eve.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) AND
-            substring(to_char(#{eve.hora_fin}, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(#{franja.right}, 'YYYY-MM-DD HH24:MI:SS'), 12)
+            substring(to_char(#{franja.left}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(eve.hora_inicio, 'YYYY-MM-DD HH24:MI:SS'), 12) AND
+            substring(to_char(eve.hora_fin, 'YYYY-MM-DD HH24:MI:SS'), 12) &lt;= substring(to_char(#{franja.right}::timestamp, 'YYYY-MM-DD HH24:MI:SS'), 12)
           </if>
         </where>
         GROUP BY 

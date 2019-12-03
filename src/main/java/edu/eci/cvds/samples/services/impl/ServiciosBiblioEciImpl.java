@@ -509,6 +509,7 @@ public class ServiciosBiblioEciImpl implements ServiciosBiblioEci {
         try {
             reservas=reservaDAO.consultarReservasActivasUsuario(usuario);
         } catch (PersistenceException e) {
+            e.printStackTrace();
             throw new ExcepcionServiciosBiblioEci("Error consultar las reservas del usuario",e);
         }
         return  reservas;

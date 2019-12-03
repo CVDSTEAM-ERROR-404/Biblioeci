@@ -51,6 +51,10 @@ Ver [funcionalidades](resources/md/manual.md)
 
 ![](resources/md/jacoco2.PNG)
 
+### Descripción de la arquitectura (Capas)
+
+![](resources/md/arq.png)
+
 #### Stack de Tecnología Utilizado
 
    * [PrimeFaces (Framework)](https://www.primefaces.org/)

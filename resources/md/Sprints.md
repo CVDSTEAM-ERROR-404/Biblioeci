@@ -46,6 +46,9 @@ Retrospectiva sprint 2
 
 Retrospectiva sprint 3
 
+* Las estimaciones estuvieron de acuerdo a un plazo de dos semanas, pero con la reduccion del tiempo tuvimos que restringir las capacidades de la ultima historia. 
+* El ritmo de trabajo fue poco eficiente en la ultima historia de usuario ya que con el tiempo restringido no pudimos diseñar el método adecuadamente.
+
 
 
 
